@@ -6,7 +6,7 @@ brew install topgrade
 
 brew install zsh
 brew install bash
-brew install dash
+
 brew install cleanmymac
 brew install the-unarchiver
 
