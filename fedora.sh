@@ -40,3 +40,9 @@ rsync -progress -avh --ignore-existing /home/dkendall/ /run/media/dkendall/exFAT
 
 sudo dnf install python3.11
 pip install pip-audit
+
+echo "USB Network Gate"
+echo "Tabby Terminal"
+echo "Java update"
+read
+sudo alternatives --config java
