@@ -1,5 +1,7 @@
+#!/usr/bin/env bash
+
 echo "macOS setup"
-read
+read -n 1 -s -r -p "Press any key to continue"
 
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 brew install topgrade
@@ -53,7 +55,6 @@ echo "Synergy"
 echo "PS Remote Play"
 
 read -n 1 -s -r -p "Press any key to continue"
-
 
 echo "Windows setup"
 brew install parallels
