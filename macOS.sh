@@ -1,7 +1,6 @@
-#!/usr/bin/env bash
 
 echo "macOS setup"
-read -n 1 -s -r -p "Press any key to continue"
+sudo -k echo "Yes"
 
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 brew install topgrade
@@ -54,12 +53,12 @@ echo "USB Network Gate"
 echo "Synergy"
 echo "PS Remote Play"
 
-read -n 1 -s -r -p "Press any key to continue"
+sudo -k echo "Yes"
 
 echo "Windows setup"
 brew install parallels
 
 echo "Linux setup"
-read -n 1 -s -r -p "Press any key to continue"
+sudo -k echo "Yes"
 
 curl https://alx.sh | sh
