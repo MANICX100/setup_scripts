@@ -1,3 +1,6 @@
+echo "Fedora setup"
+read
+
 sudo dnf install mupdf unrar libheif mpv stacer feh ncompress onedrive
 sudo dnf install unclutter
 sudo dnf install i3lock
