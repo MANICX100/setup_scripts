@@ -51,11 +51,14 @@ sudo chsh -s /usr/local/bin/mksh
 echo "USB Network Gate"
 echo "Synergy"
 echo "PS Remote Play"
-read
+
+read -n 1 -s -r -p "Press any key to continue"
+
 
 echo "Windows setup"
 brew install parallels
 
 echo "Linux setup"
-read
+read -n 1 -s -r -p "Press any key to continue"
+
 curl https://alx.sh | sh
