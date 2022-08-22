@@ -32,3 +32,7 @@ brew install mksh
 
 chsh -s /usr/local/bin/mksh
 sudo chsh -s /usr/local/bin/mksh
+
+echo "USB Network Gate"
+echo "Synergy"
+read
