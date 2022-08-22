@@ -1,4 +1,3 @@
-#!/usr/bin/env bash
 echo "Fedora setup"
 
 sudo -k echo "Yes"
