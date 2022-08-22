@@ -2,6 +2,7 @@ sudo dnf install mupdf unrar libheif mpv stacer feh ncompress
 sudo dnf install unclutter
 sudo dnf install i3lock
 sudo dnf install bat
+sudo dnf install lynis
 
 sudo dnf install sddm
 sudo systemctl disable gdm
@@ -33,3 +34,4 @@ read
 rsync -progress -avh --ignore-existing /home/dkendall/ /run/media/dkendall/exFAT/ --delete --exclude=".*"
 
 sudo dnf install python3.11
+pip install pip-audit
