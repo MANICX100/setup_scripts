@@ -8,7 +8,7 @@ sudo dnf install bat
 sudo dnf install lynis
 
 sudo dnf install synergy
-sudo dnf install openSSL
+sudo dnf install openssl
 
 sudo dnf install sddm
 
