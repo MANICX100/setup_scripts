@@ -1,4 +1,4 @@
-sudo dnf install mupdf unrar libheif mpv stacer feh ncompress
+sudo dnf install mupdf unrar libheif mpv stacer feh ncompress onedrive
 sudo dnf install unclutter
 sudo dnf install i3lock
 sudo dnf install bat
@@ -8,11 +8,16 @@ sudo dnf install synergy
 sudo dnf install openSSL
 
 sudo dnf install sddm
-sudo systemctl disable gdm
-sudo systemctl enable sddm
+
+systemctl disable gdm
+systemctl enable sddm
 
 sudo dnf install mksh
 sudo usermod -s /bin/mksh dkendall
+
+systemctl --user enable onedrive
+systemctl --user start onedrive
+
 
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
@@ -53,3 +58,7 @@ sudo alternatives --config java
 echo ".appimage"
 echo "Chiaki"
 echo "WebCatalog"
+read
+
+onedrive --synchronize
+
