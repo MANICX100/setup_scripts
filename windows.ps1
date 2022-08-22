@@ -38,6 +38,7 @@ gsudo Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Po
 #winget
 winget install -e --id Microsoft.DotNet.Runtime.6
 winget install -e --id Microsoft.PowerToys
+winget install -e --id BitSum.ProcessLasso
 
 #next steps
 Write-Host "Remember to download graphics drivers"
@@ -58,3 +59,8 @@ else {
     gsudo nvcleanstall
 }
 
+Write-Host "Remember to change restore point frequency"
+Read-Host
+
+Write-Host "Remember to configure WSA"
+Read-Host
