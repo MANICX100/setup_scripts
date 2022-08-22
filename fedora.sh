@@ -8,6 +8,9 @@ sudo dnf install sddm
 sudo systemctl disable gdm
 sudo systemctl enable sddm
 
+sudo dnf install mksh
+sudo usermod -s /bin/mksh dkendall
+
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 sudo dnf install snapd
