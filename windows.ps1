@@ -12,11 +12,13 @@ scoop install sumatrapdf
 scoop install vlc
 scoop install topgrade
 scoop install thunderbird
+
 scoop install fd
 scoop install ripgrep
 scoop install gawk
 scoop install sed
 scoop install bat
+scoop install wget
 
 scoop install tabby
 
