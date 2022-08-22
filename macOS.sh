@@ -11,6 +11,8 @@ brew install --cask amethyst
 brew install icanhazshortcut
 brew install background-music
 
+brew install tabby
+
 brew install onecast
 brew install rectangle
 brew install iina
