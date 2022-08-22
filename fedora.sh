@@ -1,4 +1,4 @@
-sudo dnf install mupdf unrar libheif mpv stacer feh
+sudo dnf install mupdf unrar libheif mpv stacer feh ncompress
 sudo dnf install unclutter
 sudo dnf install i3lock
 sudo dnf install bat
