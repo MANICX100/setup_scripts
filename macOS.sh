@@ -23,6 +23,7 @@ brew install soulver
 brew install bat
 brew install fd
 brew install vscodium
+brew install steam
 
 brew install git
 brew install sublime-merge
@@ -37,4 +38,5 @@ sudo chsh -s /usr/local/bin/mksh
 
 echo "USB Network Gate"
 echo "Synergy"
+echo "PS Remote Play"
 read
