@@ -28,6 +28,9 @@ brew install steam
 brew install git
 brew install sublime-merge
 
+brew install paragon-ntfs
+brew install paragon-extfs
+
 #hashtab
 mas install 517065482
 
@@ -46,3 +49,10 @@ echo "USB Network Gate"
 echo "Synergy"
 echo "PS Remote Play"
 read
+
+echo "Windows setup"
+brew install parallels
+
+echo "Linux setup"
+read
+curl https://alx.sh | sh
