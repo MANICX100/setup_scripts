@@ -25,6 +25,8 @@ echo "Remember to load up software centre and install the following:"
 echo "Flatseal"
 echo "SCITE"
 echo "Video Trimmer"
+echo "Sublime Merge"
+echo "VS Code"
 read
 
 echo "Download yt-dlp AND topgrade and install to"
