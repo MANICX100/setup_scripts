@@ -18,3 +18,8 @@ brew install fd
 
 mas install 517065482
 mas install 639210716
+
+brew install mksh
+
+chsh -s /usr/local/bin/mksh
+sudo chsh -s /usr/local/bin/mksh
