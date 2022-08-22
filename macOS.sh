@@ -28,8 +28,14 @@ brew install steam
 brew install git
 brew install sublime-merge
 
+#hashtab
 mas install 517065482
+
+#neooffice
 mas install 639210716
+
+#onedrive
+mas install 823766827
 
 brew install mksh
 
