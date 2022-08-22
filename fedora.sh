@@ -4,6 +4,9 @@ sudo dnf install i3lock
 sudo dnf install bat
 sudo dnf install lynis
 
+sudo dnf install synergy
+sudo dnf install openSSL
+
 sudo dnf install sddm
 sudo systemctl disable gdm
 sudo systemctl enable sddm
