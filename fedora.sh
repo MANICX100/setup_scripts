@@ -49,3 +49,7 @@ echo "Tabby Terminal"
 echo "Java update"
 read
 sudo alternatives --config java
+
+echo ".appimage"
+echo "Chiaki"
+echo "WebCatalog"
