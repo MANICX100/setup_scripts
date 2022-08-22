@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 echo "Fedora setup"
 
 read -n 1 -s -r -p "Press any key to continue"
