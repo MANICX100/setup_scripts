@@ -1,5 +1,6 @@
 echo "Fedora setup"
-echo -n "Press [ENTER] to continue,...: "
+printf "%s " "Press enter to continue"
+read ans
 
 sudo dnf install mupdf unrar libheif mpv stacer feh ncompress onedrive
 sudo dnf install unclutter
@@ -37,14 +38,20 @@ echo "SCITE"
 echo "Video Trimmer"
 echo "Sublime Merge"
 echo "VS Code"
-echo -n "Press [ENTER] to continue,...: "
+
+printf "%s " "Press enter to continue"
+read ans
 
 echo "Download yt-dlp AND topgrade and install to"
 sudo xdg-open "/usr/local/bin"
-echo -n "Press [ENTER] to continue,...: "
+
+printf "%s " "Press enter to continue"
+read ans
 
 echo "Plug in USB HDD and press enter to rsync"
-echo -n "Press [ENTER] to continue,...: "
+
+printf "%s " "Press enter to continue"
+read ans
 
 rsync -progress -avh --ignore-existing /home/dkendall/ /run/media/dkendall/exFAT/ --delete --exclude=".*"
 
@@ -54,13 +61,18 @@ pip install pip-audit
 echo "USB Network Gate"
 echo "Tabby Terminal"
 echo "Java update"
-echo -n "Press [ENTER] to continue,...: "
+
+printf "%s " "Press enter to continue"
+read ans
+
 sudo alternatives --config java
 
 echo ".appimage"
 echo "Chiaki"
 echo "WebCatalog"
-echo -n "Press [ENTER] to continue,...: "
+
+printf "%s " "Press enter to continue"
+read ans
 
 onedrive --synchronize
 
