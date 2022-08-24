@@ -12,6 +12,7 @@ scoop install sumatrapdf
 scoop install vlc
 scoop install topgrade
 scoop install thunderbird
+scoop install irfanview
 
 scoop install fd
 scoop install ripgrep
