@@ -11,6 +11,8 @@ brew install bash
 brew install cleanmymac
 brew install the-unarchiver
 
+brew install ncompress gzip bzip2
+
 brew install mas
 brew install ripgrep
 brew install --cask amethyst
