@@ -103,10 +103,10 @@ alias yt-dlp='/usr/local/bin/yt-dlp'
 
 function orderfiles                                                           
     set list ./**.*                      
-    for val in $list                       
-            set ext  (date -r $val +%Y)   
-            mkdir -p "$ext"               
-            cp $val "./$ext" 
+    for val in $list
+    set ext (path extension -- $val | string replace . "")
+    mkdir -p "$ext" 
+    cp $val "./$ext" 
     end                                        
 end 
 
