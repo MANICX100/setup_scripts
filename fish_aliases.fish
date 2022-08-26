@@ -4,7 +4,7 @@ cd "$HOME"
 
 alias mpv='mpv --ontop --force-window'
 alias audit='sudo lynis --forensics && pip-audit'
-alias rcview='sudo bat --paging=never --style=plain "~/.config/fish/config.fish'
+alias rcview='sudo bat --paging=never --style=plain ~/.config/fish/config.fish'
 alias cls='clear'
 alias screenshot='gnome-screenshot -a'
 alias rc='nano ~/.config/fish/config.fish'
@@ -94,7 +94,7 @@ function delyt
 end
 
 function x
-    cd dirname $1;
+    cd $("dirname" "$1") ;
     extract $1;
     gohome
 end
