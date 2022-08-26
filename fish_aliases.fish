@@ -23,8 +23,9 @@ alias inst='sudo dnf install'
 alias up='topgrade'
 alias remove='sudo dnf autoremove'
 
-function test
-	switch rg -ioP '^ID=\K.+' /etc/os-release
+function t
+	id=rg -ioP '^ID=\K.+' /etc/os-release
+	switch id
 	    case fedora
 		echo win
 	    case arch
