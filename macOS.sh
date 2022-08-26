@@ -6,6 +6,8 @@ sudo -k echo "Yes"
 brew install topgrade
 
 brew install zsh bash fish
+brew install fisher
+fisher install shoriminimoe/fish-extract
 
 brew install cleanmymac
 brew install the-unarchiver
