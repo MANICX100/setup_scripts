@@ -1,8 +1,11 @@
+cd "$HOME"
+
 yt() {
 cd "/home/dkendall/Videos/yt/"
 yt-dlp -f 'bv*[height=360]+ba' --download-archive videos.txt  https://www.youtube.com/playlist?list=PLJElTFmVZU3vW-BIfsI2AmfVDL9PzqFmg
 }
 
+alias mpv='mpv --ontop --force-window'
 alias audit='sudo lynis --forensics && pip-audit'
 alias rcview='sudo bat --paging=never --style=plain "/etc/profile.d/aliases.sh"'
 alias cls='clear'
@@ -72,16 +75,10 @@ execdircmd () {   cd $("dirname" "$1") ; $2 "$1"; cd "$HOME" ;  }
 macos() { cd "/home/dkendall/quickgui" ; ./quickgui; cd "$HOME" ; }
 
 alias screenrec='ffmpeg -video_size 1920x1200 -framerate 60 -f x11grab -i :0.0+0,0 -f pulse -ac 2 -i default output.mp4'
-
-cd "$HOME"
-
 alias openall='xdg-open *'
-
 alias flatten="find ./ -mindepth 2 -type f -exec mv -i '{}' . \;"
-
 alias emptydel='find ./ -empty -type d -delete'
 alias delempty='find ./ -empty -type d -delete'
-
 alias gohome='cd "$HOME"'
 
 orderfiles() {
