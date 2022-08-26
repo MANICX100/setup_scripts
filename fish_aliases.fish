@@ -24,15 +24,16 @@ alias up='topgrade'
 alias remove='sudo dnf autoremove'
 
 function test
-switch rg -ioP '^ID=\K.+' /etc/os-release
-    case fedora
-        echo win
-    case arch
-        echo arch
-    case debian
-        echo debian
-    case '*'
-        echo I have no idea what a $animal is
+	switch rg -ioP '^ID=\K.+' /etc/os-release
+	    case fedora
+		echo win
+	    case arch
+		echo arch
+	    case debian
+		echo debian
+	    case '*'
+		echo I have no idea what a $animal is
+	end
 end
 
 alias playtvmpv='mpv /home/dkendall/Videos/TV/Personal'
