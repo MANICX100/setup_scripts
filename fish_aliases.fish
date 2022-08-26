@@ -24,16 +24,44 @@ alias inst='sudo dnf install'
 alias up='topgrade'
 alias remove='sudo dnf autoremove'
 
-function t
+function u
 	switch getos
 	    case fedora
-		echo win
+		sudo dnf install
 	    case arch
-		echo arch
+		paru -S
 	    case debian
-		echo debian
+		sudo nala install
 	    case '*'
-		echo I have no idea what a $animal is
+		fail
+	end
+end
+
+
+function r
+	switch getos
+	    case fedora
+		sudo dnf remove
+	    case arch
+		paru -Rns
+	    case debian
+		sudo nala autoremove
+	    case '*'
+		fail
+	end
+end
+
+
+function c
+	switch getos
+	    case fedora
+		sudo dnf clean all && flatpak uninstall --unused
+	    case arch
+		paru -Yc && flatpak uninstall --unused
+	    case debian
+		sudo nala autoremove -o APT::Autoremove::RecommendsImportant=0 -o APT::Autoremove::SuggestsImportant=0 && flatpak uninstall --unused
+	    case '*'
+		fail
 	end
 end
 
