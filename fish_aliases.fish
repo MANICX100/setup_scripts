@@ -94,7 +94,8 @@ function delyt
 end
 
 function x
-    cd $("dirname" "$1") ;
-    extract "$1"
+    set file = $1
+    cd $("dirname" "file") ;
+    extract file
     cd "$HOME";
 end
