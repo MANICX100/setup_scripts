@@ -4,10 +4,10 @@ cd "$HOME"
 
 alias mpv='mpv --ontop --force-window'
 alias audit='sudo lynis --forensics && pip-audit'
-alias rcview='sudo bat --paging=never --style=plain "/etc/profile.d/aliases.sh"'
+alias rcview='sudo bat --paging=never --style=plain "~/.config/fish/config.fish'
 alias cls='clear'
 alias screenshot='gnome-screenshot -a'
-alias rc='sudo nano /etc/profile.d/aliases.sh'
+alias rc='nano ~/.config/fish/config.fish'
 alias settings='gnome-control-center'
 alias visudo='sudo nano /etc/sudoers.d/dkendall'
 alias update-grub='sudo grub2-mkconfig -o /etc/grub2.cfg && sudo grub2-mkconfig -o /etc/grub2-efi.cfg'
