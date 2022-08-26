@@ -24,7 +24,7 @@ alias up='topgrade'
 alias remove='sudo dnf autoremove'
 
 function t
-	id=rg -ioP '^ID=\K.+' /etc/os-release
+	id='rg -ioP '^ID=\K.+' /etc/os-release'
 	switch id
 	    case fedora
 		echo win
