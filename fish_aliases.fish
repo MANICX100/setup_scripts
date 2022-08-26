@@ -2,6 +2,7 @@ set fish_greeting
 
 cd "$HOME"
 
+alias mpv='mpv --ontop --force-window'
 alias audit='sudo lynis --forensics && pip-audit'
 alias rcview='sudo bat --paging=never --style=plain "/etc/profile.d/aliases.sh"'
 alias cls='clear'
