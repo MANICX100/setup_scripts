@@ -68,6 +68,7 @@ sudo alternatives --config java
 echo ".appimage"
 echo "Chiaki"
 echo "WebCatalog"
+echo "Thunderbird/Plex/Save Wizard"
 
 sudo -k echo "Yes"
 
