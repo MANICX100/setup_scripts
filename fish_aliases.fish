@@ -12,6 +12,7 @@ alias settings='gnome-control-center'
 alias visudo='sudo nano /etc/sudoers.d/dkendall'
 alias update-grub='sudo grub2-mkconfig -o /etc/grub2.cfg && sudo grub2-mkconfig -o /etc/grub2-efi.cfg'
 alias edit-grub='sudo nano /etc/default/grub'
+alias getos='rg -ioP '^ID=\K.+' /etc/os-release'
 
 neofetch > ~/.cache/neofetch
 alias pfetch='bat --paging=never --style=plain ~/.cache/neofetch'
@@ -24,8 +25,7 @@ alias up='topgrade'
 alias remove='sudo dnf autoremove'
 
 function t
-	id='rg -ioP '^ID=\K.+' /etc/os-release'
-	switch id
+	switch getos
 	    case fedora
 		echo win
 	    case arch
