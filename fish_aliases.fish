@@ -92,3 +92,9 @@ end
 function delyt
     rm -rf "/home/dkendall/Videos/yt"; cd "/home/dkendall/Videos/"; mkdir yt ; cd "$HOME";
 end
+
+function x
+	cd dirname $1
+	extract $1
+	gohome
+end
