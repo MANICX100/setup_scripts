@@ -111,11 +111,9 @@ function orderfiles
 end 
 
 function subs
-    "$HOME/OneDrive/OpenSubtitlesDownload.py" --cli --auto --username MANICX100 --password 5z6!!Evd "$1";
-end
-
-function execdircmd
-    cd $("dirname" "$1") ; $2 "$1"; cd "$HOME" ;
+ cd $("dirname" "$argv") ;
+ "$HOME/OneDrive/OpenSubtitlesDownload.py" --cli --auto --username MANICX100 --password 5z6!!Evd "$1";
+ cd "$HOME";
 end
 
 function macos
