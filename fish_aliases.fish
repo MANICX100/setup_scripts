@@ -1,4 +1,5 @@
-clear
+set fish_greeting
+
 cd "$HOME"
 
 alias audit='sudo lynis --forensics && pip-audit'
