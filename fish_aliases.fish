@@ -95,6 +95,6 @@ end
 
 function x
     cd $("dirname" "$1") ;
-    $("extract" "$1") ;
+    extract "$1"
     cd "$HOME";
 end
