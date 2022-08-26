@@ -24,13 +24,13 @@ systemctl --user start onedrive
 
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
-paru -S snapd
-sudo ln -s /var/lib/snapd/snap /snap
-sudo snap install snapd
-sudo snap set system refresh.retain=2
-sudo snap install plexmediaserver
-sudo snap install thunderbird --candidate
-sudo snap install savewizard --devmode
+# paru -S snapd
+# sudo ln -s /var/lib/snapd/snap /snap
+# sudo snap install snapd
+# sudo snap set system refresh.retain=2
+# sudo snap install plexmediaserver
+# sudo snap install thunderbird --candidate
+# sudo snap install savewizard --devmode
 
 echo "Remember to load up software centre and install the following:"
 echo "Flatseal"
