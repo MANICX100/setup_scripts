@@ -5,8 +5,7 @@ sudo -k echo "Yes"
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 brew install topgrade
 
-brew install zsh
-brew install bash
+brew install zsh bash fish
 
 brew install cleanmymac
 brew install the-unarchiver
