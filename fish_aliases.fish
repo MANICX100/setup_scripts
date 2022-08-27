@@ -26,6 +26,7 @@ alias up='topgrade'
 
 function inst
 	for text in $argv
+	echo $text
 	switch $osinfo
 	    case fedora
 		sudo dnf install $text
