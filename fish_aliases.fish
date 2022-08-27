@@ -33,7 +33,7 @@ function u
 	    case debian
 		sudo nala install
 	    case '*'
-		fail
+		echo 'fail'
 	end
 end
 
@@ -47,7 +47,7 @@ function r
 	    case debian
 		sudo nala autoremove
 	    case '*'
-		fail
+		echo 'fail'
 	end
 end
 
@@ -55,13 +55,16 @@ end
 function c
 	switch getos
 	    case fedora
-		sudo dnf clean all && flatpak uninstall --unused
+		sudo dnf clean all
+		flatpak uninstall --unused
 	    case arch
-		paru -Yc && flatpak uninstall --unused
+		paru -Yc
+		flatpak uninstall --unused
 	    case debian
-		sudo nala autoremove -o APT::Autoremove::RecommendsImportant=0 -o APT::Autoremove::SuggestsImportant=0 && flatpak uninstall --unused
+		sudo nala autoremove -o APT::Autoremove::RecommendsImportant=0 -o APT::Autoremove::SuggestsImportant=0
+		flatpak uninstall --unused
 	    case '*'
-		fail
+		echo 'fail'
 	end
 end
 
