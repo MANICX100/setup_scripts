@@ -25,11 +25,9 @@ sed -i 's/3.400/5.500/g' ~/.cache/neofetch
 alias up='topgrade'
 
 function inst
-	for text in $argv
-	echo $text
 	switch $osinfo
 	    case fedora
-		sudo dnf install $text
+		sudo dnf install
 	    case arch
 		paru -S
 	    case debian
