@@ -24,7 +24,7 @@ sed -i 's/3.400/5.500/g' ~/.cache/neofetch
 
 alias up='topgrade'
 
-function inst
+function inst $argv
 	switch $osinfo
 	    case fedora
 		sudo dnf install $argv[1]
