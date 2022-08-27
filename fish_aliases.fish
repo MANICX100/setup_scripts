@@ -27,7 +27,7 @@ alias up='topgrade'
 function inst
 	switch $osinfo
 	    case fedora
-	    	sudo dnf install $argv
+	    		sudo dnf install $argv
 	    case arch
 			paru -S $argv
 	    case debian
