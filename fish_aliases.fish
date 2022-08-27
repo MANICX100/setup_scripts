@@ -24,10 +24,10 @@ sed -i 's/3.400/5.500/g' ~/.cache/neofetch
 
 alias up='topgrade'
 
-function inst $argv
-set -g package ($argv)
+function inst
 	switch $osinfo
 	    case fedora
+	    	echo "Hello"
 		dnf install $package
 	    case arch
 		paru -S $argv[1]
