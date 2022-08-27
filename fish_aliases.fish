@@ -27,8 +27,7 @@ alias up='topgrade'
 function inst
 	switch $osinfo
 	    case fedora
-	    	echo "Hello"
-		dnf install $package
+	    	echo $argv
 	    case arch
 		paru -S $argv[1]
 	    case debian
