@@ -22,11 +22,9 @@ sed -i 's/6500/6900/g' ~/.cache/neofetch
 sed -i 's/6400/6800/g' ~/.cache/neofetch
 sed -i 's/3.400/5.500/g' ~/.cache/neofetch
 
-alias inst='sudo dnf install'
 alias up='topgrade'
-alias remove='sudo dnf autoremove'
 
-function u
+function inst
 	switch $osinfo
 	    case fedora
 		sudo dnf install
@@ -40,7 +38,7 @@ function u
 end
 
 
-function r
+function remove
 	switch $osinfo
 	    case fedora
 		sudo dnf remove
@@ -54,7 +52,7 @@ function r
 end
 
 
-function c
+function clean
 	switch $osinfo
 	    case fedora
 		sudo dnf clean all
@@ -99,12 +97,10 @@ set PATH "/home/dkendall/quickgui:/home/dkendall/quickemu:/home/dkendall/.local/
 
 alias addapp='sudo xdg-open /usr/local/bin'
 alias shut='sudo systemctl suspend'
-alias clean='sudo dnf clean all && flatpak uninstall --unused'
 
 alias python='python3.11'
 alias logoff='sudo service sddm restart'
 alias yt-dlp='/usr/local/bin/yt-dlp'
-
 
 function orderfiles                                                           
     set list ./**.*                      
