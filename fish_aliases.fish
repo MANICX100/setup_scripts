@@ -12,9 +12,9 @@ alias settings='gnome-control-center'
 alias visudo='sudo nano /etc/sudoers.d/dkendall'
 alias update-grub='sudo grub2-mkconfig -o /etc/grub2.cfg && sudo grub2-mkconfig -o /etc/grub2-efi.cfg'
 alias edit-grub='sudo nano /etc/default/grub'
+alias rcupdate='wget https://raw.githubusercontent.com/mozilla/sumo-kb/main/installing-thunderbird-linux/thunderbird.desktop -P ~/.config/fish/config.fish'
 
-alias getos="rg -ioP '^ID=\K.+' /etc/os-release"
-set osinfo getos
+set -g osinfo (rg -ioP '^ID=\K.+' /etc/os-release)
 
 neofetch > ~/.cache/neofetch
 alias pfetch='bat --paging=never --style=plain ~/.cache/neofetch'
