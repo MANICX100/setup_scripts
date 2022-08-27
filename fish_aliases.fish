@@ -27,11 +27,11 @@ alias up='topgrade'
 function inst
 	switch $osinfo
 	    case fedora
-		sudo dnf install
+		sudo dnf install $argv[1]
 	    case arch
-		paru -S
+		paru -S $argv[1]
 	    case debian
-		sudo nala install
+		sudo nala install $argv[1]
 	    case '*'
 		echo 'fail'
 	end
@@ -41,11 +41,11 @@ end
 function remove
 	switch $osinfo
 	    case fedora
-		sudo dnf remove
+		sudo dnf remove $argv[1]
 	    case arch
-		paru -Rns
+		paru -Rns $argv[1]
 	    case debian
-		sudo nala autoremove
+		sudo nala autoremove $argv[1]
 	    case '*'
 		echo 'fail'
 	end
