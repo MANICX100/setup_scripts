@@ -12,7 +12,9 @@ alias settings='gnome-control-center'
 alias visudo='sudo nano /etc/sudoers.d/dkendall'
 alias update-grub='sudo grub2-mkconfig -o /etc/grub2.cfg && sudo grub2-mkconfig -o /etc/grub2-efi.cfg'
 alias edit-grub='sudo nano /etc/default/grub'
+
 alias getos="rg -ioP '^ID=\K.+' /etc/os-release"
+set osinfo getos
 
 neofetch > ~/.cache/neofetch
 alias pfetch='bat --paging=never --style=plain ~/.cache/neofetch'
@@ -25,7 +27,7 @@ alias up='topgrade'
 alias remove='sudo dnf autoremove'
 
 function u
-	switch getos
+	switch $osinfo
 	    case fedora
 		sudo dnf install
 	    case arch
@@ -39,7 +41,7 @@ end
 
 
 function r
-	switch getos
+	switch $osinfo
 	    case fedora
 		sudo dnf remove
 	    case arch
@@ -53,7 +55,7 @@ end
 
 
 function c
-	switch getos
+	switch $osinfo
 	    case fedora
 		sudo dnf clean all
 		flatpak uninstall --unused
