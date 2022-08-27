@@ -27,13 +27,13 @@ alias up='topgrade'
 function inst
 	switch $osinfo
 	    case fedora
-	    	echo $argv
+	    	sudo dnf install $argv
 	    case arch
-		paru -S $argv[1]
+			paru -S $argv
 	    case debian
-		sudo nala install $argv[1]
+			sudo nala install $argv
 	    case '*'
-		echo 'fail'
+			echo 'fail'
 	end
 end
 
@@ -41,13 +41,13 @@ end
 function remove
 	switch $osinfo
 	    case fedora
-		sudo dnf remove $argv[1]
+			sudo dnf remove $argv
 	    case arch
-		paru -Rns $argv[1]
+			paru -Rns $argv
 	    case debian
-		sudo nala autoremove $argv[1]
+			sudo nala autoremove $argv
 	    case '*'
-		echo 'fail'
+			echo 'fail'
 	end
 end
 
@@ -55,16 +55,16 @@ end
 function clean
 	switch $osinfo
 	    case fedora
-		sudo dnf clean all
-		flatpak uninstall --unused
+			sudo dnf clean all
+			flatpak uninstall --unused
 	    case arch
-		paru -Yc
-		flatpak uninstall --unused
+			paru -Yc
+			flatpak uninstall --unused
 	    case debian
-		sudo nala autoremove -o APT::Autoremove::RecommendsImportant=0 -o APT::Autoremove::SuggestsImportant=0
-		flatpak uninstall --unused
+			sudo nala autoremove -o APT::Autoremove::RecommendsImportant=0 -o APT::Autoremove::SuggestsImportant=0
+			flatpak uninstall --unused
 	    case '*'
-		echo 'fail'
+			echo 'fail'
 	end
 end
 
