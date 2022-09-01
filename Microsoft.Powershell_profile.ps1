@@ -1,9 +1,9 @@
-#edit via notepad3 $profile
+cls
 
 function e. {explorer .}
 
 function foldersize {
-Get-ChildItem -Force | Add-Member -Force -Passthru -Type ScriptProperty -Name Length -Value {Get-ChildItem $this -Recurse -Force | Measure-Object -Sum Length | Select-Object -Expand Sum } | Sort-Object Length -Descending | Format-Table @{label="TotalSize (MB)";expression={[Math]::Truncate($_.Length / 1MB)};width=14}, @{label="Mode";expression={$_.Mode};width=8}, Name
+ls -Force | Add-Member -Force -Passthru -Type ScriptProperty -Name Length -Value {ls $this -Recurse -Force | Measure -Sum Length | Select -Expand Sum } | Sort-Object Length -Descending | Format-Table @{label="TotalSize (MB)";expression={[Math]::Truncate($_.Length / 1MB)};width=14}, @{label="Mode";expression={$_.Mode};width=8}, Name
 }
 
 function startup {
@@ -97,18 +97,18 @@ Set-Location $env:USERPROFILE
 
 function emptydel{
   $tailRecursion = {
-	param(
-    	$Path
-	)
-	foreach ($childDirectory in Get-ChildItem -Force -LiteralPath $Path -Directory) {
-    	& $tailRecursion -Path $childDirectory.FullName
-	}
-	$currentChildren = Get-ChildItem -Force -LiteralPath $Path
-	$isEmpty = $null -eq $currentChildren
-	if ($isEmpty) {
-    	Write-Verbose "Removing empty folder at path '${Path}'." -Verbose
-    	Remove-Item -Force -LiteralPath $Path
-	}
+    param(
+        $Path
+    )
+    foreach ($childDirectory in Get-ChildItem -Force -LiteralPath $Path -Directory) {
+        & $tailRecursion -Path $childDirectory.FullName
+    }
+    $currentChildren = Get-ChildItem -Force -LiteralPath $Path
+    $isEmpty = $null -eq $currentChildren
+    if ($isEmpty) {
+        Write-Verbose "Removing empty folder at path '${Path}'." -Verbose
+        Remove-Item -Force -LiteralPath $Path
+    }
 }
 }
 
@@ -135,8 +135,8 @@ gsudo powercfg /sleepstudy
 
 function rev{
 param(
-	[Parameter(ValueFromRemainingArguments = $true)]
-	[String[]] $str_to_reverse
+    [Parameter(ValueFromRemainingArguments = $true)]
+    [String[]] $str_to_reverse
   )
 $array_reversed = $str_to_reverse -split ""
 [array]::Reverse($array_reversed)
@@ -155,14 +155,57 @@ Function backup {gsudo Checkpoint-Computer -Description 'Automated Backup via pw
 
 Function bitbucketrepo {Set-Location "$env:OneDriveCommercial\Documents\dev\bitbucket"}
 
-function lazygit {
+function newgitmsg {
   param(
-	[Parameter(ValueFromRemainingArguments = $true)]
-	[String[]] $message
+    [Parameter(ValueFromRemainingArguments = $true)]
+    [String[]] $message
   )
   git add .
   git commit -a -m "$message"
   git push
+}
+
+function newgit {
+  git add .
+  git commit -a --allow-empty-message -m " "
+  git push
+}
+
+function gitprep {
+git stash
+git pull
+git stash pop
+}
+
+function gitPromoteAndMerge {
+  param(
+    [Parameter(ValueFromRemainingArguments = $true)]
+    [String[]] $message
+  )
+    Read-Host "This will attempt to merge an existing branch with master. Any existing in master and not in the branch will be attempted to be preserved"
+  git checkout -b "$message"
+  git status
+  git commit -a --allow-empty-message -m " "
+  git checkout master
+  git merge --no-ff "$message"
+  git push origin master
+  }
+  
+function gitdeletebranch {
+ param(
+    [Parameter(ValueFromRemainingArguments = $true)]
+    [String[]] $message
+  )
+git branch -d "$message"
+git push origin --delete "$message"
+}
+
+function gitrenamebranch {
+Write-Host "Please run the following commands in sequence"
+Write-Host 'git branch -m "$old" "$new" '
+Write-Host 'git branch --unset-upstream "$new" '
+Write-Host ' git push origin "$new" '
+Write-Host 'git push origin -u "$new" '
 }
 
 Set-Alias -Name bak -Value backup
