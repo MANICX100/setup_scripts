@@ -208,6 +208,12 @@ Write-Host ' git push origin "$new" '
 Write-Host 'git push origin -u "$new" '
 }
 
+function yt {
+cd "$env:USERPROFILE/videos/yt"
+yt-dlp -f 'bv*[height=360]+ba' --download-archive videos.txt  'https://www.youtube.com/playlist?list=PLJElTFmVZU3vW-BIfsI2AmfVDL9PzqFmg'
+gohome
+}
+
 Set-Alias -Name bak -Value backup
 Set-Alias -Name bitgit -Value bitbucketrepo
 Set-Alias -Name Powershell -Value pwsh
