@@ -27,7 +27,7 @@ scoop install notepad3
 
 scoop install nano
 
-scoop install vscode
+#scoop install vscode
 
 #chocolatey
 gsudo Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
@@ -41,7 +41,7 @@ gsudo Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Po
 #winget
 winget install -e --id Microsoft.DotNet.Runtime.6
 winget install -e --id Microsoft.PowerToys
-winget install -e --id BitSum.ProcessLasso
+#winget install -e --id BitSum.ProcessLasso
 
 #next steps
 Write-Host "Remember to download graphics drivers"
