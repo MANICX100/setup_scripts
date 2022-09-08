@@ -40,11 +40,13 @@ $graphicsType = Read-Host "AMD or NVIDIA?"
 if ($graphicsType -eq "AMD") {
     Write-Host "Downloading AMD drivers"
     Write-Host "Press Enter to continue"
+    Read-Host
     Start-Process "https://www.amd.com/en/support"
 }
 else {
     Write-Host "Downloading NVIDIA drivers"
     Write-Host "Press Enter to continue"
+    Read-Host
     #download nvidia drivers
     scoop install nvcleanstall
     #install nvidia drivers
