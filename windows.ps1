@@ -21,7 +21,7 @@ scoop install sed
 scoop install bat
 scoop install wget
 
-scoop install tabby
+#scoop install tabby
 
 scoop install notepad3
 
