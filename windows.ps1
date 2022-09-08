@@ -1,36 +1,36 @@
-Write-Host "Please temporily disable UAC to avoid password prompts"
-Read-Host
+# Write-Host "Please temporily disable UAC to avoid password prompts"
+# Read-Host
 
-#scoop
-Invoke-RestMethod get.scoop.sh | Invoke-Expression
-scoop install git
-scoop bucket add extras
+# #scoop
+# Invoke-RestMethod get.scoop.sh | Invoke-Expression
+# scoop install git
+# scoop bucket add extras
 
-scoop install gsudo
+# scoop install gsudo
 
-scoop install sumatrapdf
-scoop install vlc
-scoop install topgrade
-scoop install thunderbird
-scoop install irfanview
+# scoop install sumatrapdf
+# scoop install vlc
+# scoop install topgrade
+# scoop install thunderbird
+# scoop install irfanview
 
-scoop install fd
-scoop install ripgrep
-scoop install gawk
-scoop install sed
-scoop install bat
-scoop install wget
+# scoop install fd
+# scoop install ripgrep
+# scoop install gawk
+# scoop install sed
+# scoop install bat
+# scoop install wget
 
-#scoop install tabby
+# #scoop install tabby
 
-scoop install notepad3
+# scoop install notepad3
 
-scoop install nano
+# scoop install nano
 
-#scoop install vscode
+# #scoop install vscode
 
-#chocolatey
-gsudo Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+# #chocolatey
+# gsudo Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 
 #windows config
 gsudo powercfg.exe /hibernate off
