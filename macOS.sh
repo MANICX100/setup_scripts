@@ -52,6 +52,8 @@ brew install mksh
 chsh -s /usr/local/bin/mksh
 sudo chsh -s /usr/local/bin/mksh
 
+brew install gnu-time
+
 echo "USB Network Gate"
 echo "Synergy"
 echo "PS Remote Play"
