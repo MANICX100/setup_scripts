@@ -20,6 +20,7 @@ scoop install gawk
 scoop install sed
 scoop install bat
 scoop install wget
+scoop install time
 
 scoop install tabby
 scoop install notepad3
