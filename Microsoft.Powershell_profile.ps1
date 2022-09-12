@@ -214,8 +214,7 @@ Write-Host 'git push origin -u "$new" '
 
 function gitIgnoreRm {
 git ls-files -i -c --exclude-from=.gitignore | %{git rm --cached $_}
-
-  }
+}
 
 function yt {
 cd "$env:USERPROFILE/videos/yt"
