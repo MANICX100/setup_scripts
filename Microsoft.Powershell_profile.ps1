@@ -195,7 +195,7 @@ function gitPromoteAndMerge {
   git push origin master
   }
   
-function gitdeletebranch {
+function gitDeleteBranch {
  param(
     [Parameter(ValueFromRemainingArguments = $true)]
     [String[]] $message
@@ -204,13 +204,18 @@ git branch -d "$message"
 git push origin --delete "$message"
 }
 
-function gitrenamebranch {
+function gitRenameBranch {
 Write-Host "Please run the following commands in sequence"
 Write-Host 'git branch -m "$old" "$new" '
 Write-Host 'git branch --unset-upstream "$new" '
 Write-Host ' git push origin "$new" '
 Write-Host 'git push origin -u "$new" '
 }
+
+function gitIgnoreRm {
+git ls-files -i -c --exclude-from=.gitignore | %{git rm --cached $_}
+
+  }
 
 function yt {
 cd "$env:USERPROFILE/videos/yt"
