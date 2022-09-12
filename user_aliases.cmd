@@ -20,6 +20,8 @@ sendto=start shell:sendto
 netw=ncpa.cpl
 cat=bat $1
 
+delpins= del /f /s /q /a "%AppData%\Microsoft\Windows\Recent\AutomaticDestinations\f01b4d95cf55d32a.automaticDestinations-ms"
+
 speedupvid=ffmpeg -i $1 -filter_complex "[0:v]setpts=PTS/2[v];[0:a]rubberband=tempo=2[a]" -map "[v]" -map "[a]" 2.mkv
 
 comlist=pwsh -Command "Get-WMIObject Win32_SerialPort | Select-Object Name,DeviceID,Description"
