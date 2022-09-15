@@ -2,6 +2,10 @@ cls
 
 function e. {explorer .}
 
+function resetcorners {
+gsudo Remove-Item "C:\Windows\System32\uDWM_win11drc.bak" 
+}
+
 function delpins {
 Remove-Item "$env:APPDATA\Microsoft\Windows\Recent\AutomaticDestinations\f01b4d95cf55d32a.automaticDestinations-ms" 
 }
