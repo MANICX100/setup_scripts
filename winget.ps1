@@ -7,3 +7,7 @@ winget install xanderfrangos.twinkletray
 winget install 9NBLGGH516XP
 #Paint.NET
 winget install 9NBHCS1LX4R0
+#start all back
+winget install startallback
+Write-Host "All done"
+Read-Host
