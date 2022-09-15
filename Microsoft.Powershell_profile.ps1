@@ -1,5 +1,10 @@
 cls
 
+function repairwindows {
+gsudo chkdsk /f
+gsudo DISM.exe /Online /Cleanup-image /Restorehealth
+}
+
 function e. {explorer .}
 
 function resetcorners {
@@ -23,7 +28,7 @@ start-process shell:sendto
 }
 
 function netw{ncpa.cpl}
-function cat{bat $1}
+function cat{bat --paging=never --style=plain $1}
 
 function speedupvid{
 ffmpeg -i $1 -filter_complex "[0:v]setpts=PTS/2[v];[0:a]rubberband=tempo=2[a]" -map "[v]" -map "[a]" 2.mkv
