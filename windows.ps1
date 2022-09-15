@@ -22,7 +22,7 @@ scoop install bat
 scoop install wget
 scoop install time
 
-scoop install tabby
+scoop install powertoys
 scoop install notepad3
 scoop install nano
 scoop install vscode
