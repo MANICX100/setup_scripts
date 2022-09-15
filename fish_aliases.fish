@@ -5,6 +5,8 @@ cd "$HOME"
 alias mpv='mpv --ontop --force-window'
 alias audit='sudo lynis --forensics && pip-audit'
 alias rcview='sudo bat --paging=never --style=plain ~/.config/fish/config.fish'
+alias bat='bat --paging=never --style=plain'
+
 alias cls='clear'
 alias screenshot='gnome-screenshot -a'
 alias rc='nano ~/.config/fish/config.fish'
