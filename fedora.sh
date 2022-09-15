@@ -16,8 +16,9 @@ sudo dnf install sddm
 systemctl disable gdm
 systemctl enable sddm
 
-sudo dnf install mksh
-sudo usermod -s /bin/mksh dkendall
+sudo dnf install fish
+sudo dnf install util-linux-user
+chsh -s /usr/bin/fish
 
 systemctl --user enable onedrive
 systemctl --user start onedrive
@@ -56,7 +57,6 @@ sudo dnf install python3.11
 pip install pip-audit
 
 echo "USB Network Gate"
-echo "Tabby Terminal"
 echo "Java update"
 
 sudo -k echo "Yes"
