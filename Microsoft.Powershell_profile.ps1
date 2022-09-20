@@ -1,5 +1,3 @@
-cls
-
 function repairwindows {
 gsudo chkdsk /f
 gsudo DISM.exe /Online /Cleanup-image /Restorehealth
