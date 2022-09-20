@@ -63,12 +63,12 @@ gsudo netsh interface set interface "NextDNS" enable
 }
 
 function delofficecache{
-taskkill /f /im word.exe
-taskkill /f /im excel.exe
-taskkill /f /im powerpoint.exe
-taskkill /f /im outlook.exe
-taskkill /f /im onenote.exe
-taskkill /f /im teams.exe
+Get-Process Word | Stop-Process
+Get-Process Excel | Stop-Process
+Get-Process Powerpoint | Stop-Process
+Get-Process Outlook | Stop-Process
+Get-Process Onenote | Stop-Process
+Get-Process Teams | Stop-Process
 Write-Output Y|pwsh.exe -NoProfile -Command Remove-item "$env:localappdata\Microsoft\Office\16.0" -Force
 Write-Output Y|pwsh.exe -NoProfile -Command Remove-item "$env:appdata\Microsoft\Teams" -Force
 }
@@ -98,12 +98,11 @@ ffmpeg -f dshow -i audio="Microphone (5- SteelSeries Arctis 1 Wireless)" -f -y -
 }
 
 function killqpulse{
-gsudo taskkill /f /im Q-Pulse.exe
+gsudo Get-Process Q-Pulse | Stop-Process
 }
 
 function killvm{
-gsudo taskkill /f /im vmware-vmx.exe
-gsudo taskkill /f /im vmware.exe
+Get-Process VMWare | Stop-Process
 }
 
 function gohome{
