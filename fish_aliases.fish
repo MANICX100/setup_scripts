@@ -6,6 +6,7 @@ alias mpv='mpv --ontop --force-window'
 alias audit='sudo lynis --forensics && pip-audit'
 alias rcview='sudo bat --paging=never --style=plain ~/.config/fish/config.fish'
 alias bat='bat --paging=never --style=plain'
+alias ls='ls -lah -U'
 
 alias cls='clear'
 alias screenshot='gnome-screenshot -a'
