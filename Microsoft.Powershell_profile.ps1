@@ -1,3 +1,7 @@
+function rcupdate {
+
+}
+
 function repairwindows {
 gsudo chkdsk /f
 gsudo DISM.exe /Online /Cleanup-image /Restorehealth
@@ -164,8 +168,6 @@ start-process shell:AppsFolder
 
 Function backup {gsudo Checkpoint-Computer -Description 'Automated Backup via pwsh' -RestorePointType MODIFY_SETTINGS}
 
-Function bitbucketrepo {Set-Location "$env:OneDriveCommercial\Documents\dev\bitbucket"}
-
 function newgitmsg {
   param(
     [Parameter(ValueFromRemainingArguments = $true)]
@@ -230,5 +232,4 @@ gohome
 }
 
 Set-Alias -Name bak -Value backup
-Set-Alias -Name bitgit -Value bitbucketrepo
 Set-Alias -Name Powershell -Value pwsh
