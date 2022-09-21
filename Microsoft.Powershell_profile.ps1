@@ -3,7 +3,6 @@ wget -O $profile "https://github.com/MANICX100/setup_scripts/raw/main/Microsoft.
 }
 
 function repairwindows {
-gsudo
 chkdsk /f
 DISM.exe /Online /Cleanup-image /Restorehealth
 exit
@@ -55,14 +54,12 @@ $s..$e | Where-Object { $_ % $step -eq 0 }
 }
 
 function networkcycle{
-gsudo
 netsh interface set interface "WiFi" disable
 netsh interface set interface "WiFi" enable
 exit
 }
 
 function fixwifi{
-gsudo
 netsh interface set interface "NextDNS" disable
 netsh interface set interface "NextDNS" enable
 exit
