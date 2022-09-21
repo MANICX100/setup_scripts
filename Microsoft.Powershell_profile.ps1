@@ -3,7 +3,7 @@ wget -O $profile "https://github.com/MANICX100/setup_scripts/raw/main/Microsoft.
 }
 
 function repairwindows {
-schtasks /run /TN Repair Windows
+schtasks /run /TN repair_windows
 #chkdsk /f
 #DISM.exe /Online /Cleanup-image /Restorehealth
 }
@@ -54,13 +54,13 @@ $s..$e | Where-Object { $_ % $step -eq 0 }
 }
 
 function networkcycle{
-schtasks /run /TN Network Cycle
+schtasks /run /TN network_cycle
 #netsh interface set interface "WiFi" disable
 #netsh interface set interface "WiFi" enable
 }
 
 function fixwifi{
-schtasks /run /TN Fix Wifi
+schtasks /run /TN fix_wifi
 #netsh interface set interface "NextDNS" disable
 #netsh interface set interface "NextDNS" enable
 }
