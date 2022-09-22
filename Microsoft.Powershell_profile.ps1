@@ -1,3 +1,9 @@
+function clean {
+scoop cleanup *
+scoop status cleanup
+choco-cleaner
+}
+
 function rcupdate {
 wget -O $profile "https://github.com/MANICX100/setup_scripts/raw/main/Microsoft.Powershell_profile.ps1"
 }
@@ -235,3 +241,6 @@ gohome
 
 Set-Alias -Name bak -Value backup
 Set-Alias -Name Powershell -Value pwsh
+
+Set-Alias -Name inst -Value scoop install
+Set-Alias -Name remove -Value scoop uninstall
