@@ -1,27 +1,17 @@
 echo "Fedora setup"
 
-sudo -k echo "Yes"
-
-sudo dnf install mupdf unrar libheif mpv stacer feh ncompress onedrive
-sudo dnf install unclutter
-sudo dnf install i3lock
-sudo dnf install bat
-sudo dnf install lynis
-
-sudo dnf install synergy
-sudo dnf install openssl
-
-sudo dnf install sddm
+sudo dnf install mupdf unrar libheif mpv stacer feh ncompress onedrive unclutter i3lock bat lynis openssl sddm gnome-screenshot fish util-linux-user python3.11
 
 systemctl disable gdm
 systemctl enable sddm
 
-sudo dnf install fish
-sudo dnf install util-linux-user
-chsh -s /usr/bin/fish
+echo "Remember"
+echo "chsh -s /usr/bin/fish"
+sudo -k echo "Yes"
 
 systemctl --user enable onedrive
 systemctl --user start onedrive
+onedrive --synchronize
 
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
@@ -53,9 +43,6 @@ sudo -k echo "Yes"
 
 rsync -progress -avh --ignore-existing /home/dkendall/ /run/media/dkendall/exFAT/ --delete --exclude=".*"
 
-sudo dnf install python3.11
-pip install pip-audit
-
 echo "USB Network Gate"
 echo "Java update"
 
@@ -68,7 +55,5 @@ echo "Chiaki"
 echo "WebCatalog"
 echo "Thunderbird/Plex/Save Wizard"
 
-sudo -k echo "Yes"
-
-onedrive --synchronize
+echo "Done"
 
