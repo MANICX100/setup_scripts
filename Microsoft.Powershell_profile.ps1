@@ -5,6 +5,22 @@ schtasks /run /TN choco-cleaner
 #choco-cleaner
 }
 
+function inst {
+  param(
+    [Parameter(ValueFromRemainingArguments = $true)]
+    [String[]] $message
+  )
+  scoop install $message
+  }
+  
+function remove {
+  param(
+    [Parameter(ValueFromRemainingArguments = $true)]
+    [String[]] $message
+  )
+  scoop uninstall $message
+}
+
 function rcupdate {
 wget -O $profile "https://github.com/MANICX100/setup_scripts/raw/main/Microsoft.Powershell_profile.ps1"
 }
@@ -242,6 +258,3 @@ gohome
 
 Set-Alias -Name bak -Value backup
 Set-Alias -Name Powershell -Value pwsh
-
-Set-Alias -Name inst -Value "scoop install"
-Set-Alias -Name remove -Value "scoop uninstall"
