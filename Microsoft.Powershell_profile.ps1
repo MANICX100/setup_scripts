@@ -242,5 +242,5 @@ gohome
 Set-Alias -Name bak -Value backup
 Set-Alias -Name Powershell -Value pwsh
 
-Set-Alias -Name inst -Value scoop install
-Set-Alias -Name remove -Value scoop uninstall
+Set-Alias -Name inst -Value "scoop install"
+Set-Alias -Name remove -Value "scoop uninstall"
