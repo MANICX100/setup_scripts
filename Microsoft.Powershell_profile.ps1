@@ -1,7 +1,8 @@
 function clean {
 scoop cleanup *
 scoop status cleanup
-choco-cleaner
+schtasks /run /TN choco-cleaner
+#choco-cleaner
 }
 
 function rcupdate {
