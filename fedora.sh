@@ -3,7 +3,7 @@ echo "Fedora setup"
 sudo dnf install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
 
-sudo dnf install mupdf unrar libheif mpv stacer feh ncompress onedrive unclutter i3lock bat lynis openssl sddm gnome-screenshot fish util-linux-user python3.11
+sudo dnf install mupdf unrar libheif mpv stacer feh ncompress onedrive unclutter i3lock bat lynis openssl sddm gnome-screenshot fish util-linux-user python3.11 ffmpeg
 
 systemctl disable gdm
 systemctl enable sddm
@@ -26,12 +26,10 @@ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flat
 #sudo snap install thunderbird --candidate
 #sudo snap install savewizard --devmode
 
-echo "Remember to load up software centre and install the following:"
+echo "If a fresh install Flatpaks"
 echo "Flatseal"
 echo "SCITE"
 echo "Video Trimmer"
-echo "Sublime Merge"
-echo "VS Code"
 
 sudo -k echo "Yes"
 
