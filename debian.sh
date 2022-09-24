@@ -4,7 +4,7 @@ sudo -k echo "Yes"
 
 sudo apt install nala
 
-sudo nala install mupdf unrar libheif mpv stacer feh ncompress onedrive gdu unclutter i3lock bat lynis synergy openssl sddm fish python3.11 gh
+sudo nala install mupdf unrar libheif mpv stacer feh ncompress onedrive gdu unclutter i3lock bat lynis synergy openssl sddm fish python3.11 gh ffmpeg yt-dlp
 
 systemctl disable gdm
 systemctl enable sddm
