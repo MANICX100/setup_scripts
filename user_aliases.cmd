@@ -29,7 +29,7 @@ up=schtasks /run /TN Topgrade
 emptybin=echo Y|pwsh.exe -NoProfile -Command Clear-RecycleBin
 seq=FOR /L %G IN ($1,1,$2) DO @echo %G
 
-delofficecache=gsudo taskkill /f /im word.exe & gsudo taskkill /f /im excel.exe & gsudo taskkill /f /im powerpoint.exe & gsudo taskkill /f /im outlook.exe & gsudo taskkill /f /im onenote.exe & gsudo taskkill /f /im teams.exe & del /s /q "%localappdata%\Microsoft\Office\16.0" & del /s /q "%appdata%\Microsoft\Teams"
+delofficecache=taskkill /f /im word.exe & taskkill /f /im excel.exe & taskkill /f /im powerpoint.exe & taskkill /f /im outlook.exe & taskkill /f /im onenote.exe & taskkill /f /im teams.exe & del /s /q "%localappdata%\Microsoft\Office\16.0" & del /s /q "%appdata%\Microsoft\Teams"
 
 rc=notepad3 "%OneDriveConsumer%\user_aliases.cmd"
 datetime=pwsh "%OneDriveConsumer%\time.ps1"
