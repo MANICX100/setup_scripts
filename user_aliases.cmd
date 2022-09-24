@@ -8,7 +8,7 @@
 e.=explorer .
 
 pwd=cd
-clear=cls5
+clear=cls
 unalias=alias /d $1
 vi=vim $*
 cmderr=cd /d "%CMDER_ROOT%"
