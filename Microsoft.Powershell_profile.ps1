@@ -1,3 +1,7 @@
+function uefi {
+shutdown /o /r /t 0 /f
+}
+
 function clean {
 scoop cleanup *
 scoop status cleanup
