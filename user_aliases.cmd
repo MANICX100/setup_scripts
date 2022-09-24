@@ -13,8 +13,6 @@ unalias=alias /d $1
 vi=vim $*
 cmderr=cd /d "%CMDER_ROOT%"
 
-foldersize=cmd /v /c "set zeropad=000,000,000,000,000,&for /f "delims=" %a in ('dir /ad /b') do @set bytes=!zeropad!000&(for /f "tokens=3" %b in ('dir /s "%a" 2^>NUL ^| find "File(s)"') do @set bytes=%b)& @for /f "tokens=1* delims=," %c in ('echo !bytes!') do @(set bytes=%c&@set bytes=000!bytes!&@set bytes=!bytes:~-3!& @set bytes=!zeropad!!bytes!&if "%d" NEQ "" set bytes=!bytes!,%d) & @echo !bytes:~-23! %a" | sort /R
-
 startup=start shell:startup
 sendto=start shell:sendto
 netw=ncpa.cpl
@@ -31,9 +29,6 @@ up=schtasks /run /TN Topgrade
 emptybin=echo Y|pwsh.exe -NoProfile -Command Clear-RecycleBin
 seq=FOR /L %G IN ($1,1,$2) DO @echo %G
 
-networkcycle=gsudo netsh interface set interface "WiFi" disable & gsudo netsh interface set interface "WiFi" enable
-fixwifi=gsudo netsh interface set interface "NextDNS" disable & gsudo netsh interface set interface "NextDNS" enable
-
 delofficecache=gsudo taskkill /f /im word.exe & gsudo taskkill /f /im excel.exe & gsudo taskkill /f /im powerpoint.exe & gsudo taskkill /f /im outlook.exe & gsudo taskkill /f /im onenote.exe & gsudo taskkill /f /im teams.exe & del /s /q "%localappdata%\Microsoft\Office\16.0" & del /s /q "%appdata%\Microsoft\Teams"
 
 rc=notepad3 "%OneDriveConsumer%\user_aliases.cmd"
@@ -48,6 +43,7 @@ screenrec=ffmpeg -f dshow -i audio="Microphone (5- SteelSeries Arctis 1 Wireless
 
 killqpulse=gsudo taskkill /f /im Q-Pulse.exe
 killvm=gsudo taskkill /f /im vmware-vmx.exe & gsudo taskkill /f /im vmware.exe
+
 gohome=cd %userprofile%
 
 emptydel=for /f "delims=" %d in ('dir /s /b /ad ^| sort /r') do rd "%d"
