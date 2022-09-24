@@ -2,6 +2,8 @@ set fish_greeting
 
 cd "$HOME"
 
+alias uefi='systemctl reboot --firmware-setup'
+
 alias mpv='mpv --ontop --force-window'
 alias audit='sudo lynis --forensics && pip-audit'
 alias rcview='sudo bat --paging=never --style=plain ~/.config/fish/config.fish'
