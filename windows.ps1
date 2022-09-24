@@ -25,7 +25,10 @@ scoop install time
 scoop install powertoys
 scoop install notepad3
 scoop install nano
-scoop install vscode
+
+scoop install gdu
+
+#scoop install vscode
 
 #windows config
 gsudo powercfg.exe /hibernate off
