@@ -58,8 +58,10 @@ Remove-Item "$env:APPDATA\Microsoft\Windows\Recent\AutomaticDestinations\f01b4d9
 }
 
 function foldersize {
-ls | Select-Object Name, @{Name="KiloBytes";Expression={$_.Length / 1KB}}, @{Name="Megabytes";Expression={$_.Length / 1MB}}, @{Name="Gigabytes";Expression={$_.Length / 1GB}} | Sort-Object -Property Kilobytes -Descending
-}
+[Long]$actualSize = 0
+foreach ($item in (Get-ChildItem $path -recurse | Where {-not $_.PSIsContainer} | ForEach-Object {$_.FullName})) {
+   $actualSize += (Get-Item $item).length/1MB
+}}
 
 function startup {
 start-process shell:startup
