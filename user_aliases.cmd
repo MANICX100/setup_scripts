@@ -56,7 +56,6 @@ restartsynergy=schtasks /run /TN stop_synergy && schtasks /run /TN start_synergy
 
 last=gsudo powercfg /sleepstudy
 
-column=echo $1 | /format:table
 rev=echo $1| gawk "BEGIN{FS=\"\"}{for(i=NF;i>0;i--)printf $i}"
 
 Powershell=pwsh.exe
