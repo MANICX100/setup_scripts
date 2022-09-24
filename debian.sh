@@ -4,22 +4,12 @@ sudo -k echo "Yes"
 
 sudo apt install nala
 
-sudo nala install mupdf unrar libheif mpv stacer feh ncompress onedrive
-sudo nala install unclutter
-sudo nala install i3lock
-sudo nala install bat
-sudo nala install lynis
-
-sudo nala install synergy
-sudo nala install openssl
-
-sudo nala install sddm
+sudo nala install mupdf unrar libheif mpv stacer feh ncompress onedrive gdu unclutter i3lock bat lynis synergy openssl sddm fish python3.11
 
 systemctl disable gdm
 systemctl enable sddm
 
-sudo nala install mksh
-sudo usermod -s /bin/mksh dkendall
+sudo usermod -s /usr/bin/fish dkendall
 
 systemctl --user enable onedrive
 systemctl --user start onedrive
@@ -54,11 +44,7 @@ sudo -k echo "Yes"
 
 rsync -progress -avh --ignore-existing /home/dkendall/ /run/media/dkendall/exFAT/ --delete --exclude=".*"
 
-sudo nala install python3.11
-pip install pip-audit
-
 echo "USB Network Gate"
-echo "Tabby Terminal"
 echo "Java update"
 
 sudo -k echo "Yes"
