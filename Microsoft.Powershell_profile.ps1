@@ -1,3 +1,15 @@
+function lskb {
+ls | Select-Object Name, @{Name="KiloBytes";Expression={$_.Length / 1KB}}
+}
+
+function lsmb {
+ls | Select-Object Name, @{Name="Megabytes";Expression={$_.Length / 1MB}}
+}
+
+function lsgb {
+ls | Select-Object Name, @{Name="Gigabytes";Expression={$_.Length / 1GB}}
+}
+
 function uefi {
 shutdown /o /r /t 0 /f
 }
