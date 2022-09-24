@@ -58,7 +58,7 @@ Remove-Item "$env:APPDATA\Microsoft\Windows\Recent\AutomaticDestinations\f01b4d9
 }
 
 function foldersize {
-ls -Force | Add-Member -Force -Passthru -Type ScriptProperty -Name Length -Value {ls $this -Recurse -Force | Measure -Sum Length | Select -Expand Sum } | Sort-Object Length -Descending | Format-Table @{label="TotalSize (MB)";expression={[Math]::Truncate($_.Length / 1MB)};width=14}, @{label="Mode";expression={$_.Mode};width=8}, Name
+ls | Select-Object Name, @{Name="KiloBytes";Expression={$_.Length / 1KB}}, @{Name="Megabytes";Expression={$_.Length / 1MB}}, @{Name="Gigabytes";Expression={$_.Length / 1GB}} | Sort-Object -Property Kilobytes -Descending
 }
 
 function startup {
