@@ -2,24 +2,12 @@ echo "Arch setup"
 
 sudo -k echo "Yes"
 
-paru -S mupdf unrar libheif mpv stacer feh ncompress onedrive
-paru -S unclutter
-paru -S i3lock
-paru -S bat
-paru -S lynis
-
-pacman -S gdu
-
-paru -S synergy
-paru -S openssl
-
-paru -S sddm
+paru -S mupdf unrar libheif mpv stacer feh ncompress onedrive unclutter i3lock bat lynis gdu sddm fish synergy openssl python3.11
 
 systemctl disable gdm
 systemctl enable sddm
 
-paru -S mksh
-sudo usermod -s /bin/mksh dkendall
+sudo usermod -s /usr/bin/fish dkendall
 
 systemctl --user enable onedrive
 systemctl --user start onedrive
@@ -54,11 +42,9 @@ sudo -k echo "Yes"
 
 rsync -progress -avh --ignore-existing /home/dkendall/ /run/media/dkendall/exFAT/ --delete --exclude=".*"
 
-paru -S python3.11
 pip install pip-audit
 
 echo "USB Network Gate"
-echo "Tabby Terminal"
 echo "Java update"
 
 sudo -k echo "Yes"
