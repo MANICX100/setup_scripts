@@ -3,42 +3,10 @@ echo "macOS setup"
 sudo -k echo "Yes"
 
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-brew install topgrade
+brew install topgrade zsh bash fish fisher cleanmymac the-unarchiver ncompress gzip bzip2 mas ripgrep amethyst icanhazshortcut background-music onecast rectangle iina soulver bat fd steam git gh paragon-ntfs paragon-extfs gdu gnu-time parallels
 
-brew install zsh bash fish
-brew install fisher
 fisher install shoriminimoe/fish-extract
 
-brew install cleanmymac
-brew install the-unarchiver
-
-brew install ncompress gzip bzip2
-
-brew install mas
-brew install ripgrep
-brew install --cask amethyst
-brew install icanhazshortcut
-brew install background-music
-
-brew install tabby
-
-brew install onecast
-brew install rectangle
-brew install iina
-brew install soulver
-
-brew install bat
-brew install fd
-brew install vscodium
-brew install steam
-
-brew install git
-brew install sublime-merge
-
-brew install paragon-ntfs
-brew install paragon-extfs
-
-brew install -f gdu
 brew link --overwrite gdu
 
 #hashtab
@@ -50,21 +18,12 @@ mas install 639210716
 #onedrive
 mas install 823766827
 
-brew install mksh
-
-chsh -s /usr/local/bin/mksh
-sudo chsh -s /usr/local/bin/mksh
-
-brew install gnu-time
+chsh -s /usr/local/bin/fish
+sudo chsh -s /usr/local/bin/fish
 
 echo "USB Network Gate"
 echo "Synergy"
 echo "PS Remote Play"
-
-sudo -k echo "Yes"
-
-echo "Windows setup"
-brew install parallels
 
 echo "Linux setup"
 sudo -k echo "Yes"
