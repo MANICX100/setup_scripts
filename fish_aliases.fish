@@ -38,7 +38,7 @@ function inst
 	    case debian
 			sudo nala install $argv
 	    case '*'
-			echo 'fail'
+			brew install $argv
 	end
 end
 
@@ -52,7 +52,7 @@ function remove
 	    case debian
 			sudo nala autoremove $argv
 	    case '*'
-			echo 'fail'
+			brew uninstall $argv
 	end
 end
 
@@ -69,7 +69,21 @@ function clean
 			sudo nala autoremove -o APT::Autoremove::RecommendsImportant=0 -o APT::Autoremove::SuggestsImportant=0
 			flatpak uninstall --unused
 	    case '*'
-			echo 'fail'
+			brew cleanup --prune=1 -s -n
+	end
+end
+
+function uefi
+	switch $osinfo
+	    case fedora
+			systemctl reboot --firmware-setup
+	    case arch
+			systemctl reboot --firmware-setup
+	    case debian
+			systemctl reboot --firmware-setup
+	    case '*'
+			sudo nvram "recovery-boot-mode=unused"
+			sudo reboot
 	end
 end
 
