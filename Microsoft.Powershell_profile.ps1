@@ -57,12 +57,6 @@ function delpins {
 Remove-Item "$env:APPDATA\Microsoft\Windows\Recent\AutomaticDestinations\f01b4d95cf55d32a.automaticDestinations-ms" 
 }
 
-function foldersize {
-[Long]$actualSize = 0
-foreach ($item in (Get-ChildItem $path -recurse | Where {-not $_.PSIsContainer} | ForEach-Object {$_.FullName})) {
-   $actualSize += (Get-Item $item).length/1MB
-}}
-
 function startup {
 start-process shell:startup
 }
