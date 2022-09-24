@@ -11,6 +11,8 @@ winget install 9NBHCS1LX4R0
 winget install startallback
 #KDE Connect
 winget install 9N93MRMSXBF0
+#github CLI
+winget install -e GitHub.cli
 
 Write-Host "All done"
 Read-Host
