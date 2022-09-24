@@ -62,6 +62,6 @@ last=gsudo powercfg /sleepstudy
 rev=echo $1| gawk "BEGIN{FS=\"\"}{for(i=NF;i>0;i--)printf $i}"
 
 Powershell=pwsh.exe
-winver="%OneDriveConsumer%\Apps\winver.lnk"
+
 envvar=gsudo rundll32.exe sysdm.cpl,EditEnvironmentVariables
 mobileapps=start shell:AppsFolder
