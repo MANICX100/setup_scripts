@@ -8,6 +8,8 @@ paru -S i3lock
 paru -S bat
 paru -S lynis
 
+pacman -S gdu
+
 paru -S synergy
 paru -S openssl
 
