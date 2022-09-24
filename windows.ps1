@@ -27,6 +27,8 @@ scoop install notepad3
 scoop install nano
 
 scoop install gdu
+scoop install ffmpeg
+scoop install yt-dlp
 
 #scoop install vscode
 
