@@ -2,7 +2,7 @@ echo "Arch setup"
 
 sudo -k echo "Yes"
 
-paru -S mupdf unrar libheif mpv stacer feh ncompress onedrive unclutter i3lock bat lynis gdu sddm fish synergy openssl python3.11
+paru -S mupdf unrar libheif mpv stacer feh ncompress onedrive unclutter i3lock bat lynis gdu sddm fish synergy openssl python3.11 ffmpeg yt-dlp
 
 systemctl disable gdm
 systemctl enable sddm
