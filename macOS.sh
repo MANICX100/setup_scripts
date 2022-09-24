@@ -38,6 +38,9 @@ brew install sublime-merge
 brew install paragon-ntfs
 brew install paragon-extfs
 
+brew install -f gdu
+brew link --overwrite gdu
+
 #hashtab
 mas install 517065482
 
