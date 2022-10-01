@@ -28,6 +28,8 @@ sed -i 's/6400/6800/g' ~/.cache/neofetch
 sed -i 's/3.400/5.500/g' ~/.cache/neofetch
 
 alias up='topgrade'
+alias instrpm='sudo rpm -ivh --force'
+alias instdeb='sudo dpkg --force-all -i'
 
 function inst
 	switch $osinfo
