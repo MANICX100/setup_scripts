@@ -3,7 +3,7 @@ echo "Fedora setup"
 sudo dnf install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
 
-sudo dnf install mupdf unrar libheif mpv stacer feh ncompress onedrive unclutter i3lock bat lynis openssl sddm gnome-screenshot fish util-linux-user python3.11 ffmpeg gh
+sudo dnf install mupdf unrar libheif mpv stacer feh ncompress onedrive unclutter i3lock bat lynis openssl sddm gnome-screenshot fish util-linux-user python3.11 ffmpeg gh gnome-tweak-tool
 
 curl -L https://github.com/dundee/gdu/releases/latest/download/gdu_linux_amd64.tgz | tar xz
 chmod +x gdu_linux_amd64
