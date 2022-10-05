@@ -15,6 +15,7 @@ shutdown /o /r /t 0 /f
 }
 
 function clean {
+scoop cache rm *
 scoop cleanup *
 scoop status cleanup
 schtasks /run /TN choco-cleaner
