@@ -3,6 +3,8 @@ set fish_greeting
 cd "$HOME"
 
 alias uefi='systemctl reboot --firmware-setup'
+alias ffprefclean='/home/dkendall/.mozilla/firefox/oewuk6x8.default-release/prefsCleaner.sh'
+alias ffprefup='/home/dkendall/.mozilla/firefox/oewuk6x8.default-release/updater.sh'
 
 alias mpv='mpv --ontop --force-window'
 alias audit='sudo lynis --forensics && pip-audit'
