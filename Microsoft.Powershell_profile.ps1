@@ -43,7 +43,7 @@ wget -O $profile "https://github.com/MANICX100/setup_scripts/raw/main/Microsoft.
 }
 
 function repairwindows {
-schtasks /run /TN repair_windows
+schtasks /run /TN repair-windows
 #chkdsk /f
 #DISM.exe /Online /Cleanup-image /Restorehealth
 }
