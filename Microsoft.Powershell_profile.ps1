@@ -1,3 +1,7 @@
+function stopup {
+gsudo net stop wuauserv
+}
+
 function lskb {
 ls | Select-Object Name, @{Name="KiloBytes";Expression={$_.Length / 1KB}}
 }
