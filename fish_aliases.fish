@@ -73,7 +73,7 @@ function clean
 			sudo nala autoremove -o APT::Autoremove::RecommendsImportant=0 -o APT::Autoremove::SuggestsImportant=0
 			flatpak uninstall --unused
 	    case '*'
-			brew cleanup --prune=1 -s -n
+			brew cleanup --prune=1 -s
 	end
 end
 
