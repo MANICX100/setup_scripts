@@ -29,37 +29,11 @@ sed -i 's/6500/6900/g' ~/.cache/neofetch
 sed -i 's/6400/6800/g' ~/.cache/neofetch
 sed -i 's/3.400/5.500/g' ~/.cache/neofetch
 
-alias up='topgrade'
+alias up='topgrade;pkcon update'
 alias instrpm='sudo rpm -ivh --force'
 alias instdeb='sudo dpkg --force-all -i'
-
-function inst
-	switch $osinfo
-	    case fedora
-	    		sudo dnf install $argv
-	    case arch
-			paru -S $argv
-	    case debian
-			sudo nala install $argv
-	    case '*'
-			brew install $argv
-	end
-end
-
-
-function remove
-	switch $osinfo
-	    case fedora
-			sudo dnf remove $argv
-	    case arch
-			paru -Rns $argv
-	    case debian
-			sudo nala autoremove $argv
-	    case '*'
-			brew uninstall $argv
-	end
-end
-
+alias inst='pkcon install'
+alias remove='pkcon remove'
 
 function clean
 	switch $osinfo
