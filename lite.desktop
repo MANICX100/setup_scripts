@@ -1,6 +1,6 @@
 [Desktop Entry]
 Version=1.0
-Name=Lite Lua Text Editor
+Name=Lite
 Comment=Lua based text editor
 GenericName=Text editor
 Keywords=Lua;Text
@@ -11,3 +11,4 @@ Type=Application
 Categories=GNOME;GTK;Text
 MimeType=text/html;text/xml;
 StartupNotify=true
+Icon=/opt/lite/icon.ico
