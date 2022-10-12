@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Name=Lite Lua Text Editor
+Comment=Lua based text editor
+GenericName=Text editor
+Keywords=Lua;Text
+Exec=lite %u
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+Categories=GNOME;GTK;Text
+MimeType=text/html;text/xml;
+StartupNotify=true
