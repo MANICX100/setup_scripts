@@ -1,3 +1,7 @@
+function unblockprofile {
+Get-ChildItem -Path "$env:UserProfile" -Recurse | Unblock-File
+}
+
 function stopup {
 gsudo net stop wuauserv
 }
@@ -21,7 +25,7 @@ shutdown /o /r /t 0 /f
 function clean {
 scoop cache rm *
 scoop cleanup *
-scoop status cleanup
+#scoop status cleanup
 schtasks /run /TN choco-cleaner
 #choco-cleaner
 }
