@@ -2,6 +2,8 @@ set fish_greeting
 
 cd "$HOME"
 
+alias image2txt='tesseract -l eng $argsv output_from_ocr;cat output_from_ocr.txt'
+
 alias uefi='systemctl reboot --firmware-setup'
 alias ffprefclean='/home/dkendall/.mozilla/firefox/oewuk6x8.default-release/prefsCleaner.sh'
 alias ffprefup='/home/dkendall/.mozilla/firefox/oewuk6x8.default-release/updater.sh'
