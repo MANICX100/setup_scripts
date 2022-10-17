@@ -1,3 +1,12 @@
+function unblockFolder 
+  param(
+    [Parameter(ValueFromRemainingArguments = $true)]
+    [String[]] $message
+  )
+    Write-Output "Unblocking Folder"
+    Get-ChildItem -Path $message -Recurse | Unblock-File
+  }
+
 function unblockprofile {
 Get-ChildItem -Path "$env:UserProfile" -Recurse | Unblock-File
 }
