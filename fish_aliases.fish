@@ -3,7 +3,7 @@ set fish_greeting
 cd "$HOME"
 
 function image2txt
-	tesseract -l eng $argsv[0] output_from_ocr
+	tesseract -l eng $argsv[1] output_from_ocr
 	cat output_from_ocr.txt
 end
 
