@@ -1,4 +1,4 @@
-function unblockFolder 
+function unblockFolder {
   param(
     [Parameter(ValueFromRemainingArguments = $true)]
     [String[]] $message
@@ -16,15 +16,15 @@ gsudo net stop wuauserv
 }
 
 function lskb {
-ls | Select-Object Name, @{Name="KiloBytes";Expression={$_.Length / 1KB}}
+Get-ChildItem | Select-Object Name, @{Name="KiloBytes";Expression={$_.Length / 1KB}}
 }
 
 function lsmb {
-ls | Select-Object Name, @{Name="Megabytes";Expression={$_.Length / 1MB}}
+Get-ChildItem | Select-Object Name, @{Name="Megabytes";Expression={$_.Length / 1MB}}
 }
 
 function lsgb {
-ls | Select-Object Name, @{Name="Gigabytes";Expression={$_.Length / 1GB}}
+Get-ChildItem | Select-Object Name, @{Name="Gigabytes";Expression={$_.Length / 1GB}}
 }
 
 function uefi {
@@ -56,7 +56,7 @@ function remove {
 }
 
 function rcupdate {
-wget -O $profile "https://github.com/MANICX100/setup_scripts/raw/main/Microsoft.Powershell_profile.ps1"
+Invoke-WebRequest -O $profile "https://github.com/MANICX100/setup_scripts/raw/main/Microsoft.Powershell_profile.ps1"
 }
 
 function repairwindows {
@@ -277,11 +277,11 @@ Write-Host 'git push origin -u "$new" '
 }
 
 function gitIgnoreRm {
-git ls-files -i -c --exclude-from=.gitignore | %{git rm --cached $_}
+git ls-files -i -c --exclude-from=.gitignore | ForEach-Object{git rm --cached $_}
 }
 
 function yt {
-cd "$env:USERPROFILE/videos/yt"
+Set-Location "$env:USERPROFILE/videos/yt"
 yt-dlp -f 'bv*[height=360]+ba' --download-archive videos.txt  'https://www.youtube.com/playlist?list=PLJElTFmVZU3vW-BIfsI2AmfVDL9PzqFmg'
 gohome
 }
