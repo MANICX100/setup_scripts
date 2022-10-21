@@ -1,17 +1,17 @@
-Write-Host "Please temporily disable UAC to avoid password prompts"
-Read-Host
-
 #scoop
 Invoke-RestMethod get.scoop.sh | Invoke-Expression
 scoop install git
 scoop bucket add extras
+scoop bucket add nirsoft
+scoop bucket add java
+scoop bucket add versions
 
 scoop install gsudo
 
 scoop install sumatrapdf
 scoop install vlc
 scoop install topgrade
-scoop install thunderbird
+#scoop install thunderbird
 scoop install irfanview
 
 scoop install fd
@@ -28,11 +28,15 @@ scoop install nano
 
 scoop install gdu
 scoop install ffmpeg
-scoop install yt-dlp
+scoop install sharex
+#scoop install yt-dlp
 
 #scoop install vscode
 
 scoop install lockhunter
+
+scoop install windows-terminal-preview
+scoop install pwsh
 
 #windows config
 gsudo powercfg.exe /hibernate off
@@ -61,7 +65,7 @@ else {
     gsudo nvcleanstall
 }
 
-Write-Host "Remember to update powershell and add aliases e.g. pwsh"
+Write-Host "aliases e.g. pwsh"
 Read-Host
 
 Write-Host "Remember to change restore point frequency"
