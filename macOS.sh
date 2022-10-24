@@ -5,7 +5,7 @@ sudo -k echo "Yes"
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 brew install topgrade zsh bash fish fisher cleanmymac the-unarchiver ncompress gzip bzip2 mas ripgrep amethyst icanhazshortcut background-music onecast rectangle iina soulver bat fd steam git gh paragon-ntfs paragon-extfs gdu gnu-time parallels
 
-fisher install shoriminimoe/fish-extract
+brew install starship
 
 brew link --overwrite gdu
 
