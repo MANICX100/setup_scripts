@@ -33,7 +33,6 @@ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flat
 
 echo "If a fresh install Flatpaks"
 echo "Flatseal"
-echo "SCITE"
 echo "Video Trimmer"
 
 sudo -k echo "Yes"
