@@ -287,4 +287,6 @@ gohome
 }
 
 Set-Alias -Name bak -Value backup
-Set-Alias -Name Powershell -Value pwsh
+#Set-Alias -Name Powershell -Value pwsh
+
+Invoke-Expression (&starship init powershell)
