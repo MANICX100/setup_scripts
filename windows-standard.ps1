@@ -7,6 +7,7 @@ scoop bucket add java
 scoop bucket add versions
 
 scoop install gsudo
+scoop install starship
 
 scoop install sumatrapdf
 scoop install vlc
