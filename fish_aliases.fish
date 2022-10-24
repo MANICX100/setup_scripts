@@ -188,3 +188,5 @@ end
 function gitIgnoreRm
 	git ls-files -i -c --exclude-from=.gitignore | %{git rm --cached $_}
 end
+
+starship init fish | source
