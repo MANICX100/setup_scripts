@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Name=Updater
+Comment=Custom updater sh
+GenericName=Update
+Keywords=Update
+Exec=gnome-terminal -- sh -c "bash -c \"topgrade;pkcon update\""
+Terminal=true
+Type=Application
+MimeType=text/html;text/xml;
+StartupNotify=true
