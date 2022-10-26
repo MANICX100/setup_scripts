@@ -39,7 +39,19 @@ alias up='topgrade;pkcon update'
 alias instrpm='sudo rpm -ivh --force'
 alias instdeb='sudo dpkg --force-all -i'
 alias inst='pkcon install'
-alias remove='pkcon remove'
+
+function remove
+	switch $osinfo
+	    case fedora
+			sudo dnf remove $argv
+	    case arch
+			paru -Rns $argv
+	    case debian
+			sudo nala autoremove $argv
+	    case '*'
+			brew uninstall $argv
+	end
+end
 
 function clean
 	switch $osinfo
