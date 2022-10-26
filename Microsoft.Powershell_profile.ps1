@@ -35,7 +35,7 @@ function clean {
 scoop cache rm *
 scoop cleanup *
 #scoop status cleanup
-choco-cleaner
+#choco-cleaner
 }
 
 function inst {
