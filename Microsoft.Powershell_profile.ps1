@@ -35,8 +35,7 @@ function clean {
 scoop cache rm *
 scoop cleanup *
 #scoop status cleanup
-schtasks /run /TN choco-cleaner
-#choco-cleaner
+choco-cleaner
 }
 
 function inst {
