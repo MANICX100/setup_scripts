@@ -55,7 +55,11 @@ function remove {
 }
 
 function rcupdate {
-Invoke-WebRequest -O $profile "https://github.com/MANICX100/setup_scripts/raw/main/Microsoft.Powershell_profile.ps1"
+wget -O $profile "https://github.com/MANICX100/setup_scripts/raw/main/Microsoft.Powershell_profile.ps1"
+}
+
+function starshipupdate {
+wget -O $env:userprofile/.config "https://github.com/MANICX100/setup_scripts/raw/main/starship.toml"
 }
 
 function repairwindows {
