@@ -5,6 +5,9 @@ winget install startallback
 #KDE Connect
 winget install 9N93MRMSXBF0
 
+#PureText
+winget install 9PKJV6319QTL
+
 winget install -e --id Tonec.InternetDownloadManager
 #winget install -e --id GPSoftware.DirectoryOpus
 
