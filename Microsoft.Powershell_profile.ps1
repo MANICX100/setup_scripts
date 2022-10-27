@@ -8,7 +8,7 @@ function unblockFolder {
   }
 
 function unblockprofile {
-Get-ChildItem -Path "$env:UserProfile" -Recurse | Unblock-File
+Get-Childitem -Path $env:USERPROFILE\scoop -Recurse | Unblock-File -Confirm:$false -Verbose
 }
 
 function stopup {
