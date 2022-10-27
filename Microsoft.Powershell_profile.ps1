@@ -8,7 +8,8 @@ function unblockFolder {
   }
 
 function unblockprofile {
-Get-Childitem -Path $env:USERPROFILE\scoop -Recurse | Unblock-File -Confirm:$false -Verbose
+Get-Childitem -Path $env:USERPROFILE\scoop\apps -Recurse | Unblock-File -Confirm:$false -Verbose
+Get-Childitem -Path $env:APPDATA\Python\ -Recurse | Unblock-File -Confirm:$false -Verbose
 }
 
 function stopup {
