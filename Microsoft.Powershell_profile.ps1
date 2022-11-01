@@ -127,20 +127,6 @@ Function Test-CommandExists
  Catch {Write-Host "$command does not exist"; RETURN $false}
  Finally {$ErrorActionPreference=$oldPreference}
 } 
-#
-# Aliases
-#
-if (Test-CommandExists nvim) {
-    $EDITOR='nvim'
-} elseif (Test-CommandExists pvim) {
-    $EDITOR='pvim'
-} elseif (Test-CommandExists vim) {
-    $EDITOR='vim'
-} elseif (Test-CommandExists vi) {
-    $EDITOR='vi'
-}
-Set-Alias -Name vim -Value $EDITOR
-
 
 function ll { Get-ChildItem -Path $pwd -File }
 function g { Set-Location $HOME\Documents\Github }
@@ -513,5 +499,3 @@ gohome
 
 Set-Alias -Name bak -Value backup
 #Set-Alias -Name Powershell -Value pwsh
-
-Invoke-Expression (&starship init powershell)
