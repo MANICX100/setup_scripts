@@ -19,6 +19,7 @@ alias settings='gnome-control-center'
 alias visudo='sudo nano /etc/sudoers.d/dkendall'
 alias update-grub='sudo grub2-mkconfig -o /etc/grub2.cfg && sudo grub2-mkconfig -o /etc/grub2-efi.cfg'
 alias edit-grub='sudo nano /etc/default/grub'
+alias Get-PubIP='wget -q -O - ipinfo.io/ip'
 
 x(){
     if [ -f "$1" ] ; then
