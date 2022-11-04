@@ -1,18 +1,3 @@
-### PowerShell template profile 
-### Version 1.03 - Tim Sneath <tim@sneath.org>
-### From https://gist.github.com/timsneath/19867b12eee7fd5af2ba
-###
-### This file should be stored in $PROFILE.CurrentUserAllHosts
-### If $PROFILE.CurrentUserAllHosts doesn't exist, you can make one with the following:
-###    PS> New-Item $PROFILE.CurrentUserAllHosts -ItemType File -Force
-### This will create the file and the containing subdirectory if it doesn't already 
-###
-### As a reminder, to enable unsigned script execution of local scripts on client Windows, 
-### you need to run this line (or similar) from an elevated PowerShell prompt:
-###   Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
-### This is the default policy on Windows Server 2012 R2 and above for server Windows. For 
-### more information about execution policies, run Get-Help about_Execution_Policies.
-
 # Find out if the current user identity is elevated (has admin rights)
 $identity = [Security.Principal.WindowsIdentity]::GetCurrent()
 $principal = New-Object Security.Principal.WindowsPrincipal $identity
@@ -101,7 +86,7 @@ Set-Alias -Name sudo -Value admin
 
 
 # Make it easy to edit this profile once it's installed
-function Edit-Profile
+function rc
 {
     if ($host.Name -match "ise")
     {
@@ -340,10 +325,6 @@ Write-Output Y|pwsh.exe -NoProfile -Command Remove-item "$env:localappdata\Micro
 Write-Output Y|pwsh.exe -NoProfile -Command Remove-item "$env:appdata\Microsoft\Teams" -Force
 }
 
-function rc {
-notepad3 $profile
-}
-
 function datetime{
 pwsh -File "$env:OneDriveConsumer\time.ps1"
 }
@@ -362,14 +343,6 @@ function openall{
 
 function screenrec{
 ffmpeg -f dshow -i audio="Microphone (5- SteelSeries Arctis 1 Wireless)" -f -y -f gdigrab -framerate 30 -draw_mouse 1 -i desktop -c:v libx264 output.mkv
-}
-
-function killqpulse{
-gsudo Get-Process Q-Pulse | Stop-Process
-}
-
-function killvm{
-Get-Process VMWare | Stop-Process
 }
 
 function gohome{
@@ -433,16 +406,6 @@ start-process shell:AppsFolder
 }
 
 Function backup {gsudo Checkpoint-Computer -Description 'Automated Backup via pwsh' -RestorePointType MODIFY_SETTINGS}
-
-function newgitmsg {
-  param(
-    [Parameter(ValueFromRemainingArguments = $true)]
-    [String[]] $message
-  )
-  git add .
-  git commit -a -m "$message"
-  git push
-}
 
 function newgit {
   git add .
