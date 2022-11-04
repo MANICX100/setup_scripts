@@ -8,6 +8,10 @@ function image2txt
 	cat output_from_ocr.txt
 end
 
+function Get-PubIP
+	wget -q -O - ipinfo.io/ip
+end
+
 alias uefi='systemctl reboot --firmware-setup'
 alias ffprefclean='/home/dkendall/.mozilla/firefox/oewuk6x8.default-release/prefsCleaner.sh'
 alias ffprefup='/home/dkendall/.mozilla/firefox/oewuk6x8.default-release/updater.sh'
