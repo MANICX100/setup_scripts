@@ -94,7 +94,7 @@ function rc
     }
     else
     {
-        notepad $profile.CurrentUserAllHosts
+        notepad3 $profile
     }
 }
 
@@ -454,6 +454,12 @@ function yt {
 Set-Location "$env:USERPROFILE/videos/yt"
 yt-dlp -f 'bv*[height=360]+ba' --download-archive videos.txt  'https://www.youtube.com/playlist?list=PLJElTFmVZU3vW-BIfsI2AmfVDL9PzqFmg'
 gohome
+}
+
+function delyt {
+Set-Location "$env:USERPROFILE/videos/"
+Remove-Item yt -Force
+mkdir yt
 }
 
 Set-Alias -Name bak -Value backup
