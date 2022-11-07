@@ -14,8 +14,10 @@ function md5    { Get-FileHash -Algorithm MD5 $args }
 function sha1   { Get-FileHash -Algorithm SHA1 $args }
 function sha256 { Get-FileHash -Algorithm SHA256 $args }
 
+function cred {rundll32.exe keymgr.dll, KRShowKeyMgr}
+
 # Quick shortcut to start notepad
-function n      { notepad $args }
+function n      { notepad3 $args }
 
 # Drive shortcuts
 function HKLM:  { Set-Location HKLM: }
