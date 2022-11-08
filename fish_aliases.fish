@@ -16,6 +16,8 @@ alias e.='open .'
 alias uefi='systemctl reboot --firmware-setup'
 alias ffprefclean='/home/dkendall/.mozilla/firefox/oewuk6x8.default-release/prefsCleaner.sh'
 alias ffprefup='/home/dkendall/.mozilla/firefox/oewuk6x8.default-release/updater.sh'
+alias ipconfig='ip route'
+alias ifconfig='ip route'
 
 alias mpv='mpv --ontop --force-window'
 alias audit='sudo lynis --forensics && pip-audit'
