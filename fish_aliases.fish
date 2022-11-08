@@ -9,7 +9,7 @@ function image2txt
 end
 
 function Get-PubIP
-	wget -q -O - ipinfo.io/ip
+	wget --no-cache -q -O - ipinfo.io/ip
 end
 
 alias e.='open .'
