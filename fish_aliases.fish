@@ -21,7 +21,7 @@ alias ifconfig='ip route'
 
 alias mpv='mpv --ontop --force-window'
 alias audit='sudo lynis --forensics && pip-audit'
-alias rcview='sudo bat --paging=never --style=plain ~/.config/fish/config.fish'
+alias rcview='bat --paging=never --style=plain ~/.config/fish/config.fish'
 alias bat='bat --paging=never --style=plain'
 alias ls='ls -lah -U'
 
@@ -163,7 +163,7 @@ function x
     cd "$HOME";
 end
 
-function newgitmsg
+function lazyg
   git add .
   git commit -a -m "$argv"
   git push
