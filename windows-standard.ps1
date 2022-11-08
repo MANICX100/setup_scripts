@@ -7,18 +7,17 @@ scoop bucket add java
 scoop bucket add versions
 
 scoop install gsudo
-scoop install starship
 
 scoop install sumatrapdf
 scoop install vlc
 scoop install topgrade
-#scoop install thunderbird
+scoop install thunderbird
 scoop install irfanview
 
 scoop install fd
 scoop install ripgrep
 scoop install gawk
-scoop install sed
+
 scoop install bat
 scoop install wget
 scoop install time
@@ -30,9 +29,9 @@ scoop install nano
 scoop install gdu
 scoop install ffmpeg
 scoop install sharex
-#scoop install yt-dlp
+scoop install yt-dlp
 
-#scoop install vscode
+scoop install vscode
 
 scoop install lockhunter
 
