@@ -21,6 +21,7 @@ alias update-grub='sudo grub2-mkconfig -o /etc/grub2.cfg && sudo grub2-mkconfig 
 alias edit-grub='sudo nano /etc/default/grub'
 alias Get-PubIP='wget -q -O - ipinfo.io/ip'
 alias e.='open .'
+alias stripclip="echo xclip |awk -v OFS=' ' '{$1=$1}1|xclip"
 
 x(){
     if [ -f "$1" ] ; then
