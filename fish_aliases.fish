@@ -20,7 +20,7 @@ alias ipconfig='ip route'
 alias ifconfig='ip route'
 
 function stripclip
-	xclip -sel c |awk -v OFS=' ' '{$1=$1}1'|xclip
+	xclip -selection c -o |awk -v OFS=' ' '{$1=$1}1'|xclip -selection c
 end
 
 alias mpv='mpv --ontop --force-window'
