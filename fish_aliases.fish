@@ -19,7 +19,9 @@ alias ffprefup='/home/dkendall/.mozilla/firefox/oewuk6x8.default-release/updater
 alias ipconfig='ip route'
 alias ifconfig='ip route'
 
-alias stripclip='echo xclip |awk -v OFS=\' \' \'{$1=$1}1|xclip'
+function stripclip
+	echo xclip |awk -v OFS=\' \' \'{$1=$1}1|xclip
+end
 
 alias mpv='mpv --ontop --force-window'
 alias audit='sudo lynis --forensics && pip-audit'
