@@ -23,8 +23,8 @@ alias Get-PubIP='wget -q -O - ipinfo.io/ip'
 alias e.='open .'
 
 stripclip(){
-echo xclip |awk -v OFS=' ' '{$1=$1}1'|xclip
-}
+	xclip -selection c -o |xargs|awk '{$1=$1};1'|xclip -selection c
+    }
 
 x(){
     if [ -f "$1" ] ; then
