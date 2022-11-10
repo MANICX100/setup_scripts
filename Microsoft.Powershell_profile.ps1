@@ -395,39 +395,10 @@ git pull
 git stash pop
 }
 
-function gitPromoteAndMerge {
-  param(
-    [Parameter(ValueFromRemainingArguments = $true)]
-    [String[]] $message
-  )
-    Read-Host "This will attempt to merge an existing branch with master. Any existing in master and not in the branch will be attempted to be preserved"
-  git checkout -b "$message"
-  git status
-  git commit -a --allow-empty-message -m " "
-  git checkout master
-  git merge --no-ff "$message"
-  git push origin master
-  }
-  
-function gitDeleteBranch {
- param(
-    [Parameter(ValueFromRemainingArguments = $true)]
-    [String[]] $message
-  )
-git branch -d "$message"
-git push origin --delete "$message"
-}
-
-function gitRenameBranch {
-Write-Host "Please run the following commands in sequence"
-Write-Host 'git branch -m "$old" "$new" '
-Write-Host 'git branch --unset-upstream "$new" '
-Write-Host ' git push origin "$new" '
-Write-Host 'git push origin -u "$new" '
-}
-
 function gitIgnoreRm {
-git ls-files -i -c --exclude-from=.gitignore | ForEach-Object{git rm --cached $_}
+git rm -r --cached .
+git add .
+git commit -m "Update .gitignore"
 }
 
 function yt {
