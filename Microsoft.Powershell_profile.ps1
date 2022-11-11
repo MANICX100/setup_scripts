@@ -220,10 +220,6 @@ function rcupdate {
 wget --no-cache -O $profile "https://github.com/MANICX100/setup_scripts/raw/main/Microsoft.Powershell_profile.ps1"
 }
 
-function starshipupdate {
-wget --no-cache -O $env:userprofile/.config/starship.toml "https://github.com/MANICX100/setup_scripts/raw/main/starship.toml"
-}
-
 function repairwindows {
 schtasks /run /TN repair-windows
 #chkdsk /f
