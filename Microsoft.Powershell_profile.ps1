@@ -398,5 +398,5 @@ mkdir yt
 }
 
 Set-Alias -Name bak -Value backup
-Set-Alias -Name clean -Value scoop cache rm *
+Set-Alias -Name clean -Value 'scoop cache rm *'
 #Set-Alias -Name Powershell -Value pwsh
