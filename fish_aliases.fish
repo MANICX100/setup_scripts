@@ -19,6 +19,8 @@ alias ffprefup='/home/dkendall/.mozilla/firefox/oewuk6x8.default-release/updater
 alias ipconfig='ip route'
 alias ifconfig='ip route'
 
+alias cleanup='clean'
+
 function stripclip
 	xclip -selection c -o |xargs|awk '{$1=$1};1'|xclip -selection c
 end
