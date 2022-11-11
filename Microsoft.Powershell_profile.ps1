@@ -350,15 +350,6 @@ function orderfiles{
 pwsh -File "$env:OneDriveConsumer\move-into-folders.ps1"
 }
 
-function robotask{
-schtasks /run /TN RoboTask
-}
-
-function restartsynergy{
-schtasks /run /TN stop_synergy
-schtasks /run /TN start_synergy
-}
-
 function last{
 gsudo powercfg /sleepstudy
 }
