@@ -397,6 +397,9 @@ Remove-Item yt -Force
 mkdir yt
 }
 
+function cleanup {
+scoop cache rm *
+}
+
 Set-Alias -Name bak -Value backup
-Set-Alias -Name clean -Value 'scoop cache rm *'
 #Set-Alias -Name Powershell -Value pwsh
