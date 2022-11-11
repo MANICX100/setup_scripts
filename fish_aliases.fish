@@ -3,7 +3,7 @@ set fish_greeting
 cd "$HOME"
 
 function image2txt
-	read -l -P '' confirm
+	read -l -P 'Please provide the file path for the image' confirm
 	tesseract -l eng $confirm output_from_ocr
 	cat output_from_ocr.txt
 end
