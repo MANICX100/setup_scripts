@@ -200,13 +200,6 @@ function uefi {
 shutdown /o /r /t 0 /f
 }
 
-function clean {
-scoop cache rm *
-scoop cleanup *
-#scoop status cleanup
-#choco-cleaner
-}
-
 function inst {
   param(
     [Parameter(ValueFromRemainingArguments = $true)]
@@ -405,4 +398,5 @@ mkdir yt
 }
 
 Set-Alias -Name bak -Value backup
+Set-Alias -Name clean -Value scoop cache rm *
 #Set-Alias -Name Powershell -Value pwsh
