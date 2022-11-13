@@ -11,4 +11,4 @@ Type=Application
 Categories=Browser;Web;Utilities
 MimeType=text/html;text/xml;
 StartupNotify=true
-Icon=/opt/pulse-browser/pulse-browser/browser/chrome/icons/default/default16.png
+Icon=/opt/pulse-browser/pulse-browser/pulse.ico
