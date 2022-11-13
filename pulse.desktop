@@ -1,0 +1,14 @@
+[Desktop Entry]
+Version=1.0
+Name=Pulse
+Comment=A fork of Mozilla Firefox
+GenericName=Pulse
+Keywords=Browser;Firefox
+Exec=lite %u
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+Categories=Browser;Web;Utilities
+MimeType=text/html;text/xml;
+StartupNotify=true
+Icon=/opt/pulse-browser/pulse-browser/browser/chrome/icons/default/default16.png
