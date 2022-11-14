@@ -28,7 +28,10 @@ scoop install nano
 
 scoop install gdu
 scoop install ffmpeg
-scoop install sharex
+
+#scoop install sharex
+scoop install gifski screentogif
+
 scoop install yt-dlp
 
 scoop install vscode
