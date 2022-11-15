@@ -1,3 +1,11 @@
+function rtbak {
+Compress-Archive "$env:LOCALAPPDATA\RoboTask" "$env:OnedriveCommercial\Desktop\$(Get-Date -UFormat "%Y-%m-%d_%H-%m-%S")-RTbackup.zip"
+}
+
+function qpulse-bak {
+Compress-Archive "$env:LOCALAPPDATA\Apps" "$env:OnedriveCommercial\Desktop\$(Get-Date -UFormat "%Y-%m-%d_%H-%m-%S")-qpulse-backup.zip"
+}
+
 # Find out if the current user identity is elevated (has admin rights)
 $identity = [Security.Principal.WindowsIdentity]::GetCurrent()
 $principal = New-Object Security.Principal.WindowsPrincipal $identity
