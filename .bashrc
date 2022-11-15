@@ -1,6 +1,5 @@
-cd "$HOME"
 
-runagainstall() {
+run-against-all() {
 for i in *; do $1 "$i"; done
 }
 
