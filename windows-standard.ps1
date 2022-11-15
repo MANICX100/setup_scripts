@@ -31,6 +31,9 @@ scoop install ffmpeg
 
 #scoop install sharex
 scoop install gifski screentogif
+scoop install greenshot
+
+scoop install nilesoft-shell
 
 scoop install yt-dlp
 
