@@ -280,15 +280,8 @@ $s..$e | Where-Object { $_ % $step -eq 0 }
 }
 
 function networkcycle{
-schtasks /run /TN network_cycle
-#netsh interface set interface "WiFi" disable
-#netsh interface set interface "WiFi" enable
-}
-
-function fixwifi{
-schtasks /run /TN fix_wifi
-#netsh interface set interface "NextDNS" disable
-#netsh interface set interface "NextDNS" enable
+Get-NetAdapter | Disable-NetAdapter -Confirm:$false
+Get-NetAdapter | Enable-NetAdapter -Confirm:$false
 }
 
 function delofficecache{
