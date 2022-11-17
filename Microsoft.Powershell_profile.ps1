@@ -233,9 +233,8 @@ wget --no-cache -O $profile "https://github.com/MANICX100/setup_scripts/raw/main
 }
 
 function repairwindows {
-schtasks /run /TN repair-windows
-#chkdsk /f
-#DISM.exe /Online /Cleanup-image /Restorehealth
+chkdsk c: /F /R
+DISM.exe /Online /Cleanup-image /Restorehealth
 }
 
 function e. {explorer .}
