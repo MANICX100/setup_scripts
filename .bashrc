@@ -3,6 +3,10 @@ run-against-all() {
 for i in *; do $1 "$i"; done
 }
 
+yt-dlp-audio() {
+yt-dlp -f 'ba' -x --audio-format mp3 $1
+}
+
 yt() {
 cd "/home/dkendall/Videos/yt/"
 yt-dlp -f 'bv*[height=360]+ba' --download-archive videos.txt  https://www.youtube.com/playlist?list=PLJElTFmVZU3vW-BIfsI2AmfVDL9PzqFmg
