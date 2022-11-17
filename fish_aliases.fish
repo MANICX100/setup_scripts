@@ -7,6 +7,10 @@ function image2txt
 	cat output_from_ocr.txt
 end
 
+function yt-dlp-audio
+	yt-dlp -f 'ba' -x --audio-format mp3 $argv
+end
+
 function Get-PubIP
 	wget --no-cache -q -O - ipinfo.io/ip
 end
