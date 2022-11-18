@@ -62,7 +62,7 @@ alias up='topgrade'
 alias remove='sudo dnf autoremove'
 
 alias playtvmpv='mpv /home/dkendall/Videos/TV/Personal'
-alias emptybin='sudo rm -rf ~/.local/share/Trash/*'
+alias emptybin='sudo rm -rf ~/.local/share/Trash/'
 
 deltv () {
 rm -rf "/home/dkendall/Videos/TV/Personal"; cd "/home/dkendall/Videos/TV/"; mkdir Personal; cd "$HOME";
