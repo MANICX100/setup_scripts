@@ -21,7 +21,7 @@ alias uefi='systemctl reboot --firmware-setup'
 alias tldr='/usr/local/bin/tldr'
 
 function bak
-	zip -r ~/bak.zip /etc/ /usr/local/bin
+	zip -r ~/bak.zip /etc/ /usr/local/bin /opt/
 end
 
 alias ffprefclean='/home/dkendall/.mozilla/firefox/oewuk6x8.default-release/prefsCleaner.sh'
