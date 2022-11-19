@@ -1,3 +1,7 @@
+speedupvid() {
+ffmpeg -i $1 -filter_complex "[0:v]setpts=1/$2*PTS[v];[0:a]rubberband=tempo=$2[a]" -map "[v]" -map "[a]" output.mkv
+}
+
 image2txt() {
 read -l -P 'Please provide the file path for the image
 	' confirm
