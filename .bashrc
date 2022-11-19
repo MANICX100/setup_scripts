@@ -1,3 +1,9 @@
+image2txt() {
+read -l -P 'Please provide the file path for the image
+	' confirm
+	tesseract -l eng $confirm output_from_ocr
+	cat output_from_ocr.txt|xclip -selection c
+}
 
 run-against-all() {
 for i in *; do $1 "$i"; done
@@ -12,6 +18,7 @@ cd "/home/dkendall/Videos/yt/"
 yt-dlp -f 'bv*[height=360]+ba' --download-archive videos.txt  https://www.youtube.com/playlist?list=PLJElTFmVZU3vW-BIfsI2AmfVDL9PzqFmg
 }
 
+alias img2txt='image2txt'
 alias mpv='mpv --ontop --force-window'
 alias audit='sudo lynis --forensics && pip-audit'
 alias rcview='sudo bat --paging=never --style=plain "/etc/profile.d/aliases.sh"'
