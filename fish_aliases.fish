@@ -21,7 +21,7 @@ alias uefi='systemctl reboot --firmware-setup'
 alias tldr='/usr/local/bin/tldr'
 
 function bak
-	zip -r ~/bak.zip /etc/ /usr/local/bin /opt/
+	zip -r ~/date -u +%Y-%m-%dT%H:%M:%S%Z-bak.zip /etc/ /usr/local/bin /opt/
 end
 
 alias img2txt='image2txt'
@@ -142,7 +142,7 @@ set PATH "/home/dkendall/quickgui:/home/dkendall/quickemu:/home/dkendall/.local/
 alias addapp='sudo xdg-open /usr/local/bin'
 alias shut='sudo systemctl suspend'
 
-alias python='python3.11'
+alias python='python3.12'
 alias logoff='sudo service sddm restart'
 alias yt-dlp='/usr/local/bin/yt-dlp'
 
