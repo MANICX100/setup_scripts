@@ -120,7 +120,7 @@ alias addapp='sudo xdg-open /usr/local/bin'
 alias shut='sudo systemctl suspend'
 alias clean='sudo dnf clean all && flatpak uninstall --unused'
 
-alias python='python3.11'
+alias python='python3.12'
 alias logoff='sudo service sddm restart'
 alias yt-dlp='/usr/local/bin/yt-dlp'
 
