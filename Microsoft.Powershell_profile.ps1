@@ -1,5 +1,5 @@
 function rm {
-Remove-Item $args -recurse -force
+Get-ChildItem $args -Recurse | Remove-Item - Force
 }
 
 function rtbak {
