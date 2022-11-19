@@ -187,12 +187,8 @@ if (Test-Path($ChocolateyProfile)) {
 }
 
 function unblockFolder {
-  param(
-    [Parameter(ValueFromRemainingArguments = $true)]
-    [String[]] $message
-  )
     Write-Output "Unblocking Folder"
-    Get-ChildItem -Path $message -Recurse | Unblock-File -Confirm:$false -Verbose
+    Get-ChildItem -Path $args -Recurse | Unblock-File -Confirm:$false -Verbose
   }
 
 function unblockprofile {
@@ -221,19 +217,11 @@ shutdown /o /r /t 0 /f
 }
 
 function inst {
-  param(
-    [Parameter(ValueFromRemainingArguments = $true)]
-    [String[]] $message
-  )
-  scoop install $message
+  scoop install $args
   }
   
 function remove {
-  param(
-    [Parameter(ValueFromRemainingArguments = $true)]
-    [String[]] $message
-  )
-  scoop uninstall $message
+  scoop uninstall $args
 }
 
 function rcupdate {
@@ -356,11 +344,7 @@ gsudo powercfg /sleepstudy
 }
 
 function rev{
-param(
-    [Parameter(ValueFromRemainingArguments = $true)]
-    [String[]] $str_to_reverse
-  )
-$array_reversed = $str_to_reverse -split ""
+$array_reversed = $args -split ""
 [array]::Reverse($array_reversed)
 $array_reversed -join ''
 }
