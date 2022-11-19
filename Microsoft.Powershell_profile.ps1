@@ -1,5 +1,5 @@
-function rm {
-Start-Process cmd.exe -ArgumentList '/c rd /s /q $args'
+function delete {
+Remove-Item -recurse $args -Force
 }
 
 function rtbak {
