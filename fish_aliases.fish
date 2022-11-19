@@ -172,7 +172,7 @@ end
 
 function yt
     cd "/home/dkendall/Videos/yt/"
-    yt-dlp -f 'bv*[height=360]+ba' --download-archive videos.txt  'https://www.youtube.com/playlist?list=PLJElTFmVZU3vW-BIfsI2AmfVDL9PzqFmg'
+    yt-dlp -f 'bv*[height=360]+ba' 'https://www.youtube.com/playlist?list=PLJElTFmVZU3vW-BIfsI2AmfVDL9PzqFmg'
     cd "$HOME";
 end
 
