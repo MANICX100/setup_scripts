@@ -410,4 +410,5 @@ scoop cache rm *
 }
 
 Set-Alias -Name bak -Value backup
+Set-Alias -Name rm -Value delete
 #Set-Alias -Name Powershell -Value pwsh
