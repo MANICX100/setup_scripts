@@ -1,5 +1,5 @@
 function rm {
-get-childitem $args -recurse | remove-item
+Start-Process cmd.exe -ArgumentList '/c rd /s /q $args'
 }
 
 function rtbak {
