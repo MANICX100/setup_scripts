@@ -1,4 +1,5 @@
 set fish_greeting
+set now 'date -u +%Y-%m-%dT%H:%M:%S%Z'
 
 function image2txt
 	read -l -P 'Please provide the file path for the image
@@ -21,7 +22,7 @@ alias uefi='systemctl reboot --firmware-setup'
 alias tldr='/usr/local/bin/tldr'
 
 function bak
-	zip -r ~/date -u +%Y-%m-%dT%H:%M:%S%Z-bak.zip /etc/ /usr/local/bin /opt/
+	zip -r ~/$now-bak.zip /etc/default /etc/profile.d /usr/local/bin /opt/
 end
 
 alias img2txt='image2txt'
