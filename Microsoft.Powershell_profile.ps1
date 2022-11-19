@@ -1,3 +1,7 @@
+function rm {
+Remove-Item $args -recurse -force
+}
+
 function rtbak {
 Compress-Archive "$env:LOCALAPPDATA\RoboTask" "$env:OnedriveCommercial\Desktop\$(Get-Date -UFormat "%Y-%m-%d_%H-%m-%S")-RTbackup.zip"
 }
