@@ -24,6 +24,8 @@ function bak
 	zip -r ~/bak.zip /etc/ /usr/local/bin /opt/
 end
 
+alias img2txt='image2txt'
+
 alias ffprefclean='/home/dkendall/.mozilla/firefox/oewuk6x8.default-release/prefsCleaner.sh'
 alias ffprefup='/home/dkendall/.mozilla/firefox/oewuk6x8.default-release/updater.sh'
 
