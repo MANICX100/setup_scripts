@@ -1,6 +1,10 @@
 set fish_greeting
 set now date -u +%Y-%m-%dT%H:%M:%S%Z
 
+function speedupvid
+	  ffmpeg -i input.mkv -filter_complex "[0:v]setpts=<1/$argv[2]>*PTS[v];[0:a]atempo=<$argv[2]>[a]" -map "[v]" -map "[a]" output.mkv
+end
+
 function image2txt
 	read -l -P 'Please provide the file path for the image
 	' confirm
