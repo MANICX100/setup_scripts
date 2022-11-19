@@ -4,7 +4,7 @@ function image2txt
 	read -l -P 'Please provide the file path for the image
 	' confirm
 	tesseract -l eng $confirm output_from_ocr
-	cat output_from_ocr.txt
+	cat output_from_ocr.txt|xclip -selection c
 end
 
 function yt-dlp-audio
@@ -115,7 +115,7 @@ alias emptybin='sudo rm -rf ~/.local/share/Trash/'
 
 alias delrecent='sudo rm ~/.local/share/recently-used.xbel && sudo touch ~/.local/share/recently-used.xbel'
 
-alias del='sudo rm -rf -v -I'
+alias rm='rm -rf -v'
 
 alias syncfolders='rsync -progress -avh --ignore-existing /home/dkendall/ /run/media/dkendall/exFAT/ --delete --exclude=".*" '
 
