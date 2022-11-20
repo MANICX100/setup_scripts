@@ -1,0 +1,14 @@
+[Desktop Entry]
+Version=1.0
+Name=Waterfox
+Comment=A fork of Mozilla Firefox
+GenericName=waterfox
+Keywords=Browser;Firefox
+Exec=waterfox-bin %u
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+Categories=Browser;Web;Utilities
+MimeType=text/html;text/xml;
+StartupNotify=true
+Icon=/opt/waterfox/waterfox.ico
