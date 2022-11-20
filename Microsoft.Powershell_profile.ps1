@@ -255,7 +255,7 @@ function netw{ncpa.cpl}
 function cat{bat --paging=never --style=plain $1}
 
 function speedupvid{
-ffmpeg -i $1 -filter_complex "[0:v]setpts=PTS/2[v];[0:a]rubberband=tempo=2[a]" -map "[v]" -map "[a]" 2.mkv
+ffmpeg -i $args[0] -filter_complex "[0:v]setpts=1/$args[1]*PTS[v];[0:a]rubberband=tempo=$args[1][a]" -map "[v]" -map "[a]" $(Get-Date -UFormat "%Y-%m-%d_%H-%m-%S")-output.mkv
 }
 
 function comlist {
