@@ -7,8 +7,8 @@ ffmpeg -i $argv[1] -filter_complex "[0:v]setpts=1/$argv[2]*PTS[v];[0:a]rubberban
 image2txt() {
 read -l -P 'Please provide the file path for the image
 	' confirm
-	tesseract -l eng $confirm output_from_ocr
-	cat output_from_ocr.txt|xclip -selection c
+	tesseract -l eng $confirm $($now)-output-from-ocr
+	cat $($now)-output-from-ocr.txt|xclip -selection c
 }
 
 run-against-all() {
@@ -89,7 +89,7 @@ alias delrecent='sudo rm ~/.local/share/recently-used.xbel && sudo touch ~/.loca
 
 alias del='sudo rm -rf -v -I'
 
-alias syncfolders='rsync -progress -avh --ignore-existing /home/dkendall/ /run/media/dkendall/exFAT/ --delete --exclude=".*" '
+alias syncfolders='rsync -progress -avh --ignore-existing /home/dkendall/ /run/media/dkendall/exFAT/ --delete'
 
 subs() {   "$HOME/OneDrive/OpenSubtitlesDownload.py" --cli --auto --username MANICX100 --password 5z6!!Evd "$1";    }
 
@@ -100,7 +100,8 @@ execdircmd () {   cd $("dirname" "$1") ; $2 "$1"; cd "$HOME" ;  }
 
 macos() { cd "/home/dkendall/quickgui" ; ./quickgui; cd "$HOME" ; }
 
-alias screenrec='ffmpeg -video_size 1920x1200 -framerate 60 -f x11grab -i :0.0+0,0 -f pulse -ac 2 -i default output.mp4'
+alias screenrec='ffmpeg -video_size 1920x1200 -framerate 60 -f x11grab -i :0.0+0,0 -f pulse -ac 2 -i default $($now)-output.mkv'
+
 alias openall='xdg-open *'
 alias flatten="find ./ -mindepth 2 -type f -exec mv -i '{}' . \;"
 alias emptydel='find ./ -empty -type d -delete'
