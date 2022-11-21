@@ -131,7 +131,8 @@ alias syncfolders='rsync -progress -avh --ignore-existing /home/dkendall/ /run/m
 alias unshareusb='/bin/eveusbc unshare all'
 alias shareusb='/bin/eveusbc share 12345 1-9.1'
 
-alias screenrec='ffmpeg -video_size 1920x1200 -framerate 60 -f x11grab -i :0.0+0,0 -f pulse -ac 2 -i default $($now)-output.mkv'
+alias screenrec='ffmpeg -video_size 1920x1200 -framerate 60 -f x11grab -i :0.0+0,0 -f pulse -ac 2 -i default output-$($now).mkv'
+alias ffmpeglist='ffmpeg -list_devices true -f dshow -i dummy'
 
 alias openall='xdg-open *'
 
