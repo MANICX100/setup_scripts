@@ -31,11 +31,13 @@ end
 
 alias img2txt='image2txt'
 
-alias ffprefclean='/home/dkendall/.mozilla/firefox/oewuk6x8.default-release/prefsCleaner.sh'
-alias ffprefup='/home/dkendall/.mozilla/firefox/oewuk6x8.default-release/updater.sh'
+function ffup
+	/home/dkendall/.mozilla/firefox/oewuk6x8.default-release/updater.sh
+	/home/dkendall/.pulse-browser/ahfzm1ye.default-alpha-1/updater.sh
+	/home/dkendall/.waterfox/gp3hc69r.default-release/updater.sh
+end
 
-alias pulseprefclean='/home/dkendall/.pulse-browser/ahfzm1ye.default-alpha-1/prefsCleaner.sh'
-alias pulseprefup='/home/dkendall/.pulse-browser/ahfzm1ye.default-alpha-1/updater.sh'
+alias netstat='ss -t -r state established'
 
 alias ipconfig='ip route'
 alias ifconfig='ip route'
