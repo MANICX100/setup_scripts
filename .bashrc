@@ -1,5 +1,13 @@
 now = date -u +%Y-%m-%dT%H-%M-%S%Z
 
+ffup() {
+/home/dkendall/.mozilla/firefox/oewuk6x8.default-release/updater.sh
+/home/dkendall/.pulse-browser/ahfzm1ye.default-alpha-1/updater.sh
+/home/dkendall/.waterfox/gp3hc69r.default-release/updater.sh
+}
+
+alias netstat='ss -t -r state established'
+
 speedupvid() {
 ffmpeg -i $argv[1] -filter_complex "[0:v]setpts=1/$argv[2]*PTS[v];[0:a]rubberband=tempo=$argv[2][a]" -map "[v]" -map "[a]" $($now)-output.mkv
 }
