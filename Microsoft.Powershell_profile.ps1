@@ -306,7 +306,7 @@ function openall{
 }
 
 function screenrec{
-ffmpeg -f dshow -i audio="@device_cm_{33D9A762-90C8-11D0-BD43-00A0C911CE86}\wave_{44180CE1-1ECF-4C4D-B8DE-3680832ECB6D}" -y -f gdigrab -framerate 30 -draw_mouse 1 -i desktop -c:v libx264 -f mp4 $(Get-Date -UFormat "%Y-%m-%d_%H-%m-%S").mp4
+ffmpeg -f dshow -i audio="@device_cm_{33D9A762-90C8-11D0-BD43-00A0C911CE86}\wave_{44180CE1-1ECF-4C4D-B8DE-3680832ECB6D}" -y -f gdigrab -framerate 30 -draw_mouse 1 -i desktop -c:v libx264 -f mp4 output-$(Get-Date -UFormat "%Y-%m-%d_%H-%m-%S").mp4
 }
 
 function ffmpeglist {
