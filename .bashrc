@@ -46,6 +46,9 @@ alias edit-grub='sudo nano /etc/default/grub'
 alias Get-PubIP='wget -q -O - ipinfo.io/ip'
 alias e.='open .'
 
+alias screenrec='ffmpeg -video_size 1920x1200 -framerate 60 -f x11grab -i :0.0+0,0 -f pulse -ac 2 -i default output-$($now).mkv'
+alias ffmpeglist='ffmpeg -list_devices true -f dshow -i dummy'
+
 stripclip(){
 	xclip -selection c -o |xargs|awk '{$1=$1};1'|xclip -selection c
     }
@@ -107,8 +110,6 @@ alias shareusb='/bin/eveusbc share 12345 1-9.1'
 execdircmd () {   cd $("dirname" "$1") ; $2 "$1"; cd "$HOME" ;  }
 
 macos() { cd "/home/dkendall/quickgui" ; ./quickgui; cd "$HOME" ; }
-
-alias screenrec='ffmpeg -video_size 1920x1200 -framerate 60 -f x11grab -i :0.0+0,0 -f pulse -ac 2 -i default $($now)-output.mkv'
 
 alias openall='xdg-open *'
 alias flatten="find ./ -mindepth 2 -type f -exec mv -i '{}' . \;"
