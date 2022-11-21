@@ -8,8 +8,8 @@ end
 function image2txt
 	read -l -P 'Please provide the file path for the image
 	' confirm
-	tesseract -l eng $confirm output_from_ocr
-	cat output_from_ocr.txt|xclip -selection c
+	tesseract -l eng $confirm $($now)-output-from-ocr
+	cat $($now)-output-from-ocr.txt|xclip -selection c
 end
 
 function yt-dlp-audio
@@ -129,7 +129,7 @@ alias syncfolders='rsync -progress -avh --ignore-existing /home/dkendall/ /run/m
 alias unshareusb='/bin/eveusbc unshare all'
 alias shareusb='/bin/eveusbc share 12345 1-9.1'
 
-alias screenrec='ffmpeg -video_size 1920x1200 -framerate 60 -f x11grab -i :0.0+0,0 -f pulse -ac 2 -i default output.mp4'
+alias screenrec='ffmpeg -video_size 1920x1200 -framerate 60 -f x11grab -i :0.0+0,0 -f pulse -ac 2 -i default $($now)-output.mkv'
 
 alias openall='xdg-open *'
 
