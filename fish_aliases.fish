@@ -124,7 +124,7 @@ alias delrecent='sudo rm ~/.local/share/recently-used.xbel && sudo touch ~/.loca
 
 alias rm='rm -rf -v'
 
-alias syncfolders='rsync -progress -avh --ignore-existing /home/dkendall/ /run/media/dkendall/exFAT/ --delete --exclude=".*" '
+alias syncfolders='rsync -progress -avh --ignore-existing /home/dkendall/ /run/media/dkendall/exFAT/ --delete'
 
 alias unshareusb='/bin/eveusbc unshare all'
 alias shareusb='/bin/eveusbc share 12345 1-9.1'
