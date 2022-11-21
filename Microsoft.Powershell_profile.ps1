@@ -139,7 +139,6 @@ function reload-profile {
 function find-file($name) {
         Get-ChildItem -recurse -filter "*${name}*" -ErrorAction SilentlyContinue | ForEach-Object {
                 $place_path = $_.directory
-                Write-Output "${place_path}\${_}"
         }
 }
 function unzip ($file) {
@@ -307,7 +306,7 @@ function openall{
 }
 
 function screenrec{
-ffmpeg -f dshow -i audio="Microphone (5- SteelSeries Arctis 1 Wireless)" -f -y -f gdigrab -framerate 30 -draw_mouse 1 -i desktop -c:v libx264 output.mkv
+ffmpeg -f dshow -i audio="Microphone (5- SteelSeries Arctis 1 Wireless)" -f -y -f gdigrab -framerate 30 -draw_mouse 1 -i desktop -c:v libx264 $(Get-Date -UFormat "%Y-%m-%d_%H-%m-%S")-output.mp4
 }
 
 function gohome{
