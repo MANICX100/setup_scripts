@@ -1,5 +1,5 @@
 function ffmpeg-burnin-srt {
-ffmpeg -i $args[0] -vf subtitles=$args[1]
+ffmpeg -i $args[0] -vf subtitles=$args[1] output-$(Get-Date -UFormat "%Y-%m-%d_%H-%m-%S").mkv
 }
 
 function delete {
