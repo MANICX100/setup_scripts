@@ -1,3 +1,7 @@
+function ffmpeg-burnin-srt {
+ffmpeg -i $args[0] -vf subtitles=$args[1]
+}
+
 function delete {
 Remove-Item -recurse $args -Force
 }
