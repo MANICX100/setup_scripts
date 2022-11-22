@@ -1,5 +1,10 @@
 now = date -u +%Y-%m-%dT%H-%M-%S%Z
 
+
+ffmpeg-burnin-srt() {
+ffmpeg -i $argv[1] -vf subtitles=$argv[2]
+}
+
 ffup() {
 /home/dkendall/.mozilla/firefox/oewuk6x8.default-release/updater.sh
 /home/dkendall/.pulse-browser/ahfzm1ye.default-alpha-1/updater.sh
