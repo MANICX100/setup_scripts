@@ -1,6 +1,10 @@
 set fish_greeting
 set now date -u +%Y-%m-%dT%H-%M-%S%Z
 
+set -Ux PYENV_ROOT $HOME/.pyenv
+fish_add_path $PYENV_ROOT/bin
+
+
 function ffmpeg-burnin-srt
 	ffmpeg -i $argv[1] -vf subtitles=$argv[2] $($now)-output.mkv
 end
