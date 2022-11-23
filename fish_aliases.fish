@@ -154,7 +154,8 @@ set PATH "/home/dkendall/quickgui:/home/dkendall/quickemu:/home/dkendall/.local/
 alias addapp='sudo xdg-open /usr/local/bin'
 alias shut='sudo systemctl suspend'
 
-alias python='python3.12'
+
+
 alias logoff='sudo service sddm restart'
 alias yt-dlp='/usr/local/bin/yt-dlp'
 
@@ -222,3 +223,4 @@ function gitIgnoreRm
 end
 
 starship init fish | source
+pyenv init - | source
