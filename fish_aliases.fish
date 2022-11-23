@@ -153,7 +153,7 @@ alias gohome='cd "$HOME"'
 
 alias changejava='sudo alternatives --config java'
 
-set PATH "/home/dkendall/quickgui:/home/dkendall/quickemu:/home/dkendall/.local/bin:/home/dkendall/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin"
+set PATH "/home/pyenv:/home/dkendall/quickgui:/home/dkendall/quickemu:/home/dkendall/.local/bin:/home/dkendall/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin"
 
 alias addapp='sudo xdg-open /usr/local/bin'
 alias shut='sudo systemctl suspend'
