@@ -1,11 +1,11 @@
 now = date -u +%Y-%m-%dT%H-%M-%S%Z
 
 ffsubspeed() {
-	ffmpeg -i $1 -vf subtitles=$3 -filter_complex "[0:v]setpts=1/$2*PTS[v];[0:a]rubberband=tempo=$2[a]" -map "[v]" -map "[a]" $($now)-output.mkv
+	ffmpeg -i $1 -vf subtitles=$3 -filter_complex "[0:v]setpts=1/$2*PTS[v];[0:a]rubberband=tempo=$2[a]" -map "[v]" -map "[a]" -preset ultrafast $($now)-output.mkv
 }
 
 ffmpeg-burnin-srt() {
-ffmpeg -i $1 -vf subtitles=$2 $($now)-output.mkv
+ffmpeg -i $1 -vf subtitles=$2 -preset ultrafast $($now)-output.mkv
 }
 
 ffup() {
@@ -17,7 +17,7 @@ ffup() {
 alias netstat='ss -t -r state established'
 
 speedupvid() {
-ffmpeg -i $1 -filter_complex "[0:v]setpts=1/$2*PTS[v];[0:a]rubberband=tempo=$2[a]" -map "[v]" -map "[a]" $($now)-output.mkv
+ffmpeg -i $1 -filter_complex "[0:v]setpts=1/$2*PTS[v];[0:a]rubberband=tempo=$2[a]" -map "[v]" -map "[a]" -preset ultrafast $($now)-output.mkv
 }
 
 image2txt() {
