@@ -2,15 +2,15 @@ set fish_greeting
 set now date -u +%Y-%m-%dT%H-%M-%S%Z
 
 function ffmpeg-burnin-srt
-	ffmpeg -i $argv[1] -vf subtitles=$argv[2] $($now)-output.mkv
+	ffmpeg -i $argv[1] -vf subtitles=$argv[2] -preset ultrafast $($now)-output.mkv
 end
 
 function ffsubspeed
-	ffmpeg -i $argv[1] -vf subtitles=$argv[3] -filter_complex "[0:v]setpts=1/$argv[2]*PTS[v];[0:a]rubberband=tempo=$argv[2][a]" -map "[v]" -map "[a]" $($now)-output.mkv
+	ffmpeg -i $argv[1] -vf subtitles=$argv[3] -filter_complex "[0:v]setpts=1/$argv[2]*PTS[v];[0:a]rubberband=tempo=$argv[2][a]" -map "[v]" -map "[a]" -preset ultrafast $($now)-output.mkv
 end
 
 function speedupvid
-	  ffmpeg -i $argv[1] -filter_complex "[0:v]setpts=1/$argv[2]*PTS[v];[0:a]rubberband=tempo=$argv[2][a]" -map "[v]" -map "[a]" $($now)-output.mkv
+	  ffmpeg -i $argv[1] -filter_complex "[0:v]setpts=1/$argv[2]*PTS[v];[0:a]rubberband=tempo=$argv[2][a]" -map "[v]" -map "[a]" -preset ultrafast $($now)-output.mkv
 end
 
 function image2txt
