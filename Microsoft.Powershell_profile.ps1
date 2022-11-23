@@ -1,8 +1,4 @@
 
-function ffsubspeed {
-	ffmpeg -i $args[0] -vf subtitles=$args[2] -filter_complex "[0:v]setpts=1/$args[1]*PTS[v];[0:a]rubberband=tempo=$args[1][a]" -map "[v]" -map "[a]" -preset ultrafast $($now)-output.mkv
-}
-
 function ffmpeg-burnin-srt {
 ffmpeg -i $args[0] -vf subtitles=$args[1] -preset ultrafast output-$(Get-Date -UFormat "%Y-%m-%d_%H-%m-%S").mkv
 }
