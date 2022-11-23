@@ -5,6 +5,10 @@ function ffmpeg-burnin-srt
 	ffmpeg -i $argv[1] -vf subtitles=$argv[2] $($now)-output.mkv
 end
 
+function ffsubspeed
+	ffmpeg -i $argv[1] -vf subtitles=$argv[2] -filter_complex "[0:v]setpts=1/$argv[2]*PTS[v];[0:a]rubberband=tempo=$argv[2][a]" -map "[v]" -map "[a]" $($now)-output.mkv
+end
+
 function speedupvid
 	  ffmpeg -i $argv[1] -filter_complex "[0:v]setpts=1/$argv[2]*PTS[v];[0:a]rubberband=tempo=$argv[2][a]" -map "[v]" -map "[a]" $($now)-output.mkv
 end
@@ -148,8 +152,6 @@ alias delempty='find ./ -empty -type d -delete'
 alias gohome='cd "$HOME"'
 
 alias changejava='sudo alternatives --config java'
-
-set PATH "home/dkendall/quickgui:/home/dkendall/quickemu:/home/dkendall/.local/bin:/home/dkendall/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin"
 
 alias addapp='sudo xdg-open /usr/local/bin'
 alias shut='sudo systemctl suspend'
