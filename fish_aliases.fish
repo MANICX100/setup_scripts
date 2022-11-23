@@ -6,7 +6,7 @@ function ffmpeg-burnin-srt
 end
 
 function ffsubspeed
-	ffmpeg -i $argv[1] -vf subtitles=$argv[2] -filter_complex "[0:v]setpts=1/$argv[2]*PTS[v];[0:a]rubberband=tempo=$argv[2][a]" -map "[v]" -map "[a]" $($now)-output.mkv
+	ffmpeg -i $argv[1] -vf subtitles=$argv[3] -filter_complex "[0:v]setpts=1/$argv[2]*PTS[v];[0:a]rubberband=tempo=$argv[2][a]" -map "[v]" -map "[a]" $($now)-output.mkv
 end
 
 function speedupvid
