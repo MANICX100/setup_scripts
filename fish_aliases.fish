@@ -1,6 +1,10 @@
 set fish_greeting
 set now date -u +%Y-%m-%dT%H-%M-%S%Z
 
+function yt-dlp-trim
+	yt-dlp -f "[protocol!*=dash]" --external-downloader ffmpeg --external-downloader-args "ffmpeg_i:-ss $argsv[2] -to $argsv[3]" $argsv[1]
+end
+
 function ffmpeg-burnin-srt
 	ffmpeg -i $argv[1] -vf subtitles=$argv[2] -preset ultrafast $($now)-output.mkv
 end
