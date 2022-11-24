@@ -1,5 +1,9 @@
 now = date -u +%Y-%m-%dT%H-%M-%S%Z
 
+yt-dlp-trim() {
+yt-dlp -f "[protocol!*=dash]" --external-downloader ffmpeg --external-downloader-args "ffmpeg_i:-ss $2 -to $3" $1
+}
+
 ffmpeg-burnin-srt() {
 ffmpeg -i $1 -vf subtitles=$2 -preset ultrafast -preset ultrafast $($now)-output.mkv
 }
@@ -134,13 +138,10 @@ done
 
 alias changejava='sudo alternatives --config java'
 
-PATH="/home/dkendall/quickgui:/home/dkendall/quickemu:/home/dkendall/.local/bin:/home/dkendall/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin"
-
 alias addapp='sudo xdg-open /usr/local/bin'
 alias shut='sudo systemctl suspend'
 alias clean='sudo dnf clean all && flatpak uninstall --unused'
 
-alias python='python3.12'
 alias logoff='sudo service sddm restart'
 alias yt-dlp='/usr/local/bin/yt-dlp'
 
