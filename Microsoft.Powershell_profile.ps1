@@ -1,3 +1,6 @@
+function yt-dlp-trim {
+yt-dlp -f "[protocol!*=dash]" --external-downloader ffmpeg --external-downloader-args "ffmpeg_i:-ss $args[1] -to $args[2]" $args[0]
+}
 
 function ffmpeg-burnin-srt {
 ffmpeg -i $args[0] -vf subtitles=$args[1] -preset ultrafast output-$(Get-Date -UFormat "%Y-%m-%d_%H-%m-%S").mkv
