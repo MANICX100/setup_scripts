@@ -2,7 +2,7 @@ set fish_greeting
 set now date -u +%Y-%m-%dT%H-%M-%S%Z
 
 function yt-dlp-trim
-	yt-dlp -f "[protocol!*=dash]" --external-downloader ffmpeg --external-downloader-args "ffmpeg_i:-ss $argsv[2] -to $argsv[3]" $argsv[1]
+	yt-dlp -f "[protocol!*=dash]" --external-downloader ffmpeg --external-downloader-args "ffmpeg_i:-ss $argv[2] -to $argv[3]" $argv[1]
 end
 
 function ffmpeg-burnin-srt
