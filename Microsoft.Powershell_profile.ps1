@@ -1,3 +1,9 @@
+function piprmall {
+pip freeze --user > requirements.txt
+pip uninstall -r requirements.txt -y
+rm $env::LOCALAPPDATA\pip
+}
+
 function yt-dlp-trim {
 yt-dlp -f "[protocol!*=dash]" --external-downloader ffmpeg --external-downloader-args "ffmpeg_i:-ss $args[1] -to $args[2]" $args[0]
 }
@@ -416,6 +422,7 @@ function cleanup {
 scoop cache rm *
 }
 
+Set-Alias -Name clean -Value cleanup
 Set-Alias -Name bak -Value backup
 Set-Alias -Name rm -Value delete
 #Set-Alias -Name Powershell -Value pwsh
