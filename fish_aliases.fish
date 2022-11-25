@@ -5,6 +5,19 @@ function yt-dlp-trim
 	yt-dlp -f "[protocol!*=dash]" --external-downloader ffmpeg --external-downloader-args "ffmpeg_i:-ss $argv[2] -to $argv[3]" $argv[1]
 end
 
+function ffsrtspeed
+	ffmpeg -i $argv[1] \
+       -i $argv[3] \
+       -filter_complex \
+          "[0:v]setpts=1/$argv[2]*PTS[v];\
+           [0:a]rubberband=tempo=$argv[2][a]" \
+       -map "[v]" \
+       -map "[a]" \
+       -map 1 \
+       -preset ultrafast \
+       $($now)-output.mkv
+end 
+
 function ffmpeg-burnin-srt
 	ffmpeg -i $argv[1] -vf subtitles=$argv[2] -preset ultrafast $($now)-output.mkv
 end
