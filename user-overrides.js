@@ -231,6 +231,8 @@ user_pref("keyword.enabled",true);
 user_pref("security.dialog_enable_delay",0);
 user_pref("browser.download.always_ask_before_handling_new_types",false);
 user_pref("network.trr.mode",3);
+user_pref("network.dns.echconfig.enabled",true);
+user_pref("network.dns.use_https_rr_as_altsvc",true);
 
 /****************************************************************************
  * END: BETTERFOX                                                           *
