@@ -4,6 +4,19 @@ yt-dlp-trim() {
 yt-dlp -f "[protocol!*=dash]" --external-downloader ffmpeg --external-downloader-args "ffmpeg_i:-ss $2 -to $3" $1
 }
 
+ffsrtspeed() {
+ffmpeg -i $1 \
+       -i $3 \
+       -filter_complex \
+          "[0:v]setpts=1/$2*PTS[v];\
+           [0:a]rubberband=tempo=$2[a]" \
+       -map "[v]" \
+       -map "[a]" \
+       -map 1 \
+       -preset ultrafast \
+       $($now)-output.mkv
+}
+
 ffmpeg-burnin-srt() {
 ffmpeg -i $1 -vf subtitles=$2 -preset ultrafast -preset ultrafast $($now)-output.mkv
 }
