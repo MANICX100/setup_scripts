@@ -2,6 +2,8 @@ set fish_greeting
 set now date -u +%Y-%m-%dT%H-%M-%S%Z
 
 alias piprmall='pip freeze --user | xargs pip uninstall -y'
+alias rmpnpm='rm -rf $PNPM_HOME'
+
 alias fishpath='echo $fish_user_paths | tr " " "\n" | nl'
 
 function yt-dlp-trim
