@@ -2,6 +2,19 @@ function yt-dlp-trim {
 yt-dlp -f "[protocol!*=dash]" --external-downloader ffmpeg --external-downloader-args "ffmpeg_i:-ss $args[1] -to $args[2]" $args[0]
 }
 
+function ffsrtspeed {
+ffmpeg -i $args[0] \
+       -i $args[2] \
+       -filter_complex \
+          "[0:v]setpts=1/$args[1]*PTS[v];\
+           [0:a]rubberband=tempo=$args[1][a]" \
+       -map "[v]" \
+       -map "[a]" \
+       -map 1 \
+       -preset ultrafast \
+       output-$(Get-Date -UFormat "%Y-%m-%d_%H-%m-%S").mkv
+}
+
 function ffmpeg-burnin-srt {
 ffmpeg -i $args[0] -vf subtitles=$args[1] -preset ultrafast output-$(Get-Date -UFormat "%Y-%m-%d_%H-%m-%S").mkv
 }
