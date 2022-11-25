@@ -1,7 +1,7 @@
 function piprmall {
 pip freeze --user > requirements.txt
 pip uninstall -r requirements.txt -y
-rm $env::LOCALAPPDATA\pip
+rm $env:LOCALAPPDATA\pip
 }
 
 function yt-dlp-trim {
