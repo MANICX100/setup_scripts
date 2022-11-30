@@ -6,7 +6,7 @@ scoop bucket add nirsoft
 scoop bucket add java
 scoop bucket add versions
 
-scoop install gsudo sumatrapdf smplayer topgrade irfanview fd ripgrep gawk bat wget time notepad3 gdu ffmpeg gifski screentogif greenshot yt-dlp vscode pwsh
+scoop install gsudo sumatrapdf smplayer topgrade irfanview fd ripgrep gawk bat wget time notepad3 gdu ffmpeg gifski screentogif greenshot yt-dlp vscode pwsh lockhunter
 
 #next steps
 Write-Host "Remember to download graphics drivers"
