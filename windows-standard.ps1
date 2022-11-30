@@ -6,43 +6,7 @@ scoop bucket add nirsoft
 scoop bucket add java
 scoop bucket add versions
 
-scoop install gsudo
-
-scoop install sumatrapdf
-scoop install vlc
-scoop install topgrade
-scoop install thunderbird
-scoop install irfanview
-
-scoop install fd
-scoop install ripgrep
-scoop install gawk
-
-scoop install bat
-scoop install wget
-scoop install time
-
-scoop install powertoys
-scoop install notepad3
-scoop install nano
-
-scoop install gdu
-scoop install ffmpeg
-
-#scoop install sharex
-scoop install gifski screentogif
-scoop install greenshot
-
-scoop install nilesoft-shell
-
-scoop install yt-dlp
-
-scoop install vscode
-
-scoop install lockhunter
-
-scoop install windows-terminal-preview
-scoop install pwsh
+scoop install gsudo sumatrapdf smplayer topgrade irfanview fd ripgrep gawk bat wget time notepad3 gdu ffmpeg gifski screentogif greenshot yt-dlp vscode pwsh
 
 #next steps
 Write-Host "Remember to download graphics drivers"
