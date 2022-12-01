@@ -6,6 +6,9 @@ alias rmpnpm='rm -rf $PNPM_HOME'
 
 alias fishpath='echo $fish_user_paths | tr " " "\n" | nl'
 
+alias dictate='cd nerd-dictation;./nerd-dictation begin --vosk-model-dir=./model &'
+alias enddictate='./nerd-dictation end'
+
 function yt-dlp-trim
 	yt-dlp -f "[protocol!*=dash]" --external-downloader ffmpeg --external-downloader-args "ffmpeg_i:-ss $argv[2] -to $argv[3]" $argv[1]
 end
