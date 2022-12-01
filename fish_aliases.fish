@@ -5,6 +5,7 @@ alias piprmall='pip freeze --user | xargs pip uninstall -y'
 alias rmpnpm='rm -rf $PNPM_HOME'
 
 alias fishpath='echo $fish_user_paths | tr " " "\n" | nl'
+alias nextdnsinstall='sh -c "$(curl -sL https://nextdns.io/install)"'
 
 function dictate
 	cd nerd-dictation
