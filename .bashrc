@@ -3,6 +3,9 @@ now = date -u +%Y-%m-%dT%H-%M-%S%Z
 alias piprmall='pip freeze --user | xargs pip uninstall -y'
 alias rmpnpm='rm -rf $PNPM_HOME'
 
+alias dictate='cd nerd-dictation;./nerd-dictation begin --vosk-model-dir=./model &'
+alias enddictate='./nerd-dictation end'
+
 yt-dlp-trim() {
 yt-dlp -f "[protocol!*=dash]" --external-downloader ffmpeg --external-downloader-args "ffmpeg_i:-ss $2 -to $3" $1
 }
