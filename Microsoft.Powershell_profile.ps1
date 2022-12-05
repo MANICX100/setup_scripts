@@ -1,11 +1,15 @@
 function rmspecial {
+param(
+        [string]$directory = '.'
+    )
+
     # Check if the specified directory exists and is a valid directory
-    if (!(Test-Path -Path $pwd -PathType Container)) {
+    if (!(Test-Path -LiteralPath $directory -PathType Container)) {
         throw "The specified directory does not exist or is not a valid directory."
     }
 
-    # Get a list of all files in the specified directory
-    $files = Get-ChildItem $pwd
+    # Get a list of all files in the specified directory and all its subdirectories
+    $files = Get-ChildItem -LiteralPath $directory -Recurse -File
 
     # Loop through each file in the list
     foreach ($file in $files) {
@@ -15,7 +19,7 @@ function rmspecial {
 
         # Rename the file with the new, sanitized name
         try {
-            Rename-Item -Path $file.FullName -NewName $newName -ErrorAction Stop
+            Rename-Item -LiteralPath $file.FullName -NewName $newName -ErrorAction Stop
         }
         catch {
             Write-Error "Failed to rename file '$($file.Name)': $_"
