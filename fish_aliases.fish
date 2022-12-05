@@ -7,7 +7,9 @@ alias rmpnpm='rm -rf $PNPM_HOME'
 alias fishpath='echo $fish_user_paths | tr " " "\n" | nl'
 alias nextdnsinstall='sh -c "$(curl -sL https://nextdns.io/install)"'
 
-alias rmspecial='find . -type f -exec bash -c '"'"'mv "$1" "${1//[^[:alnum:].-]/}"''' _ {} ;'
+function rmspecial
+	find . -type f -exec bash -c 'mv "$1" "${1//[^[:alnum:].-]/}"' _ {} \;
+end
 
 function dictate
 	cd nerd-dictation
