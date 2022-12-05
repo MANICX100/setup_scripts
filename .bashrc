@@ -8,6 +8,8 @@ alias enddictate='./nerd-dictation end'
 
 alias nextdnsinstall='sh -c "$(curl -sL https://nextdns.io/install)"'
 
+alias rmspecial='find . -type f -exec bash -c 'mv "$1" "${1//[^[:alnum:].-]/}"' _ {} \;'
+
 yt-dlp-trim() {
 yt-dlp -f "[protocol!*=dash]" --external-downloader ffmpeg --external-downloader-args "ffmpeg_i:-ss $2 -to $3" $1
 }
