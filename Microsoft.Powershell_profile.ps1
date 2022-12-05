@@ -1,3 +1,7 @@
+function rmspecial {
+Get-ChildItem -Recurse | Rename-Item -NewName { $_.Name -replace '[^[:alnum:].-]', '' }
+}
+
 function dkqpulse {
 az vm start --ids "/subscriptions/6ee31983-6836-4bab-86bc-11f1c526291e/resourceGroups/RD-PLAY-NE-01/providers/Microsoft.Compute/virtualMachines/DKQPulseServer"
 }
