@@ -1,5 +1,20 @@
 function rmspecial {
-Get-ChildItem -Recurse | Rename-Item -NewName { $_.Name -replace '[^[:alnum:].-]', '' }
+    param(
+        [string]$directory
+    )
+
+    # Get a list of all files in the specified directory
+    $files = Get-ChildItem $directory
+
+    # Loop through each file in the list
+    foreach ($file in $files) {
+        # Replace all non-alphanumeric characters in the file name
+        # with an empty string, except for the period and hyphen characters
+        $newName = $file.Name -replace '[^a-zA-Z0-9.-]', ''
+
+        # Rename the file with the new, sanitized name
+        Rename-Item -Path $file.FullName -NewName $newName
+    }
 }
 
 function dkqpulse {
