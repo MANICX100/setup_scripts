@@ -1,10 +1,11 @@
 function rmspecial {
-    param(
-        [string]$directory
-    )
+    # Check if the specified directory exists and is a valid directory
+    if (!(Test-Path -Path $pwd -PathType Container)) {
+        throw "The specified directory does not exist or is not a valid directory."
+    }
 
     # Get a list of all files in the specified directory
-    $files = Get-ChildItem $directory
+    $files = Get-ChildItem $pwd
 
     # Loop through each file in the list
     foreach ($file in $files) {
@@ -13,7 +14,12 @@ function rmspecial {
         $newName = $file.Name -replace '[^a-zA-Z0-9.-]', ''
 
         # Rename the file with the new, sanitized name
-        Rename-Item -Path $file.FullName -NewName $newName
+        try {
+            Rename-Item -Path $file.FullName -NewName $newName -ErrorAction Stop
+        }
+        catch {
+            Write-Error "Failed to rename file '$($file.Name)': $_"
+        }
     }
 }
 
