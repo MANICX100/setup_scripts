@@ -3,7 +3,7 @@ az vm start --ids "/subscriptions/6ee31983-6836-4bab-86bc-11f1c526291e/resourceG
 }
 
 function dkqpulsestop {
-az vm stop --ids "/subscriptions/6ee31983-6836-4bab-86bc-11f1c526291e/resourceGroups/RD-PLAY-NE-01/providers/Microsoft.Compute/virtualMachines/DKQPulseServer"
+az vm deallocate --ids "/subscriptions/6ee31983-6836-4bab-86bc-11f1c526291e/resourceGroups/RD-PLAY-NE-01/providers/Microsoft.Compute/virtualMachines/DKQPulseServer"
 }
 
 function piprmall {
