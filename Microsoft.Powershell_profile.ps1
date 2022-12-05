@@ -1,3 +1,11 @@
+function dkqpulse {
+az vm start --ids "/subscriptions/6ee31983-6836-4bab-86bc-11f1c526291e/resourceGroups/RD-PLAY-NE-01/providers/Microsoft.Compute/virtualMachines/DKQPulseServer"
+}
+
+function dkqpulsestop {
+az vm stop --ids "/subscriptions/6ee31983-6836-4bab-86bc-11f1c526291e/resourceGroups/RD-PLAY-NE-01/providers/Microsoft.Compute/virtualMachines/DKQPulseServer"
+}
+
 function piprmall {
 pip freeze --user > requirements.txt
 pip uninstall -r requirements.txt -y
