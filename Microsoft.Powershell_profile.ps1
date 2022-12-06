@@ -1,3 +1,8 @@
+function Open-Perm
+{
+icacls $args[0] /grant "Users:(OI)(CI)F" /T
+}
+
 function Hide-Files
 {
   # Get all files in the current directory and its subdirectories
