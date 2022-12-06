@@ -8,7 +8,7 @@ alias enddictate='./nerd-dictation end'
 
 alias nextdnsinstall='sh -c "$(curl -sL https://nextdns.io/install)"'
 
-alias rcupdate=''
+alias rcupdate='wget --no-cache -O ~/.bashrc https://github.com/MANICX100/setup_scripts/raw/main/.bashrc'
 
 unhideAll(){
 for file in .*; do
