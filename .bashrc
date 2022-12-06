@@ -10,6 +10,14 @@ alias nextdnsinstall='sh -c "$(curl -sL https://nextdns.io/install)"'
 
 alias rcupdate='wget --no-cache -O ~/.bashrc https://github.com/MANICX100/setup_scripts/raw/main/.bashrc'
 
+openperm(){
+sudo chmod -R a+rwx $1
+}
+
+takeown(){
+sudo chown dkendall $1
+}
+
 unhideAll(){
 for file in .*; do
    mv -n "$file" "${file#.}"
