@@ -1,3 +1,28 @@
+function Hide-Files
+{
+  # Get all files in the current directory and its subdirectories
+  $files = Get-ChildItem -Recurse
+
+  # Loop through each file and set its hidden attribute
+  foreach ($file in $files)
+  {
+    $file.Attributes = $file.Attributes -bor [IO.FileAttributes]::Hidden
+  }
+}
+
+function Unhide-Files
+{
+  # Get all hidden files in the current directory and its subdirectories
+  $files = Get-ChildItem -Recurse -Force -Attribute H
+
+
+  # Loop through each file and remove its hidden attribute
+  foreach ($file in $files)
+  {
+    $file.Attributes = $file.Attributes -band -bnot [IO.FileAttributes]::Hidden
+  }
+}
+
 function restartautoserv {
 Get-Service | Where-Object {$_.StartType -eq "Automatic" -and $_.Status -eq "Stopped"} | ForEach-Object {Start-Service $_.Name}
 }
