@@ -1,3 +1,7 @@
+function restartautoserv {
+Get-Service | Where-Object {$_.StartType -eq "Automatic" -and $_.Status -eq "Stopped"} | ForEach-Object {Start-Service $_.Name}
+}
+
 function rmspecial {
 param(
         [string]$directory = '.'
