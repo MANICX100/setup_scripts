@@ -1,4 +1,4 @@
-now = date -u +%Y-%m-%dT%H-%M-%S%Z
+export now = date -u +%Y-%m-%dT%H-%M-%S%Z
 
 alias piprmall='pip freeze --user | xargs pip uninstall -y'
 alias rmpnpm='rm -rf $PNPM_HOME'
@@ -7,6 +7,20 @@ alias dictate='cd nerd-dictation;./nerd-dictation begin --vosk-model-dir=./model
 alias enddictate='./nerd-dictation end'
 
 alias nextdnsinstall='sh -c "$(curl -sL https://nextdns.io/install)"'
+
+alias rcupdate=''
+
+unhideAll(){
+for file in .*; do
+   mv -n "$file" "${file#.}"
+done
+}
+
+hideAll(){
+for file in *; do
+     mv -n "$file" ".$file";
+done
+}
 
 rmspecial() {
 find . -type f -exec bash -c 'mv "$1" "${1//[^[:alnum:].-]/}"' _ {} \;
