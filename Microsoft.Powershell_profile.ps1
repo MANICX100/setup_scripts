@@ -40,9 +40,8 @@ az vm deallocate --ids "/subscriptions/6ee31983-6836-4bab-86bc-11f1c526291e/reso
 }
 
 function piprmall {
-pip freeze --user > requirements.txt
-pip uninstall -r requirements.txt -y
 rm $env:LOCALAPPDATA\pip
+pip freeze | %{pip uninstall -y $_.split('==')[0]}
 }
 
 function yt-dlp-trim {
