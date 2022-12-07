@@ -1,3 +1,8 @@
+function validationPackager {
+cd "$env:USERPROFILE\Ideagen plc\Configuration Team - Documents\Validation Mapping"
+./validationPackager.ps1
+}
+
 function Open-Perm
 {
 icacls $args[0] /grant "Users:(OI)(CI)F" /T
