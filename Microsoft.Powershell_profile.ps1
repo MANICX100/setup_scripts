@@ -1,3 +1,7 @@
+function tbIcons {
+Set-Clipboard "explorer shell:::{05d7b0f4-2121-4eff-bf6b-ed3f69b894d9}"
+}
+
 function validationPackager {
 cd "$env:USERPROFILE\Ideagen plc\Configuration Team - Documents\Validation Mapping"
 ./validationPackager.ps1
