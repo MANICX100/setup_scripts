@@ -10,9 +10,9 @@ alias fishpath='echo $fish_user_paths | tr " " "\n" | nl'
 alias nextdnsinstall='sh -c "$(curl -sL https://nextdns.io/install)"'
 
 function rmopt
-	rm /opt/$argv
-	rm /usr/local/bin/$argv
-	rm /usr/local/share/applications/$argv.desktop
+	rm -rf -v /opt/$argv
+	rm -rf -v /usr/local/bin/$argv
+	rm -rf -v /usr/local/share/applications/$argv.desktop
 end
 
 function openperm
