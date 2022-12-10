@@ -5,9 +5,9 @@ alias rmpipall='pip freeze --user | xargs pip uninstall -y'
 alias rmpnpm='rm -rf $PNPM_HOME'
 
 rmopt() {
-rm /opt/$1
-rm /usr/local/bin/$1
-rm /usr/local/share/applications/$1.desktop
+rm -rf -v /opt/$1
+rm -rf -v /usr/local/bin/$1
+rm -rf -v /usr/local/share/applications/$1.desktop
 }
 
 alias dictate='cd nerd-dictation;./nerd-dictation begin --vosk-model-dir=./model &'
