@@ -1,6 +1,8 @@
 set fish_greeting
 set now date -u +%Y-%m-%dT%H-%M-%S%Z
 
+alias apptime='timeout --signal INT 1s time $argv'
+
 alias piprmall='pip freeze --user | xargs pip uninstall -y'
 alias rmpnpm='rm -rf $PNPM_HOME'
 
