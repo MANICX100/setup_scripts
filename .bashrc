@@ -97,10 +97,12 @@ yt-dlp -f 'bv*[height=360]+ba' https://www.youtube.com/playlist?list=PLJElTFmVZU
 alias img2txt='image2txt'
 alias mpv='mpv --ontop --force-window'
 alias audit='sudo lynis --forensics && pip-audit'
+
 alias rcview='sudo bat --paging=never --style=plain "/etc/profile.d/aliases.sh"'
 alias cls='clear'
 alias screenshot='gnome-screenshot -a'
-alias rc='sudo nano /etc/profile.d/aliases.sh'
+alias rc='nano ~/.bashrc'
+
 alias settings='gnome-control-center'
 alias visudo='sudo nano /etc/sudoers.d/dkendall'
 alias update-grub='sudo grub2-mkconfig -o /etc/grub2.cfg && sudo grub2-mkconfig -o /etc/grub2-efi.cfg'
