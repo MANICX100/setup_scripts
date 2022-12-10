@@ -3,11 +3,17 @@ set now date -u +%Y-%m-%dT%H-%M-%S%Z
 
 alias apptime='timeout --signal INT 1s time $argv'
 
-alias piprmall='pip freeze --user | xargs pip uninstall -y'
+alias rmpipall='pip freeze --user | xargs pip uninstall -y'
 alias rmpnpm='rm -rf $PNPM_HOME'
 
 alias fishpath='echo $fish_user_paths | tr " " "\n" | nl'
 alias nextdnsinstall='sh -c "$(curl -sL https://nextdns.io/install)"'
+
+function rmopt
+	rm /opt/$argv
+	rm /usr/local/bin/$argv
+	rm /usr/local/share/applications/$argv.desktop
+end
 
 function openperm
 	sudo chmod -R a+rwx $argv
