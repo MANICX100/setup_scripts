@@ -38,23 +38,16 @@ user_pref("layout.css.font-visibility.private", 1);
 user_pref("layout.css.font-visibility.trackingprotection", 1);
 
 /** DISK AVOIDANCE ***/
-user_pref("browser.cache.disk.enable", false);
 user_pref("browser.privatebrowsing.forceMediaMemoryCache", true);
 user_pref("media.memory_cache_max_size", 65536);
-user_pref("browser.sessionstore.privacy_level", 2);
 user_pref("browser.pagethumbnails.capturing_disabled", true);
 
 /** SHUTDOWN & SANITIZING ***/
 user_pref("privacy.history.custom", true);
 
 /** SPECULATIVE CONNECTIONS ***/
-user_pref("network.http.speculative-parallel-limit", 0);
-user_pref("network.dns.disablePrefetch", true);
 user_pref("browser.urlbar.speculativeConnect.enabled", false);
 user_pref("browser.places.speculativeConnect.enabled", false);
-user_pref("network.prefetch-next", false);
-user_pref("network.predictor.enabled", false);
-user_pref("network.predictor.enable-prefetch", false);
 
 /** SEARCH / URL BAR ***/
 user_pref("browser.search.separatePrivateDefault", true);
