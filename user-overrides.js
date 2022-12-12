@@ -38,7 +38,7 @@ user_pref("layout.css.font-visibility.private", 1);
 user_pref("layout.css.font-visibility.trackingprotection", 1);
 
 /** DISK AVOIDANCE ***/
-user_pref("browser.cache.disk.enable", true);
+user_pref("browser.cache.disk.enable", false);
 user_pref("browser.privatebrowsing.forceMediaMemoryCache", true);
 user_pref("media.memory_cache_max_size", 65536);
 user_pref("browser.sessionstore.privacy_level", 0);
