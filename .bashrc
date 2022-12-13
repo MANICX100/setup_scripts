@@ -91,7 +91,8 @@ yt-dlp -f 'ba' -x --audio-format mp3 $1
 
 yt() {
 cd "/home/dkendall/Videos/yt/"
-yt-dlp -f 'bv*[height=360]+ba' https://www.youtube.com/playlist?list=PLJElTFmVZU3vW-BIfsI2AmfVDL9PzqFmg
+yt-dlp -f 'bv*[ext=mp4]+ba[ext=m4a]/b[ext=mp4]' 'https://www.youtube.com/playlist?list=PLJElTFmVZU3vW-BIfsI2AmfVDL9PzqFmg'
+gohome
 }
 
 alias img2txt='image2txt'
