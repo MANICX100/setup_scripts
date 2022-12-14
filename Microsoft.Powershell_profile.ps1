@@ -375,7 +375,13 @@ Get-WMIObject Win32_SerialPort | Select-Object Name,DeviceID,Description
 }
 
 function up{
-schtasks /run /TN Topgrade
+gsudo topgrade
+}
+
+function winup {
+Install-Module -Name PSWindowsUpdate -Force
+Add-WUServiceManager -MicrosoftUpdate
+Install-WindowsUpdate -MicrosoftUpdate -AcceptAll -AutoReboot | Out-File "C:\($env.computername-Get-Date -f yyyy-MM-dd)-MSUpdates.log" -Force
 }
 
 function emptybin{
