@@ -1,3 +1,7 @@
+function visualperf {
+sysdm.cpl
+}
+
 function screensaver {
 control desk.cpl,,@screensaver
 }
