@@ -3,7 +3,11 @@ control desk.cpl,,@screensaver
 }
 
 function stripclip {
-
+ $text = Get-Clipboard
+ # Remove leading and trailing spaces from each line of the text
+ $text = $text | ForEach-Object { $_.Trim() }
+ # Save the modified text back to the clipboard
+ Set-Clipboard -Value $text
 }
 
 function audioToggle {
