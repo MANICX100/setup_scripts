@@ -1,3 +1,11 @@
+function screensaver {
+control desk.cpl,,@screensaver
+}
+
+function stripclip {
+
+}
+
 function audioToggle {
 sc stop Audiosrv
 sc start Audiosrv
