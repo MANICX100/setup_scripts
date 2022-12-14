@@ -381,7 +381,7 @@ gsudo topgrade
 function winup {
 Install-Module -Name PSWindowsUpdate -Force
 gsudo Add-WUServiceManager -MicrosoftUpdate
-gsudo Install-WindowsUpdate -MicrosoftUpdate -AcceptAll -AutoReboot | Out-File "C:\($env.computername-Get-Date -f yyyy-MM-dd)-MSUpdates.log" -Force
+gsudo Install-WindowsUpdate -MicrosoftUpdate -AcceptAll -AutoReboot
 }
 
 function emptybin{
