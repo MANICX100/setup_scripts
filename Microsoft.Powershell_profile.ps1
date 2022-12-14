@@ -3,7 +3,7 @@ sysdm.cpl
 }
 
 function screensaver {
-control desk.cpl,,@screensaver
+"control desk.cpl,,@screensaver" | cmd
 }
 
 function stripclip {
