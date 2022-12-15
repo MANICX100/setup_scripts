@@ -2,7 +2,7 @@
 assume_yes = true
 
 # Disable specific steps - same options as the command line flag
-disable = ["containers", "github_cli_extensions", "toolbx", "system", "emacs", "pip3", "powershell", "firmware", "gnome_shell_extensions"]
+disable = ["containers", "github_cli_extensions", "toolbx", "system", "emacs", "pip3", "powershell", "firmware", "gnome_shell_extensions", "dotnet", "wsl"]
 
 # Ignore failures for these steps
 #ignore_failures = ["powershell"]
