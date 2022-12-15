@@ -380,8 +380,8 @@ gsudo topgrade
 
 function winup {
 Install-Module -Name PSWindowsUpdate -Force
-gsudo Add-WUServiceManager -MicrosoftUpdate
-gsudo Install-WindowsUpdate -MicrosoftUpdate -AcceptAll -AutoReboot
+Add-WUServiceManager -MicrosoftUpdate
+Install-WindowsUpdate -MicrosoftUpdate -AcceptAll -AutoReboot
 }
 
 function emptybin{
