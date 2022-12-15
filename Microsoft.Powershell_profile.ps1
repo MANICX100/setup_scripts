@@ -1,4 +1,4 @@
-Import-Module PSWindowsUpdate
+#Import-Module PSWindowsUpdate
 
 function visualperf {
 sysdm.cpl
