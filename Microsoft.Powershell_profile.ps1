@@ -382,7 +382,7 @@ winup
 }
 
 function winup {
-gsudo Install-WindowsUpdate -MicrosoftUpdate -AcceptAll | Out-File "$env:USERPROFILE-$(Get-Date -f yyyy-MM-dd)-MSUpdates.log" -Force
+gsudo Install-WindowsUpdate -MicrosoftUpdate -AcceptAll | Out-File "$env:USERPROFILE-Get-Date -f yyyy-MM-dd)-MSUpdates.log" -Force
 }
 
 function emptybin{
