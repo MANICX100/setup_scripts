@@ -381,7 +381,6 @@ gsudo topgrade
 }
 
 function winup {
-Install-Module -Name PSWindowsUpdate -Force
 Add-WUServiceManager -MicrosoftUpdate
 Install-WindowsUpdate -MicrosoftUpdate -AcceptAll -AutoReboot
 }
