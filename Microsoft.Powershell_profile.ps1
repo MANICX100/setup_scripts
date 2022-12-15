@@ -1,5 +1,20 @@
 Import-Module PSWindowsUpdate
 
+function iis-restart {
+# Get a list of all application pools
+$appPools = Get-WebAppPool
+
+# Stop each application pool in the list
+foreach ($appPool in $appPools) {
+    Stop-WebAppPool -Name $appPool.Name
+}
+
+foreach ($appPool in $appPools) {
+    Start-WebAppPool -Name $appPool.Name
+}
+
+}
+
 function visualperf {
 sysdm.cpl
 }
