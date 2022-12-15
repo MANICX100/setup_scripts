@@ -382,7 +382,8 @@ winup
 }
 
 function winup {
-Install-WindowsUpdate -MicrosoftUpdate -AcceptAll | Out-File "$env:USERPROFILE/$(Get-Date -f yyyy-MM-dd)-MSUpdates.log" -Force
+start $env:onedriveconsumer/wua-all.vbs
+#Install-WindowsUpdate -MicrosoftUpdate -AcceptAll | Out-File "$env:USERPROFILE/$(Get-Date -f yyyy-MM-dd)-MSUpdates.log" -Force
 }
 
 function emptybin{
