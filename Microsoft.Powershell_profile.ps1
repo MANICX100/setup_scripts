@@ -378,10 +378,11 @@ Get-WMIObject Win32_SerialPort | Select-Object Name,DeviceID,Description
 
 function up{
 gsudo topgrade
+winup
 }
 
 function winup {
-gsudo Install-WindowsUpdate -MicrosoftUpdate -AcceptAll | Out-File "$env:USERPROFILE-$(Get-Date -f yyyy-MM-dd)-MSUpdates.log" -Forceates.log" -Force
+gsudo Install-WindowsUpdate -MicrosoftUpdate -AcceptAll | Out-File "$env:USERPROFILE-$(Get-Date -f yyyy-MM-dd)-MSUpdates.log" -Force
 }
 
 function emptybin{
