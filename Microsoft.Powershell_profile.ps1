@@ -381,8 +381,8 @@ gsudo topgrade
 }
 
 function winup {
-Add-WUServiceManager -MicrosoftUpdate
-Install-WindowsUpdate -MicrosoftUpdate -AcceptAll -AutoReboot
+Write-Output Y | Add-WUServiceManager -MicrosoftUpdate
+Install-WindowsUpdate -MicrosoftUpdate -AcceptAll -AutoReboot | Out-File "C:\($env.computername-Get-Date -f yyyy-MM-dd)-MSUpdates.log" -Force
 }
 
 function emptybin{
