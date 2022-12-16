@@ -65,6 +65,13 @@ burnin-srt() {
   ffmpeg -i "$1" -vf subtitles="$2" -preset ultrafast "$base-srt.$extension"
   }
 
+speedupvid() {
+filename=$(basename "$1")
+  extension="${filename##*.}"
+  base="${filename%.*}"
+  ffmpeg -i "$1" -filter_complex "[0:v]setpts=1/$2*PTS[v];[0:a]rubberband=tempo=$2[a]" -map "[v]" -map "[a]" -preset ultrafast "$base-speed.$extension"
+}
+
 ffup() {
 /home/dkendall/.mozilla/firefox/oewuk6x8.default-release/updater.sh
 /home/dkendall/.pulse-browser/ahfzm1ye.default-alpha-1/updater.sh
@@ -72,13 +79,6 @@ ffup() {
 }
 
 alias netstat='ss -t -r state established'
-
-speedupvid() {
-filename=$(basename "$1")
-  extension="${filename##*.}"
-  base="${filename%.*}"
-  ffmpeg -i "$1" -filter_complex "[0:v]setpts=1/$2*PTS[v];[0:a]rubberband=tempo=$2[a]" -map "[v]" -map "[a]" -preset ultrafast "$base-speed.$extension"
-}
 
 image2txt() {
 read -l -P 'Please provide the file path for the image
