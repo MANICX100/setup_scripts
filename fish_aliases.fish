@@ -3,7 +3,8 @@ set now date -u +%Y-%m-%dT%H-%M-%S%Z
 
 function burnin-srt
 	set filename basename "$argv[1]"
-	ffmpeg -i "$argv[1]" -vf subtitles="$argv[2]" -preset ultrafast "$filename-srt.mkv"
+	set base $filename
+	ffmpeg -i "$argv[1]" -vf subtitles="$argv[2]" -preset ultrafast "$base-srt.mkv"
 end
 
 function speedupvid
