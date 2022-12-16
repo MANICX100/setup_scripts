@@ -62,7 +62,7 @@ burnin-srt() {
  filename=$(basename "$argv[1]")
   extension="${filename##*.}"
   base="${filename%.*}"
-  ffmpeg -i "$1 -vf subtitles="$2" -preset ultrafast "$base-srt.$extension"
+  ffmpeg -i "$1" -vf subtitles="$2" -preset ultrafast "$base-srt.$extension"
   }
 
 ffup() {
