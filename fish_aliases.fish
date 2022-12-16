@@ -3,16 +3,12 @@ set now date -u +%Y-%m-%dT%H-%M-%S%Z
 
 function burnin-srt
 	set filename basename "$argv[1]"
-	set extension filename##*.
-	set base filename%.*
-	ffmpeg -i "$argv[1]" -vf subtitles="$argv[2]" -preset ultrafast "$base-srt.$extension"
+	ffmpeg -i "$argv[1]" -vf subtitles="$argv[2]" -preset ultrafast "$filename-srt.mkv"
 end
 
 function speedupvid
 	set filename basename "$argv[1]"
-	set extension filename##*.
-	set base filename%.*
-	ffmpeg -i "$argv[1]" -filter_complex "[0:v]setpts=1/$argv[2]*PTS[v];[0:a]rubberband=tempo=$argv[2][a]" -map "[v]" -map "[a]" -preset ultrafast "$base-speed.$extension"
+	ffmpeg -i "$argv[1]" -filter_complex "[0:v]setpts=1/$argv[2]*PTS[v];[0:a]rubberband=tempo=$argv[2][a]" -map "[v]" -map "[a]" -preset ultrafast "$filename-speed.mkv"
 end
 
 alias apptime='timeout --signal INT 1s time $argv'
