@@ -58,9 +58,12 @@ ffmpeg -i $1 \
        $($now)-output.mkv
 }
 
-ffmpeg-burnin-srt() {
-ffmpeg -i $1 -vf subtitles=$2 -preset ultrafast -preset ultrafast $($now)-output.mkv
-}
+burnin-srt() {
+ filename=$(basename "$argv[1]")
+  extension="${filename##*.}"
+  base="${filename%.*}"
+  ffmpeg -i "$1 -vf subtitles="$2" -preset ultrafast "$base-srt.$extension"
+  }
 
 ffup() {
 /home/dkendall/.mozilla/firefox/oewuk6x8.default-release/updater.sh
@@ -71,7 +74,10 @@ ffup() {
 alias netstat='ss -t -r state established'
 
 speedupvid() {
-ffmpeg -i $1 -filter_complex "[0:v]setpts=1/$2*PTS[v];[0:a]rubberband=tempo=$2[a]" -map "[v]" -map "[a]" -preset ultrafast $($now)-output.mkv
+filename=$(basename "$1")
+  extension="${filename##*.}"
+  base="${filename%.*}"
+  ffmpeg -i "$1" -filter_complex "[0:v]setpts=1/$2*PTS[v];[0:a]rubberband=tempo=$2[a]" -map "[v]" -map "[a]" -preset ultrafast "$base-speed.$extension"
 }
 
 image2txt() {
