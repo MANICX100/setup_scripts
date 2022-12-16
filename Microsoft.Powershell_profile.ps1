@@ -110,8 +110,18 @@ function yt-dlp-trim {
 yt-dlp -f "[protocol!*=dash]" --external-downloader ffmpeg --external-downloader-args "ffmpeg_i:-ss $args[1] -to $args[2]" $args[0]
 }
 
-function ffmpeg-burnin-srt {
-ffmpeg -i $args[0] -vf subtitles=$args[1] -preset ultrafast output-$(Get-Date -UFormat "%Y-%m-%d_%H-%m-%S").mkv
+function burnin-srt {
+$inputFile = $args[0]
+$srtFile = $args[1]
+$outputFile = "$($inputFile.BaseName)-srt$($inputFile.Extension)"
+ffmpeg -i $inputFile -vf subtitles=$srtFile -preset ultrafast $outputFile
+}
+
+function speedupvid {
+$inputFile = $args[0]
+$speed = $args[1]
+$outputFile = "$($inputFile.BaseName)-speed$($inputFile.Extension)"
+ffmpeg -i $inputFile -filter_complex "[0:v]setpts=1/$speed*PTS[v];[0:a]rubberband=tempo=$speed[a]" -map "[v]" -map "[a]" -preset ultrafast $outputFile
 }
 
 function delete {
@@ -367,10 +377,6 @@ start-process shell:sendto
 
 function netw{ncpa.cpl}
 function cat{bat --paging=never --style=plain $1}
-
-function speedupvid{
-ffmpeg -i $args[0] -filter_complex "[0:v]setpts=1/$args[1]*PTS[v];[0:a]rubberband=tempo=$args[1][a]" -map "[v]" -map "[a]" -preset ultrafast $(Get-Date -UFormat "%Y-%m-%d_%H-%m-%S")-output.mkv
-}
 
 function comlist {
 Get-WMIObject Win32_SerialPort | Select-Object Name,DeviceID,Description
