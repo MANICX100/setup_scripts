@@ -1,6 +1,20 @@
 set fish_greeting
 set now date -u +%Y-%m-%dT%H-%M-%S%Z
 
+function burnin-srt
+  filename=$(basename "$argv[1]")
+  extension="${filename##*.}"
+  base="${filename%.*}"
+  ffmpeg -i "$argv[1]" -vf subtitles="$argv[2]" -preset ultrafast "$base-srt.$extension"
+end
+
+function speedupvid
+  filename=$(basename "$argv[1]")
+  extension="${filename##*.}"
+  base="${filename%.*}"
+  ffmpeg -i "$argv[1]" -filter_complex "[0:v]setpts=1/$argv[2]*PTS[v];[0:a]rubberband=tempo=$argv[2][a]" -map "[v]" -map "[a]" -preset ultrafast "$base-speed.$extension"
+end
+
 alias apptime='timeout --signal INT 1s time $argv'
 
 alias rmpipall='pip freeze --user | xargs pip uninstall -y'
@@ -53,14 +67,6 @@ function ffsrtspeed
        -preset ultrafast \
        $($now)-output.mkv
 end 
-
-function ffmpeg-burnin-srt
-	ffmpeg -i $argv[1] -vf subtitles=$argv[2] -preset ultrafast $($now)-output.mkv
-end
-
-function speedupvid
-	  ffmpeg -i $argv[1] -filter_complex "[0:v]setpts=1/$argv[2]*PTS[v];[0:a]rubberband=tempo=$argv[2][a]" -map "[v]" -map "[a]" -preset ultrafast $($now)-output.mkv
-end
 
 function image2txt
 	read -l -P 'Please provide the file path for the image
