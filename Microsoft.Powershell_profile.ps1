@@ -245,22 +245,27 @@ function gcom
 	git add .
 	git commit -m "$args"
 }
+
 function lazyg
 {
 	git add .
 	git commit -m "$args"
 	git push
 }
+
 Function Get-PubIP {
  (Invoke-WebRequest http://ifconfig.me/ip ).Content
 }
+
 function uptime {
         Get-WmiObject win32_operatingsystem | Select-Object csname, @{LABEL='LastBootUpTime';
         EXPRESSION={$_.ConverttoDateTime($_.lastbootuptime)}}
 }
-function reload-profile {
+
+function source {
         & $profile
 }
+
 function find-file($name) {
         Get-ChildItem -recurse -filter "*${name}*" -ErrorAction SilentlyContinue | ForEach-Object {
                 $place_path = $_.directory
