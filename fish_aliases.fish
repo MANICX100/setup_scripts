@@ -1,6 +1,9 @@
 set fish_greeting
 set now date -u +%Y-%m-%dT%H-%M-%S%Z
 
+alias chkdsk='fsck'
+alias Get-Volume='sudo lsblk -o NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL'
+
 function burnin-srt
 	set filename (basename "$argv[1]")  # get the full file name
 	set base (echo $filename | sed 's/\.[^.]*$//')  # get the file name without the extension
