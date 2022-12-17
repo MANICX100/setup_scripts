@@ -1,6 +1,9 @@
 set fish_greeting
 set now date -u +%Y-%m-%dT%H-%M-%S%Z
 
+alias startplex='sudo systemctl start plexmediaserver'
+alias stopplex='sudo systemctl stop plexmediaserver'
+
 alias chkdsk='fsck'
 alias Get-Volume='sudo lsblk -o NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL'
 
