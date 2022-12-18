@@ -2,7 +2,7 @@ set fish_greeting
 set now date -u +%Y-%m-%dT%H-%M-%S%Z
 
 function serv
-	sudo redbean -C ca.crt -K ca.key -p 80 -p 443 -D $argv
+	sudo redbean -C /usr/local/bin/ca.crt -K /usr/local/bin/ca.key -p 80 -p 443 -D $argv
 end
 
 alias startplex='sudo systemctl start plexmediaserver'
