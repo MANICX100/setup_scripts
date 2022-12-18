@@ -1,7 +1,7 @@
 set fish_greeting
 set now date -u +%Y-%m-%dT%H-%M-%S%Z
 
-function redbean
+function serv
 	sudo redbean -C ca.crt -K ca.key -p 80 -p 443 -D $argv
 end
 
