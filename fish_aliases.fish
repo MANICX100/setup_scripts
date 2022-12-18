@@ -1,6 +1,10 @@
 set fish_greeting
 set now date -u +%Y-%m-%dT%H-%M-%S%Z
 
+function redbean
+	sudo redbean -C ca.crt -K ca.key -p 80 -p 443 -D $argv
+end
+
 alias startplex='sudo systemctl start plexmediaserver'
 alias stopplex='sudo systemctl stop plexmediaserver'
 
@@ -213,7 +217,8 @@ alias gohome='cd "$HOME"'
 
 alias changejava='sudo alternatives --config java'
 
-alias addapp='sudo xdg-open /usr/local/bin'
+alias addapp='xdg-open /usr/local/bin'
+
 alias shut='sudo systemctl suspend'
 
 alias logoff='sudo service sddm restart'
