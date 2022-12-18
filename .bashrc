@@ -10,8 +10,8 @@ alias stopplex='sudo systemctl stop plexmediaserver'
 alias chkdsk='fsck'
 alias Get-Volume='sudo lsblk -o NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL'
 
-redbean(){
-sudo redbean -C ca.crt -K ca.key -p 80 -p 443 -D $1
+serv(){
+sudo redbean -C /usr/local/bin/ca.crt -K /usr/local/bin/ca.key -p 80 -p 443 -D $1
 }
 
 rmopt() {
