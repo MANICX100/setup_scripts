@@ -190,7 +190,7 @@ alias shareusb='/bin/eveusbc share 12345 1-9.1'
 
 execdircmd () {   cd $("dirname" "$1") ; $2 "$1"; cd "$HOME" ;  }
 
-macos() { cd "/home/dkendall/quickgui" ; ./quickgui; cd "$HOME" ; }
+macos() { cd "$HOME/macOS-Simple-KVM/" ; ./basic.sh; cd "$HOME" ;}
 
 alias openall='xdg-open *'
 alias flatten="find ./ -mindepth 2 -type f -exec mv -i '{}' . \;"
