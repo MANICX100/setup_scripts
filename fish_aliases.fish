@@ -240,7 +240,7 @@ function subs
 end
 
 function macos
-	cd "/home/dkendall/quickgui" ; ./quickgui; cd "$HOME" ;
+	cd "$HOME/macOS-Simple-KVM/" ; ./basic.sh; cd "$HOME" ;
 end
 
 function yt
