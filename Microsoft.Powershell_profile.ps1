@@ -95,10 +95,12 @@ param(
 
 function dkqpulse {
 az vm start --ids "/subscriptions/6ee31983-6836-4bab-86bc-11f1c526291e/resourceGroups/RD-PLAY-NE-01/providers/Microsoft.Compute/virtualMachines/DKQPulseServer"
+az vm start --ids "/subscriptions/6ee31983-6836-4bab-86bc-11f1c526291e/resourceGroups/RD-PLAY-NE-01/providers/Microsoft.Network/networkInterfaces/dk-headless326_z1"
 }
 
 function dkqpulsestop {
 az vm deallocate --ids "/subscriptions/6ee31983-6836-4bab-86bc-11f1c526291e/resourceGroups/RD-PLAY-NE-01/providers/Microsoft.Compute/virtualMachines/DKQPulseServer"
+az vm deallocate --ids "/subscriptions/6ee31983-6836-4bab-86bc-11f1c526291e/resourceGroups/RD-PLAY-NE-01/providers/Microsoft.Network/networkInterfaces/dk-headless326_z1"
 }
 
 function piprmall {
