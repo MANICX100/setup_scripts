@@ -8,13 +8,7 @@ Start-Process pwsh -ArgumentList "-noexit", "-noprofile", "-command &{cd 'master
 }
 
 function non-relational {
-Start-Process pwsh -ArgumentList "-noexit", "-noprofile", "-command &{cd 'non-relational\whatTodoUI\';pnpm run dev}"
+Start-Process pwsh -ArgumentList "-noexit", "-noprofile", "-command &{pnpm run dev}"
 }
 
-$input = Read-Host "Which version of whatTodo do you want to run? master default"
-
-if ($input -eq "non-relational") {
-    non-relational
-} else {
-    master
-}
+non-relational
