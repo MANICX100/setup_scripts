@@ -6,7 +6,7 @@ Start-Process pwsh -ArgumentList "-noexit", "-noprofile", "-command &{cd 'master
 }
 
 function non-relational {
-Start-Process pwsh -ArgumentList "-noexit", "-noprofile", "-command &{cd $env:USERPROFILE/whatTodoUI;pnpm run dev}"
+Start-Process pwsh -ArgumentList "-noexit", "-noprofile", "-command &{cd $env:USERPROFILE/whatTodoUI/whatTodoUI;pnpm run dev}"
 }
 
 non-relational
