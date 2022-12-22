@@ -194,7 +194,7 @@ function uefi
 	end
 end
 
-alias playtvmpv='mpv /home/dkendall/Videos/TV/Personal'
+alias playtv='smplayer /home/dkendall/Videos/TV/Personal'
 alias emptybin='sudo rm -rf ~/.local/share/Trash/'
 
 alias delrecent='sudo rm ~/.local/share/recently-used.xbel && sudo touch ~/.local/share/recently-used.xbel'
