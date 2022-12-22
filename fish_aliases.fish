@@ -2,7 +2,7 @@ set fish_greeting
 set now date -u +%Y-%m-%dT%H-%M-%S%Z
 
 alias linuxservices='systemctl list-unit-files --type=service --state=enabled'
-alias macosservices'sudo launchctl list'
+alias macosservices='sudo launchctl list'
 
 function serv
 	sudo redbean -C /usr/local/bin/ca.crt -K /usr/local/bin/ca.key -p 80 -p 443 -D $argv
