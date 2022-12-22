@@ -1,3 +1,7 @@
+function playtv {
+smplayer $env:USERPROFILE/Videos/TV/Personal
+}
+
 function visualperf {
 sysdm.cpl
 }
