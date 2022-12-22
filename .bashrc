@@ -169,7 +169,7 @@ alias inst='sudo dnf install'
 alias up='topgrade'
 alias remove='sudo dnf autoremove'
 
-alias playtvmpv='mpv /home/dkendall/Videos/TV/Personal'
+alias playtv='smplayer /home/dkendall/Videos/TV/Personal'
 alias emptybin='sudo rm -rf ~/.local/share/Trash/'
 
 deltv () {
