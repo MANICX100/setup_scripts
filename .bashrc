@@ -7,6 +7,9 @@ alias rmpnpm='rm -rf -v $PNPM_HOME'
 alias startplex='sudo systemctl start plexmediaserver'
 alias stopplex='sudo systemctl stop plexmediaserver'
 
+alias linuxservices='systemctl list-unit-files --type=service --state=enabled'
+alias macosservices'sudo launchctl list'
+
 alias chkdsk='fsck'
 alias Get-Volume='sudo lsblk -o NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL'
 
