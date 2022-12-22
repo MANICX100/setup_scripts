@@ -1,5 +1,3 @@
-#Import-Module PSWindowsUpdate
-
 function visualperf {
 sysdm.cpl
 }
@@ -530,10 +528,11 @@ function cleanup {
 scoop cache rm *
 }
 
-#clean doesn't work
-#ffsrtspeed didnt work
-
-#Set-Alias -Name clean -Value cleanup
 Set-Alias -Name bak -Value backup
 Set-Alias -Name rm -Value delete
+Set-Alias -Name pfetch -Value macchina
+
 #Set-Alias -Name Powershell -Value pwsh
+#Set-Alias -Name clean -Value cleanup
+#clean doesn't work
+#ffsrtspeed didnt work
