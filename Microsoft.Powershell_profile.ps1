@@ -1,3 +1,5 @@
+alias fwoff='gsudo Set-NetFirewallProfile -Profile Domain,Private,Public -Enabled False'
+
 function playtv {
 smplayer $env:USERPROFILE/Videos/TV/Personal
 }
