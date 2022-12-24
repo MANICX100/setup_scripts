@@ -184,7 +184,7 @@ alias delrecent='sudo rm ~/.local/share/recently-used.xbel && sudo touch ~/.loca
 
 alias del='sudo rm -rf -v -I'
 
-alias syncfolders='rsync -progress -avh --ignore-existing /home/dkendall/ /run/media/dkendall/exFAT/ --delete'
+alias syncfolders='rsync -avh --ignore-existing --exclude ".*" --delete --progress /home/dkendall/ /run/media/dkendall/exFAT/'
 
 subs() {   "$HOME/OneDrive/OpenSubtitlesDownload.py" --cli --auto --username MANICX100 --password 5z6!!Evd "$1";    }
 
