@@ -365,6 +365,10 @@ function rcupdate {
 wget --no-cache -O $profile "https://github.com/MANICX100/setup_scripts/raw/main/Microsoft.Powershell_profile.ps1"
 }
 
+function tgupdate {
+wget --no-cache -O $env:APPDATA/topgrade.toml "https://github.com/MANICX100/setup_scripts/raw/main/topgrade.toml"
+}
+
 function repairwindows {
 chkdsk c: /F /R
 DISM.exe /Online /Cleanup-image /Restorehealth
