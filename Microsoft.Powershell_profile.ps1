@@ -403,7 +403,6 @@ Get-WMIObject Win32_SerialPort | Select-Object Name,DeviceID,Description
 
 function up{
 gsudo topgrade
-winup
 }
 
 function winup {
