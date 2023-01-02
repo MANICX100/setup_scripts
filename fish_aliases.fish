@@ -142,9 +142,9 @@ set -g osinfo (rg -ioP '^ID=\K.+' /etc/os-release)
 
 neofetch > ~/.cache/neofetch
 alias pfetch='bat --paging=never --style=plain ~/.cache/neofetch'
-sed -i 's/6500/6900/g' ~/.cache/neofetch
-sed -i 's/6400/6800/g' ~/.cache/neofetch
-sed -i 's/3.400/5.500/g' ~/.cache/neofetch
+sed -i 's/65/69/g' ~/.cache/neofetch
+sed -i 's/64/68/g' ~/.cache/neofetch
+sed -i 's/5.2/5.5/g' ~/.cache/neofetch
 
 alias up='topgrade;pkcon update'
 alias instrpm='sudo rpm -ivh --force'
