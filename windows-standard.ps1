@@ -8,6 +8,8 @@ scoop bucket add versions
 
 scoop install gsudo sumatrapdf smplayer topgrade irfanview fd ripgrep gawk bat wget time notepad3 gdu ffmpeg gifski screentogif greenshot yt-dlp vscode pwsh lockhunter autohotkey
 
+scoop install https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/oh-my-posh.json
+
 #next steps
 Write-Host "Remember to download graphics drivers"
 Write-Host "Press Enter to continue"
