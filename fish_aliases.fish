@@ -155,7 +155,7 @@ function remove
 	switch $osinfo
 	    case fedora
 			sudo dnf remove $argv
-	    case arch
+	    case rebornos
 			paru -Rns $argv
 	    case debian
 			sudo nala autoremove $argv
@@ -169,7 +169,7 @@ function clean
 	    case fedora
 			sudo dnf clean all
 			flatpak uninstall --unused
-	    case arch
+	    case rebornos
 			paru -Yc
 			flatpak uninstall --unused
 	    case debian
@@ -184,7 +184,7 @@ function uefi
 	switch $osinfo
 	    case fedora
 			systemctl reboot --firmware-setup
-	    case arch
+	    case rebornos
 			systemctl reboot --firmware-setup
 	    case debian
 			systemctl reboot --firmware-setup
