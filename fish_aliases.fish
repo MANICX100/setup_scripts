@@ -289,6 +289,3 @@ function gitIgnoreRm
 	git add .
 	git commit -m "Update .gitignore"
 end
-
-starship init fish | source
-pyenv init - | source
