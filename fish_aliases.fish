@@ -143,7 +143,6 @@ alias edit-grub='sudo nano /etc/default/grub'
 
 function rcupdate
 	wget --no-cache -O ~/.config/fish/config.fish https://github.com/MANICX100/setup_scripts/raw/main/fish_aliases.fish
-	sudo wget --no-cache -O ~/.config/fish/config.fish https://github.com/MANICX100/setup_scripts/raw/main/fish_aliases.fish
 end
 
 set -g osinfo (rg -ioP '^ID=\K.+' /etc/os-release)
