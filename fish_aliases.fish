@@ -4,6 +4,8 @@ set now date -u +%Y-%m-%dT%H-%M-%S%Z
 alias linuxservices='systemctl list-unit-files --type=service --state=enabled'
 alias macosservices='sudo launchctl list'
 
+alias sudo='sudo '
+
 function tgupgrade
 	wget --no-cache -O ~/.config/topgrade.toml "https://github.com/MANICX100/setup_scripts/raw/main/topgrade.toml"
 end
