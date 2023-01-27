@@ -4,8 +4,6 @@ set now date -u +%Y-%m-%dT%H-%M-%S%Z
 alias linuxservices='systemctl list-unit-files --type=service --state=enabled'
 alias macosservices='sudo launchctl list'
 
-alias sudo='sudo '
-
 function tgupgrade
 	wget --no-cache -O ~/.config/topgrade.toml "https://github.com/MANICX100/setup_scripts/raw/main/topgrade.toml"
 end
@@ -142,7 +140,11 @@ alias settings='gnome-control-center'
 alias visudo='sudo nano /etc/sudoers.d/dkendall'
 alias update-grub='sudo grub2-mkconfig -o /etc/grub2.cfg && sudo grub2-mkconfig -o /etc/grub2-efi.cfg'
 alias edit-grub='sudo nano /etc/default/grub'
-alias rcupdate='wget --no-cache -O ~/.config/fish/config.fish https://github.com/MANICX100/setup_scripts/raw/main/fish_aliases.fish'
+
+function rcupdate
+	wget --no-cache -O ~/.config/fish/config.fish https://github.com/MANICX100/setup_scripts/raw/main/fish_aliases.fish
+	sudo wget --no-cache -O ~/.config/fish/config.fish https://github.com/MANICX100/setup_scripts/raw/main/fish_aliases.fish
+end
 
 set -g osinfo (rg -ioP '^ID=\K.+' /etc/os-release)
 
