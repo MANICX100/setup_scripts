@@ -30,7 +30,7 @@ function speedupvid
 	set filename (basename "$argv[1]")  # get the full file name
 	set extension (echo $filename | sed 's/^.*\.//')  # get the extension
 	set base (echo $filename | sed 's/\.[^.]*$//')  # get the file name without the extension
-	ffmpeg -i "$argv[1]" -filter_complex "[0:v]setpts=1/$argv[2]*PTS[v];[0:a]rubberband=tempo=$argv[2][a]" -map "[v]" -map "[a]" -c:v libx264 -preset ultrafast -threads 1 "$base-speed.mkv"
+	ffmpeg -i "$argv[1]" -filter_complex "[0:v]setpts=1/$argv[2]*PTS[v];[0:a]rubberband=tempo=$argv[2][a]" -map "[v]" -map "[a]" -c:v libopenh264 -preset ultrafast -threads 1 "$base-speed.mkv"
 end
 
 alias apptime='timeout --signal INT 1s time $argv'
