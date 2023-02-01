@@ -315,9 +315,6 @@ function pgrep($name) {
         Get-Process $name
 }
 
-## Final Line to set prompt
-oh-my-posh --init --shell pwsh --config ~/jandedobbeleer.omp.json | Invoke-Expression
-
 # Import the Chocolatey Profile that contains the necessary code to enable
 # tab-completions to function for `choco`.
 $ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
