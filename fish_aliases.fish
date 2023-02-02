@@ -14,8 +14,7 @@ function serv
 	sudo redbean -C /usr/local/bin/ca.crt -K /usr/local/bin/ca.key -p 80 -p 443 -D $argv
 end
 
-alias startplex='sudo systemctl start plexmediaserver'
-alias stopplex='sudo systemctl stop plexmediaserver'
+alias rpmall='sudo rpm -Uvh *'
 
 alias chkdsk='fsck'
 alias Get-Volume='sudo lsblk -o NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL'
