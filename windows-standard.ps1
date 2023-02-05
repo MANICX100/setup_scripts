@@ -2,13 +2,8 @@
 Invoke-RestMethod get.scoop.sh | Invoke-Expression
 scoop install git
 scoop bucket add extras
-scoop bucket add nirsoft
-scoop bucket add java
-scoop bucket add versions
 
-scoop install gsudo sumatrapdf smplayer topgrade irfanview fd ripgrep gawk bat wget time notepad3 gdu ffmpeg gifski screentogif greenshot yt-dlp vscode pwsh lockhunter autohotkey
-
-scoop install https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/oh-my-posh.json
+scoop install gsudo sumatrapdf smplayer topgrade irfanview fd ripgrep gawk bat wget time notepad3 gdu ffmpeg gifski screentogif greenshot yt-dlp pwsh lockhunter autohotkey
 
 #next steps
 Write-Host "Remember to download graphics drivers"
