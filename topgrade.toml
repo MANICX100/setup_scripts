@@ -102,3 +102,4 @@ upgrade = true
 #use_sudo = true
 
 skip_notify = true
+display_preamble = false
