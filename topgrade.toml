@@ -1,8 +1,10 @@
+display_preamble = false
+
 # Don't ask for confirmations
 assume_yes = true
 
 # Disable specific steps - same options as the command line flag
-disable = ["system", "emacs"]
+disable = ["system", "emacs", "wsl"]
 
 # Ignore failures for these steps
 #ignore_failures = ["powershell"]
