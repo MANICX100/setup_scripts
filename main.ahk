@@ -1,113 +1,46 @@
-SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
-SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
-DetectHiddenWindows, On
-SetTitleMatchMode 2
+SendMode("Input")
+SetWorkingDir(A_ScriptDir)
+DetectHiddenWindows(true)
+SetTitleMatchMode(2)
 #WinActivateForce
-#Persistent
-
-Pause
+Persistent
 
 ;Hotkeys
 ;# win
 ;! alt
 ;^ ctrl
 
+Home::Reload()
 
-;#v::
-  ;Run Ditto /Open
-;Return
-
-Home::Reload
-
-WinMinimize
 ToggleWinMinimize(TheWindowTitle)
 {
-SetTitleMatchMode,2
-DetectHiddenWindows, Off
-IfWinActive, %TheWindowTitle%
+SetTitleMatchMode(2)
+DetectHiddenWindows(false)
+if WinActive(TheWindowTitle)
 {
-WinHide, %TheWindowTitle%
+WinHide(TheWindowTitle)
 }
 Else
 {
-WinShow, %TheWindowTitle%
+WinShow(TheWindowTitle)
 }
 Return
 }
-ToggleWinMinimize("Edge")
-Pause
 
 ^!W::ToggleWinMinimize("Edge")
 
-^!P::
-Pause
-return
+^!N::Run("`"Notepad3.exe`"")
 
-OnClipboardChange:
-    if(A_IsPaused) {
-        return
-    }
-	result :=  RegExReplace(Clipboard,"\[(.*?)\]")
-	if result
-		Clipboard := result
-	return
+^!S::Shutdown(5)
 
-	
-;`::
-;Send {# d}
-;#e::run dopus
+^!R::Shutdown(6)
+
+#F5::Run("narrator.exe")
+#F4::A_Clipboard := WinGetClass("A")
 
 #e::
-Run %USERPROFILE%\Documents
+{ ; V1toV2: Added bracket
+USERPROFILE := EnvGet("USERPROFILE")
+Run(USERPROFILE "\Documents")
 return
-
-
-^!N::Run "Notepad3.exe"
-
-
-;Sleep, shutdown, hibernate
-
-;^!S::DllCall("PowrProf\SetSuspendState", "Int", 0, "Int", 1, "Int", 1)
-^!S::Shutdown, 5
-;^!S::DllCall("PowrProf\SetSuspendState", "int", 1, "int", 1, "int", 1)
-
-^!R::Shutdown, 6
-
-;`::^v
-
-;#i::Run, control
-
-#F5::Run, narrator.exe
-#F4::WinGetClass, Clipboard, A
-;escape::!F4
-
-;#c::run %USERPROFILE%\Documents\AHK\x11.ahk"
-
-;Tab::
-;Send {`` down}
-;Send {`` up}
-
-#IfWinActive ahk_exe Tabby.exe
-^L::
-Send cls{Enter}
-return
-
-#IfWinActive
-
-#if !WinActive("Program Manager ahk_class Progman ahk_exe explorer.exe")
-^!D::
-{
-	WinGetActiveStats, title, w, h, x, y
-
-	WinActivate, Program Manager ahk_class Progman ahk_exe explorer.exe
-	Send {f5}
-
-	WinActivate, %title%
-	return
-}
-
-#ifWinActive Program Manager ahk_class Progman ahk_exe explorer.exe
-~^!D::return
-#if 
-
-WinWait, ahk_exe WDADesktopService.exe WinGet, id, id, ahk_exe WDADesktopService.exe WinSet, ExStyle, ^0x80, ahk_id %id% return
+} ; V1toV2: Added bracket in the end
