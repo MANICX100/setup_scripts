@@ -6,6 +6,15 @@ alias macosservices='sudo launchctl list'
 
 alias jellyfin='/opt/jellyfin/jellyfin'
 
+function unhide_files
+    set files (ls -A)
+    for file in $files
+        if test -f $file -a -name ".*" -a (string match -q ".*~" $file) 
+            mv $file (string replace -r '^\.\/' '' $file)
+        end
+    end
+end
+
 function tgupdate
 	wget --no-cache -O ~/.config/topgrade.toml "https://github.com/MANICX100/setup_scripts/raw/main/topgrade.toml"
 end
@@ -56,6 +65,10 @@ end
 
 function rmspecial
 	find . -type f -exec bash -c 'mv "$1" "${1//[^[:alnum:].-]/}"' _ {} \;
+end
+
+function hide_files
+	rmspecial
 end
 
 function dictate
