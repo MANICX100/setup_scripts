@@ -10,7 +10,7 @@ function unhide_files
     set files (ls -A)
     for file in $files
         if test -f $file -o -d $file; and string match -q ".*" $file
-            set new_file (echo $file | sed 's/^\.//')
+            set new_file (echo $file | sed 's/^\.\{1\}//')
             mv $file $new_file
         end
     end
