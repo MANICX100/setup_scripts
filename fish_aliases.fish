@@ -6,9 +6,11 @@ alias macosservices='sudo launchctl list'
 
 alias jellyfin='/opt/jellyfin/jellyfin'
 
-function convert_mkv_to_h264
-    for file in *.mkv
-        ffmpeg -i $file -c:v libx264 -preset ultrafast -c:a aac -b:a 192k (basename $file .mkv).mp4
+function convertmkv
+    for f in *.mkv
+        if test -f "$f"
+            bash -c 'ffmpeg -i "$0" -c:v libx264 -preset ultrafast -crf 23 -c:a aac -b:a 192k "${0%.mkv}.mp4"' "$f"
+        end
     end
 end
 
