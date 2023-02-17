@@ -9,7 +9,7 @@ alias jellyfin='/opt/jellyfin/jellyfin'
 function unhide_files
     set files (ls -A)
     for file in $files
-        if test -f $file -a -name ".*" -a (string match -q ".*~" $file) 
+        if test -f $file -a -name ".*" -a ! (string match -q ".*~" $file) 
             mv $file (string replace -r '^\.\/' '' $file)
         end
     end
