@@ -8,7 +8,7 @@ alias jellyfin='/opt/jellyfin/jellyfin'
 
 function convert_mkv_to_h264
     for file in *.mkv
-        ffmpeg -i $file -c:v libx264 -preset ultrafast -c:a aac -b:a 192k ${file%.*}.mp4
+        ffmpeg -i $file -c:v libx264 -preset ultrafast -c:a aac -b:a 192k (basename $file .mkv).mp4
     end
 end
 
