@@ -10,6 +10,9 @@ function unhide_files
     bash -c 'for file in .*; do mv "$file" "${file#.}"; done'
 end
 
+function hide_files
+    bash -c 'for file in *; do [[ -f $file ]] && mv "$file" ".$file"; done'
+end
 
 function tgupdate
 	wget --no-cache -O ~/.config/topgrade.toml "https://github.com/MANICX100/setup_scripts/raw/main/topgrade.toml"
@@ -61,10 +64,7 @@ end
 
 function rmspecial
 	find . -type f -exec bash -c 'mv "$1" "${1//[^[:alnum:].-]/}"' _ {} \;
-end
-
-function hide_files
-	rmspecial
+	unhide_files
 end
 
 function dictate
