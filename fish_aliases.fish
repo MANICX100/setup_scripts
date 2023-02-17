@@ -7,11 +7,13 @@ alias macosservices='sudo launchctl list'
 alias jellyfin='/opt/jellyfin/jellyfin'
 
 function unhide_files
-    set files (ls -A)
-    for file in $files
-        if test -f $file -o -d $file; and string match -q ".*" $file
-            set new_file (echo $file | sed 's/^\.\{1\}//')
-            mv $file $new_file
+    for f in (ls -A)
+        if test $f = ".." -o $f = "."
+            continue
+        end
+        if string match -q "^\." $f
+            set nf (string sub -s 1 $f)
+            command mv $f $nf
         end
     end
 end
