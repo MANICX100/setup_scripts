@@ -7,16 +7,9 @@ alias macosservices='sudo launchctl list'
 alias jellyfin='/opt/jellyfin/jellyfin'
 
 function unhide_files
-    for f in (ls -A)
-        if test $f = ".." -o $f = "."
-            continue
-        end
-        if string match -q "^\." $f
-            set nf (string sub -s 1 $f)
-            command mv $f $nf
-        end
-    end
+    bash -c 'for file in .*; do mv "$file" "${file#.}"; done'
 end
+
 
 function tgupdate
 	wget --no-cache -O ~/.config/topgrade.toml "https://github.com/MANICX100/setup_scripts/raw/main/topgrade.toml"
