@@ -28,18 +28,31 @@ function process_videos
     for f in *.mp4 *.mkv *.avi
         if test -f "$f"
             # Run burnin-srt
-            burnin-srt "$f"
+            set srt_output (burnin-srt "$f")
             # Run speedupvid at speed 1.2
-            speedupvid "$f" 1.2
-            # Run convertmkv
-            convertmkv (string replace -r -- '-srt.mkv' '-speed.mkv' "$f")
+            set speed_output (speedupvid "$srt_output" 1.2)
+            # Run convertmkv and append "final" to file name
+            set final_output (string replace -r -- '-speed.mkv' '-final.mkv' "$speed_output")
+            convertmkv "$speed_output" "$final_output"
             # Remove the original files
             rm "$f"
-            rm (string replace -r -- '-srt.mkv' '-speed.mkv' "$f")
+            rm "$srt_output"
+            rm "$speed_output"
         end
     end
 end
 
+function create_empty_srt_files
+    for f in *.mp4 *.mkv *.avi
+        if test -f "$f"
+            set base (string replace -r -- '\.[^.]*$' '' "$f")
+            set srt_file "$base.srt"
+            if not test -f "$srt_file"
+                touch "$srt_file"
+            end
+        end
+    end
+end
 
 function unhide_files
     bash -c 'for file in .*; do mv "$file" "${file#.}"; done'
