@@ -6,7 +6,7 @@ alias macosservices='sudo launchctl list'
 
 alias jellyfin='/opt/jellyfin/jellyfin'
 
-function burnin-srt
+function burnin_srt
 	set filename (basename "$argv[1]")  # get the full file name
 	set base (echo $filename | sed 's/\.[^.]*$//')  # get the file name without the extension
 	set subtitle (echo $argv[1] | sed 's/\.[^.]*$/.srt/')
