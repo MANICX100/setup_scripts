@@ -25,7 +25,7 @@ function burnin-srt-speedup-convert
         if test -f $video
             # Burn in the subtitles
             set subtitle (echo $video | sed 's/\.[^.]*$/.srt/')
-            ffmpeg -i $video -vf subtitles="$subtitle" -preset ultrafast -threads 0 "$video:r-sub.mkv"
+            ffmpeg -i $video -vf subtitles="$subtitle" -preset ultrafast -threads 0 "$video:r-srt.mkv"
 
             # Speed up the video
             speedupvid "$video:r-srt.mkv" 1.2
