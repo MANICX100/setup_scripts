@@ -20,12 +20,12 @@ function speedupvid
 	ffmpeg -i "$argv[1]" -filter_complex "[0:v]setpts=1/$argv[2]*PTS[v];[0:a]rubberband=tempo=$argv[2][a]" -map "[v]" -map "[a]" -preset ultrafast -threads 0 "$base-speed.mkv"
 end
 
-function convertmkv
-    for f in *.mkv *.avi; do
-        if [ -f "$f" ]; then
-            ffmpeg -i "$f" -c:v libx264 -preset ultrafast -crf 23 -c:a aac -b:a 192k "${f%.*}.mp4"
-        fi
-    done
+function convert_videos
+    for file in *.mkv *.avi
+        if test -f $file
+            bash -c "ffmpeg -i $file -c:v libx264 -preset ultrafast -c:a aac ${file%.*}.mp4"
+        end
+    end
 end
 
 function burnin_srt_all
