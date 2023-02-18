@@ -23,7 +23,7 @@ end
 function convert_videos
     for file in *.mkv *.avi
         if test -f $file
-            bash -c "ffmpeg -i $file -c:v libx264 -preset ultrafast -c:a aac ${file%.*}.mp4"
+            bash -c "ffmpeg -i $file -c:v libx264 -preset ultrafast -c:a aac (basename $file .${file##*.}).mp4"
         end
     end
 end
