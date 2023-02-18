@@ -41,6 +41,23 @@ function convertmkv
             bash -c 'ffmpeg -i "$0" -c:v libx264 -preset ultrafast -crf 23 -c:a aac -b:a 192k "${0%.mkv}.mp4"' "$f"
 end
 
+function process_videos
+    for f in *.mp4 *.mkv *.avi
+        if test -f "$f"
+            # Run burnin-srt
+            burnin-srt "$f"
+            # Run speedupvid at speed 1.2
+            speedupvid "$f" 1.2
+            # Run convertmkv
+            convertmkv (string replace -r -- '-srt.mkv' '-speed.mkv' "$f")
+            # Remove the original files
+            rm "$f"
+            rm (string replace -r -- '-srt.mkv' '-speed.mkv' "$f")
+        end
+    end
+end
+
+
 function unhide_files
     bash -c 'for file in .*; do mv "$file" "${file#.}"; done'
 end
