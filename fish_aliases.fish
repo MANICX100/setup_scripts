@@ -56,6 +56,12 @@ function create_empty_srt_files
     end
 end
 
+function rename_videos
+    for file in *.mp4 *.avi
+        mv "$file" (basename "$file" .${file##*.}).mkv
+    end
+end
+
 function unhide_files
     bash -c 'for file in .*; do mv "$file" "${file#.}"; done'
 end
