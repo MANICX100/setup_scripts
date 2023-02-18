@@ -28,10 +28,10 @@ function burnin-srt-speedup-convert
             ffmpeg -i $video -vf subtitles="$subtitle" -preset ultrafast -threads 0 "$video:r-sub.mkv"
 
             # Speed up the video
-            speedupvid "$video:r-sub.mkv" 1.2
+            speedupvid "$video:r-srt.mkv" 1.2
 
             # Convert the video to mp4
-            convertmkv
+            convertmkv "$video:r-srt-speed.mkv"
 
         end
     end
