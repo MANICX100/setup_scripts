@@ -60,6 +60,14 @@ function rename_videos
     bash -c 'for file in *.mp4 *.avi; do mv "$file" "${file%.*}.mkv"; done'
 end
 
+function trash_movies
+    for file in *.mkv *.avi *.mp4
+        if test (echo $file | grep -v -- -speed) != ""
+            trash $file
+        end
+    end
+end
+
 function unhide_files
     bash -c 'for file in .*; do mv "$file" "${file#.}"; done'
 end
