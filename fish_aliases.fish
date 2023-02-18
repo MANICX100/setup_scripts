@@ -57,9 +57,7 @@ function create_empty_srt_files
 end
 
 function rename_videos
-    find . -type f \( -name "*.mp4" -o -name "*.avi" \) -print0 | while read -d $'\0' file
-        bash -c 'mv "$1" "${1%.*}.mkv"' _ "$file"
-    end
+    bash -c 'for file in *.mp4 *.avi; do mv "$file" "${file%.*}.mkv"; done'
 end
 
 function unhide_files
