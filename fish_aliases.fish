@@ -62,7 +62,7 @@ end
 
 function trash_movies
     for file in *.mkv *.avi *.mp4
-        if test (echo $file | grep -v -- -speed) != ""
+        if test (echo $file | rg -v -- -speed) != ""
             trash $file
         end
     end
