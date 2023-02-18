@@ -20,23 +20,6 @@ function speedupvid
 	ffmpeg -i "$argv[1]" -filter_complex "[0:v]setpts=1/$argv[2]*PTS[v];[0:a]rubberband=tempo=$argv[2][a]" -map "[v]" -map "[a]" -preset ultrafast -threads 0 "$base-speed.mkv"
 end
 
-function burnin-srt-speedup-convert
-    for video in *.mkv
-        if test -f $video
-            # Burn in the subtitles
-            set subtitle (echo $video | sed 's/\.[^.]*$/.srt/')
-            ffmpeg -i $video -vf subtitles="$subtitle" -preset ultrafast -threads 0 "$video:r-srt.mkv"
-
-            # Speed up the video
-            speedupvid "$video:r-srt.mkv" 1.2
-
-            # Convert the video to mp4
-            convertmkv "$video:r-srt-speed.mkv"
-
-        end
-    end
-end
-
 function convertmkv
             bash -c 'ffmpeg -i "$0" -c:v libx264 -preset ultrafast -crf 23 -c:a aac -b:a 192k "${0%.mkv}.mp4"' "$f"
 end
