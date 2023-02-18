@@ -38,11 +38,7 @@ function burnin-srt-speedup-convert
 end
 
 function convertmkv
-    for f in *.mkv
-        if test -f "$f"
             bash -c 'ffmpeg -i "$0" -c:v libx264 -preset ultrafast -crf 23 -c:a aac -b:a 192k "${0%.mkv}.mp4"' "$f"
-        end
-    end
 end
 
 function unhide_files
