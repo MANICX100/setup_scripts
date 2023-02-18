@@ -21,9 +21,9 @@ function speedupvid
 end
 
 function convert_videos
-    for file in *.mkv *.avi
-        if test -f $file
-            bash -c "ffmpeg -i $file -c:v libx264 -preset ultrafast -c:a aac (basename $file .${file##*.}).mp4"
+    for f in *.mkv *.avi
+        if test -f "$f"
+            bash -c 'ffmpeg -i "$0" -c:v libx264 -preset ultrafast -crf 23 -c:a aac -b:a 192k "${0%.mkv}.mp4"' "$f"
         end
     end
 end
