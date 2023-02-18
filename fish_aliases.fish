@@ -6,6 +6,26 @@ alias macosservices='sudo launchctl list'
 
 alias jellyfin='/opt/jellyfin/jellyfin'
 
+function burnin-srt-speedup-convert
+    for video in *.mkv
+        if test -f $video
+            # Burn in the subtitles
+            set subtitle (echo $video | sed 's/\.[^.]*$/.srt/')
+            ffmpeg -i $video -vf subtitles="$subtitle" -preset ultrafast -threads 0 "$video:r-sub.mkv"
+
+            # Speed up the video
+            speedupvid "$video:r-sub.mkv" 1.2
+
+            # Convert the video to mp4
+            convertmkv "$video:r-speed.mkv"
+
+            # Clean up intermediate files
+            rm "$video:r-sub.mkv"
+            rm "$video:r-speed.mkv"
+        end
+    end
+end
+
 function convertmkv
     for f in *.mkv
         if test -f "$f"
