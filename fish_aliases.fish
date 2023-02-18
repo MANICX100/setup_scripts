@@ -31,11 +31,8 @@ function burnin-srt-speedup-convert
             speedupvid "$video:r-sub.mkv" 1.2
 
             # Convert the video to mp4
-            convertmkv "$video:r-speed.mkv"
+            convertmkv
 
-            # Clean up intermediate files
-            rm "$video:r-sub.mkv"
-            rm "$video:r-speed.mkv"
         end
     end
 end
