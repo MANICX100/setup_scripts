@@ -34,10 +34,6 @@ function process_videos
             # Run convertmkv and append "final" to file name
             set final_output (string replace -r -- '-speed.mkv' '-final.mkv' "$speed_output")
             convertmkv "$speed_output" "$final_output"
-            # Remove the original files
-            rm "$f"
-            rm "$srt_output"
-            rm "$speed_output"
         end
     end
 end
