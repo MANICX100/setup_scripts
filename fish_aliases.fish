@@ -21,21 +21,27 @@ function speedupvid
 end
 
 function convertmkv
-            bash -c 'ffmpeg -i "$0" -c:v libx264 -preset ultrafast -crf 23 -c:a aac -b:a 192k "${0%.mkv}.mp4"' "$f"
+    for f in *.mkv *.avi; do
+        if [ -f "$f" ]; then
+            ffmpeg -i "$f" -c:v libx264 -preset ultrafast -crf 23 -c:a aac -b:a 192k "${f%.*}.mp4"
+        fi
+    done
 end
 
-function process_videos
-    for f in *.mp4 *.mkv *.avi
-        if test -f "$f"
-            # Run burnin-srt
-            set srt_output (burnin-srt "$f")
-            # Run speedupvid at speed 1.2
-            set speed_output (speedupvid "$srt_output" 1.2)
-            # Run convertmkv and append "final" to file name
-            set final_output (string replace -r -- '-speed.mkv' '-final.mkv' "$speed_output")
-            convertmkv "$speed_output" "$final_output"
-        end
+function burnin_srt_all
+  for file in *.mp4 *.avi *.mkv
+    if test -f "$file"
+      burnin_srt "$file"
     end
+  end
+end
+
+function speedupvid_all
+  for file in *.mp4 *.avi *.mkv
+    if test -f "$file"
+      speedupvid "$file" 1.2
+    end
+  end
 end
 
 function create_empty_srt_files
