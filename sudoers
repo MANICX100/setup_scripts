@@ -6,3 +6,4 @@ dkendall ALL=(root)NOPASSWD: /usr/bin/sync
 dkendall ALL=(root)NOPASSWD: /usr/bin/systemctl
 dkendall ALL=(root)NOPASSWD: /usr/bin/rpm
 dkendall ALL=(root)NOPASSWD: /usr/local/bin/*
+dkendall ALL=(root)NOPASSWD: /usr/bin/flatpak
