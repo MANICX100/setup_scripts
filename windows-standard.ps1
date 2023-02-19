@@ -1,9 +1,12 @@
 #scoop
 Invoke-RestMethod get.scoop.sh | Invoke-Expression
-scoop install git
+scoop install aria2 git
+
+scoop config aria2-enabled false
+
 scoop bucket add extras
 
-scoop install gsudo sumatrapdf smplayer topgrade irfanview fd ripgrep gawk bat wget time notepad3 gdu ffmpeg gifski screentogif greenshot yt-dlp pwsh lockhunter autohotkey scoop-search aria2
+scoop install gsudo sumatrapdf smplayer topgrade irfanview fd ripgrep gawk bat wget time notepad3 gdu ffmpeg gifski screentogif greenshot yt-dlp pwsh lockhunter autohotkey scoop-search
 
 #next steps
 Write-Host "Remember to download graphics drivers"
