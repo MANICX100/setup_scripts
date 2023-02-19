@@ -1,3 +1,13 @@
+function git_unsynced {
+Get-ChildItem -Directory -Recurse | ForEach-Object { 
+    $status = git -C $_.FullName status --porcelain
+    if ($status) {
+        Write-Output "$($_.FullName) has uncommitted changes"
+        Write-Output $status
+    }
+}
+}
+
 function printers {
 Set-Clipboard "explorer shell:::{A8A91A66-3A7D-4424-8D24-04E180695C7A}"
 }
