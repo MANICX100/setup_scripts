@@ -6,6 +6,15 @@ alias macosservices='sudo launchctl list'
 
 alias jellyfin='/opt/jellyfin/jellyfin'
 
+function git_unsynced
+    bash -c 'for dir in $(find . -name .git -type d -prune); do
+                  if ! git -C "${dir%/*}" diff --quiet; then
+                      echo "$dir has uncommitted changes"
+                      git -C "${dir%/*}" status --short
+                  fi
+              done'
+end
+
 function burnin_srt
 	set filename (basename "$argv[1]")  # get the full file name
 	set base (echo $filename | sed 's/\.[^.]*$//')  # get the file name without the extension
