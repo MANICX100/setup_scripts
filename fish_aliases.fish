@@ -212,7 +212,7 @@ alias update-grub='sudo grub2-mkconfig -o /etc/grub2.cfg && sudo grub2-mkconfig 
 alias edit-grub='sudo nano /etc/default/grub'
 
 function rcupdate
-	aria2c -x 16 -d ~/.config/fish -o config.fish --allow-overwrite=true --no-cache=true https://github.com/MANICX100/setup_scripts/raw/main/fish_aliases.fish
+	aria2c -x 16 -d ~/.config/fish -o config.fish --allow-overwrite=true https://github.com/MANICX100/setup_scripts/raw/main/fish_aliases.fish
 end
 
 set -g osinfo (rg -ioP '^ID=\K.+' /etc/os-release)
