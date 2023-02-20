@@ -377,11 +377,11 @@ function remove {
 }
 
 function rcupdate {
-aria2c --max-connection-per-server=16 --overwrite-if-exists -o $profile "https://github.com/MANICX100/setup_scripts/raw/main/Microsoft.Powershell_profile.ps1"
+aria2c --max-connection-per-server=16 --allow-overwrite=true -o $profile "https://github.com/MANICX100/setup_scripts/raw/main/Microsoft.Powershell_profile.ps1"
 }
 
 function tgupdate {
-aria2c --max-connection-per-server=16 --overwrite-if-exists -o $env:APPDATA/topgrade.toml "https://github.com/MANICX100/setup_scripts/raw/main/topgrade.toml"
+aria2c --max-connection-per-server=16 --allow-overwrite=true -o $env:APPDATA/topgrade.toml "https://github.com/MANICX100/setup_scripts/raw/main/topgrade.toml"
 }
 
 function repairwindows {
