@@ -244,6 +244,8 @@ function rc
 }
 
 function rtrun {
+Get-Process RoboTaskRuntime | Stop-Process
+Get-Process excel | Stop-Process
 start-process "C:\Program Files\RoboTask\RoboTaskRuntime.exe" "`"$args`""
 }
 
@@ -375,11 +377,11 @@ function remove {
 }
 
 function rcupdate {
-wget --no-cache -O $profile "https://github.com/MANICX100/setup_scripts/raw/main/Microsoft.Powershell_profile.ps1"
+aria2c --max-connection-per-server=16 --overwrite-if-exists -o $profile "https://github.com/MANICX100/setup_scripts/raw/main/Microsoft.Powershell_profile.ps1"
 }
 
 function tgupdate {
-wget --no-cache -O $env:APPDATA/topgrade.toml "https://github.com/MANICX100/setup_scripts/raw/main/topgrade.toml"
+aria2c --max-connection-per-server=16 --overwrite-if-exists -o $env:APPDATA/topgrade.toml "https://github.com/MANICX100/setup_scripts/raw/main/topgrade.toml"
 }
 
 function repairwindows {
@@ -550,6 +552,10 @@ mkdir yt
 
 function cleanup {
 scoop cache rm *
+}
+
+function dl {
+aria2c -x 16
 }
 
 Invoke-Expression (&scoop-search --hook)
