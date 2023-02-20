@@ -6,6 +6,8 @@ alias macosservices='sudo launchctl list'
 
 alias jellyfin='/opt/jellyfin/jellyfin'
 
+alias dl='aria2c -x 16'
+
 function git_unsynced
     bash -c 'for dir in $(find . -name .git -type d -prune); do
                   if ! git -C "${dir%/*}" diff --quiet; then
@@ -86,7 +88,7 @@ function hide_files
 end
 
 function tgupdate
-	wget --no-cache -O ~/.config/topgrade.toml "https://github.com/MANICX100/setup_scripts/raw/main/topgrade.toml"
+	aria2c --max-connection-per-server=16 -d ~/.config/ -o topgrade.toml -c "https://github.com/MANICX100/setup_scripts/raw/main/topgrade.toml"
 end
 
 function serv
@@ -210,7 +212,7 @@ alias update-grub='sudo grub2-mkconfig -o /etc/grub2.cfg && sudo grub2-mkconfig 
 alias edit-grub='sudo nano /etc/default/grub'
 
 function rcupdate
-	wget --no-cache -O ~/.config/fish/config.fish https://github.com/MANICX100/setup_scripts/raw/main/fish_aliases.fish
+	aria2c -x 16 -d ~/.config/fish -o config.fish --allow-overwrite=true --no-cache=true https://github.com/MANICX100/setup_scripts/raw/main/fish_aliases.fish
 end
 
 set -g osinfo (rg -ioP '^ID=\K.+' /etc/os-release)
