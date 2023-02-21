@@ -223,39 +223,12 @@ sed -i 's/65/69/g' ~/.cache/neofetch
 sed -i 's/64/68/g' ~/.cache/neofetch
 sed -i 's/5.6/6.0/g' ~/.cache/neofetch
 
-alias up='topgrade;pkcon update'
+alias inst='sudo zypper install'
+alias remove='sudo zypper remove'
+
+alias up='topgrade'
 alias instrpm='sudo rpm -ivh --force'
 alias instdeb='sudo dpkg --force-all -i'
-alias inst='pkcon install'
-
-function remove
-	switch $osinfo
-	    case fedora
-			sudo dnf remove $argv
-	    case rebornos
-			paru -Rns $argv
-	    case debian
-			sudo nala autoremove $argv
-	    case '*'
-			brew uninstall $argv
-	end
-end
-
-function clean
-	switch $osinfo
-	    case fedora
-			sudo dnf clean all
-			flatpak uninstall --unused
-	    case rebornos
-			paru -Yc
-			flatpak uninstall --unused
-	    case debian
-			sudo nala autoremove -o APT::Autoremove::RecommendsImportant=0 -o APT::Autoremove::SuggestsImportant=0
-			flatpak uninstall --unused
-	    case '*'
-			brew cleanup --prune=1 -s
-	end
-end
 
 function uefi
 	switch $osinfo
