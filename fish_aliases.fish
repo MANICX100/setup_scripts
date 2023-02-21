@@ -4,6 +4,8 @@ set now date -u +%Y-%m-%dT%H-%M-%S%Z
 alias linuxservices='systemctl list-unit-files --type=service --state=enabled'
 alias macosservices='sudo launchctl list'
 
+alias checkfiles='rsync --checksum --dry-run -rvn /run/media/dkendall/exFAT/ /home/dkendall/'
+
 alias jellyfin='/opt/jellyfin/jellyfin'
 
 alias dl='aria2c -x 16'
