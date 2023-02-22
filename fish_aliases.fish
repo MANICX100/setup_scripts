@@ -6,7 +6,7 @@ alias macosservices='sudo launchctl list'
 
 alias checkfiles='rsync --checksum --dry-run -rvn /run/media/dkendall/exFAT/ /home/dkendall/'
 
-alias jellyfin='/opt/jellyfin/jellyfin'
+alias jellyfin='dotnet /home/dkendall/jellyfin/jellyfin.dll'
 
 alias dl='aria2c -x 16'
 
