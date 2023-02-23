@@ -198,11 +198,6 @@ function rtrun {
     start-process "C:\Program Files\RoboTask\RoboTaskRuntime.exe" "`"$args`"" -ErrorAction SilentlyContinue
 }
 
-# We don't need these any more; they were just temporary variables to get to $isAdmin. 
-# Delete them to prevent cluttering up the user profile. 
-Remove-Variable identity
-Remove-Variable principal
-
 Function Test-CommandExists
 {
  Param ($command)
