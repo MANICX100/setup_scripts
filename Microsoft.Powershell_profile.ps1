@@ -81,7 +81,7 @@ function Unhide-Files
 }
 
 function restartautoserv {
-Get-Service | Where-Object {$_.StartType -eq "Automatic" -and $_.Status -eq "Stopped"} | ForEach-Object {Start-Service $_.Name}
+    Get-Service -ErrorAction SilentlyContinue | Where-Object {$_.StartType -eq "Automatic" -and $_.Status -eq "Stopped"} | ForEach-Object {Start-Service $_.Name -ErrorAction SilentlyContinue}
 }
 
 function rmspecial {
@@ -164,17 +164,6 @@ function yt-dlp-audio {
 yt-dlp -f 'ba' -x --audio-format mp3 $args
 }
 
-# Find out if the current user identity is elevated (has admin rights)
-$identity = [Security.Principal.WindowsIdentity]::GetCurrent()
-$principal = New-Object Security.Principal.WindowsPrincipal $identity
-$isAdmin = $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
-
-# If so and the current host is a command line, then change to red color 
-# as warning to user that they are operating in an elevated context
-# Useful shortcuts for traversing directories
-function cd...  { Set-Location ..\.. }
-function cd.... { Set-Location ..\..\.. }
-
 # Compute file hashes - useful for checking successful downloads 
 function md5    { Get-FileHash -Algorithm MD5 $args }
 function sha1   { Get-FileHash -Algorithm SHA1 $args }
@@ -190,46 +179,6 @@ function HKLM:  { Set-Location HKLM: }
 function HKCU:  { Set-Location HKCU: }
 function Env:   { Set-Location Env: }
 
-# Creates drive shortcut for Work Folders, if current user account is using it
-if (Test-Path "$env:USERPROFILE\Work Folders")
-{
-    New-PSDrive -Name Work -PSProvider FileSystem -Root "$env:USERPROFILE\Work Folders" -Description "Work Folders"
-    function Work: { Set-Location Work: }
-}
-
-# Set up command prompt and window title. Use UNIX-style convention for identifying 
-# whether user is elevated (root) or not. Window title shows current version of PowerShell
-# and appends [ADMIN] if appropriate for easy taskbar identification
-function prompt 
-{ 
-    if ($isAdmin) 
-    {
-        "[" + (Get-Location) + "] # " 
-    }
-    else 
-    {
-        "[" + (Get-Location) + "] $ "
-    }
-}
-
-$Host.UI.RawUI.WindowTitle = "PowerShell {0}" -f $PSVersionTable.PSVersion.ToString()
-if ($isAdmin)
-{
-    $Host.UI.RawUI.WindowTitle += " [ADMIN]"
-}
-
-# Does the the rough equivalent of dir /s /b. For example, dirs *.png is dir /s /b *.png
-function dirs
-{
-    {
-        Get-ChildItem -Recurse -Include "$args" | Foreach-Object FullName
-    }
-    else
-    {
-        Get-ChildItem -Recurse | Foreach-Object FullName
-    }
-}
-
 # Make it easy to edit this profile once it's installed
 function rc
 {
@@ -244,9 +193,9 @@ function rc
 }
 
 function rtrun {
-Get-Process RoboTaskRuntime | Stop-Process
-Get-Process excel | Stop-Process
-start-process "C:\Program Files\RoboTask\RoboTaskRuntime.exe" "`"$args`""
+    Get-Process RoboTaskRuntime -ErrorAction SilentlyContinue | Stop-Process -ErrorAction SilentlyContinue
+    Get-Process excel -ErrorAction SilentlyContinue | Stop-Process -ErrorAction SilentlyContinue
+    start-process "C:\Program Files\RoboTask\RoboTaskRuntime.exe" "`"$args`"" -ErrorAction SilentlyContinue
 }
 
 # We don't need these any more; they were just temporary variables to get to $isAdmin. 
@@ -263,14 +212,6 @@ Function Test-CommandExists
  Catch {Write-Host "$command does not exist"; RETURN $false}
  Finally {$ErrorActionPreference=$oldPreference}
 } 
-
-function ll { Get-ChildItem -Path $pwd -File }
-function g { Set-Location $HOME\Documents\Github }
-function gcom
-{
-	git add .
-	git commit -m "$args"
-}
 
 function lazyg
 {
