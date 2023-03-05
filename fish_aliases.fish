@@ -93,7 +93,7 @@ function hide_files
 end
 
 function tgupdate
-	aria2c --max-connection-per-server=16 -d ~/.config/ -o topgrade.toml -c "https://github.com/MANICX100/setup_scripts/raw/main/topgrade.toml"
+	aria2c --max-connection-per-server=16 -d ~/.config/ -o topgrade.toml -c --allow-overwrite=true "https://github.com/MANICX100/setup_scripts/raw/main/topgrade.toml"
 end
 
 function serv
