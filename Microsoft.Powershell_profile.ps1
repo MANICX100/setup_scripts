@@ -1,5 +1,5 @@
 function gitc {
-git clone --depth 1
+git clone --depth 1 $args
 }
 
 function git_unsynced {
