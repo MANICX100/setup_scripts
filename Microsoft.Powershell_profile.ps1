@@ -1,3 +1,7 @@
+function gc {
+git clone --depth 1
+}
+
 function git_unsynced {
 Get-ChildItem -Directory -Recurse | ForEach-Object { 
     $status = git -C $_.FullName status --porcelain
