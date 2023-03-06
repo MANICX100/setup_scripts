@@ -1,6 +1,8 @@
 set fish_greeting
 set now date -u +%Y-%m-%dT%H-%M-%S%Z
 
+alias gc="git clone --depth 1"
+
 alias lr='zypper lr'
 alias ffmpeg='/usr/local/bin/ffmpeg/ffmpeg'
 
