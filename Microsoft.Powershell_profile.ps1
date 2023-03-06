@@ -1,4 +1,4 @@
-function gc {
+function gitc {
 git clone --depth 1
 }
 
@@ -504,3 +504,5 @@ Set-Alias -Name bak -Value backup
 Set-Alias -Name rm -Value delete
 Set-Alias -Name pfetch -Value macchina
 Set-Alias -Name neofetch -Value macchina
+Set-Alias -Name gc -Value gitc
+
