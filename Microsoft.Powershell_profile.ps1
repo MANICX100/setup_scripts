@@ -1,3 +1,7 @@
+function rtdl {
+aria2c -x 16 "https://robotask.com/downloads/RobotaskSetup64.exe"
+}
+
 function gitc {
 git clone --depth 1 $args
 }
