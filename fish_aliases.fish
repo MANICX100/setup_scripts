@@ -15,6 +15,7 @@ alias checkfiles='rsync --checksum --dry-run -rvn /run/media/dkendall/exFAT/ /ho
 alias jellyfin='dotnet /home/dkendall/jellyfin/jellyfin.dll'
 
 alias dl='aria2c -x 16'
+alias dls='aria2c --enable-rpc=true -x 16'
 
 function git_unsynced
     bash -c 'for dir in $(find . -name .git -type d -prune); do
@@ -347,3 +348,5 @@ function gitIgnoreRm
 	git add .
 	git commit -m "Update .gitignore"
 end
+
+up
