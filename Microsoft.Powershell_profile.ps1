@@ -1,3 +1,7 @@
+function dls {
+aria2c -x 16 --enable-rpc=true $args
+}
+
 function rtdl {
 aria2c -x 16 "https://robotask.com/downloads/RobotaskSetup64.exe"
 }
