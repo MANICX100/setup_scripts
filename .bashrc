@@ -220,6 +220,3 @@ alias clean='sudo dnf clean all && flatpak uninstall --unused'
 
 alias logoff='sudo service sddm restart'
 alias yt-dlp='/usr/local/bin/yt-dlp'
-
-eval "$(starship init bash)"
-#eval "$(starship init zsh)"
