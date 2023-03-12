@@ -2,7 +2,7 @@
 Invoke-RestMethod get.scoop.sh | Invoke-Expression
 scoop install aria2 git
 
-scoop config aria2-enabled false
+scoop config aria2-warning-enabled false
 
 scoop bucket add extras
 
