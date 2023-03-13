@@ -43,7 +43,7 @@ end
 function convert_videos
     for f in *.mkv *.avi
         if test -f "$f"
-            bash -c 'ffmpeg -i "$0" -c:v mpeg4 -preset fast -crf 23 -c:a aac -b:a 192k "${0%.mkv}.mp4"' "$f"
+            bash -c 'ffmpeg -i "$0" -c:v mpeg4 -preset medium -crf 23 -c:a aac -b:a 192k "${0%.mkv}.mp4"' "$f"
         end
     end
 end
