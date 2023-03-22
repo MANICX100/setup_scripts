@@ -6,6 +6,8 @@ alias python='python3.11'
 alias gitc="git clone --depth 1"
 alias gc="gitc"
 
+alias fd="fzf --query"
+
 alias lr='zypper lr'
 alias ffmpeg='/usr/local/bin/ffmpeg/ffmpeg'
 
