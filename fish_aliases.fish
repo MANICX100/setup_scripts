@@ -7,7 +7,11 @@ alias gitc="git clone --depth 1"
 alias gc="gitc"
 
 alias fd="fzf --query"
-alias fdo="fzf --query $argv | xargs -o open"
+
+function fdo
+    set query (string join " " $argv)
+    fzf --query "$query" | xargs -o open
+end
 
 alias lr='zypper lr'
 alias ffmpeg='/usr/local/bin/ffmpeg/ffmpeg'
