@@ -1,5 +1,5 @@
 function fd {
-fzf --query
+fzf --query $args
 }
 
 function dls {
