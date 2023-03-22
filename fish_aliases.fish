@@ -10,7 +10,7 @@ alias fd="fzf --query"
 
 function fdo
     set query (string join " " $argv)
-    fzf --query "$query" | xargs -o open
+    fzf --query "$query" | xdg-open
 end
 
 alias lr='zypper lr'
