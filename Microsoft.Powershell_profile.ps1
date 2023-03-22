@@ -1,3 +1,7 @@
+function fdo {
+fzf --query $args | ForEach-Object { Start-Process $_ }
+}
+
 function fd {
 fzf --query $args
 }
