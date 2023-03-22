@@ -1,3 +1,7 @@
+function fd {
+fzf --query
+}
+
 function dls {
 aria2c -x 16 --enable-rpc=true $args
 }
