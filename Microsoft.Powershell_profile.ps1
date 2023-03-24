@@ -478,7 +478,7 @@ function mobileapps{
 start-process shell:AppsFolder
 }
 
-Function backup {gsudo Checkpoint-Computer -Description "Automated Backup via pwsh"}
+Function backup {gsudo Checkpoint-Computer -Description "AutomatedBackupViaPwsh"}
 
 function newgit {
   git add .
