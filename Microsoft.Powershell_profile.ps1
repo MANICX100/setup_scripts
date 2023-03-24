@@ -6,6 +6,10 @@ function fd {
 fzf --query $args
 }
 
+function dl {
+aria2c -x 16 $args
+}
+
 function dls {
 aria2c -x 16 --enable-rpc=true $args
 }
@@ -508,10 +512,6 @@ mkdir yt
 
 function cleanup {
 scoop cache rm *
-}
-
-function dl {
-aria2c -x 16
 }
 
 Invoke-Expression (&scoop-search --hook)
