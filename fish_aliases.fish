@@ -7,6 +7,7 @@ alias gitc="git clone --depth 1"
 alias gc="gitc"
 
 alias fd="fzf --query"
+alias webcam='sudo modprobe v4l2loopback'
 
 function fdo
     set query (string join " " $argv)
@@ -107,7 +108,7 @@ function hide_files
 end
 
 function tgupdate
-	aria2c --max-connection-per-server=16 -d ~/.config/ -o topgrade.toml -c --allow-overwrite=true "https://github.com/MANICX100/setup_scripts/raw/main/topgrade.toml"
+	aria2c --max-connection-per-server=16 -d ~/.config/ -o topgrade.toml -c --allow-overwrite=true "https://github.com/MANICX100/setup_scripts/raw/main/topgrade_lin.toml"
 end
 
 function serv
