@@ -515,6 +515,7 @@ scoop cache rm *
 }
 
 Invoke-Expression (&scoop-search --hook)
+Import-Module gsudoModule
 
 Set-Alias -Name bak -Value backup
 Set-Alias -Name rm -Value delete
