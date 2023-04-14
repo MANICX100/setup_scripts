@@ -1,3 +1,7 @@
+function basicuser {
+runas /trustlevel:0x20000 $args
+}
+
 function fdo {
 fzf --query $args | ForEach-Object { Start-Process $_ }
 }
