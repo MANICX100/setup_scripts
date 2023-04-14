@@ -4,7 +4,7 @@ display_preamble = false
 assume_yes = true
 
 # Disable specific steps - same options as the command line flag
-disable = ["emacs,tldr"]
+disable = ["emacs", "tldr"]
 
 # Ignore failures for these steps
 #ignore_failures = ["powershell"]
