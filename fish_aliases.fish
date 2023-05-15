@@ -9,7 +9,20 @@ alias gc="gitc"
 alias fd="fzf --query"
 alias webcam='sudo modprobe v4l2loopback'
 
-alias sudo='sudo '
+function please --wraps=sudo --description 'alias please sudo'
+    if functions -q -- "$argv[1]"
+        set cmdline (
+            for arg in $argv
+                printf "\"%s\" " $arg
+            end
+        )
+        set -x function_src (string join "\n" (string escape --style=var (functions "$argv[1]")))
+        set argv fish -c 'string unescape --style=var (string split "\n" $function_src) | source; '$cmdline
+        command sudo -E $argv
+    else
+        command sudo $argv
+    end
+end
 
 function fdo
     set query (string join " " $argv)
