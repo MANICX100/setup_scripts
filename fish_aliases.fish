@@ -9,6 +9,8 @@ alias gc="gitc"
 alias fd="fzf --query"
 alias webcam='sudo modprobe v4l2loopback'
 
+alias sudo='sudo '
+
 function fdo
     set query (string join " " $argv)
     set selected_file (fzf --query "$query")
