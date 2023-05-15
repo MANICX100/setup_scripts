@@ -13,6 +13,8 @@ alias macosservices='sudo launchctl list'
 alias chkdsk='fsck'
 alias Get-Volume='sudo lsblk -o NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL'
 
+alias please='sudo '
+
 serv(){
 sudo redbean -C /usr/local/bin/ca.crt -K /usr/local/bin/ca.key -p 80 -p 443 -D $1
 }
