@@ -1,5 +1,13 @@
 export now=$(date -u +%Y-%m-%dT%H-%M-%S%Z)
 
+function z() {
+    local target_dir
+    target_dir=$(find "$PWD" -type d -name "*$1*" -print | fzf)
+    if [[ -n "$target_dir" ]]; then
+        cd "$target_dir"
+    fi
+}
+
 alias apptime='timeout --signal INT 1s time $1'
 alias rmpipall='pip freeze --user | xargs pip uninstall -y'
 alias rmpnpm='rm -rf -v $PNPM_HOME'
