@@ -9,6 +9,13 @@ alias gc="gitc"
 alias fd="fzf --query"
 alias webcam='sudo modprobe v4l2loopback'
 
+function z
+    set -l target_dir (find $PWD -type d -name "*$argv[1]*" -print | fzf)
+    if test -n "$target_dir"
+        cd $target_dir
+    end
+end
+
 function please --wraps=sudo --description 'alias please sudo'
     if functions -q -- "$argv[1]"
         set cmdline (
