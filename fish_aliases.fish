@@ -238,7 +238,7 @@ alias ifconfig='ip route'
 alias cleanup='clean'
 
 function stripclip
-	xclip -selection c -o |xargs|awk '{$1=$1};1'|xclip -selection c
+	xclip -selection c -o | xargs | rg -o '.*' | xclip -selection c
 end
 
 alias mpv='mpv --ontop --force-window'
@@ -259,7 +259,7 @@ function rcupdate
 	aria2c -x 16 -d ~/.config/fish -o config.fish --allow-overwrite=true https://github.com/MANICX100/setup_scripts/raw/main/fish_aliases.fish
 end
 
-set -g osinfo (awk -F '=' '/^ID=/{print $2}' /etc/os-release)
+set -g osinfo (rg -ioP '^ID=\K.+' /etc/os-release)
 
 neofetch > ~/.cache/neofetch
 alias pfetch='bat --paging=never --style=plain ~/.cache/neofetch'
