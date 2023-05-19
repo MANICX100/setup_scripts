@@ -14,7 +14,7 @@ alias webcam='sudo modprobe v4l2loopback'
 function download_yt_video
     set resolution $argv[1]
     set video_url $argv[2]
-    set command "yt-dlp -f 'bestvideo[height<=$resolution]+bestaudio/best[height<=$resolution]' $video_url"
+    set command (string join " " "yt-dlp" "-f" "bestvideo[height<=$resolution]+bestaudio/best[height<=$resolution]" "$video_url")
     eval $command
 end
 
