@@ -8,7 +8,7 @@ function z {
     )
 
     # Run fzf and capture the selected file path
-    $selectedFile = & fzf --query="$query" --preview='bat --color=always {}' --preview-window=up:30%:wrap
+    $selectedFile = & fzf --query="$query"
 
     if ($selectedFile) {
         # Extract the directory path from the selected file
