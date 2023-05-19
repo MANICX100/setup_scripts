@@ -2,6 +2,23 @@ function basicuser {
 runas /trustlevel:0x20000 $args
 }
 
+function z {
+    param (
+        [string]$query = ''
+    )
+
+    # Run fzf and capture the selected file path
+    $selectedFile = & fzf --query="$query" --preview='bat --color=always {}' --preview-window=up:30%:wrap
+
+    if ($selectedFile) {
+        # Extract the directory path from the selected file
+        $directoryPath = Split-Path -Path $selectedFile -Parent
+
+        # Change directory to the selected file's directory
+        Set-Location -Path $directoryPath
+    }
+}
+
 function fdo {
 fzf --query $args | ForEach-Object { Start-Process $_ }
 }
