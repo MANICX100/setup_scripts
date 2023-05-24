@@ -9,6 +9,7 @@ function z() {
 }
 
 alias convertdeb='sudo alien --to-rpm'
+alias convertrpm='sudo alien'
 
 alias apptime='timeout --signal INT 1s time $1'
 alias rmpipall='pip freeze --user | xargs pip uninstall -y'
