@@ -5,6 +5,8 @@ set -x RIPGREP_CONFIG_PATH ~/.ripgreprc
 
 alias python='python3.11'
 
+alias convertdeb='sudo alien --to-rpm'
+
 alias gitc="git clone --depth 1"
 alias gc="gitc"
 
