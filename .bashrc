@@ -8,6 +8,8 @@ function z() {
     fi
 }
 
+alias convertdeb='sudo alien --to-rpm'
+
 alias apptime='timeout --signal INT 1s time $1'
 alias rmpipall='pip freeze --user | xargs pip uninstall -y'
 alias rmpnpm='rm -rf -v $PNPM_HOME'
