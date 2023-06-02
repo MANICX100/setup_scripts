@@ -264,7 +264,6 @@ alias rc='nano ~/.config/fish/config.fish'
 alias settings='gnome-control-center'
 alias visudo='sudo nano /etc/sudoers.d/dkendall'
 
-alias update-grub='sudo grub-mkconfig -o /etc/grub2-efi.cfg'
 alias edit-grub='sudo nano /etc/default/grub'
 
 function rcupdate
