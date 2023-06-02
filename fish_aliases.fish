@@ -49,7 +49,6 @@ function fdo
     xdg-open "$selected_file"
 end
 
-alias lr='zypper lr'
 alias ffmpeg='/usr/local/bin/ffmpeg/ffmpeg'
 
 alias linuxservices='systemctl list-unit-files --type=service --state=enabled'
@@ -277,8 +276,8 @@ sed -i 's/65/69/g' ~/.cache/neofetch
 sed -i 's/64/68/g' ~/.cache/neofetch
 sed -i 's/5.6/6.0/g' ~/.cache/neofetch
 
-alias inst='sudo zypper install'
-alias remove='sudo zypper remove'
+alias inst='sudo nala install'
+alias remove='sudo nala remove'
 
 alias up='topgrade'
 alias instrpm='sudo rpm -ivh --force'
