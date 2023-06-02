@@ -51,7 +51,7 @@ function fdo
     xdg-open "$selected_file"
 end
 
-#alias ffmpeg='/usr/local/bin/ffmpeg/ffmpeg'
+alias ffmpeg='/usr/local/bin/ffmpeg'
 
 alias linuxservices='systemctl list-unit-files --type=service --state=enabled'
 alias macosservices='sudo launchctl list'
