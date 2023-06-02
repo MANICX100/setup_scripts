@@ -1,9 +1,7 @@
-dkendall ALL=(root)NOPASSWD: /usr/bin/dnf
+dkendall ALL=(root)NOPASSWD: /usr/bin/nala
 dkendall ALL=(root)NOPASSWD: /usr/sbin/reboot
-dkendall ALL=(root)NOPASSWD: /usr/bin/snap
 dkendall ALL=(root)NOPASSWD: /usr/sbin/service
 dkendall ALL=(root)NOPASSWD: /usr/bin/sync
 dkendall ALL=(root)NOPASSWD: /usr/bin/systemctl
-dkendall ALL=(root)NOPASSWD: /usr/bin/rpm
 dkendall ALL=(root)NOPASSWD: /usr/local/bin/*
 dkendall ALL=(root)NOPASSWD: /usr/bin/flatpak
