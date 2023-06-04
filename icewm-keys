@@ -1,0 +1,9 @@
+#add to ~/icewm/keys
+
+key "Ctrl+Alt+b" xdg-open about:blank
+key "Ctrl+Alt+t" tilix
+key "Ctrl+Alt+r" sudo reboot --force
+key "Ctrl+Alt+s" sudo systemctl suspend && i3lock -c 000000 -n
+key "Ctrl+Alt+L" i3lock -c 000000 -n
+key "Ctrl+Alt+n" /usr/local/bin/lite-xl/lite-xl '/home/dkendall/OneDrive/Docume>
+key "Ctrl+Alt+E" xfe
