@@ -56,7 +56,7 @@ alias ffmpeg='/usr/local/bin/ffmpeg'
 alias linuxservices='systemctl list-unit-files --type=service --state=enabled'
 alias macosservices='sudo launchctl list'
 
-alias checkfiles='rsync --checksum --dry-run -rvn /run/media/dkendall/exFAT/ /home/dkendall/'
+alias checkfiles='rsync --checksum --dry-run -rvn /media/dkendall/exFAT/ /home/dkendall/'
 
 #alias jellyfin='dotnet /home/dkendall/jellyfin/jellyfin.dll'
 
@@ -306,7 +306,7 @@ alias delrecent='sudo rm ~/.local/share/recently-used.xbel && sudo touch ~/.loca
 
 alias rm='rm -rf -v'
 
-alias syncfolders='rsync -avh --ignore-existing --exclude ".*" --delete --progress --compress --no-whole-file /home/dkendall/ /run/media/dkendall/exFAT/'
+alias syncfolders='rsync -avh --ignore-existing --exclude ".*" --delete --progress --compress --no-whole-file /home/dkendall/ /media/dkendall/exFAT/'
 
 alias unshareusb='/bin/eveusbc unshare all'
 alias shareusb='/bin/eveusbc share 12345 1-9.1'
