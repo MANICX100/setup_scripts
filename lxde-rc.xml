@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openbox_config xmlns="http://openbox.org/3.4/rc">
+    <resistance>
+        <strength>10</strength>
+        <screen_edge_strength>20</screen_edge_strength>
+    </resistance>
+
+    <!-- Here are the applications you can run with a key press -->
+    <keyboard>
+        <keybind key="C-A-b">
+            <action name="Execute">
+                <command>xdg-open about:blank</command>
+            </action>
+        </keybind>
+        <keybind key="C-A-t">
+            <action name="Execute">
+                <command>tilix</command>
+            </action>
+        </keybind>
+        <keybind key="C-A-r">
+            <action name="Execute">
+                <command>sudo reboot --force</command>
+            </action>
+        </keybind>
+        <keybind key="C-A-s">
+            <action name="Execute">
+                <command>sudo systemctl suspend && i3lock -c 000000 -n</command>
+            </action>
+        </keybind>
+        <keybind key="W-L">
+            <action name="Execute">
+                <command>i3lock -c 000000 -n</command>
+            </action>
+        </keybind>
+        <keybind key="C-A-n">
+            <action name="Execute">
+                <command>/usr/local/bin/lite-xl/lite-xl '/home/dkendall/OneDrive/Documents/txt/ends.txt'</command>
+            </action>
+        </keybind>
+    </keyboard>
+
+    <!-- other configuration elements... -->
+</openbox_config>
