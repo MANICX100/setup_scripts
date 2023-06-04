@@ -259,9 +259,11 @@ alias bat='bat --paging=never --style=plain'
 alias ls='ls -lah -U'
 
 alias cls='clear'
-alias screenshot='gnome-screenshot -a'
+#alias screenshot='gnome-screenshot -a'
+
 alias rc='nano ~/.config/fish/config.fish'
-alias settings='gnome-control-center'
+#alias settings='gnome-control-center'
+
 alias visudo='sudo nano /etc/sudoers.d/dkendall'
 
 alias edit-grub='sudo nano /etc/default/grub'
@@ -306,7 +308,7 @@ alias delrecent='sudo rm ~/.local/share/recently-used.xbel && sudo touch ~/.loca
 
 alias rm='rm -rf -v'
 
-alias syncfolders='rsync -avh --ignore-existing --exclude ".*" --delete --progress --compress --no-whole-file /home/dkendall/ /media/dkendall/exFAT/'
+alias syncfolders='rsync -avh --ignore-existing --delete --progress --compress --no-whole-file /home/dkendall/ /media/dkendall/exFAT/'
 
 alias unshareusb='/bin/eveusbc unshare all'
 alias shareusb='/bin/eveusbc share 12345 1-9.1'
