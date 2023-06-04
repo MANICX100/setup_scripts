@@ -7,3 +7,4 @@ key "Ctrl+Alt+s" sudo systemctl suspend && i3lock -c 000000 -n
 key "Ctrl+Alt+L" i3lock -c 000000 -n
 key "Ctrl+Alt+n" /usr/local/bin/lite-xl/lite-xl '/home/dkendall/OneDrive/Docume>
 key "Ctrl+Alt+E" xfe
+key "Ctrl+Alt+i" pavucontrol
