@@ -1,7 +1,7 @@
 #add to ~/icewm/keys
 
 key "Ctrl+Alt+b" xdg-open about:blank
-key "Ctrl+Alt+t" tilix
+key "Ctrl+Alt+t" flatpak run org.contourterminal.Contour
 key "Ctrl+Alt+r" sudo reboot --force
 key "Ctrl+Alt+s" sudo systemctl suspend && i3lock -c 000000 -n
 key "Ctrl+Alt+L" i3lock -c 000000 -n
