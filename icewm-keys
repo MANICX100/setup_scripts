@@ -10,6 +10,6 @@ key "Ctrl+Alt+E" xfe
 key "Ctrl+Alt+i" pavucontrol
 key "Ctrl+Alt+v" /usr/bin/diodon
 key "Print" flameshot gui
-key "Shift+Print" flatpak run io.github.seadve.Kooha
+key "Shift+Print" simplescreenrecorder
 key "Ctrl+Alt+m" flatpak run io.gitlab.zehkira.Monophony
 key "Ctrl+Shift+Space" ulauncher
