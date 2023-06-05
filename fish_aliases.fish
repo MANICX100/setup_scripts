@@ -16,6 +16,8 @@ alias gc="gitc"
 alias fd="fzf --query"
 alias webcam='sudo modprobe v4l2loopback'
 
+alias cloudsync='pkill onedrive && onedrive --synchronize --force'
+
 function download_yt_video
     set resolution $argv[1]
     set video_url $argv[2]
