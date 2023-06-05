@@ -1,3 +1,15 @@
+function wg {
+    param(
+        [Parameter(Mandatory=$true)]
+        [string[]]$Args
+    )
+
+    foreach ($package in $Args) {
+        Write-Host "Installing $package"
+        winget install $package --accept-package-agreements --disable-interactivity
+    }
+}
+
 function basicuser {
 runas /trustlevel:0x20000 $args
 }
