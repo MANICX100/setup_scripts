@@ -3,7 +3,7 @@
 key "Ctrl+Alt+b" xdg-open about:blank
 key "Ctrl+Alt+t" flatpak run org.contourterminal.Contour
 key "Ctrl+Alt+r" sudo reboot --force
-key "Ctrl+Alt+s" dbus-send --system --print-reply --dest="org.freedesktop.login1" /org/freedesktop/login1 org.freedesktop.login1.Manager.Suspend boolean:true
+key "Ctrl+Alt+s"  echo 'disabled' | sudo tee /sys/bus/pci/devices/0000:00:14.0/power/wakeup && dbus-send --system --print-reply --dest="org.freedesktop.login1" /org/freedesktop/login1 org.freedesktop.login1.Manager.Suspend boolean:true
 key "Ctrl+Alt+L" i3lock -c 000000 -n
 key "Ctrl+Alt+n" /usr/local/bin/lite-xl/lite-xl '/home/dkendall/OneDrive/Docume>
 key "Ctrl+Alt+E" xfe
