@@ -12,3 +12,4 @@ dkendall ALL=(root)NOPASSWD: /usr/bin/snap
 #dkendall ALL=(root)NOPASSWD: /usr/bin/dolphin
 #dkendall ALL=(root)NOPASSWD: /usr/bin/pcmanfm
 #dkendall ALL=(root)NOPASSWD: /usr/bin/nautilus
+dkendall ALL=(root)NOPASSWD: /usr/bin/tee
