@@ -10,6 +10,15 @@ function wg {
     }
 }
 
+function Open-ShellGUID {
+    param(
+        [Parameter(Mandatory=$true)]
+        [string]$ShellGUID
+    )
+    $ShellPath = "shell:::" + $ShellGUID
+    Invoke-Expression "explorer $ShellPath"
+}
+
 function mouse {
 & 'rundll32.exe' shell32.dll,Control_RunDLL main.cpl
 }
@@ -85,7 +94,7 @@ Get-ChildItem -Directory -Recurse | ForEach-Object {
 }
 
 function printers {
-Set-Clipboard "explorer shell:::{A8A91A66-3A7D-4424-8D24-04E180695C7A}"
+Open-ShellGUID -ShellGUID "{A8A91A66-3A7D-4424-8D24-04E180695C7A}"
 }
 
 function fwoff {
@@ -118,7 +127,7 @@ sc start Audiosrv
 }
 
 function tbIcons {
-Set-Clipboard "explorer shell:::{05d7b0f4-2121-4eff-bf6b-ed3f69b894d9}"
+Open-ShellGUID -ShellGUID "{05d7b0f4-2121-4eff-bf6b-ed3f69b894d9}"
 }
 
 function validationPackager {
