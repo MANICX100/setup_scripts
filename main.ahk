@@ -56,3 +56,8 @@ Run "C:\Users\dmani\scoop\apps\greenshot\current\Greenshot.exe"
 {
 Run "C:\Users\dmani\scoop\apps\fscapture\current\FSCapture.exe"
 }
+
+#^t::
+{
+    WinSetAlwaysOnTop -1, "A"
+}
