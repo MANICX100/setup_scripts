@@ -18,6 +18,10 @@ function Open-ShellGUID {
     Start-Process "explorer.exe" -ArgumentList "shell:::$ShellGUID"
 }
 
+function network {
+Open-ShellGUID -ShellGUID "{7007ACC7-3202-11D1-AAD2-00805FC1270E}"
+}
+
 function mouse {
 & 'rundll32.exe' shell32.dll,Control_RunDLL main.cpl
 }
