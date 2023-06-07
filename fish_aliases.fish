@@ -280,7 +280,7 @@ neofetch > ~/.cache/neofetch
 alias pfetch='bat --paging=never --style=plain ~/.cache/neofetch'
 sed -i 's/65/69/g' ~/.cache/neofetch
 sed -i 's/64/68/g' ~/.cache/neofetch
-sed -i 's/5.6/6.0/g' ~/.cache/neofetch
+sed -i 's/3.201/6.0/g' ~/.cache/neofetch
 
 alias inst='sudo nala install'
 alias remove='sudo nala remove'
