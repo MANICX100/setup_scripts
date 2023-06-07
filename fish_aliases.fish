@@ -283,6 +283,7 @@ sed -i 's/Ubuntu/Kendall Linux/g' ~/.cache/neofetch
 sed -i 's/6500/6900/g' ~/.cache/neofetch
 sed -i 's/6400/6800/g' ~/.cache/neofetch
 sed -i 's/3.201/6.0/g' ~/.cache/neofetch
+sed -i 's/99D//g' ~/.cache/neofetch
 
 alias inst='sudo nala install'
 alias remove='sudo nala remove'
