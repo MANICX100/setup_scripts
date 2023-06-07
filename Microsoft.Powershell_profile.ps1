@@ -15,8 +15,7 @@ function Open-ShellGUID {
         [Parameter(Mandatory=$true)]
         [string]$ShellGUID
     )
-    $ShellPath = "shell:::" + $ShellGUID
-    Invoke-Expression "explorer $ShellPath"
+    Start-Process "explorer.exe" -ArgumentList "shell:::$ShellGUID"
 }
 
 function mouse {
