@@ -39,8 +39,20 @@ Return
 #F4::A_Clipboard := WinGetClass("A")
 
 #e::
-{ ; V1toV2: Added bracket
+{
 USERPROFILE := EnvGet("USERPROFILE")
 Run(USERPROFILE "\Documents")
 return
-} ; V1toV2: Added bracket in the end
+}
+
+^!x::Run "C:\Users\dmani\scoop\apps\xkill\current\XKill.exe"
+
+^!PrintScreen::
+{
+Run "C:\Users\dmani\scoop\apps\greenshot\current\Greenshot.exe"
+}
+
++PrintScreen::
+{
+Run "C:\Users\dmani\scoop\apps\fscapture\current\FSCapture.exe"
+}
