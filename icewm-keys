@@ -13,3 +13,5 @@ key "Print" flameshot gui
 key "Shift+Print" simplescreenrecorder
 key "Ctrl+Alt+m" flatpak run io.gitlab.zehkira.Monophony
 key "Ctrl+Shift+Space" ulauncher
+key "Ctrl+Alt+x" xkill
+key "Ctrl+Shift+Esc" gnome-system-monitor
