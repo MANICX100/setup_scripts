@@ -10,6 +10,25 @@ function wg {
     }
 }
 
+function mouse {
+& 'rundll32.exe' shell32.dll,Control_RunDLL main.cpl
+}
+
+function Resync-Time {
+    Write-Output "Resyncing time..."
+    # Stops the Windows Time service
+    net stop w32time
+    # Starts the Windows Time service
+    net start w32time
+    # Clears the local time peer list
+    w32tm /config /syncfromflags:manual /manualpeerlist:""
+    # Configures the system to synchronize time from the list of peers
+    w32tm /config /syncfromflags:manual /manualpeerlist:"time.windows.com"
+    # Forces the system to resynchronize the time
+    w32tm /resync
+    Write-Output "Time resynced successfully"
+}
+
 function basicuser {
 runas /trustlevel:0x20000 $args
 }
