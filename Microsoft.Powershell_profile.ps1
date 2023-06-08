@@ -1,3 +1,20 @@
+function ahkupdate {
+    # Kill all running AutoHotkey processes
+    Stop-Process -Name AutoHotkey* -Force
+
+    # Set the download directory
+    $OneDriveAHKFolder = [System.Environment]::ExpandEnvironmentVariables("%OneDriveConsumer%/AHK")
+    
+    # Set the URL for the AutoHotkey script
+    $url = "https://github.com/MANICX100/setup_scripts/raw/main/main.ahk"
+    
+    # Download the AutoHotkey script using aria2c
+    aria2c --max-connection-per-server=16 --allow-overwrite=true -d $OneDriveAHKFolder -o main.ahk $url
+
+    # Run the downloaded AutoHotkey script
+    Start-Process -FilePath "$OneDriveAHKFolder/main.ahk"
+}
+
 function wg {
     param(
         [Parameter(Mandatory=$true)]
