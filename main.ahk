@@ -58,3 +58,5 @@ Run "C:\Users\dmani\scoop\apps\fscapture\current\FSCapture.exe"
 }
 
 ^!b::Run "http://"
+
+^!t::Run "C:\Users\dmani\scoop\apps\contour\current\contour.exe"
