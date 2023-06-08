@@ -61,3 +61,6 @@ Run "C:\Users\dmani\scoop\apps\fscapture\current\FSCapture.exe"
 {
     WinSetAlwaysOnTop -1, "A"
 }
+
+^!b::Run "http://"
+
