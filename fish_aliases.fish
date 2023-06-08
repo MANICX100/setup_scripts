@@ -18,6 +18,16 @@ alias webcam='sudo modprobe v4l2loopback'
 
 alias cloudsync='pkill onedrive && onedrive --synchronize --force'
 
+function Resync-Time
+  if not command -v ntpdate >/dev/null
+    echo "ntpdate is not installed. Please install it and try again."
+    return 1
+  end
+  
+  echo "Resyncing system time..."
+  sudo ntpdate pool.ntp.org
+end
+
 function download_yt_video
     set resolution $argv[1]
     set video_url $argv[2]
