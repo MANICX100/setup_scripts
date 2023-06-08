@@ -52,7 +52,7 @@ return
 Run "C:\Users\dmani\scoop\apps\fscapture\current\FSCapture.exe"
 }
 
-#^t::
+^!+t::
 {
     WinSetAlwaysOnTop -1, "A"
 }
