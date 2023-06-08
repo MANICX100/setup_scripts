@@ -47,11 +47,6 @@ return
 
 ^!x::Run "C:\Users\dmani\scoop\apps\xkill\current\XKill.exe"
 
-^!PrintScreen::
-{
-Run "C:\Users\dmani\scoop\apps\greenshot\current\Greenshot.exe"
-}
-
 +PrintScreen::
 {
 Run "C:\Users\dmani\scoop\apps\fscapture\current\FSCapture.exe"
@@ -63,4 +58,3 @@ Run "C:\Users\dmani\scoop\apps\fscapture\current\FSCapture.exe"
 }
 
 ^!b::Run "http://"
-
