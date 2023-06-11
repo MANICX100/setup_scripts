@@ -18,6 +18,14 @@ alias webcam='sudo modprobe v4l2loopback'
 
 alias cloudsync='pkill onedrive && onedrive --synchronize --force'
 
+function reset_network_adapters
+    for interface in (ifconfig -a | rg -o "^[a-z]*[0-9]*: " | sed 's/: //')
+        sudo ifconfig $interface down
+        sudo ifconfig $interface up
+        echo "Reset $interface"
+    end
+end
+
 function Resync-Time
   if not command -v ntpdate >/dev/null
     echo "ntpdate is not installed. Please install it and try again."
