@@ -19,9 +19,9 @@ alias webcam='sudo modprobe v4l2loopback'
 alias cloudsync='pkill onedrive && onedrive --synchronize --force'
 
 function reset_network_adapters
-    for interface in (ifconfig -a | rg -o "^[a-z]*[0-9]*: " | sed 's/: //')
-        sudo ifconfig $interface down
-        sudo ifconfig $interface up
+    for interface in (ip link show | rg -o "^[0-9]*: [a-z]*[0-9]*:" | cut -d: -f2)
+        sudo ip link set dev $interface down
+        sudo ip link set dev $interface up
         echo "Reset $interface"
     end
 end
