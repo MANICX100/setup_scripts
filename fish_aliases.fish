@@ -21,27 +21,6 @@ alias webcam='sudo modprobe v4l2loopback'
 
 alias cloudsync='pkill onedrive && onedrive --synchronize --force'
 
-function lskb
-  for file in (ls)
-    set size (du -sk $file | awk '{print $1}')
-    printf "%-10s %.2fK\n" $file $size
-  end
-end
-
-function lsmb
-  for file in (ls)
-    set size (du -sk $file | awk '{print $1 / 1024}')
-    printf "%-10s %.2fM\n" $file $size
-  end
-end
-
-function lsgb
-  for file in (ls)
-    set size (du -sk $file | awk '{print $1 / 1024 / 1024}')
-    printf "%-10s %.2fG\n" $file $size
-  end
-end
-
 function instsearch --description 'Search installed packages via dpkg, flatpak, and snap'
 
   if test (count $argv) -eq 0
