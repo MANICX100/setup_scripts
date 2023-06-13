@@ -46,6 +46,31 @@ function instsearch --description 'Search installed packages via dpkg, flatpak, 
 
 end
 
+function pkgsearch --description 'Search available packages via apt, flatpak, and snap'
+
+  if test (count $argv) -eq 0
+    echo "Please provide a package name."
+    return 1
+  end
+
+  set -l pkg_name $argv[1]
+
+  echo "Searching for package '$pkg_name' in apt, flatpak, and snap..."
+
+  # Search in apt
+  echo "=== APT ==="
+  apt-cache search $pkg_name | rg $pkg_name
+
+  # Search in flatpak
+  echo "=== FLATPAK ==="
+  flatpak remote-ls flathub | rg $pkg_name
+
+  # Search in snap
+  echo "=== SNAP ==="
+  snap find $pkg_name
+
+end
+
 function networkcycle
     for interface in (ip link show | rg -o "^[0-9]*: [a-z]*[0-9]*:" | cut -d: -f2 | string trim)
         if test $interface != 'lo'
