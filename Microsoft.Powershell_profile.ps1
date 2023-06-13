@@ -1,3 +1,43 @@
+function pkgsearch {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory=$true, ValueFromPipeline=$true)]
+        [string]$packageName
+    )
+
+    # Search in winget
+    Write-Host "Searching in Winget..."
+    $wingetPackages = winget search $packageName | Where-Object { $_ -match "Available" }
+    if ($wingetPackages -ne $null) {
+        Write-Host "Available in Winget:"
+        $wingetPackages
+    } else {
+        Write-Host "Package not available in Winget"
+    }
+    Write-Host ""
+
+    # Search in Scoop
+    Write-Host "Searching in Scoop..."
+    $scoopPackages = scoop search $packageName | Where-Object { $_ -match "isn't installed" }
+    if ($scoopPackages -ne $null) {
+        Write-Host "Available in Scoop:"
+        $scoopPackages
+    } else {
+        Write-Host "Package not available in Scoop"
+    }
+    Write-Host ""
+
+    # Search in Chocolatey
+    Write-Host "Searching in Chocolatey..."
+    $chocoPackages = choco search $packageName | Where-Object { $_ -match "available versions" }
+    if ($chocoPackages -ne $null) {
+        Write-Host "Available in Chocolatey:"
+        $chocoPackages
+    } else {
+        Write-Host "Package not available in Chocolatey"
+    }
+}
+
 function instsearch {
     [CmdletBinding()]
     param(
