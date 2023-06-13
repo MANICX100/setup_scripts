@@ -14,6 +14,7 @@ alias gitc="git clone --depth 1"
 alias gc="gitc"
 
 alias edit-dns='sudo nano /etc/resolv.conf'
+alias edit-hosts='sudo nano /etc/hosts'
 
 alias fd="fzf --query"
 alias webcam='sudo modprobe v4l2loopback'
