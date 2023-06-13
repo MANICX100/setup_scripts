@@ -1,4 +1,6 @@
-alias lsf='Get-ChildItem -Recurse | Resolve-Path'
+function lsf {
+Get-ChildItem -Recurse | Resolve-Path
+}
 
 function pkgsearch {
     param(
