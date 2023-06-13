@@ -13,6 +13,8 @@ alias convertrpm='sudo alien'
 alias gitc="git clone --depth 1"
 alias gc="gitc"
 
+alias edit-dns='sudo nano /etc/resolv.conf'
+
 alias fd="fzf --query"
 alias webcam='sudo modprobe v4l2loopback'
 
@@ -307,6 +309,10 @@ sed -i 's/99D//g' ~/.cache/neofetch
 
 alias inst='sudo nala install'
 alias remove='sudo nala remove'
+alias purge='sudo nala purge'
+
+alias flushdns='sudo resolvectl flush-caches'
+alias networkstatus='nmcli dev status'
 
 alias up='topgrade'
 alias instrpm='sudo rpm -ivh --force'
