@@ -331,7 +331,9 @@ alias mpv='mpv --ontop --force-window'
 alias audit='sudo lynis --forensics && pip-audit'
 alias rcview='bat --paging=never --style=plain ~/.config/fish/config.fish'
 alias bat='bat --paging=never --style=plain'
-alias ls='ls -lah -U'
+
+alias lsh='ls -lah -U'
+alias lsf='ls -d "$PWD"/*'
 
 alias cls='clear'
 #alias screenshot='gnome-screenshot -a'
@@ -362,7 +364,11 @@ alias inst='sudo nala install'
 alias remove='sudo nala remove'
 alias purge='sudo nala purge'
 
-alias flushdns='sudo resolvectl flush-caches'
+function flushdns
+    sudo resolvectl flush-caches
+    echo "Successfully flushed DNS resolver cache"
+end
+
 alias networkstatus='nmcli dev status'
 
 alias up='topgrade'
