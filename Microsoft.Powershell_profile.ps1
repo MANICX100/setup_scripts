@@ -1,5 +1,5 @@
 function lsf {
-Get-ChildItem -Recurse | Resolve-Path
+Get-ChildItem -Recurse | Resolve-Path | ForEach-Object { $_.Path.Replace('Microsoft.PowerShell.Core\FileSystem::', '') }
 }
 
 function pkgsearch {
