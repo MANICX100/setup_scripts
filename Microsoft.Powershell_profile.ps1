@@ -483,18 +483,6 @@ function stopup {
 gsudo net stop wuauserv
 }
 
-function lskb {
-Get-ChildItem | Select-Object Name, @{Name="KiloBytes";Expression={$_.Length / 1KB}}
-}
-
-function lsmb {
-Get-ChildItem | Select-Object Name, @{Name="Megabytes";Expression={$_.Length / 1MB}}
-}
-
-function lsgb {
-Get-ChildItem | Select-Object Name, @{Name="Gigabytes";Expression={$_.Length / 1GB}}
-}
-
 function uefi {
 shutdown /o /r /t 0 /f
 }
