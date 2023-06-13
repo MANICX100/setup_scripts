@@ -23,25 +23,39 @@ alias cloudsync='pkill onedrive && onedrive --synchronize --force'
 
 function lskb
     for file in (ls)
-        set size (du -k "$file" | cut -f1)
-        echo $file '\t' $size 'KB'
+        if test -d $file
+            set size (du -sk "$file" | cut -f1)
+            echo $file '\t' $size 'KB'
+        else if test -f $file
+            set size (du -k "$file" | cut -f1)
+            echo $file '\t' $size 'KB'
+        end
     end
 end
 
 function lsmb
     for file in (ls)
-        set size (du -m "$file" | cut -f1)
-        echo $file '\t' $size 'MB'
+        if test -d $file
+            set size (du -sm "$file" | cut -f1)
+            echo $file '\t' $size 'MB'
+        else if test -f $file
+            set size (du -m "$file" | cut -f1)
+            echo $file '\t' $size 'MB'
+        end
     end
 end
 
 function lsgb
     for file in (ls)
-        set size (du -h "$file" | cut -f1)
-        echo $file '\t' $size 'GB'
+        if test -d $file
+            set size (du -sh "$file" | cut -f1)
+            echo $file '\t' $size 'GB'
+        else if test -f $file
+            set size (du -h "$file" | cut -f1)
+            echo $file '\t' $size 'GB'
+        end
     end
 end
-
 
 function instsearch --description 'Search installed packages via dpkg, flatpak, and snap'
 
