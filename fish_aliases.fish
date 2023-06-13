@@ -34,15 +34,15 @@ function instsearch --description 'Search installed packages via dpkg, flatpak, 
 
   # Search in dpkg
   echo "=== DPKG ==="
-  dpkg -l | rg $pkg_name
+  dpkg -l | rg -i $pkg_name
 
   # Search in flatpak
   echo "=== FLATPAK ==="
-  flatpak list | rg $pkg_name
+  flatpak list | rg -i $pkg_name
 
   # Search in snap
   echo "=== SNAP ==="
-  snap list | rg $pkg_name
+  snap list | rg -i $pkg_name
 
 end
 
@@ -59,11 +59,11 @@ function pkgsearch --description 'Search available packages via apt, flatpak, an
 
   # Search in apt
   echo "=== APT ==="
-  apt-cache search $pkg_name | rg $pkg_name
+  apt-cache search $pkg_name | rg -i $pkg_name
 
   # Search in flatpak
   echo "=== FLATPAK ==="
-  flatpak remote-ls flathub | rg $pkg_name
+  flatpak remote-ls flathub | rg -i $pkg_name
 
   # Search in snap
   echo "=== SNAP ==="
