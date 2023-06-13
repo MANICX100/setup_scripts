@@ -21,6 +21,31 @@ alias webcam='sudo modprobe v4l2loopback'
 
 alias cloudsync='pkill onedrive && onedrive --synchronize --force'
 
+function instsearch --description 'Search installed packages via dpkg, flatpak, and snap'
+
+  if test (count $argv) -eq 0
+    echo "Please provide a package name."
+    return 1
+  end
+
+  set -l pkg_name $argv[1]
+
+  echo "Searching for package '$pkg_name' in dpkg, flatpak, and snap..."
+
+  # Search in dpkg
+  echo "=== DPKG ==="
+  dpkg -l | rg $pkg_name
+
+  # Search in flatpak
+  echo "=== FLATPAK ==="
+  flatpak list | rg $pkg_name
+
+  # Search in snap
+  echo "=== SNAP ==="
+  snap list | rg $pkg_name
+
+end
+
 function networkcycle
     for interface in (ip link show | rg -o "^[0-9]*: [a-z]*[0-9]*:" | cut -d: -f2 | string trim)
         if test $interface != 'lo'
