@@ -23,7 +23,7 @@ alias cloudsync='pkill onedrive && onedrive --synchronize --force'
 
 function lskb
   for file in (ls)
-    set size (du -sk $file)
+    set size (du -sk $file | awk '{print $1}')
     printf "%-10s %.2fK\n" $file $size
   end
 end
