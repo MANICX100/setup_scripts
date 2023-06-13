@@ -1,3 +1,43 @@
+function instsearch {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory=$true, ValueFromPipeline=$true)]
+        [string]$packageName
+    )
+
+    # Search in winget
+    Write-Host "Searching in Winget..."
+    $wingetPackages = winget list --name $packageName
+    if ($wingetPackages -ne $null) {
+        Write-Host "Found in Winget:"
+        $wingetPackages
+    } else {
+        Write-Host "Package not found in Winget"
+    }
+    Write-Host ""
+
+    # Search in Scoop
+    Write-Host "Searching in Scoop..."
+    $scoopPackages = scoop list | Where-Object { $_ -match $packageName }
+    if ($scoopPackages -ne $null) {
+        Write-Host "Found in Scoop:"
+        $scoopPackages
+    } else {
+        Write-Host "Package not found in Scoop"
+    }
+    Write-Host ""
+
+    # Search in Chocolatey
+    Write-Host "Searching in Chocolatey..."
+    $chocoPackages = choco list --localonly | Where-Object { $_ -match $packageName }
+    if ($chocoPackages -ne $null) {
+        Write-Host "Found in Chocolatey:"
+        $chocoPackages
+    } else {
+        Write-Host "Package not found in Chocolatey"
+    }
+}
+
 # Function to edit the hosts file
 function Edit-Hosts {
 gsudo notepad "C:\Windows\System32\drivers\etc\hosts"
