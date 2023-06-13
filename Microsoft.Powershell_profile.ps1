@@ -1,3 +1,5 @@
+alias lsf='Get-ChildItem -Recurse | Resolve-Path'
+
 function pkgsearch {
     param(
         [Parameter(Mandatory=$true)]
