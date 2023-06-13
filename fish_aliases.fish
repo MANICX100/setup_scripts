@@ -25,10 +25,10 @@ function lskb
     for file in (ls)
         if test -d $file
             set size (du -sk "$file" | cut -f1)
-            echo $file '\t' $size 'KB'
+            echo $file $size 'KB'
         else if test -f $file
             set size (du -k "$file" | cut -f1)
-            echo $file '\t' $size 'KB'
+            echo $file $size 'KB'
         end
     end
 end
@@ -37,10 +37,10 @@ function lsmb
     for file in (ls)
         if test -d $file
             set size (du -sm "$file" | cut -f1)
-            echo $file '\t' $size 'MB'
+            echo $file $size 'MB'
         else if test -f $file
             set size (du -m "$file" | cut -f1)
-            echo $file '\t' $size 'MB'
+            echo $file $size 'MB'
         end
     end
 end
@@ -49,10 +49,10 @@ function lsgb
     for file in (ls)
         if test -d $file
             set size (du -sh "$file" | cut -f1)
-            echo $file '\t' $size
+            echo $file $size
         else if test -f $file
             set size (du -h "$file" | cut -f1)
-            echo $file '\t' $size
+            echo $file $size
         end
     end
 end
