@@ -22,39 +22,24 @@ alias webcam='sudo modprobe v4l2loopback'
 alias cloudsync='pkill onedrive && onedrive --synchronize --force'
 
 function lskb
-    for file in (ls)
-        if test -d $file
-            set size (du -sk "$file" | cut -f1)
-            echo $file $size 'KB'
-        else if test -f $file
-            set size (du -k "$file" | cut -f1)
-            echo $file $size 'KB'
-        end
-    end
+  for file in (ls)
+    set size (du -sk $file)
+    printf "%-10s %.2fK\n" $file $size
+  end
 end
 
 function lsmb
-    for file in (ls)
-        if test -d $file
-            set size (du -sm "$file" | cut -f1)
-            echo $file $size 'MB'
-        else if test -f $file
-            set size (du -m "$file" | cut -f1)
-            echo $file $size 'MB'
-        end
-    end
+  for file in (ls)
+    set size (du -sk $file | awk '{print $1 / 1024}')
+    printf "%-10s %.2fM\n" $file $size
+  end
 end
 
 function lsgb
-    for file in (ls)
-        if test -d $file
-            set size (du -sh "$file" | cut -f1)
-            echo $file $size
-        else if test -f $file
-            set size (du -h "$file" | cut -f1)
-            echo $file $size
-        end
-    end
+  for file in (ls)
+    set size (du -sk $file | awk '{print $1 / 1024 / 1024}')
+    printf "%-10s %.2fG\n" $file $size
+  end
 end
 
 function instsearch --description 'Search installed packages via dpkg, flatpak, and snap'
