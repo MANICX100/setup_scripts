@@ -1,3 +1,38 @@
+# Function to edit the hosts file
+function Edit-Hosts {
+gsudo notepad "C:\Windows\System32\drivers\etc\hosts"
+}
+
+# Function to display network device status
+function NetworkStatus {
+    [CmdletBinding()]
+    param (
+        [switch]$IncludeDisabled
+    )
+    
+    $networkInterfaces = Get-NetAdapter | Where-Object {
+        $IncludeDisabled -or $_.Status -eq 'Up'
+    }
+    
+    $networkInterfaces | Format-Table -AutoSize
+}
+
+# Function to flush DNS caches
+function FlushDNS {
+    [CmdletBinding()]
+    param (
+        [string]$ComputerName = 'localhost'
+    )
+    
+    $command = if ($ComputerName -eq 'localhost') {
+        'ipconfig /flushdns'
+    } else {
+        "Invoke-Command -ComputerName $ComputerName -ScriptBlock { ipconfig /flushdns }"
+    }
+    
+    Invoke-Expression -Command $command
+}
+
 function ahkupdate {
     # Kill all running AutoHotkey processes
     Stop-Process -Name AutoHotkey* -Force
