@@ -240,11 +240,6 @@ function tbIcons {
 Open-ShellGUID -ShellGUID "{05d7b0f4-2121-4eff-bf6b-ed3f69b894d9}"
 }
 
-function validationPackager {
-cd "$env:USERPROFILE\Ideagen plc\Configuration Team - Documents\Validation Mapping"
-./validationPackager.ps1
-}
-
 function Open-Perm
 {
 icacls $args[0] /grant "Users:(OI)(CI)F" /T
@@ -306,18 +301,6 @@ param(
             Write-Error "Failed to rename file '$($file.Name)': $_"
         }
     }
-}
-
-function dkqpulse {
-az vm start --ids "/subscriptions/6ee31983-6836-4bab-86bc-11f1c526291e/resourceGroups/RD-PLAY-NE-01/providers/Microsoft.Compute/virtualMachines/DKQPulseServer"
-az vm start --ids "/subscriptions/6ee31983-6836-4bab-86bc-11f1c526291e/resourceGroups/RD-PLAY-NE-01/providers/Microsoft.Compute/virtualMachines/DK-Headless"
-az vm start --ids "/subscriptions/6ee31983-6836-4bab-86bc-11f1c526291e/resourceGroups/RD-PLAY-NE-01/providers/Microsoft.Compute/virtualMachines/DKVS"
-}
-
-function dkqpulsestop {
-az vm deallocate --ids "/subscriptions/6ee31983-6836-4bab-86bc-11f1c526291e/resourceGroups/RD-PLAY-NE-01/providers/Microsoft.Compute/virtualMachines/DKQPulseServer"
-az vm deallocate --ids "/subscriptions/6ee31983-6836-4bab-86bc-11f1c526291e/resourceGroups/RD-PLAY-NE-01/providers/Microsoft.Compute/virtualMachines/DK-Headless"
-az vm deallocate --ids "/subscriptions/6ee31983-6836-4bab-86bc-11f1c526291e/resourceGroups/RD-PLAY-NE-01/providers/Microsoft.Compute/virtualMachines/DKVS"
 }
 
 function piprmall {
