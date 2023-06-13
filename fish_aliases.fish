@@ -49,10 +49,10 @@ function lsgb
     for file in (ls)
         if test -d $file
             set size (du -sh "$file" | cut -f1)
-            echo $file '\t' $size 'GB'
+            echo $file '\t' $size
         else if test -f $file
             set size (du -h "$file" | cut -f1)
-            echo $file '\t' $size 'GB'
+            echo $file '\t' $size
         end
     end
 end
