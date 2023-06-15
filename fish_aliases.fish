@@ -219,6 +219,7 @@ end
 
 function tgupdate
 	aria2c --max-connection-per-server=16 -d ~/.config/ -o topgrade.toml -c --allow-overwrite=true "https://github.com/MANICX100/setup_scripts/raw/main/topgrade_lin.toml"
+	topgrade
 end
 
 function serv
@@ -330,7 +331,7 @@ end
 alias mpv='mpv --ontop --force-window'
 alias audit='sudo lynis --forensics && pip-audit'
 alias rcview='bat --paging=never --style=plain ~/.config/fish/config.fish'
-alias bat='bat --paging=never --style=plain'
+alias batc='bat --paging=never --style=plain'
 
 alias lsh='ls -lah -U'
 alias lsf='ls -d "$PWD"/*'
@@ -347,6 +348,7 @@ alias edit-grub='sudo nano /etc/default/grub'
 
 function rcupdate
 	aria2c -x 16 -d ~/.config/fish -o config.fish --allow-overwrite=true https://github.com/MANICX100/setup_scripts/raw/main/fish_aliases.fish
+	. ~/.config/fish/config.fish
 end
 
 set -g osinfo (rg -ioP '^ID=\K.+' /etc/os-release)
