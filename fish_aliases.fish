@@ -173,6 +173,7 @@ function burnin_srt_all
   for file in *.mp4 *.avi *.mkv
     if test -f "$file"
       burnin_srt "$file"
+	rm "$file"
     end
   end
 end
@@ -181,6 +182,7 @@ function speedupvid_all
   for file in *.mp4 *.avi *.mkv
     if test -f "$file"
       speedupvid "$file" 1.2
+	rm "$file"
     end
   end
 end
