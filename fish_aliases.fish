@@ -183,6 +183,7 @@ function speedupvid_all
     if test -f "$file"
       speedupvid "$file" 1.2
 	rm "$file"
+	rm *.srt
     end
   end
 end
