@@ -21,7 +21,7 @@ alias webcam='sudo modprobe v4l2loopback'
 
 alias cloudsync='pkill onedrive && onedrive --synchronize --force'
 
-function instsearch --description 'Search installed packages via dpkg, flatpak, and snap'
+function instsearch --description 'Search installed packages'
 
   if test (count $argv) -eq 0
     echo "Please provide a package name."
@@ -30,7 +30,7 @@ function instsearch --description 'Search installed packages via dpkg, flatpak, 
 
   set -l pkg_name $argv[1]
 
-  echo "Searching for package '$pkg_name' in dpkg, flatpak, and snap..."
+  echo "Searching for package '$pkg_name' in dpkg, flatpak, snap, and am..."
 
   # Search in dpkg
   echo "=== DPKG ==="
@@ -44,9 +44,13 @@ function instsearch --description 'Search installed packages via dpkg, flatpak, 
   echo "=== SNAP ==="
   snap list | rg -i $pkg_name
 
+  # Search in am
+  echo "=== AM ==="
+  am -f | rg -i $pkg_name
+
 end
 
-function pkgsearch --description 'Search available packages via apt, flatpak, and snap'
+function pkgsearch --description 'Search available packages'
 
   if test (count $argv) -eq 0
     echo "Please provide a package name."
@@ -55,7 +59,7 @@ function pkgsearch --description 'Search available packages via apt, flatpak, an
 
   set -l pkg_name $argv[1]
 
-  echo "Searching for package '$pkg_name' in apt, flatpak, and snap..."
+  echo "Searching for package '$pkg_name' in apt, flatpak, snap, and am..."
 
   # Search in apt
   echo "=== APT ==="
@@ -68,6 +72,10 @@ function pkgsearch --description 'Search available packages via apt, flatpak, an
   # Search in snap
   echo "=== SNAP ==="
   snap find $pkg_name
+
+  # Search in am
+  echo "=== AM ==="
+  am -q $pkg_name
 
 end
 
