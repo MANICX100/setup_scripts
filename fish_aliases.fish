@@ -82,8 +82,6 @@ function instsearch --description 'Search installed packages'
 
 end
 
-
-
 function pkgsearch --description 'Search available packages'
 
   if test (count $argv) -eq 0
@@ -93,29 +91,29 @@ function pkgsearch --description 'Search available packages'
 
   set -l pkg_name $argv[1]
 
-  echo "Searching for package '$pkg_name' in apt, flatpak, snap, am, dnf, zypper, yay, brew..."
+  echo "Searching for package '$pkg_name'"
 
   if type -q dpkg
     # Search in apt
-    echo "=== DEB ==="
+    echo "=== APT ==="
     apt-cache search $pkg_name | rg -i $pkg_name
   end
 
   if type -q dnf
     # Search in dnf
-    echo "=== RPM ==="
+    echo "=== DNF ==="
     dnf search $pkg_name
   end
 
   if type -q zypper
     # Search in zypper
-    echo "=== RPM ==="
+    echo "=== ZYPPER ==="
     zypper se $pkg_name
   end
 
   if type -q paru
     # Search in paru
-    echo "=== AUR ==="
+    echo "=== PARU ==="
     paru -Ss $pkg_name
   end
 
@@ -139,11 +137,18 @@ function pkgsearch --description 'Search available packages'
 
   # Search in am
   if type -q am
-    echo "=== APPIMAGES ==="
+    echo "=== AM ==="
     am -q $pkg_name
   end
 
+  if type -q mas
+    # Search in mas
+    echo "=== MAS ==="
+    mas search $pkg_name
+  end
+
 end
+
 
 
 function networkcycle
