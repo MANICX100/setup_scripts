@@ -9,6 +9,25 @@ user_pref("layout.css.font-loading-api.workers.enabled", true);
 user_pref("layout.css.animation-composition.enabled", true);
 user_pref("dom.importMaps.enabled", true);
 
+/** DISK AVOIDANCE ***/
+user_pref("browser.cache.disk.enable", true);
+user_pref("browser.privatebrowsing.forceMediaMemoryCache", true);
+user_pref("media.memory_cache_max_size", 65536);
+user_pref("browser.sessionstore.privacy_level", 0);
+user_pref("browser.pagethumbnails.capturing_disabled", true);
+
+/** SHUTDOWN & SANITIZING ***/
+user_pref("privacy.history.custom", true);
+
+/** SPECULATIVE CONNECTIONS ***/
+user_pref("network.http.speculative-parallel-limit", 6);
+user_pref("network.dns.disablePrefetch", false);
+user_pref("browser.urlbar.speculativeConnect.enabled", false);
+user_pref("browser.places.speculativeConnect.enabled", false);
+user_pref("network.prefetch-next", true);
+user_pref("network.predictor.enabled", true);
+user_pref("network.predictor.enable-prefetch", true);
+
 /****************************************************************************
  * SECTION: SECUREFOX                                                       *
 ****************************************************************************/
