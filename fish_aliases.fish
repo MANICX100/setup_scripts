@@ -150,19 +150,32 @@ function pkgsearch --description 'Search available packages'
 end
 
 function disable-all-network-interfaces
-    for iface in (ip link show | rg '^[0-9]' | awk -F: '{print $2}' | string trim)
-        echo "Disabling $iface"
-        sudo ip link set $iface down
+    if type -q ip
+        for iface in (ip link show | rg '^[0-9]' | awk -F: '{print $2}' | string trim)
+            echo "Disabling $iface"
+            sudo ip link set $iface down
+        end
+    else
+        for service in (networksetup -listallnetworkservices | string trim)
+            echo "Disabling $service"
+            sudo networksetup -setnetworkserviceenabled $service off
+        end
     end
 end
 
 function enable-all-network-interfaces
-    for iface in (ip link show | rg '^[0-9]' | awk -F: '{print $2}' | string trim)
-        echo "Enabling $iface"
-        sudo ip link set $iface up
+    if type -q ip
+        for iface in (ip link show | rg '^[0-9]' | awk -F: '{print $2}' | string trim)
+            echo "Enabling $iface"
+            sudo ip link set $iface up
+        end
+    else
+        for service in (networksetup -listallnetworkservices | string trim)
+            echo "Enabling $service"
+            sudo networksetup -setnetworkserviceenabled $service on
+        end
     end
 end
-
 
 function networkcycle
 disable-all-network-interfaces
