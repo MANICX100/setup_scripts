@@ -24,25 +24,58 @@ function instsearch --description 'Search installed packages'
 
   set -l pkg_name $argv[1]
 
-  echo "Searching for package '$pkg_name' in dpkg, flatpak, snap, and am..."
+  echo "Searching for package '$pkg_name' in dpkg, flatpak, snap, am, dnf, zypper, paru, and brew..."
 
   # Search in dpkg
-  echo "=== DPKG ==="
-  dpkg -l | rg -i $pkg_name
+  if type dpkg >/dev/null 2>&1
+    echo "=== DEB ==="
+    dpkg -l | rg -i $pkg_name
+  end
 
   # Search in flatpak
-  echo "=== FLATPAK ==="
-  flatpak list | rg -i $pkg_name
+  if type flatpak >/dev/null 2>&1
+    echo "=== FLATPAK ==="
+    flatpak list | rg -i $pkg_name
+  end
 
   # Search in snap
-  echo "=== SNAP ==="
-  snap list | rg -i $pkg_name
+  if type snap >/dev/null 2>&1
+    echo "=== SNAP ==="
+    snap list | rg -i $pkg_name
+  end
 
   # Search in am
-  echo "=== AM ==="
-  am -f | rg -i $pkg_name
+  if type am >/dev/null 2>&1
+    echo "=== APPIMAGES ==="
+    am -f | rg -i $pkg_name
+  end
+
+  # Search in dnf
+  if type dnf >/dev/null 2>&1
+    echo "=== RPM ==="
+    dnf list installed | rg -i $pkg_name
+  end
+
+  # Search in zypper
+  if type zypper >/dev/null 2>&1
+    echo "=== RPM ==="
+    zypper se -i | rg -i $pkg_name
+  end
+
+  # Search in paru
+  if type paru >/dev/null 2>&1
+    echo "=== AUR ==="
+    paru -Q | rg -i $pkg_name
+  end
+
+  # Search in brew
+  if type brew >/dev/null 2>&1
+    echo "=== BREW ==="
+    brew list | rg -i $pkg_name
+  end
 
 end
+
 
 function pkgsearch --description 'Search available packages'
 
@@ -57,26 +90,26 @@ function pkgsearch --description 'Search available packages'
 
   if type -q dpkg
     # Search in apt
-    echo "=== APT ==="
+    echo "=== DEB ==="
     apt-cache search $pkg_name | rg -i $pkg_name
   end
 
   if type -q dnf
     # Search in dnf
-    echo "=== DNF ==="
+    echo "=== RPM ==="
     dnf search $pkg_name
   end
 
   if type -q zypper
     # Search in zypper
-    echo "=== ZYPPER ==="
+    echo "=== RPM ==="
     zypper se $pkg_name
   end
 
-  if type -q yay
-    # Search in yay
-    echo "=== YAY ==="
-    yay -Ss $pkg_name
+  if type -q paru
+    # Search in paru
+    echo "=== AUR ==="
+    paru -Ss $pkg_name
   end
 
   if type -q brew
@@ -99,7 +132,7 @@ function pkgsearch --description 'Search available packages'
 
   # Search in am
   if type -q am
-    echo "=== AM ==="
+    echo "=== APPIMAGES ==="
     am -q $pkg_name
   end
 
