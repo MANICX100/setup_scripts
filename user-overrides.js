@@ -30,6 +30,9 @@ user_pref("network.prefetch-next", true);
 user_pref("network.predictor.enabled", true);
 user_pref("network.predictor.enable-prefetch", true);
 
+/** MEDIA ***/
+user_pref("media.ffmpeg.vaapi.enabled", true);
+
 /****************************************************************************
  * SECTION: SECUREFOX                                                       *
 ****************************************************************************/
