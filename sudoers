@@ -13,3 +13,4 @@ dkendall ALL=(root)NOPASSWD: /usr/bin/xfe
 #dkendall ALL=(root)NOPASSWD: /usr/bin/pcmanfm
 #dkendall ALL=(root)NOPASSWD: /usr/bin/nautilus
 ALL ALL=NOPASSWD: /usr/bin/tee
+dkendall ALL=(root)NOPASSWD: /usr/bin/gh
