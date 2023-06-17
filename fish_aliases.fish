@@ -53,25 +53,58 @@ function pkgsearch --description 'Search available packages'
 
   set -l pkg_name $argv[1]
 
-  echo "Searching for package '$pkg_name' in apt, flatpak, snap, and am..."
+  echo "Searching for package '$pkg_name' in apt, flatpak, snap, am, dnf, zypper, yay, brew..."
 
-  # Search in apt
-  echo "=== APT ==="
-  apt-cache search $pkg_name | rg -i $pkg_name
+  if type -q dpkg
+    # Search in apt
+    echo "=== APT ==="
+    apt-cache search $pkg_name | rg -i $pkg_name
+  end
+
+  if type -q dnf
+    # Search in dnf
+    echo "=== DNF ==="
+    dnf search $pkg_name
+  end
+
+  if type -q zypper
+    # Search in zypper
+    echo "=== ZYPPER ==="
+    zypper se $pkg_name
+  end
+
+  if type -q yay
+    # Search in yay
+    echo "=== YAY ==="
+    yay -Ss $pkg_name
+  end
+
+  if type -q brew
+    # Search in brew
+    echo "=== BREW ==="
+    brew search $pkg_name
+  end
 
   # Search in flatpak
-  echo "=== FLATPAK ==="
-  flatpak remote-ls flathub | rg -i $pkg_name
+  if type -q flatpak
+    echo "=== FLATPAK ==="
+    flatpak remote-ls flathub | rg -i $pkg_name
+  end
 
   # Search in snap
-  echo "=== SNAP ==="
-  snap find $pkg_name
+  if type -q snap
+    echo "=== SNAP ==="
+    snap find $pkg_name
+  end
 
   # Search in am
-  echo "=== AM ==="
-  am -q $pkg_name
+  if type -q am
+    echo "=== AM ==="
+    am -q $pkg_name
+  end
 
 end
+
 
 function networkcycle
     for interface in (ip link show | rg -o "^[0-9]*: [a-z]*[0-9]*:" | cut -d: -f2 | string trim)
