@@ -8,6 +8,8 @@ user_pref("gfx.offscreencanvas.enabled", true);
 user_pref("layout.css.font-loading-api.workers.enabled", true);
 user_pref("layout.css.animation-composition.enabled", true);
 user_pref("dom.importMaps.enabled", true);
+user_pref("gfx.webrender.all",true);
+user_pref("network.http.max-persistent-connections-per-server",8);
 
 /** DISK AVOIDANCE ***/
 user_pref("browser.cache.disk.enable", true);
@@ -236,6 +238,8 @@ user_pref("network.dns.use_https_rr_as_altsvc",true);
 user_pref("identity.fxaccounts.enabled",true);
 user_pref("privacy.sanitize.sanitizeOnShutdown",false);
 user_pref("places.history.enabled",true);
+user_pref("reader.parse-on-load.enabled", false);
+user_pref("browser.urlbar.trimURLs", false);
 
 /****************************************************************************
  * END: BETTERFOX                                                           *
