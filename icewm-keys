@@ -16,3 +16,4 @@ key "Ctrl+Shift+Space" ulauncher
 key "Ctrl+Alt+x" xkill
 key "Ctrl+Shift+Esc" gnome-system-monitor
 key "Ctrl+Shift+Alt+D" landrop
+key "Ctrl+Alt+Shift+t" wmctrl -r :ACTIVE: -b toggle,above
