@@ -28,7 +28,7 @@ function instsearch --description 'Search installed packages'
 
   # Search in dpkg
   if type dpkg >/dev/null 2>&1
-    echo "=== DPKG ==="
+    echo "=== DEB ==="
     dpkg -l | rg -i $pkg_name
   end
 
@@ -46,25 +46,25 @@ function instsearch --description 'Search installed packages'
 
   # Search in am
   if type am >/dev/null 2>&1
-    echo "=== AM ==="
+    echo "=== APPIMAGES ==="
     am -f | rg -i $pkg_name
   end
 
   # Search in dnf
   if type dnf >/dev/null 2>&1
-    echo "=== DNF ==="
+    echo "=== RPM ==="
     dnf list installed | rg -i $pkg_name
   end
 
   # Search in zypper
   if type zypper >/dev/null 2>&1
-    echo "=== ZYPPER ==="
+    echo "=== RPM ==="
     zypper se -i | rg -i $pkg_name
   end
 
   # Search in paru
   if type paru >/dev/null 2>&1
-    echo "=== PARU ==="
+    echo "=== AUR ==="
     paru -Q | rg -i $pkg_name
   end
 
@@ -76,7 +76,7 @@ function instsearch --description 'Search installed packages'
 
   # Search in mas
   if type mas >/dev/null 2>&1
-    echo "=== MAS ==="
+    echo "=== APPSTORE ==="
     mas list | rg -i $pkg_name
   end
 
@@ -95,25 +95,25 @@ function pkgsearch --description 'Search available packages'
 
   if type -q dpkg
     # Search in apt
-    echo "=== APT ==="
+    echo "=== DEB ==="
     apt-cache search $pkg_name | rg -i $pkg_name
   end
 
   if type -q dnf
     # Search in dnf
-    echo "=== DNF ==="
+    echo "=== RPM ==="
     dnf search $pkg_name
   end
 
   if type -q zypper
     # Search in zypper
-    echo "=== ZYPPER ==="
+    echo "=== RPM ==="
     zypper se $pkg_name
   end
 
   if type -q paru
     # Search in paru
-    echo "=== PARU ==="
+    echo "=== AUR ==="
     paru -Ss $pkg_name
   end
 
@@ -137,13 +137,13 @@ function pkgsearch --description 'Search available packages'
 
   # Search in am
   if type -q am
-    echo "=== AM ==="
+    echo "=== APPIMAGES ==="
     am -q $pkg_name
   end
 
   if type -q mas
     # Search in mas
-    echo "=== MAS ==="
+    echo "=== APPSTORE ==="
     mas search $pkg_name
   end
 
