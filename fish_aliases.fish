@@ -242,7 +242,7 @@ alias rpmall='sudo rpm -Uvh *'
 alias chkdsk='fsck'
 alias Get-Volume='sudo lsblk -o NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL'
 
-alias apptime='timeout --signal INT 1s time $argv'
+alias default='kcmshell5 filetypes'
 
 alias rmpipall='pip freeze --user | xargs pip uninstall -y'
 alias rmpnpm='rm -rf -v $PNPM_HOME'
