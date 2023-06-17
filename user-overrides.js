@@ -244,6 +244,7 @@ user_pref("privacy.sanitize.sanitizeOnShutdown",false);
 user_pref("places.history.enabled",true);
 user_pref("reader.parse-on-load.enabled", false);
 user_pref("browser.urlbar.trimURLs", false);
+user_pref("security.enterprise_roots.enabled",true);
 
 /****************************************************************************
  * END: BETTERFOX                                                           *
