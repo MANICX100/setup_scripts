@@ -9,7 +9,7 @@ user_pref("layout.css.font-loading-api.workers.enabled", true);
 user_pref("layout.css.animation-composition.enabled", true);
 user_pref("dom.importMaps.enabled", true);
 user_pref("gfx.webrender.all",true);
-user_pref("network.http.max-persistent-connections-per-server",8);
+user_pref("network.http.max-persistent-connections-per-server",16);
 
 /** DISK AVOIDANCE ***/
 user_pref("browser.cache.disk.enable", true);
