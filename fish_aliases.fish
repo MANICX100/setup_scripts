@@ -24,11 +24,11 @@ function instsearch --description 'Search installed packages'
 
   set -l pkg_name $argv[1]
 
-  echo "Searching for package '$pkg_name' in dpkg, flatpak, snap, am, dnf, zypper, paru, and brew..."
+  echo "Searching for package '$pkg_name'"
 
   # Search in dpkg
   if type dpkg >/dev/null 2>&1
-    echo "=== DEB ==="
+    echo "=== DPKG ==="
     dpkg -l | rg -i $pkg_name
   end
 
@@ -46,25 +46,25 @@ function instsearch --description 'Search installed packages'
 
   # Search in am
   if type am >/dev/null 2>&1
-    echo "=== APPIMAGES ==="
+    echo "=== AM ==="
     am -f | rg -i $pkg_name
   end
 
   # Search in dnf
   if type dnf >/dev/null 2>&1
-    echo "=== RPM ==="
+    echo "=== DNF ==="
     dnf list installed | rg -i $pkg_name
   end
 
   # Search in zypper
   if type zypper >/dev/null 2>&1
-    echo "=== RPM ==="
+    echo "=== ZYPPER ==="
     zypper se -i | rg -i $pkg_name
   end
 
   # Search in paru
   if type paru >/dev/null 2>&1
-    echo "=== AUR ==="
+    echo "=== PARU ==="
     paru -Q | rg -i $pkg_name
   end
 
@@ -74,7 +74,14 @@ function instsearch --description 'Search installed packages'
     brew list | rg -i $pkg_name
   end
 
+  # Search in mas
+  if type mas >/dev/null 2>&1
+    echo "=== MAS ==="
+    mas list | rg -i $pkg_name
+  end
+
 end
+
 
 
 function pkgsearch --description 'Search available packages'
