@@ -323,9 +323,8 @@ end
 alias img2txt='image2txt'
 
 function ffup
-	/home/dkendall/.mozilla/firefox/oewuk6x8.default-release/updater.sh
-	/home/dkendall/.pulse-browser/ahfzm1ye.default-alpha-1/updater.sh
-	/home/dkendall/.waterfox/gp3hc69r.default-release/updater.sh
+	aria2c -x 16 -d /home/dkendall/.mozilla/firefox/5p7rx3j6.default-release-1/ -o user-overrides.js --allow-overwrite=true https://github.com/MANICX100/setup_scripts/raw/main/user-overrides.js
+	/home/dkendall/.mozilla/firefox/5p7rx3j6.default-release-1/updater.sh
 end
 
 alias netstat='ss -t -r state established'
