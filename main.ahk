@@ -61,5 +61,5 @@ Run "C:\Users\dmani\scoop\apps\fscapture\current\FSCapture.exe"
 
 ^!t::Run "C:\Users\dmani\scoop\apps\contour\current\contour.exe"
 
-^+!d::Run, "C:\Users\dmani\scoop\apps\landrop\current\LANDrop.exe"
+^+!d::Run "C:\Users\dmani\scoop\apps\landrop\current\LANDrop.exe"
 
