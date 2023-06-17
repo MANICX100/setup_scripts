@@ -149,16 +149,24 @@ function pkgsearch --description 'Search available packages'
 
 end
 
+function disable-all-network-interfaces
+    for iface in (ip link show | rg '^[0-9]' | awk -F: '{print $2}' | string trim)
+        echo "Disabling $iface"
+        sudo ip link set $iface down
+    end
+end
+
+function enable-all-network-interfaces
+    for iface in (ip link show | rg '^[0-9]' | awk -F: '{print $2}' | string trim)
+        echo "Enabling $iface"
+        sudo ip link set $iface up
+    end
+end
 
 
 function networkcycle
-    for interface in (ip link show | rg -o "^[0-9]*: [a-z]*[0-9]*:" | cut -d: -f2 | string trim)
-        if test $interface != 'lo'
-            sudo ip link set dev $interface down
-            sudo ip link set dev $interface up
-            echo "Reset $interface"
-        end
-    end
+disable-all-network-interfaces
+enable-all-network-interfaces
 end
 
 function Resync-Time
