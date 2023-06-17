@@ -235,6 +235,7 @@ user_pref("network.dns.echconfig.enabled",true);
 user_pref("network.dns.use_https_rr_as_altsvc",true);
 user_pref("identity.fxaccounts.enabled",true);
 user_pref("privacy.sanitize.sanitizeOnShutdown",false);
+user_pref("places.history.enabled",true);
 
 /****************************************************************************
  * END: BETTERFOX                                                           *
