@@ -77,6 +77,32 @@ alias shut='sudo systemctl suspend && i3lock -c 000000 -n'
 alias logoff='sudo service sddm restart'
 alias yt-dlp='/usr/local/bin/yt-dlp'
 
+function fdd
+    set file (fzf)
+    if test -n "$file"
+        rm -f "$file"
+        echo "Deleted file: $file"
+    else
+        echo "No file selected for deletion"
+    end
+end
+
+function fdc
+    set file (fzf)
+    if test -n "$file"
+        echo "Chosen file: $file"
+        set destination (fzf)
+        if test -n "$destination"
+            cp -i "$file" "$destination"
+            echo "Copied file $file to $destination"
+        else
+            echo "No destination selected"
+        end
+    else
+        echo "No file selected to copy"
+    end
+end
+
 function replaceline
     set -l lineNumber $argv[1]
     set -l replacement $argv[2]
