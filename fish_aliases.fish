@@ -106,24 +106,54 @@ function printline
 
     return $status
 end
-
 function replaceall
-    set -l count 0
+    if not set -q argv[4]
+        echo "Invalid arguments. Usage: replaceall <line> <original_str> <replacement_str> <file_path>"
+        return 1
+    end
+
     set -l line_num $argv[1]
     set -l original_str $argv[2]
     set -l replacement_str $argv[3]
     set -l file_path $argv[4]
 
+    if not test -f $file_path
+        echo "File does not exist: $file_path"
+        return 1
+    end
+
+    set -l temp_file (mktemp)
+    or begin
+        echo "Failed to create a temp file"
+        return 1
+    end
+
+    set -l count 0
     while read -r line
-        set -l count (math $count + 1)
+        set count (math $count + 1)
         if test $line_num -eq 0 -o $count -eq $line_num
-            set -l new_line (string replace -r -- $original_str $replacement_str $line)
-            echo $new_line
-        else
-            echo $line
+            set line (string replace -r -- $original_str $replacement_str $line)
+        end
+        printf "%s\n" $line >> $temp_file
+        or begin
+            echo "Failed to write to the temp file"
+            rm -f $temp_file
+            return 1
         end
     end < $file_path
+    or begin
+        echo "Failed to read the file: $file_path"
+        rm -f $temp_file
+        return 1
+    end
+
+    if not mv $temp_file $file_path
+        echo "Failed to replace the original file"
+        rm -f $temp_file
+        return 1
+    end
 end
+
 
 function gitsetup
 git config --global user.name "Danny Kendall"
