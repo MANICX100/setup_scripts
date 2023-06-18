@@ -93,30 +93,24 @@ function replaceline
 end
 
 function printline
-    set -l line_number $argv[1]
-    set -l file_path $argv[2]
+    set -l file_path $argv[1]
+    set -l start_line $argv[2]
+    set -l end_line $argv[3]
 
-    if test -z "$line_number" -o -z "$file_path"
-        echo "Usage: printline <line number or range> <file path>"
+    if test -z $file_path
+        echo "File path is required."
         return 1
     end
 
-    set -l line_range (string split --delimiter="-" $line_number)
-    set -l start_line (math 1 + $line_range[1])
-    set -l end_line (math 1 + $line_range[2])
-
-    if test -n "$line_range[2]"
-        set -l sed_range "$start_line,$end_line p"
-    else
-        set -l sed_range $start_line"p"
-    end
-
-    if test -f "$file_path"
-        sed -n $sed_range $file_path
-    else
-        echo "Error: File '$file_path' not found."
+    if test -z $start_line -o -z $end_line
+        echo "Start and end lines are required."
         return 1
     end
+
+    # Use bat to colorize and paginate the output
+    bat --style=plain --pager=never --line-range=$start_line:$end_line --color=always $file_path | rg --color=always .
+
+    return $status
 end
 
 
