@@ -59,7 +59,7 @@ alias instrpm='sudo rpm -ivh --force'
 alias instdeb='sudo dpkg --force-all -i'
 alias playtv='smplayer /home/dkendall/Videos/TV/Personal'
 alias emptybin='sudo rm -rf ~/.local/share/Trash/'
-alias delrecent='sudo rm ~/.local/share/recently-used.xbel && sudo touch ~/.local/share/recently-used.xbel'
+alias delrecent='sudo rm ~/.local/share/recently-usd.xbel && sudo touch ~/.local/share/recently-usd.xbel'
 alias rm='rm -rf -v'
 alias syncfolders='rsync -avh --ignore-existing --delete --progress --compress --no-whole-file /home/dkendall/ /media/dkendall/exFAT/'
 alias unshareusb='/bin/eveusbc unshare all'
@@ -82,8 +82,8 @@ function replaceline
     set -l replacement $argv[2]
     set -l filename $argv[3]
 
-    # Use sed to replace the specified line in the file
-    sed -i "$line_number s/.*/$replacement/" "$filename"
+    # Use sd to replace the specified line in the file
+    sd -i "$line_number s/.*/$replacement/" "$filename"
 end
 
 function printline
@@ -339,15 +339,15 @@ end
 
 function burnin_srt
 	set filename (basename "$argv[1]")  # get the full file name
-	set base (echo $filename | sed 's/\.[^.]*$//')  # get the file name without the extension
-	set subtitle (echo $argv[1] | sed 's/\.[^.]*$/.srt/')
+	set base (echo $filename | sd 's/\.[^.]*$//')  # get the file name without the extension
+	set subtitle (echo $argv[1] | sd 's/\.[^.]*$/.srt/')
 	ffmpeg -i "$argv[1]" -vf subtitles="$subtitle" -preset ultrafast -threads 0 "$base-srt.mkv"
 end
 
 function speedupvid
 	set filename (basename "$argv[1]")  # get the full file name
-	set extension (echo $filename | sed 's/^.*\.//')  # get the extension
-	set base (echo $filename | sed 's/\.[^.]*$//')  # get the file name without the extension
+	set extension (echo $filename | sd 's/^.*\.//')  # get the extension
+	set base (echo $filename | sd 's/\.[^.]*$//')  # get the file name without the extension
 	ffmpeg -i "$argv[1]" -filter_complex "[0:v]setpts=1/$argv[2]*PTS[v];[0:a]rubberband=tempo=$argv[2][a]" -map "[v]" -map "[a]" -preset ultrafast -threads 0 "$base-speed.mkv"
 end
 
@@ -502,11 +502,11 @@ set -g osinfo (rg -ioP '^ID=\K.+' /etc/os-release)
 
 neofetch > ~/.cache/neofetch
 
-sed -i 's/Ubuntu/Kendall Linux/g' ~/.cache/neofetch
-sed -i 's/6500/6900/g' ~/.cache/neofetch
-sed -i 's/6400/6800/g' ~/.cache/neofetch
-sed -i 's/3.201/6.0/g' ~/.cache/neofetch
-sed -i 's/99D//g' ~/.cache/neofetch
+sd Ubuntu Kendall Linux ~/.cache/neofetch
+sd 6500 6900 ~/.cache/neofetch
+sd 6400 6800  ~/.cache/neofetch
+sd 3.201 6.0 ~/.cache/neofetch
+sd 99D "" ~/.cache/neofetch
 
 function flushdns
     sudo resolvectl flush-caches
@@ -528,7 +528,7 @@ function uefi
 	    case debian
 			systemctl reboot --firmware-setup
 	    case '*'
-			sudo nvram "recovery-boot-mode=unused"
+			sudo nvram "recovery-boot-mode=unusd"
 			sudo reboot
 	end
 end
