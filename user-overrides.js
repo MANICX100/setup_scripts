@@ -245,6 +245,8 @@ user_pref("places.history.enabled",true);
 user_pref("reader.parse-on-load.enabled", false);
 user_pref("browser.urlbar.trimURLs", false);
 user_pref("security.enterprise_roots.enabled",true);
+user_pref("ui.key.menuAccessKey",17);
+
 
 /****************************************************************************
  * END: BETTERFOX                                                           *
