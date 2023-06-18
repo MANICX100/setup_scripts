@@ -78,26 +78,11 @@ alias logoff='sudo service sddm restart'
 alias yt-dlp='/usr/local/bin/yt-dlp'
 
 function replaceline
-    # Check if the required arguments are provided
-    if test -z "$argv[1]" -o -z "$argv[2]" -o -z "$argv[3]"
-        echo "Usage: replaceline <line_number> <substitution> <file_path>"
-        return 1
-    end
-
-    set line_number $argv[1]
-    set substitution $argv[2]
-    set file_path $argv[3]
-
-    # Perform the line replacement using rg and awk
-    rg --line-number '' $file_path | awk -v line=$line_number -v sub=$substitution '{
-        if ($1 == line) {
-            sub(/.*/, sub)
-        }
-        print
-    }' > $file_path.tmp
-
-    # Overwrite the original file with the modified contents
-    mv $file_path.tmp $file_path
+    set -l line_number $argv[1]
+    set -l new_line $argv[2]
+    set -l file_path $argv[3]
+    cp $file_path $file_path.bak
+    sed -i "${line_number}s/.*/$new_line/" $file_path
 end
 
 function printline
@@ -123,23 +108,12 @@ end
 
 
 function replaceall
-    set -l file_path $argv[1]
-    set -l search_string $argv[2]
-    set -l replacement $argv[3]
-    set -l num_replacements $argv[4]
-
-    if test $num_replacements -eq 0
-        set num_replacements ""
-    else
-        set num_replacements "--max-count $num_replacements"
-    end
-
-    set -l line_numbers (rg -n "$search_string" $file_path | awk -F: '{ print $1 }' | uniq)
-    rg -l "$search_string" $file_path | xargs -I {} rg --passthru "$search_string" {} $num_replacements --replace "$replacement"
-
-    for line_number in $line_numbers
-        echo "Replacement occurred on line $line_number"
-    end
+    set -l search_string $argv[1]
+    set -l replace_string $argv[2]
+    set -l n $argv[3]
+    set -l file_path $argv[4]
+    cp $file_path $file_path.bak
+    sed -i "s/$search_string/$replace_string/$n" $file_path
 end
 
 function gitsetup
