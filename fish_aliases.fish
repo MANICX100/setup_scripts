@@ -88,8 +88,16 @@ function replaceline
     set substitution $argv[2]
     set file_path $argv[3]
 
-    # Perform the line replacement using sed
-    sed -i "$line_number s/.*/$substitution/" $file_path
+    # Perform the line replacement using rg and awk
+    rg --line-number '' $file_path | awk -v line=$line_number -v sub=$substitution '{
+        if ($1 == line) {
+            sub(/.*/, sub)
+        }
+        print
+    }' > $file_path.tmp
+
+    # Overwrite the original file with the modified contents
+    mv $file_path.tmp $file_path
 end
 
 function printline
@@ -121,11 +129,13 @@ function replaceall
     set -l num_replacements $argv[4]
 
     if test $num_replacements -eq 0
-        set num_replacements "g"
+        set num_replacements ""
+    else
+        set num_replacements "--max-count $num_replacements"
     end
 
-    set -l line_numbers (sed -n "/$search_string/=" $file_path)
-    sed -i "s/$search_string/$replacement/$num_replacements" $file_path
+    set -l line_numbers (rg -n "$search_string" $file_path | awk -F: '{ print $1 }' | uniq)
+    rg -l "$search_string" $file_path | xargs -I {} rg --passthru "$search_string" {} $num_replacements --replace "$replacement"
 
     for line_number in $line_numbers
         echo "Replacement occurred on line $line_number"
