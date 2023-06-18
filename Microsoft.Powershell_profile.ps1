@@ -1,3 +1,52 @@
+function fdc {
+    param (
+        [string]$query = ''
+    )
+
+    # Run fzf and capture the selected file path
+    $selectedFile = & fzf --query="$query"
+
+    if ($selectedFile) {
+        # Extract the directory path from the selected file
+        $sourcePath = Split-Path -Path $selectedFile -Parent
+
+        # Now we will run fzf again to choose the destination directory
+        $destinationDirectory = & fzf --query=""
+
+        if ($destinationDirectory) {
+            # Ensure the chosen destination is indeed a directory
+            if (Test-Path $destinationDirectory -PathType Container) {
+                # Construct the full destination path
+                $destinationPath = Join-Path -Path $destinationDirectory -ChildPath (Split-Path -Path $selectedFile -Leaf)
+                
+                # Copy the file or directory to the new location
+                Copy-Item -Path $selectedFile -Destination $destinationPath
+            } else {
+                Write-Host "Invalid directory selected. Operation cancelled."
+            }
+        }
+    }
+}
+
+function fdd {
+    param (
+        [string]$query = ''
+    )
+
+    # Run fzf and capture the selected file path
+    $selectedFile = & fzf --query="$query"
+
+    if ($selectedFile) {
+        # Check if the selected file or directory exists
+        if (Test-Path $selectedFile) {
+            # Delete the file or directory without confirmation
+            Remove-Item -Path $selectedFile -Recurse -Force
+        } else {
+            Write-Host "Selected file or directory does not exist."
+        }
+    }
+}
+
 function lsf {
 Get-ChildItem -Recurse | Resolve-Path | ForEach-Object { $_.Path.Replace('Microsoft.PowerShell.Core\FileSystem::', '') }
 }
