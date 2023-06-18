@@ -81,12 +81,16 @@ function replacen
     set old_string $argv[1]
     set new_string $argv[2]
     set file $argv[3]
-
+    
     echo "How many instances do you want to replace?"
     read instances
 
-    # Using sed command to replace instances
-    sed -i "0,/$old_string/s//$new_string/$instances" $file
+    # Using awk command to replace instances
+    awk -v old="$old_string" -v new="$new_string" -v max="$instances" '
+        BEGIN{ count=0 }
+        count<max{ count+=gsub(old, new) }
+        { print }
+    ' $file > tmp_file && mv tmp_file $file
 end
 
 function replaceline
