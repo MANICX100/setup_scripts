@@ -108,16 +108,17 @@ function printline
     if test -n "$line_range[2]"
         set -l sed_range "$start_line,$end_line p"
     else
-        set -l sed_range "${start_line}p"
+        set -l sed_range $start_line"p"
     end
 
     if test -f "$file_path"
-        sed -n "$sed_range" $file_path
+        sed -n $sed_range $file_path
     else
         echo "Error: File '$file_path' not found."
         return 1
     end
 end
+
 
 function replaceall
     set -l file_path $argv[1]
