@@ -78,11 +78,12 @@ alias logoff='sudo service sddm restart'
 alias yt-dlp='/usr/local/bin/yt-dlp'
 
 function replaceline
-    set -l line_number $argv[1]
-    set -l new_line $argv[2]
-    set -l file_path $argv[3]
-    cp $file_path $file_path.bak
-    sed -i "$line_number"'s/.*/'"$new_line"'/' $file_path
+    set line_number $argv[1]
+    set replacement $argv[2]
+    set filename $argv[3]
+
+    # Use sed to replace the specified line in the file
+    sed -i "$line_number s/.*/$replacement/" $filename
 end
 
 function printline
