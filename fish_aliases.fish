@@ -78,24 +78,15 @@ alias logoff='sudo service sddm restart'
 alias yt-dlp='/usr/local/bin/yt-dlp'
 
 function replacen
-    set -l total_matches (grep -c -F $argv[1] $argv[2])
-    set -l replace_all (test $argv[3] -eq $total_matches; and echo 1; or echo 0)
-    
-    if test $replace_all -eq 1
-        sed -i "s/$argv[1]/$argv[2]/g" $argv[3]
-        echo "Replaced all occurrences of '$argv[1]' with '$argv[2]' in $argv[3]."
-    else
-        printf "Enter the number of occurrences to replace: "
-        read -l replace_count
+    set old_string $argv[1]
+    set new_string $argv[2]
+    set file $argv[3]
 
-        if test $replace_count -gt $total_matches
-            replace_count=$total_matches
-        end
+    echo "How many instances do you want to replace?"
+    read instances
 
-        set -l command "0,$replace_count s/$argv[1]/$argv[2]/g"
-        sed -i "$command" $argv[3]
-        echo "Replaced $replace_count occurrences of '$argv[1]' with '$argv[2]' in $argv[3]."
-    end
+    # Using sed command to replace instances
+    sed -i "0,/$old_string/s//$new_string/$instances" $file
 end
 
 function replaceline
