@@ -537,9 +537,17 @@ function seq ($s,$e,$step){
 $s..$e | Where-Object { $_ % $step -eq 0 }
 }
 
-function networkcycle{
+function disable-all-network-interfaces {
 Get-NetAdapter | Disable-NetAdapter -Confirm:$false
+}
+
+function enable-all-network-interfaces {
 Get-NetAdapter | Enable-NetAdapter -Confirm:$false
+}
+
+function networkcycle{
+disable-all-network-interfaces
+enable-all-network-interfaces
 }
 
 function delofficecache{
