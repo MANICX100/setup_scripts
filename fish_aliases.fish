@@ -77,6 +77,48 @@ alias shut='sudo systemctl suspend && i3lock -c 000000 -n'
 alias logoff='sudo service sddm restart'
 alias yt-dlp='/usr/local/bin/yt-dlp'
 
+function replaceline
+    # Check if the required arguments are provided
+    if test -z "$argv[1]" -o -z "$argv[2]" -o -z "$argv[3]"
+        echo "Usage: replaceline <line_number> <substitution> <file_path>"
+        return 1
+    end
+
+    set line_number $argv[1]
+    set substitution $argv[2]
+    set file_path $argv[3]
+
+    # Perform the line replacement using sed
+    sed -i "$line_number s/.*/$substitution/" $file_path
+end
+
+function printline
+    set -l line_number $argv[1]
+    set -l file_path $argv[2]
+
+    if test -z "$line_number" -o -z "$file_path"
+        echo "Usage: printline <line number or range> <file path>"
+        return 1
+    end
+
+    set -l line_range (string split --delimiter="-" $line_number)
+    set -l start_line (math 1 + $line_range[1])
+    set -l end_line (math 1 + $line_range[2])
+
+    if test -n "$line_range[2]"
+        set -l sed_range "$start_line,${end_line}p"
+    else
+        set -l sed_range "${start_line}p"
+    end
+
+    if test -f "$file_path"
+        sed -n "$sed_range" $file_path
+    else
+        echo "Error: File '$file_path' not found."
+        return 1
+    end
+end
+
 function gitsetup
 git config --global user.name "Danny Kendall"
 git config --global user.email "d.manicx100@gmail.com"
