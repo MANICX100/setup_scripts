@@ -106,7 +106,7 @@ function printline
     set -l end_line (math 1 + $line_range[2])
 
     if test -n "$line_range[2]"
-        set -l sed_range "$start_line,${end_line}p"
+        set -l sed_range "$start_line,$end_line p"
     else
         set -l sed_range "${start_line}p"
     end
