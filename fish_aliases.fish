@@ -77,16 +77,6 @@ alias shut='sudo systemctl suspend && i3lock -c 000000 -n'
 alias logoff='sudo service sddm restart'
 alias yt-dlp='/usr/local/bin/yt-dlp'
 
-function fdd
-    set file (fzf)
-    if test -n "$file"
-        rm -f "$file"
-        echo "Deleted file: $file"
-    else
-        echo "No file selected for deletion"
-    end
-end
-
 function fdc
     set file (fzf)
     if test -n "$file"
