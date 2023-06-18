@@ -119,6 +119,24 @@ function printline
     end
 end
 
+function replaceall
+    set -l file_path $argv[1]
+    set -l search_string $argv[2]
+    set -l replacement $argv[3]
+    set -l num_replacements $argv[4]
+
+    if test $num_replacements -eq 0
+        set num_replacements "g"
+    end
+
+    set -l line_numbers (sed -n "/$search_string/=" $file_path)
+    sed -i "s/$search_string/$replacement/$num_replacements" $file_path
+
+    for line_number in $line_numbers
+        echo "Replacement occurred on line $line_number"
+    end
+end
+
 function gitsetup
 git config --global user.name "Danny Kendall"
 git config --global user.email "d.manicx100@gmail.com"
