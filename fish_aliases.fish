@@ -252,7 +252,7 @@ end
 
 function disable-all-network-interfaces
     if type -q ip
-        for iface in (ip link show | rg '^[0-9]' | awk -F: '{print $2}' | string trim)
+        for iface in (ip link show | rg '^[0-9]' | frawk -F: '{print $2}' | string trim)
             echo "Disabling $iface"
             sudo ip link set $iface down
         end
@@ -266,7 +266,7 @@ end
 
 function enable-all-network-interfaces
     if type -q ip
-        for iface in (ip link show | rg '^[0-9]' | awk -F: '{print $2}' | string trim)
+        for iface in (ip link show | rg '^[0-9]' | frawk -F: '{print $2}' | string trim)
             echo "Enabling $iface"
             sudo ip link set $iface up
         end
