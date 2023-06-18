@@ -76,6 +76,7 @@ alias addapp='xdg-open /usr/local/bin'
 alias shut='sudo systemctl suspend && i3lock -c 000000 -n'
 alias logoff='sudo service sddm restart'
 alias yt-dlp='/usr/local/bin/yt-dlp'
+
 function replaceline
     set -l line_number $argv[1]
     set -l replacement $argv[2]
@@ -107,14 +108,22 @@ function printline
 end
 
 function replaceall
-    set -l search_string $argv[1]
-    set -l replace_string $argv[2]
-    set -l n $argv[3]
+    set -l count 0
+    set -l line_num $argv[1]
+    set -l original_str $argv[2]
+    set -l replacement_str $argv[3]
     set -l file_path $argv[4]
-    cp "$file_path" "$file_path.bak"
-    sed -i "s/$search_string/$replace_string/$n" "$file_path"
-end
 
+    while read -r line
+        set -l count (math $count + 1)
+        if test $line_num -eq 0 -o $count -eq $line_num
+            set -l new_line (string replace -r -- $original_str $replacement_str $line)
+            echo $new_line
+        else
+            echo $line
+        end
+    end < $file_path
+end
 
 function gitsetup
 git config --global user.name "Danny Kendall"
