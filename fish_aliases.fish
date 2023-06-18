@@ -78,12 +78,15 @@ alias logoff='sudo service sddm restart'
 alias yt-dlp='/usr/local/bin/yt-dlp'
 
 function replaceline
-    set -l line_number $argv[1]
+    set -l lineNumber $argv[1]
     set -l replacement $argv[2]
-    set -l filename $argv[3]
+    set -l filePath $argv[3]
+    set -l tempFile $filePath"_temp"
 
-    # Use sd to replace the specified line in the file
-    sd -i "$line_number s/.*/$replacement/" "$filename"
+    frawk -v n="$lineNumber" -v s="$replacement" 'NR == n {print s; next} {print}' $filePath > $tempFile
+
+    # replace original file with the temp file
+    mv $tempFile $filePath
 end
 
 function printline
