@@ -76,14 +76,13 @@ alias addapp='xdg-open /usr/local/bin'
 alias shut='sudo systemctl suspend && i3lock -c 000000 -n'
 alias logoff='sudo service sddm restart'
 alias yt-dlp='/usr/local/bin/yt-dlp'
-
 function replaceline
-    set line_number $argv[1]
-    set replacement $argv[2]
-    set filename $argv[3]
+    set -l line_number $argv[1]
+    set -l replacement $argv[2]
+    set -l filename $argv[3]
 
     # Use sed to replace the specified line in the file
-    sed -i "$line_number s/.*/$replacement/" $filename
+    sed -i "$line_number s/.*/$replacement/" "$filename"
 end
 
 function printline
@@ -102,20 +101,20 @@ function printline
     end
 
     # Use bat to colorize and paginate the output
-    bat --style=plain --pager=never --line-range=$start_line:$end_line --color=always $file_path | rg --color=always .
+    bat --style=plain --pager=never --line-range="$start_line:$end_line" --color=always "$file_path" | rg --color=always .
 
     return $status
 end
-
 
 function replaceall
     set -l search_string $argv[1]
     set -l replace_string $argv[2]
     set -l n $argv[3]
     set -l file_path $argv[4]
-    cp $file_path $file_path.bak
-    sed -i "s/$search_string/$replace_string/$n" $file_path
+    cp "$file_path" "$file_path.bak"
+    sed -i "s/$search_string/$replace_string/$n" "$file_path"
 end
+
 
 function gitsetup
 git config --global user.name "Danny Kendall"
