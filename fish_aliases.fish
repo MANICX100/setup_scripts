@@ -6,14 +6,76 @@ set -x RIPGREP_CONFIG_PATH ~/.ripgreprc
 alias python='python3.11'
 alias convertdeb='sudo alien --to-rpm'
 alias convertrpm='sudo alien'
-alias gitc="git clone --depth 1"
-alias gc="gitc"
+alias gitc='alias gitc="git clone --depth 1"'
+alias gc='alias gc="gitc"'
 alias edit-dns='sudo nano /etc/resolv.conf'
 alias edit-hosts='sudo nano /etc/hosts'
-alias fd="fzf --query"
+alias fd='alias fd="fzf --query"'
 alias webcam='sudo modprobe v4l2loopback'
 alias cloudsync='pkill onedrive && onedrive --synchronize --force'
 alias am='appman'
+alias ffmpeg='/usr/local/bin/ffmpeg'
+alias linuxservices='systemctl list-unit-files --type=service --state=enabled'
+alias macosservices='sudo launchctl list'
+alias checkfiles='rsync --checksum --dry-run -rvn /media/dkendall/exFAT/ /home/dkendall/'
+#alias jellyfin='dotnet /home/dkendall/jellyfin/jellyfin.dll'
+alias dl='aria2c -x 16'
+alias dls='aria2c --enable-rpc=true -x 16'
+alias rpmall='sudo rpm -Uvh *'
+alias chkdsk='fsck'
+alias Get-Volume='sudo lsblk -o NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL'
+alias default='kcmshell5 filetypes'
+alias rmpipall='pip freeze --user | xargs pip uninstall -y'
+alias rmpnpm='rm -rf -v $PNPM_HOME'
+alias fishpath='echo $fish_user_paths | tr " " "\n" | nl'
+alias nextdnsinstall='sh -c "$(curl -sL https://nextdns.io/install)"'
+alias e.='open .'
+alias uefi='systemctl reboot --firmware-setup'
+alias tldr='/usr/local/bin/tldr'
+alias img2txt='image2txt'
+alias networkstatus='nmcli dev status'
+alias inst='sudo nala install'
+alias remove='sudo nala remove'
+alias purge='sudo nala purge'
+alias netstat='ss -t -r state established'
+alias ipconfig='ip route'
+alias ifconfig='ip route'
+alias cleanup='clean'
+alias mpv='mpv --ontop --force-window'
+alias audit='sudo lynis --forensics && pip-audit'
+alias rcview='bat --paging=never --style=plain ~/.config/fish/config.fish'
+alias batc='bat --paging=never --style=plain'
+alias lsh='ls -lah -U'
+alias lsf='ls -d "$PWD"/*'
+alias cls='clear'
+#alias screenshot='gnome-screenshot -a'
+alias rc='nano ~/.config/fish/config.fish'
+#alias settings='gnome-control-center'
+alias visudo='sudo nano /etc/sudoers.d/dkendall'
+alias edit-grub='sudo nano /etc/default/grub'
+alias pfetch='bat --paging=never --style=plain ~/.cache/neofetch'
+alias up='topgrade'
+alias instrpm='sudo rpm -ivh --force'
+alias instdeb='sudo dpkg --force-all -i'
+alias playtv='smplayer /home/dkendall/Videos/TV/Personal'
+alias emptybin='sudo rm -rf ~/.local/share/Trash/'
+alias delrecent='sudo rm ~/.local/share/recently-used.xbel && sudo touch ~/.local/share/recently-used.xbel'
+alias rm='rm -rf -v'
+alias syncfolders='rsync -avh --ignore-existing --delete --progress --compress --no-whole-file /home/dkendall/ /media/dkendall/exFAT/'
+alias unshareusb='/bin/eveusbc unshare all'
+alias shareusb='/bin/eveusbc share 12345 1-9.1'
+alias screenrec='ffmpeg -video_size 1920x1200 -framerate 60 -f x11grab -i :0.0+0,0 -f pulse -ac 2 -i default output-"$($now)".mkv'
+alias ffmpeglist='ffmpeg -list_devices true -f dshow -i dummy'
+alias openall='xdg-open *'
+alias flatten="find ./ -mindepth 2 -type f -exec mv -i '{}' . \;"
+alias emptydel='find ./ -empty -type d -delete'
+alias delempty='find ./ -empty -type d -delete'
+alias gohome='cd "$HOME"'
+alias changejava='sudo alternatives --config java'
+alias addapp='xdg-open /usr/local/bin'
+alias shut='sudo systemctl suspend && i3lock -c 000000 -n'
+alias logoff='sudo service sddm restart'
+alias yt-dlp='/usr/local/bin/yt-dlp'
 
 function gitsetup
 git config --global user.name "Danny Kendall"
@@ -236,18 +298,6 @@ function fdo
     xdg-open "$selected_file"
 end
 
-alias ffmpeg='/usr/local/bin/ffmpeg'
-
-alias linuxservices='systemctl list-unit-files --type=service --state=enabled'
-alias macosservices='sudo launchctl list'
-
-alias checkfiles='rsync --checksum --dry-run -rvn /media/dkendall/exFAT/ /home/dkendall/'
-
-#alias jellyfin='dotnet /home/dkendall/jellyfin/jellyfin.dll'
-
-alias dl='aria2c -x 16'
-alias dls='aria2c --enable-rpc=true -x 16'
-
 function git_unsynced
     bash -c 'for dir in $(find . -name .git -type d -prune); do
                   if ! git -C "${dir%/*}" diff --quiet; then
@@ -339,19 +389,6 @@ function serv
 	sudo redbean -C /usr/local/bin/ca.crt -K /usr/local/bin/ca.key -p 80 -p 443 -D $argv
 end
 
-alias rpmall='sudo rpm -Uvh *'
-
-alias chkdsk='fsck'
-alias Get-Volume='sudo lsblk -o NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL'
-
-alias default='kcmshell5 filetypes'
-
-alias rmpipall='pip freeze --user | xargs pip uninstall -y'
-alias rmpnpm='rm -rf -v $PNPM_HOME'
-
-alias fishpath='echo $fish_user_paths | tr " " "\n" | nl'
-alias nextdnsinstall='sh -c "$(curl -sL https://nextdns.io/install)"'
-
 function rmopt
 	rm -rf -v /opt/$argv
 	rm -rf -v /usr/local/bin/$argv
@@ -413,50 +450,18 @@ function Get-PubIP
 	wget --no-cache -q -O - ipinfo.io/ip
 end
 
-alias e.='open .'
-alias uefi='systemctl reboot --firmware-setup'
-
-alias tldr='/usr/local/bin/tldr'
-
 function bak
 	zip -r ~/$($now)-bak.zip /etc/default/ /etc/profile.d/ /usr/local/bin /opt/
 end
-
-alias img2txt='image2txt'
 
 function ffup
 	aria2c -x 16 -d /home/dkendall/.mozilla/firefox/5p7rx3j6.default-release-1/ -o user-overrides.js --allow-overwrite=true https://github.com/MANICX100/setup_scripts/raw/main/user-overrides.js
 	/home/dkendall/.mozilla/firefox/5p7rx3j6.default-release-1/updater.sh
 end
 
-alias netstat='ss -t -r state established'
-
-alias ipconfig='ip route'
-alias ifconfig='ip route'
-
-alias cleanup='clean'
-
 function stripclip
 	xclip -selection c -o | xargs | rg -o '.*' | xclip -selection c
 end
-
-alias mpv='mpv --ontop --force-window'
-alias audit='sudo lynis --forensics && pip-audit'
-alias rcview='bat --paging=never --style=plain ~/.config/fish/config.fish'
-alias batc='bat --paging=never --style=plain'
-
-alias lsh='ls -lah -U'
-alias lsf='ls -d "$PWD"/*'
-
-alias cls='clear'
-#alias screenshot='gnome-screenshot -a'
-
-alias rc='nano ~/.config/fish/config.fish'
-#alias settings='gnome-control-center'
-
-alias visudo='sudo nano /etc/sudoers.d/dkendall'
-
-alias edit-grub='sudo nano /etc/default/grub'
 
 function rcupdate
 	aria2c -x 16 -d ~/.config/fish -o config.fish --allow-overwrite=true https://github.com/MANICX100/setup_scripts/raw/main/fish_aliases.fish
@@ -466,17 +471,12 @@ end
 set -g osinfo (rg -ioP '^ID=\K.+' /etc/os-release)
 
 neofetch > ~/.cache/neofetch
-alias pfetch='bat --paging=never --style=plain ~/.cache/neofetch'
 
 sed -i 's/Ubuntu/Kendall Linux/g' ~/.cache/neofetch
 sed -i 's/6500/6900/g' ~/.cache/neofetch
 sed -i 's/6400/6800/g' ~/.cache/neofetch
 sed -i 's/3.201/6.0/g' ~/.cache/neofetch
 sed -i 's/99D//g' ~/.cache/neofetch
-
-alias inst='sudo nala install'
-alias remove='sudo nala remove'
-alias purge='sudo nala purge'
 
 function flushdns
     sudo resolvectl flush-caches
@@ -502,39 +502,6 @@ function uefi
 			sudo reboot
 	end
 end
-
-alias playtv='smplayer /home/dkendall/Videos/TV/Personal'
-alias emptybin='sudo rm -rf ~/.local/share/Trash/'
-
-alias delrecent='sudo rm ~/.local/share/recently-used.xbel && sudo touch ~/.local/share/recently-used.xbel'
-
-alias rm='rm -rf -v'
-
-alias syncfolders='rsync -avh --ignore-existing --delete --progress --compress --no-whole-file /home/dkendall/ /media/dkendall/exFAT/'
-
-alias unshareusb='/bin/eveusbc unshare all'
-alias shareusb='/bin/eveusbc share 12345 1-9.1'
-
-alias screenrec='ffmpeg -video_size 1920x1200 -framerate 60 -f x11grab -i :0.0+0,0 -f pulse -ac 2 -i default output-$($now).mkv'
-alias ffmpeglist='ffmpeg -list_devices true -f dshow -i dummy'
-
-alias openall='xdg-open *'
-
-alias flatten="find ./ -mindepth 2 -type f -exec mv -i '{}' . \;"
-
-alias emptydel='find ./ -empty -type d -delete'
-alias delempty='find ./ -empty -type d -delete'
-
-alias gohome='cd "$HOME"'
-
-alias changejava='sudo alternatives --config java'
-
-alias addapp='xdg-open /usr/local/bin'
-
-alias shut='sudo systemctl suspend && i3lock -c 000000 -n'
-
-alias logoff='sudo service sddm restart'
-alias yt-dlp='/usr/local/bin/yt-dlp'
 
 function orderfiles                                                           
     set list ./**.*                      
