@@ -24,7 +24,7 @@ git config --global --add push.default current
 git config --global --add push.autoSetupRemote true
 end
 
-function instsearch --description 'Search installed packages'
+function instsearch
 
   if test (count $argv) -eq 0
     echo "Please provide a package name."
@@ -91,7 +91,7 @@ function instsearch --description 'Search installed packages'
 
 end
 
-function pkgsearch --description 'Search available packages'
+function pkgsearch
 
   if test (count $argv) -eq 0
     echo "Please provide a package name."
