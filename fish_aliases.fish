@@ -77,6 +77,27 @@ alias shut='sudo systemctl suspend && i3lock -c 000000 -n'
 alias logoff='sudo service sddm restart'
 alias yt-dlp='/usr/local/bin/yt-dlp'
 
+function replacen
+    set -l total_matches (grep -c -F $argv[1] $argv[2])
+    set -l replace_all (test $argv[3] -eq $total_matches; and echo 1; or echo 0)
+    
+    if test $replace_all -eq 1
+        sed -i "s/$argv[1]/$argv[2]/g" $argv[3]
+        echo "Replaced all occurrences of '$argv[1]' with '$argv[2]' in $argv[3]."
+    else
+        printf "Enter the number of occurrences to replace: "
+        read -l replace_count
+
+        if test $replace_count -gt $total_matches
+            replace_count=$total_matches
+        end
+
+        set -l command "0,$replace_count s/$argv[1]/$argv[2]/g"
+        sed -i "$command" $argv[3]
+        echo "Replaced $replace_count occurrences of '$argv[1]' with '$argv[2]' in $argv[3]."
+    end
+end
+
 function replaceline
     set -l line_number $argv[1]
     set -l replacement $argv[2]
@@ -106,54 +127,6 @@ function printline
 
     return $status
 end
-function replaceall
-    if not set -q argv[4]
-        echo "Invalid arguments. Usage: replaceall <line> <original_str> <replacement_str> <file_path>"
-        return 1
-    end
-
-    set -l line_num $argv[1]
-    set -l original_str $argv[2]
-    set -l replacement_str $argv[3]
-    set -l file_path $argv[4]
-
-    if not test -f $file_path
-        echo "File does not exist: $file_path"
-        return 1
-    end
-
-    set -l temp_file (mktemp)
-    or begin
-        echo "Failed to create a temp file"
-        return 1
-    end
-
-    set -l count 0
-    while read -r line
-        set count (math $count + 1)
-        if test $line_num -eq 0 -o $count -eq $line_num
-            set line (string replace -r -- $original_str $replacement_str $line)
-        end
-        printf "%s\n" $line >> $temp_file
-        or begin
-            echo "Failed to write to the temp file"
-            rm -f $temp_file
-            return 1
-        end
-    end < $file_path
-    or begin
-        echo "Failed to read the file: $file_path"
-        rm -f $temp_file
-        return 1
-    end
-
-    if not mv $temp_file $file_path
-        echo "Failed to replace the original file"
-        rm -f $temp_file
-        return 1
-    end
-end
-
 
 function gitsetup
 git config --global user.name "Danny Kendall"
