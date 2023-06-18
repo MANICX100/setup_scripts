@@ -77,22 +77,6 @@ alias shut='sudo systemctl suspend && i3lock -c 000000 -n'
 alias logoff='sudo service sddm restart'
 alias yt-dlp='/usr/local/bin/yt-dlp'
 
-function replacen
-    set old_string $argv[1]
-    set new_string $argv[2]
-    set file $argv[3]
-    
-    echo "How many instances do you want to replace?"
-    read instances
-
-    # Using awk command to replace instances
-    awk -v old="$old_string" -v new="$new_string" -v max="$instances" '
-        BEGIN{ count=0 }
-        count<max{ count+=gsub(old, new) }
-        { print }
-    ' $file > tmp_file && mv tmp_file $file
-end
-
 function replaceline
     set -l line_number $argv[1]
     set -l replacement $argv[2]
