@@ -28,25 +28,6 @@ function fdc {
     }
 }
 
-function fdd {
-    param (
-        [string]$query = ''
-    )
-
-    # Run fzf and capture the selected file path
-    $selectedFile = & fzf --query="$query"
-
-    if ($selectedFile) {
-        # Check if the selected file or directory exists
-        if (Test-Path $selectedFile) {
-            # Delete the file or directory without confirmation
-            Remove-Item -Path $selectedFile -Recurse -Force
-        } else {
-            Write-Host "Selected file or directory does not exist."
-        }
-    }
-}
-
 function lsf {
 Get-ChildItem -Recurse | Resolve-Path | ForEach-Object { $_.Path.Replace('Microsoft.PowerShell.Core\FileSystem::', '') }
 }
