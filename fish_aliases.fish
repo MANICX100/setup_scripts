@@ -341,18 +341,19 @@ function git_unsynced
 end
 
 function burnin_srt
-	set filename (basename "$argv[1]")  # get the full file name
-	set base (echo $filename | sd 's/\.[^.]*$//')  # get the file name without the extension
-	set subtitle (echo $argv[1] | sd 's/\.[^.]*$/.srt/')
-	ffmpeg -i "$argv[1]" -vf subtitles="$subtitle" -preset ultrafast -threads 0 "$base-srt.mkv"
+    set filename (basename "$argv[1]")  # get the full file name
+    set base (echo $filename | sd '\.[^.]+$' '')  # get the file name without the extension
+    set subtitle (echo $argv[1] | sd '\.[^.]+$' '.srt')
+    ffmpeg -i "$argv[1]" -vf subtitles="$subtitle" -preset ultrafast -threads 0 "$base-srt.mkv"
 end
 
 function speedupvid
-	set filename (basename "$argv[1]")  # get the full file name
-	set extension (echo $filename | sd 's/^.*\.//')  # get the extension
-	set base (echo $filename | sd 's/\.[^.]*$//')  # get the file name without the extension
-	ffmpeg -i "$argv[1]" -filter_complex "[0:v]setpts=1/$argv[2]*PTS[v];[0:a]rubberband=tempo=$argv[2][a]" -map "[v]" -map "[a]" -preset ultrafast -threads 0 "$base-speed.mkv"
+    set filename (basename "$argv[1]")  # get the full file name
+    set extension (echo $filename | sd '.*\.' '')  # get the extension
+    set base (echo $filename | sd '\.[^.]+$' '')  # get the file name without the extension
+    ffmpeg -i "$argv[1]" -filter_complex "[0:v]setpts=1/$argv[2]*PTS[v];[0:a]atempo=$argv[2][a]" -map "[v]" -map "[a]" -preset ultrafast -threads 0 "$base-speed.mkv"
 end
+
 
 function convert_videos
     for f in *.mkv *.avi
