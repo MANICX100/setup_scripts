@@ -79,6 +79,18 @@ alias shut='sudo systemctl suspend && i3lock -c 000000 -n'
 alias logoff='sudo service sddm restart'
 alias yt-dlp='/usr/local/bin/yt-dlp'
 
+function mountalldisks
+    set -l disks (lsblk -rno NAME)
+
+    for disk in $disks
+        if test -b "/dev/$disk"
+            set -l mountpoint "/mnt/$disk"
+            sudo mkdir -p $mountpoint
+            sudo mount "/dev/$disk" $mountpoint
+        end
+    end
+end
+
 function replaceline
     set -l lineNumber $argv[1]
     set -l replacement $argv[2]
