@@ -3,6 +3,9 @@ set fish_greeting
 set now date -u +%Y-%m-%dT%H-%M-%S%Z
 set -x RIPGREP_CONFIG_PATH ~/.ripgreprc
 
+alias drivers='sudo lspci -v'
+alias logs='journalctl| rg -i'
+
 alias python='python3.11'
 alias convertdeb='sudo alien --to-rpm'
 alias convertrpm='sudo alien'
