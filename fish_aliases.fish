@@ -13,7 +13,7 @@ alias gitc='git clone --depth 1'
 alias gc='gitc'
 alias edit-dns='sudo nano /etc/resolv.conf'
 alias edit-hosts='sudo nano /etc/hosts'
-alias fd='alias fd="fzf --query"'
+alias fd='fzf --query'
 alias webcam='sudo modprobe v4l2loopback'
 alias cloudsync='pkill onedrive && onedrive --synchronize --force'
 alias am='appman'
@@ -530,26 +530,6 @@ sd 99D "" ~/.cache/neofetch
 function flushdns
     sudo resolvectl flush-caches
     echo "Successfully flushed DNS resolver cache"
-end
-
-alias networkstatus='nmcli dev status'
-
-alias up='topgrade'
-alias instrpm='sudo rpm -ivh --force'
-alias instdeb='sudo dpkg --force-all -i'
-
-function uefi
-	switch $osinfo
-	    case fedora
-			systemctl reboot --firmware-setup
-	    case rebornos
-			systemctl reboot --firmware-setup
-	    case debian
-			systemctl reboot --firmware-setup
-	    case '*'
-			sudo nvram "recovery-boot-mode=unusd"
-			sudo reboot
-	end
 end
 
 function orderfiles                                                           
