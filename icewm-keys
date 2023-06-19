@@ -7,7 +7,7 @@ key "Ctrl+Alt+s" /home/dkendall/sleep.sh
 key "Ctrl+Alt+L" i3lock -c 000000 -n
 key "Ctrl+Alt+n" /usr/local/bin/lite-xl/lite-xl '/home/dkendall/OneDrive/Docume>
 key "Ctrl+Alt+E" xfe
-key "Ctrl+Alt+Shift+E" xfe /mnt/nvme1n1p4/Users/dmani/My Documents
+key "Ctrl+Alt+Shift+E" xfe '/mnt/nvme1n1p4/Users/dmani/My Documents'
 key "Ctrl+Alt+i" pavucontrol
 key "Ctrl+Alt+v" /usr/bin/diodon
 key "Print" flameshot gui
