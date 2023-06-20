@@ -42,7 +42,7 @@ Return
 ^!e::
 {
     USERPROFILE := EnvGet("USERPROFILE")
-    Run %USERPROFILE%\Documents
+    Run(USERPROFILE "\Documents")
     return
 }
 
