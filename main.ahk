@@ -43,14 +43,12 @@ Return
 {
     USERPROFILE := EnvGet("USERPROFILE")
     Run(USERPROFILE "\Documents")
-    return
 }
 
 ^!l::
-{
-    DllCall("LockWorkStation")
+    LockWorkStation()
     return
-}
+
 
 ^!x::Run "C:\Users\dmani\scoop\apps\xkill\current\XKill.exe"
 
