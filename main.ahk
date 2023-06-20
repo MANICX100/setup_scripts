@@ -41,8 +41,9 @@ Return
 #e::
 ^!e::
 {
-    USERPROFILE := EnvGet("USERPROFILE")
-    Run(USERPROFILE "\Documents")
+USERPROFILE := EnvGet("USERPROFILE")
+Run(USERPROFILE "\Documents")
+return
 }
 
 ^!l::
