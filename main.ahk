@@ -39,10 +39,17 @@ Return
 #F4::A_Clipboard := WinGetClass("A")
 
 #e::
+^!e::
 {
-USERPROFILE := EnvGet("USERPROFILE")
-Run(USERPROFILE "\Documents")
-return
+    USERPROFILE := EnvGet("USERPROFILE")
+    Run, %USERPROFILE%\Documents
+    return
+}
+
+^!l::
+{
+    DllCall("LockWorkStation")
+    return
 }
 
 ^!x::Run "C:\Users\dmani\scoop\apps\xkill\current\XKill.exe"
