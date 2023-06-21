@@ -1,3 +1,11 @@
+function Open($filePath) {
+    if(Test-Path $filePath) {
+        Invoke-Item $filePath
+    } else {
+        Write-Host "The file or directory '$filePath' does not exist"
+    }
+}
+
 function lsf {
 Get-ChildItem -Recurse | Resolve-Path | ForEach-Object { $_.Path.Replace('Microsoft.PowerShell.Core\FileSystem::', '') }
 }
