@@ -80,6 +80,21 @@ alias shut='sudo systemctl suspend && i3lock -c 000000 -n'
 alias logoff='sudo service sddm restart'
 alias yt-dlp='/usr/local/bin/yt-dlp'
 
+function fixwifi
+    while true
+        disable-all-network-interfaces
+        sudo ip link set enp7s0 up
+        sudo systemctl restart NetworkManager
+        if dig www.google.com > /dev/null
+            echo "Internet connection is now available."
+            break
+        else
+            echo "Retrying..."
+            sleep 5
+        end
+    end
+end
+
 function mountalldisks
     set -l disks (lsblk -rno NAME)
 
