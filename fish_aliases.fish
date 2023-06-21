@@ -3,6 +3,7 @@ set fish_greeting
 set now date -u +%Y-%m-%dT%H-%M-%S%Z
 set -x RIPGREP_CONFIG_PATH ~/.ripgreprc
 
+alias Start-Process='xdg-open'
 alias move='mv'
 alias copy='cp'
 alias remove-item='rm'
