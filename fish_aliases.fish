@@ -80,6 +80,25 @@ alias shut='sudo systemctl suspend && i3lock -c 000000 -n'
 alias logoff='sudo service sddm restart'
 alias yt-dlp='/usr/local/bin/yt-dlp'
 
+function fp
+    if test (count $argv) -eq 0
+        echo "Usage: fp <application-name>"
+        return
+    end
+
+    set app_name $argv[1]
+
+    # Find the application ID
+    set app_id (flatpak list --app --columns=name,application | frawk -v app="$app_name" '{ if ($1 == app) { print $2 } }')
+
+    if test -z "$app_id"
+        echo "No application found with the name: $app_name"
+        return
+    end
+
+    flatpak run $app_id
+end
+
 function fixwifi
     while true
         disable-all-network-interfaces
