@@ -88,6 +88,10 @@ alias shut='sudo systemctl suspend && i3lock -c 000000 -n'
 alias logoff='sudo service sddm restart'
 alias yt-dlp='/usr/local/bin/yt-dlp'
 
+function rename-item
+    mv $argv[1] $argv[2]
+end
+
 function fp
     if test (count $argv) -eq 0
         echo "Usage: fp <application-name>"
