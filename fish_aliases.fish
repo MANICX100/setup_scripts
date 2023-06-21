@@ -3,6 +3,14 @@ set fish_greeting
 set now date -u +%Y-%m-%dT%H-%M-%S%Z
 set -x RIPGREP_CONFIG_PATH ~/.ripgreprc
 
+alias move='mv'
+alias copy='cp'
+alias remove-item='rm'
+alias remove-item-r='rm -r'
+alias get-content='bat'
+alias gci='bat'
+alias irm='curl'
+alias iex='eval'
 alias zig='/home/dkendall/Downloads/zig/zig'
 alias drivers='sudo lspci -v'
 alias logs='journalctl|fmt|rg -i'
