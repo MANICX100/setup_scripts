@@ -37,12 +37,17 @@ function ProjectDl {
         # Define the file name
         $filename = $asset.name
 
-        # Define the download path
-        $downloadPath = Join-Path $downloadDir $filename
+        # Ask if the user wants to download this file
+        $download = Read-Host "Do you want to download $filename? (y/n)"
 
-        # Start aria2c to download the file
-        $aria2c_command = "aria2c --max-connection-per-server=16 --dir=$downloadDir --out=$filename --auto-file-renaming=false `"$($asset.browser_download_url)`""
-        Invoke-Expression -Command $aria2c_command
+        if($download -eq 'y'){
+            # Define the download path
+            $downloadPath = Join-Path $downloadDir $filename
+
+            # Start aria2c to download the file
+            $aria2c_command = "aria2c --max-connection-per-server=16 --dir=$downloadDir --out=$filename --auto-file-renaming=false `"$($asset.browser_download_url)`""
+            Invoke-Expression -Command $aria2c_command
+        }
     }
 }
 
