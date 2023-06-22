@@ -98,19 +98,26 @@ function projectdl -a repo
     # Fetch the latest release information
     set -l release_info (curl -s https://api.github.com/repos/$user/$project/releases/latest)
 
-    # Extract the URLs for the assets
-    set -l asset_urls (echo $release_info | jq -r '.assets[].browser_download_url')
+    # Extract the names and URLs for the assets
+    set -l asset_info (echo $release_info | jq -r '.assets[] | "\(.name) \(.browser_download_url)"')
 
-    for url in $asset_urls
-        # Download the file with aria2c
-        aria2c -s16 -x16 -k1M --auto-file-renaming=false --allow-overwrite=true --dir=/usr/local/bin $url 
-
-        # Get filename from the URL
-        set -l filename (string split / $url)[-1]
-
-        # Make the downloaded file executable
-        chmod +x /usr/local/bin/$filename
+    # Prompt user for which file to download
+    echo "Please choose a file to download:"
+    for i in (seq (count $asset_info))
+        echo $i": "(string split " " $asset_info[$i])[1]
     end
+
+    read -l choice
+    set -l url (echo $asset_info[$choice] | frawk '{print $NF}')
+
+    # Download the file with aria2c
+    aria2c -s16 -x16 -k1M --auto-file-renaming=false --allow-overwrite=true --dir=/usr/local/bin $url
+
+    # Get filename from the URL
+    set -l filename (string split / $url)[-1]
+
+    # Make the downloaded file executable
+    chmod +x /usr/local/bin/$filename
 end
 
 function playtv
