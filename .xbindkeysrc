@@ -1,17 +1,1 @@
-"xdg-open about:blank"
-  Control + Alt + b
-
-"tilix"
-  Control + Alt + t
-
-"gksudo 'reboot --force'"
-  Control + Alt + r
-
-"gksudo 'systemctl suspend' && i3lock -c 000000 -n"
-  Control + Alt + s
-
-"i3lock -c 000000 -n"
-  Mod4 + l
-
-"/usr/local/bin/lite-xl/lite-xl '/home/dkendall/OneDrive/Documents/txt/ends.txt'"
-  Control + Alt + n
+Sync with icewm-keys or see git history for old working
