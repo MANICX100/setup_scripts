@@ -703,5 +703,3 @@ function gitIgnoreRm
 	git add .
 	git commit -m "Update .gitignore"
 end
-
-cls
