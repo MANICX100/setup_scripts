@@ -1,3 +1,44 @@
+function ProjectDl {
+    param (
+        [Parameter(Mandatory = $true)]
+        [string] $repo
+    )
+
+    # Split the repository string into username and repository
+    $username, $repository = $repo.Split('/')
+
+    # Define the GitHub API endpoint
+    $uri = "https://api.github.com/repos/$username/$repository/releases/latest"
+
+    # Get the latest release information
+    $release = Invoke-RestMethod -Uri $uri
+
+    # Check if any release found
+    if($release -eq $null){
+        Write-Output "No release found for repository $repo"
+        return
+    }
+
+    # Define the directory for the download
+    $userHome = [Environment]::GetFolderPath('UserProfile')
+    $downloadDir = Join-Path $userHome 'apps'
+    if(!(Test-Path -Path $downloadDir)){
+        New-Item -ItemType Directory -Force -Path $downloadDir | Out-Null
+    }
+
+    foreach($asset in $release.assets){
+        # Define the file name
+        $filename = $asset.name
+
+        # Define the download path
+        $downloadPath = Join-Path $downloadDir $filename
+
+        # Start aria2c to download the file
+        $aria2c_command = "aria2c --max-connection-per-server=16 --dir=$downloadDir --out=$filename --auto-file-renaming=false `"$($asset.browser_download_url)`""
+        Invoke-Expression -Command $aria2c_command
+    }
+}
+
 function Open($filePath) {
     if(Test-Path $filePath) {
         Invoke-Item $filePath
