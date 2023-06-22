@@ -5,6 +5,7 @@ set -x RIPGREP_CONFIG_PATH ~/.ripgreprc
 
 alias Invoke-Item='xdg-open'
 alias Start-Process='xdg-open'
+alias open='xdg-open'
 alias move='mv'
 alias copy='cp'
 alias remove-item='rm'
@@ -72,7 +73,6 @@ alias pfetch='bat --paging=never --style=plain ~/.cache/neofetch'
 alias up='topgrade'
 alias instrpm='sudo rpm -ivh --force'
 alias instdeb='sudo dpkg --force-all -i'
-alias playtv='smplayer /home/dkendall/Videos/TV/Personal'
 alias emptybin='sudo rm -rf ~/.local/share/Trash/'
 alias delrecent='sudo rm ~/.local/share/recently-usd.xbel && sudo touch ~/.local/share/recently-usd.xbel'
 alias rm='rm -rf -v'
@@ -81,7 +81,6 @@ alias unshareusb='/bin/eveusbc unshare all'
 alias shareusb='/bin/eveusbc share 12345 1-9.1'
 alias screenrec='ffmpeg -video_size 1920x1200 -framerate 60 -f x11grab -i :0.0+0,0 -f pulse -ac 2 -i default output-"$($now)".mkv'
 alias ffmpeglist='ffmpeg -list_devices true -f dshow -i dummy'
-alias openall='xdg-open *'
 alias flatten="find ./ -mindepth 2 -type f -exec mv -i '{}' . \;"
 alias emptydel='find ./ -empty -type d -delete'
 alias delempty='find ./ -empty -type d -delete'
@@ -91,6 +90,20 @@ alias addapp='xdg-open /usr/local/bin'
 alias shut='sudo systemctl suspend && i3lock -c 000000 -n'
 alias logoff='sudo service sddm restart'
 alias yt-dlp='/usr/local/bin/yt-dlp'
+
+function playtv
+for file in /home/dkendall/Videos/Personal/*
+        xdg-open "$file"
+    end
+end
+
+function openall
+    for file in *
+        if test -f $file
+            xdg-open $file
+        end
+    end
+end
 
 function rename-item
     mv $argv[1] $argv[2]
