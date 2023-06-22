@@ -721,5 +721,6 @@ mkdir yt
 }
 
 function cleanup {
+scoop cleanup *
 scoop cache rm *
 }
