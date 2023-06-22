@@ -91,6 +91,28 @@ alias shut='sudo systemctl suspend && i3lock -c 000000 -n'
 alias logoff='sudo service sddm restart'
 alias yt-dlp='/usr/local/bin/yt-dlp'
 
+function projectdl -a repo
+    set -l user (string split / $repo)[1]
+    set -l project (string split / $repo)[2]
+
+    # Fetch the latest release information
+    set -l release_info (curl -s https://api.github.com/repos/$user/$project/releases/latest)
+
+    # Extract the URLs for the assets
+    set -l asset_urls (echo $release_info | jq -r '.assets[].browser_download_url')
+
+    for url in $asset_urls
+        # Download the file with aria2c
+        aria2c -s16 -x16 -k1M --auto-file-renaming=false --allow-overwrite=true --dir=/usr/local/bin $url 
+
+        # Get filename from the URL
+        set -l filename (string split / $url)[-1]
+
+        # Make the downloaded file executable
+        chmod +x /usr/local/bin/$filename
+    end
+end
+
 function playtv
 for file in /home/dkendall/Videos/Personal/*
         xdg-open "$file"
