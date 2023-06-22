@@ -1,3 +1,10 @@
+Set-Alias -Name bak -Value backup
+Set-Alias -Name rm -Value delete
+Set-Alias -Name pfetch -Value macchina
+Set-Alias -Name neofetch -Value macchina
+
+Invoke-Expression (&scoop-search --hook)
+
 function ProjectDl {
     param (
         [Parameter(Mandatory = $true)]
@@ -716,11 +723,3 @@ mkdir yt
 function cleanup {
 scoop cache rm *
 }
-
-Invoke-Expression (&scoop-search --hook)
-Import-Module gsudoModule
-
-Set-Alias -Name bak -Value backup
-Set-Alias -Name rm -Value delete
-Set-Alias -Name pfetch -Value macchina
-Set-Alias -Name neofetch -Value macchina
