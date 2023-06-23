@@ -140,7 +140,7 @@ function extract
                       rm -f $n ;;
           case "*.zlib"
                       zlib-flate -uncompress < ./$n > ./$n.tmp
-                      mv ./$n.tmp ./${n%.*zlib}
+                      mv ./$n.tmp ./(string replace -r '.zlib$' '' -- $n)
                       rm -f $n ;;
           case "*.dmg"
                       hdiutil mount ./$n -mountpoint ./$n.mounted ;;
@@ -151,7 +151,6 @@ function extract
         end
     end
 end
-
 
 function onedrivelink
     if test -n "$argv" 
