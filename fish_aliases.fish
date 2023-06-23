@@ -3,6 +3,8 @@ set fish_greeting
 set now date -u +%Y-%m-%dT%H-%M-%S%Z
 set -x RIPGREP_CONFIG_PATH ~/.ripgreprc
 
+alias mkfs.ntfs='mkfs.ntfs --fast'
+alias mkfs.ext4='mkfs.ext4 -E lazy_itable_init'
 alias Invoke-Item='xdg-open'
 alias Start-Process='xdg-open'
 alias open='xdg-open'
