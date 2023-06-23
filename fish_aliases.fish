@@ -93,6 +93,66 @@ alias shut='sudo systemctl suspend && i3lock -c 000000 -n'
 alias logoff='sudo service sddm restart'
 alias yt-dlp='/usr/local/bin/yt-dlp'
 
+function extract
+    if test (count $argv) -eq 0
+        echo "Usage: extract <path/file_name>.<zip|rar|bz2|gz|tar|tbz2|tgz|Z|7z|xz|ex|tar.bz2|tar.gz|tar.xz|.zlib|.cso>"
+        echo "       extract <path/file_name_1.ext> [path/file_name_2.ext] [path/file_name_3.ext]"
+    end
+
+    for n in $argv
+        if not test -f $n
+            echo "'$n' - file doesn't exist"
+            return 1
+        end
+
+        switch (string trim -r -c ',' -- $n)
+          case "*.cbt" "*.tar.bz2" "*.tar.gz" "*.tar.xz" "*.tbz2" "*.tgz" "*.txz" "*.tar"
+                       tar zxvf $n ;;
+          case "*.lzma"
+                      unlzma ./$n ;;
+          case "*.bz2"
+                      bunzip2 ./$n ;;
+          case "*.cbr" "*.rar"
+                      unrar x -ad ./$n ;;
+          case "*.gz"
+                      gunzip ./$n ;;
+          case "*.cbz" "*.epub" "*.zip"
+                      unzip ./$n ;;
+          case "*.z"
+                      uncompress ./$n ;;
+          case "*.7z" "*.apk" "*.arj" "*.cab" "*.cb7" "*.chm" "*.deb" "*.iso" "*.lzh" "*.msi" "*.pkg" "*.rpm" "*.udf" "*.wim" "*.xar" "*.vhd"
+                      7z x ./$n ;;
+          case "*.xz"
+                      unxz ./$n ;;
+          case "*.exe"
+                      cabextract ./$n ;;
+          case "*.cpio"
+                      cpio -id < ./$n ;;
+          case "*.cba" "*.ace"
+                      unace x ./$n ;;
+          case "*.zpaq"
+                      zpaq x ./$n ;;
+          case "*.arc"
+                      arc e ./$n ;;
+          case "*.cso"
+                      ciso 0 ./$n ./$n.iso
+                      extract $n.iso
+                      rm -f $n ;;
+          case "*.zlib"
+                      zlib-flate -uncompress < ./$n > ./$n.tmp
+                      mv ./$n.tmp ./${n%.*zlib}
+                      rm -f $n ;;
+          case "*.dmg"
+                      hdiutil mount ./$n -mountpoint ./$n.mounted ;;
+          case '*'
+                      echo "extract: '$n' - unknown archive method"
+                      return 1
+                      ;;
+        end
+    end
+end
+
+
 function onedrivelink
     if test -n "$argv" 
         set filename $argv
