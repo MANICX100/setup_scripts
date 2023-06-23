@@ -180,12 +180,14 @@ function fixwifi
     while true
         echo "Flushing DNS..."
         flushdns
-        echo "Disabling all network interfaces..."
-        disable-all-network-interfaces
-        echo "Enabling specific network interface..."
+        echo "Disabling enp7s0 network interface..."
+        sudo ip link set enp7s0 down
+        sleep 5
+        echo "Enabling enp7s0 network interface..."
         sudo ip link set enp7s0 up
         echo "Restarting Network Manager..."
         sudo systemctl restart NetworkManager
+        sleep 5
         # Check for internet connection
         if curl --output /dev/null --silent --head --fail http://www.google.com
             echo "Internet connection established!"
@@ -193,8 +195,10 @@ function fixwifi
         else
             echo "No connection. Retrying..."
         end
+        sleep 5
     end
 end
+
 
 function mountalldisks
     set -l disks (lsblk -rno NAME)
