@@ -5,6 +5,76 @@ Set-Alias -Name neofetch -Value macchina
 
 Invoke-Expression (&scoop-search --hook)
 
+function extract {
+    param(
+        [Parameter(Mandatory=$true)]
+        [string[]]$Path
+    )
+    
+    foreach($file in $Path) {
+        if(!(Test-Path $file)) {
+            Write-Output "'$file' - file doesn't exist"
+            continue
+        }
+        
+        switch -Wildcard ($file) {
+            "*.zip" { 
+                Expand-Archive -Path $file -DestinationPath $(Split-Path $file -Parent)
+                break
+            }
+            "*.tar.gz" { 
+                7z x $file -so | 7z x -aoa -si -ttar
+                break
+            }
+            "*.tar.bz2" { 
+                7z x $file -so | 7z x -aoa -si -ttar
+                break
+            }
+            "*.tar.xz" { 
+                7z x $file -so | 7z x -aoa -si -ttar
+                break
+            }
+            "*.rar" { 
+                7z e $file
+                break
+            }
+            "*.7z" { 
+                7z e $file
+                break
+            }
+            "*.gz" {
+                7z e $file
+                break
+            }
+            "*.bz2" { 
+                7z e $file
+                break
+            }
+            "*.xz" { 
+                7z e $file
+                break
+            }
+            "*.lzma" { 
+                7z e $file
+                break
+            }
+            "*.exe" { 
+                7z e $file
+                break
+            }
+            "*.iso" { 
+                7z e $file
+                break
+            }
+            # Add more formats if needed
+            default {
+                Write-Output "extract: '$file' - unknown archive method"
+            }
+        }
+    }
+}
+
+
 function ProjectDl {
     param (
         [Parameter(Mandatory = $true)]
