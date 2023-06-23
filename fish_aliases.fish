@@ -178,15 +178,20 @@ end
 
 function fixwifi
     while true
+        echo "Flushing DNS..."
+        flushdns
+        echo "Disabling all network interfaces..."
         disable-all-network-interfaces
+        echo "Enabling specific network interface..."
         sudo ip link set enp7s0 up
+        echo "Restarting Network Manager..."
         sudo systemctl restart NetworkManager
-        if dig www.google.com > /dev/null
-            echo "Internet connection is now available."
+        # Check for internet connection
+        if curl --output /dev/null --silent --head --fail http://www.google.com
+            echo "Internet connection established!"
             break
         else
-            echo "Retrying..."
-            sleep 5
+            echo "No connection. Retrying..."
         end
     end
 end
