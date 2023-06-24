@@ -548,15 +548,6 @@ function speedupvid
     ffmpeg -i "$argv[1]" -filter_complex "[0:v]setpts=1/$argv[2]*PTS[v];[0:a]atempo=$argv[2][a]" -map "[v]" -map "[a]" -preset ultrafast -threads 0 "$base-speed.mkv"
 end
 
-
-function convert_videos
-    for f in *.mkv *.avi
-        if test -f "$f"
-            bash -c 'ffmpeg -i "$0" -c:v mpeg4 -c:a aac -b:a 192k "${0%.mkv}.mp4"' "$f"
-        end
-    end
-end
-
 function burnin_srt_all
   for file in *.mp4 *.avi *.mkv
     if test -f "$file"
@@ -590,14 +581,6 @@ end
 
 function rename_videos
     bash -c 'for file in *.mp4 *.avi; do mv "$file" "${file%.*}.mkv"; done'
-end
-
-function trash_movies
-    for file in *.mkv *.avi *.mp4
-        if test (echo $file | rg -v -- -speed) != ""
-            trash $file
-        end
-    end
 end
 
 function unhide_files
