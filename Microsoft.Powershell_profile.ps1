@@ -7,6 +7,36 @@ Set-Alias -Name fixwifi -Value networkcycle
 
 Invoke-Expression (&scoop-search --hook)
 
+function display_path {
+    $path = [Environment]::GetEnvironmentVariable("Path", "User")
+    $path.Split(';')
+}
+
+function add_to_path($newPath) {
+    $path = [Environment]::GetEnvironmentVariable("Path", "User")
+    
+    if ($path -notlike "*$newPath*") {
+        $path += ";$newPath"
+        [Environment]::SetEnvironmentVariable("Path", $path, "User")
+    } else {
+        Write-Host "The path $newPath is already in the User PATH variable."
+    }
+}
+
+function remove_from_path($removePath) {
+    $path = [Environment]::GetEnvironmentVariable("Path", "User")
+    $paths = $path.Split(';')
+    
+    if ($paths -contains $removePath) {
+        $paths = $paths | Where-Object { $_ -ne $removePath }
+        $newPath = $paths -join ';'
+        [Environment]::SetEnvironmentVariable("Path", $newPath, "User")
+    } else {
+        Write-Host "The path $removePath is not found in the User PATH variable."
+    }
+}
+
+
 function extract {
     param(
         [Parameter(Mandatory=$true)]
