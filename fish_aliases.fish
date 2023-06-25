@@ -94,6 +94,24 @@ alias shut='sudo systemctl suspend && i3lock -c 000000 -n'
 alias logoff='sudo service sddm restart'
 alias yt-dlp='/usr/local/bin/yt-dlp'
 
+function display_path
+    echo $PATH
+end
+
+function add_to_path
+    if contains -- $argv[1] $PATH
+        echo "The directory is already in the PATH"
+    else
+        set PATH $argv[1] $PATH
+    end
+end
+
+function remove_from_path
+    set -l temp_path $PATH
+    set -e temp_path[(contains -i $argv[1] $temp_path)]
+    set PATH $temp_path
+end
+
 function extract
     if test (count $argv) -eq 0
         echo "Usage: extract <path/file_name>.<zip|rar|bz2|gz|tar|tbz2|tgz|Z|7z|xz|ex|tar.bz2|tar.gz|tar.xz|.zlib|.cso>"
