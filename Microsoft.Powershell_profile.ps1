@@ -685,12 +685,24 @@ function enable-all-network-interfaces {
     Write-Host "All network interfaces have been enabled"
 }
 
+function test-internet-connection {
+    try {
+        Test-Connection -ComputerName 8.8.8.8 -Count 1 -ErrorAction Stop | Out-Null
+        $true
+    }
+    catch {
+        $false
+    }
+}
+
 function networkcycle{
-    Write-Host "Beginning network cycle"
-    disable-all-network-interfaces
-    Start-Sleep -s 5 # give it a moment before re-enabling
-    enable-all-network-interfaces
-    Write-Host "Network cycle completed"
+    while (-not (test-internet-connection)) {
+        Write-Host "Internet connection not found. Starting network cycle..."
+        disable-all-network-interfaces
+        Start-Sleep -s 5 # give it a moment before re-enabling
+        enable-all-network-interfaces
+    }
+    Write-Host "Internet connection established. Network cycle stopped."
 }
 
 
