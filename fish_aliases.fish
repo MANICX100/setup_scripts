@@ -3,6 +3,7 @@ set fish_greeting
 set now date -u +%Y-%m-%dT%H-%M-%S%Z
 set -x RIPGREP_CONFIG_PATH ~/.ripgreprc
 
+alias brew='~/homebrew/bin/brew'
 alias mkfs.ntfs='mkfs.ntfs --fast'
 alias mkfs.ext4='mkfs.ext4 -E lazy_itable_init'
 alias Invoke-Item='xdg-open'
@@ -577,10 +578,6 @@ function create_empty_srt_files
             end
         end
     end
-end
-
-function rename_videos
-    bash -c 'for file in *.mp4 *.avi; do mv "$file" "${file%.*}.mkv"; done'
 end
 
 function unhide_files
