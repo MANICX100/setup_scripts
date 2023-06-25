@@ -2,6 +2,8 @@ Set-Alias -Name bak -Value backup
 Set-Alias -Name rm -Value delete
 Set-Alias -Name pfetch -Value macchina
 Set-Alias -Name neofetch -Value macchina
+Set-Alias -Name fixwifi -Value networkcycle
+
 
 Invoke-Expression (&scoop-search --hook)
 
@@ -668,17 +670,29 @@ $s..$e | Where-Object { $_ % $step -eq 0 }
 }
 
 function disable-all-network-interfaces {
-Get-NetAdapter | Disable-NetAdapter -Confirm:$false
+    Write-Host "Starting to disable all network interfaces"
+    $adapters = Get-NetAdapter
+    Write-Host "Found $($adapters.Count) network interfaces"
+    $adapters | Disable-NetAdapter -Confirm:$false
+    Write-Host "All network interfaces have been disabled"
 }
 
 function enable-all-network-interfaces {
-Get-NetAdapter | Enable-NetAdapter -Confirm:$false
+    Write-Host "Starting to enable all network interfaces"
+    $adapters = Get-NetAdapter
+    Write-Host "Found $($adapters.Count) network interfaces"
+    $adapters | Enable-NetAdapter -Confirm:$false
+    Write-Host "All network interfaces have been enabled"
 }
 
 function networkcycle{
-disable-all-network-interfaces
-enable-all-network-interfaces
+    Write-Host "Beginning network cycle"
+    disable-all-network-interfaces
+    Start-Sleep -s 5 # give it a moment before re-enabling
+    enable-all-network-interfaces
+    Write-Host "Network cycle completed"
 }
+
 
 function delofficecache{
 Get-Process Word | Stop-Process
