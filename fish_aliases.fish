@@ -73,7 +73,6 @@ alias rc='nano ~/.config/fish/config.fish'
 alias visudo='sudo nano /etc/sudoers.d/dkendall'
 alias edit-grub='sudo nano /etc/default/grub'
 alias pfetch='bat --paging=never --style=plain ~/.cache/neofetch'
-alias up='topgrade'
 alias instrpm='sudo rpm -ivh --force'
 alias instdeb='sudo dpkg --force-all -i'
 alias emptybin='sudo rm -rf ~/.local/share/Trash/'
@@ -93,6 +92,11 @@ alias addapp='xdg-open /usr/local/bin'
 alias shut='sudo systemctl suspend && i3lock -c 000000 -n'
 alias logoff='sudo service sddm restart'
 alias yt-dlp='/usr/local/bin/yt-dlp'
+
+function up
+	topgrade
+	am -u
+end
 
 function display_path
     echo $PATH
