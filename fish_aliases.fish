@@ -9,7 +9,7 @@ alias softwareupdate='up'
 alias caffeinate='caffeine'
 alias textutil='libvips'
 alias mdfind='locate'
-alias networkQuality='speedtest-cli'
+alias networkquality='speedtest-cli'
 alias screencapture='scrot'
 alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
@@ -104,10 +104,6 @@ alias addapp='xdg-open /usr/local/bin'
 alias shut='sudo systemctl suspend && i3lock -c 000000 -n'
 alias logoff='sudo service sddm restart'
 alias yt-dlp='/usr/local/bin/yt-dlp'
-
-function alias
-    builtin alias --description --ignore-case $argv
-end
 
 function up
 	topgrade
