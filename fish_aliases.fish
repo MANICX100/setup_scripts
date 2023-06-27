@@ -3,6 +3,8 @@ set fish_greeting
 set now date -u +%Y-%m-%dT%H-%M-%S%Z
 set -x RIPGREP_CONFIG_PATH ~/.ripgreprc
 
+alias loginmgr='bat /etc/X11/default-display-manager'
+
 # macOS
 alias pmset='systemctl'
 alias softwareupdate='up'
