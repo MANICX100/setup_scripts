@@ -3,6 +3,20 @@ set fish_greeting
 set now date -u +%Y-%m-%dT%H-%M-%S%Z
 set -x RIPGREP_CONFIG_PATH ~/.ripgreprc
 
+# macOS
+alias pmset='systemctl'
+alias softwareupdate='up'
+alias caffeinate='caffeine'
+alias textutil='libvips'
+alias mdfind='locate'
+alias networkQuality='speedtest-cli'
+alias screencapture='scrot'
+alias pbcopy='xclip -selection clipboard'
+alias pbpaste='xclip -selection clipboard -o'
+alias say='espeak'
+alias sips='vipsthumbnail'
+alias networksetup='nmcli'
+
 alias brew='~/homebrew/bin/brew'
 alias mkfs.ntfs='mkfs.ntfs --fast'
 alias mkfs.ext4='mkfs.ext4 -E lazy_itable_init'
