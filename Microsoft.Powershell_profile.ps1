@@ -3,9 +3,77 @@ Set-Alias -Name rm -Value delete
 Set-Alias -Name pfetch -Value macchina
 Set-Alias -Name neofetch -Value macchina
 Set-Alias -Name fixwifi -Value networkcycle
+Set-Alias -Name xclip -Value pbcopy
 
 
 Invoke-Expression (&scoop-search --hook)
+
+# PowerShell function to mimic systemctl. Depending on the service you want to manage, you might want to use `Start-Service`, `Stop-Service`, `Restart-Service` or `Set-Service`
+function pmset([string]$serviceName, [string]$action){
+    switch ($action) {
+        'start' {Start-Service -Name $serviceName}
+        'stop' {Stop-Service -Name $serviceName}
+        'restart' {Restart-Service -Name $serviceName}
+        default {Set-Service -Name $serviceName -Status $action}
+    }
+}
+
+# There's no direct Windows equivalent for 'up' as a universal package manager. You can use `winget` or `choco` based on what is installed.
+function softwareupdate([string]$softwareName){
+    winget install $softwareName
+}
+
+# No direct equivalent for caffeinate, but you can stop the system from going to sleep by running the following
+function caffeinate(){
+    powercfg /change -standby-timeout-ac 0
+}
+
+# There's no direct Windows equivalent for libvips
+function textutil(){
+    Write-Output "No Windows equivalent for libvips"
+}
+
+# PowerShell function to mimic 'locate'
+function mdfind([string]$fileName){
+    Get-ChildItem -Path C:\ -Filter $fileName -File -Recurse -ErrorAction SilentlyContinue
+}
+
+# PowerShell function to mimic 'speedtest-cli', need to install speedtest-cli in windows
+function networkQuality(){
+    speedtest-cli
+}
+
+# There's no direct Windows equivalent for 'scrot'
+function screencapture(){
+    Write-Output "No Windows equivalent for scrot"
+}
+
+# PowerShell function to mimic 'xclip -selection clipboard', you'll need to have `clip.exe` available.
+function pbcopy([string]$inputString){
+    echo $inputString | clip
+}
+
+# PowerShell function to mimic 'xclip -selection clipboard -o', you'll need to use `Get-Clipboard` cmdlet.
+function pbpaste(){
+    Get-Clipboard
+}
+
+# PowerShell function to mimic 'espeak', Windows have `SAPI.SpVoice` for text-to-speech.
+function say([string]$textToSpeak){
+    Add-Type -TypeDefinition 'using System.Speech.Synthesis; public class Speech {public static void Speak(string text){ new SpeechSynthesizer().Speak(text); }}'
+    [Speech]::Speak($textToSpeak)
+}
+
+# There's no direct Windows equivalent for vipsthumbnail
+function sips(){
+    Write-Output "No Windows equivalent for vipsthumbnail"
+}
+
+# PowerShell function to mimic 'nmcli', but it's not a direct equivalent.
+function networksetup(){
+    Get-NetAdapter
+}
+
 
 function display_path {
     $path = [Environment]::GetEnvironmentVariable("Path", "User")
