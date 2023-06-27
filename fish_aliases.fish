@@ -105,6 +105,11 @@ alias shut='sudo systemctl suspend && i3lock -c 000000 -n'
 alias logoff='sudo service sddm restart'
 alias yt-dlp='/usr/local/bin/yt-dlp'
 
+function __fish_command_not_found_handler --on-event fish_command_not_found
+    set -l cmd (commandline -opc)
+    functions --query $cmd --description --no-scope --no-arguments --ignore-case
+end
+
 function up
 	topgrade
 	am -u
