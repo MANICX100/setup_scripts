@@ -18,9 +18,8 @@ function pmset([string]$serviceName, [string]$action){
     }
 }
 
-# There's no direct Windows equivalent for 'up' as a universal package manager. You can use `winget` or `choco` based on what is installed.
 function softwareupdate([string]$softwareName){
-    winget install $softwareName
+up
 }
 
 # No direct equivalent for caffeinate, but you can stop the system from going to sleep by running the following
