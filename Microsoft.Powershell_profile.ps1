@@ -9,6 +9,7 @@ Set-Alias -Name su -Value gsudo
 Set-Alias -Name lxqt-sudo -Value gsudo
 Set-Alias -Name kdesudo -Value gsudo
 Set-Alias -Name gksu -Value gsudo
+Set-Alias -Name gc -Value bat
 
 Invoke-Expression (&scoop-search --hook)
 
