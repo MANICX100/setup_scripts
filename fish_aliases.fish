@@ -5,6 +5,12 @@ set -x RIPGREP_CONFIG_PATH ~/.ripgreprc
 
 alias loginmgr='bat /etc/X11/default-display-manager'
 
+alias nom='/home/dkendall/go/bin/nom'
+alias kdesudo='lxqt-sudo'
+alias gksu='kdesudo'
+alias pkexec='kdesudo'
+alias su='sudo'
+
 # macOS
 alias pmset='systemctl'
 alias softwareupdate='up'
