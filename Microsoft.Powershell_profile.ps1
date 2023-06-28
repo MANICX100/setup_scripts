@@ -5,12 +5,10 @@ Set-Alias -Name neofetch -Value macchina
 Set-Alias -Name fixwifi -Value networkcycle
 Set-Alias -Name xclip -Value pbcopy
 Set-Alias -Name pkexec -Value gsudo
-Set-Alias -Name sudo -Value gsudo
 Set-Alias -Name su -Value gsudo
 Set-Alias -Name lxqt-sudo -Value gsudo
 Set-Alias -Name kdesudo -Value gsudo
 Set-Alias -Name gksu -Value gsudo
-
 
 Invoke-Expression (&scoop-search --hook)
 
