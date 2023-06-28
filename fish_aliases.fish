@@ -3,8 +3,8 @@ set fish_greeting
 set now date -u +%Y-%m-%dT%H-%M-%S%Z
 set -x RIPGREP_CONFIG_PATH ~/.ripgreprc
 
+alias winmount='sudo mount /dev/nvme1n1p4 /mnt/nvme1n1p4'
 alias loginmgr='bat /etc/X11/default-display-manager'
-
 alias nom='/home/dkendall/go/bin/nom'
 alias kdesudo='lxqt-sudo'
 alias gksu='kdesudo'
@@ -64,7 +64,7 @@ alias dl='aria2c -x 16'
 alias dls='aria2c --enable-rpc=true -x 16'
 alias rpmall='sudo rpm -Uvh *'
 alias chkdsk='fsck'
-alias Get-Volume='sudo lsblk -o NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL'
+alias Get-Volume='sudo lsblk -o NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL | rg -v loop'
 alias default='kcmshell5 filetypes'
 alias rmpipall='pip freeze --user | xargs pip uninstall -y'
 alias rmpnpm='rm -rf -v $PNPM_HOME'
