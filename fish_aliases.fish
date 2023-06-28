@@ -98,7 +98,6 @@ alias instdeb='sudo dpkg --force-all -i'
 alias emptybin='sudo rm -rf ~/.local/share/Trash/'
 alias delrecent='sudo rm ~/.local/share/recently-usd.xbel && sudo touch ~/.local/share/recently-usd.xbel'
 alias rm='rm -rf -v'
-alias syncfolders='rsync -avh --ignore-existing --delete --progress --compress --no-whole-file /home/dkendall/ /media/dkendall/exFAT/'
 alias unshareusb='/bin/eveusbc unshare all'
 alias shareusb='/bin/eveusbc share 12345 1-9.1'
 alias screenrec='ffmpeg -video_size 1920x1200 -framerate 60 -f x11grab -i :0.0+0,0 -f pulse -ac 2 -i default output-"$($now)".mkv'
@@ -112,6 +111,12 @@ alias addapp='xdg-open /usr/local/bin'
 alias shut='sudo systemctl suspend && i3lock -c 000000 -n'
 alias logoff='sudo service sddm restart'
 alias yt-dlp='/usr/local/bin/yt-dlp'
+
+function syncfolders
+  sudo mount sda1 /media/dkendall/exFAT/
+  rsync -avh --ignore-existing --delete --progress --compress --no-whole-file /home/dkendall/ /media/dkendall/exFAT/
+end
+
 
 function up
 	topgrade
