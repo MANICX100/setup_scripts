@@ -306,19 +306,6 @@ function fixwifi
     end
 end
 
-
-function mountalldisks
-    set -l disks (lsblk -rno NAME)
-
-    for disk in $disks
-        if test -b "/dev/$disk"
-            set -l mountpoint "/mnt/$disk"
-            sudo mkdir -p $mountpoint
-            sudo mount "/dev/$disk" $mountpoint
-        end
-    end
-end
-
 function replaceline
     set -l lineNumber $argv[1]
     set -l replacement $argv[2]
