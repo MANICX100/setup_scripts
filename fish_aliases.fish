@@ -117,6 +117,20 @@ function syncfolders
   rsync -avh --ignore-existing --delete --progress --compress --no-whole-file /home/dkendall/ /media/dkendall/exFAT/
 end
 
+function please --wraps=sudo
+    if functions -q -- "$argv[1]"
+        set cmdline (
+            for arg in $argv
+                printf "\"%s\" " $arg
+            end
+        )
+        set -x function_src (string join "\n" (string escape --style=var (functions "$argv[1]")))
+        set argv fish -c 'string unescape --style=var (string split "\n" $function_src) | source; '$cmdline
+        command sudo -E $argv
+    else
+        command sudo $argv
+    end
+end
 
 function up
 	topgrade
@@ -536,21 +550,6 @@ function z
     set -l target_dir (find $PWD -type d -name "*$argv[1]*" -print | fzf)
     if test -n "$target_dir"
         cd $target_dir
-    end
-end
-
-function please --wraps=sudo --description 'alias please sudo'
-    if functions -q -- "$argv[1]"
-        set cmdline (
-            for arg in $argv
-                printf "\"%s\" " $arg
-            end
-        )
-        set -x function_src (string join "\n" (string escape --style=var (functions "$argv[1]")))
-        set argv fish -c 'string unescape --style=var (string split "\n" $function_src) | source; '$cmdline
-        command sudo -E $argv
-    else
-        command sudo $argv
     end
 end
 
