@@ -135,7 +135,6 @@ end
 
 function up
 	topgrade
-	am -u
 end
 
 function display_path
