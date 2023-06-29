@@ -26,7 +26,7 @@ alias say='espeak'
 alias sips='vipsthumbnail'
 alias networksetup='nmcli'
 alias qlmanage='feh'
-alias brew='~/homebrew/bin/brew'
+#alias brew='~/homebrew/bin/brew'
 
 alias mkfs.ntfs='mkfs.ntfs --fast'
 alias mkfs.ext4='mkfs.ext4 -E lazy_itable_init'
