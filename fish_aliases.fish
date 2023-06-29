@@ -2,6 +2,7 @@ set TERM linux
 set fish_greeting
 set now date -u +%Y-%m-%dT%H-%M-%S%Z
 set -x RIPGREP_CONFIG_PATH ~/.ripgreprc
+set -x EDITOR nvim
 
 alias winmount='sudo mount /dev/nvme1n1p4 /mnt/nvme1n1p4'
 alias loginmgr='bat /etc/X11/default-display-manager'
@@ -50,8 +51,8 @@ alias python='python3.11'
 alias convertdeb='sudo alien --to-rpm'
 alias convertrpm='sudo alien'
 alias gitc='git clone --depth 1'
-alias edit-dns='sudo nano /etc/resolv.conf'
-alias edit-hosts='sudo nano /etc/hosts'
+alias edit-dns='sudo $EDITOR /etc/resolv.conf'
+alias edit-hosts='sudo $EDITOR /etc/hosts'
 alias fd='fzf --query'
 alias webcam='sudo modprobe v4l2loopback'
 alias cloudsync='pkill onedrive && onedrive --synchronize --force'
@@ -89,9 +90,9 @@ alias batc='bat --paging=never --style=plain'
 alias lsh='ls -lah -U'
 alias lsf='ls -d "$PWD"/*'
 alias cls='clear'
-alias rc='nano ~/.config/fish/config.fish'
-alias visudo='sudo nano /etc/sudoers.d/dkendall'
-alias edit-grub='sudo nano /etc/default/grub'
+alias rc='$EDITOR ~/.config/fish/config.fish'
+alias visudo='sudo $EDITOR /etc/sudoers.d/dkendall'
+alias edit-grub='sudo $EDITOR /etc/default/grub'
 alias pfetch='bat --paging=never --style=plain ~/.cache/neofetch'
 alias instrpm='sudo rpm -ivh --force'
 alias instdeb='sudo dpkg --force-all -i'
