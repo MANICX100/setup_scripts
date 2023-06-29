@@ -177,51 +177,42 @@ function extract {
     }
 }
 
-function ProjectDl {
+function projectdl {
     param (
         [Parameter(Mandatory = $true)]
-        [string] $repo
+        [string]$username,
+        
+        [Parameter(Mandatory = $true)]
+        [string]$repo
     )
 
-    # Split the repository string into username and repository
-    $username, $repository = $repo.Split('/')
+    $apiUrl = "https://api.github.com/repos/$username/$repo/releases/latest"
+    $response = Invoke-RestMethod -Uri $apiUrl
 
-    # Define the GitHub API endpoint
-    $uri = "https://api.github.com/repos/$username/$repository/releases/latest"
+    $downloadUrl = ($response.assets | Where-Object { $_.browser_download_url -like "*windows*" }).browser_download_url
 
-    # Get the latest release information
-    $release = Invoke-RestMethod -Uri $uri
+    if ($downloadUrl) {
+        $downloadUrl | ForEach-Object {
+            $filename = $_ -split '/' | Select-Object -Last 1
+            $aria2cArgs = "-x16", "-d", "$HOME\apps", $_
 
-    # Check if any release found
-    if($release -eq $null){
-        Write-Output "No release found for repository $repo"
-        return
-    }
+            Start-Process -FilePath "aria2c" -ArgumentList $aria2cArgs -Wait
 
-    # Define the directory for the download
-    $userHome = [Environment]::GetFolderPath('UserProfile')
-    $downloadDir = Join-Path $userHome 'apps'
-    if(!(Test-Path -Path $downloadDir)){
-        New-Item -ItemType Directory -Force -Path $downloadDir | Out-Null
-    }
+            $userAnswer = Read-Host "Would you like to extract downloaded file $filename (yes/no)?"
+            if ($userAnswer -eq 'yes') {
+                $extractPath = Join-Path -Path "$HOME\apps" -ChildPath $filename
 
-    foreach($asset in $release.assets){
-        # Define the file name
-        $filename = $asset.name
-
-        # Ask if the user wants to download this file
-        $download = Read-Host "Do you want to download $filename? (y/n)"
-
-        if($download -eq 'y'){
-            # Define the download path
-            $downloadPath = Join-Path $downloadDir $filename
-
-            # Start aria2c to download the file
-            $aria2c_command = "aria2c --max-connection-per-server=16 --dir=$downloadDir --out=$filename --auto-file-renaming=false `"$($asset.browser_download_url)`""
-            Invoke-Expression -Command $aria2c_command
+                # Call your 'extract' command line tool
+                 extract $extractPath
+                Write-Host "File $filename extracted to $HOME\apps"
+            }
         }
     }
+    else {
+        Write-Host "No Windows files found for the specified repository."
+    }
 }
+
 
 function Open($filePath) {
     if(Test-Path $filePath) {
