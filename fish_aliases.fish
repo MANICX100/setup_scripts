@@ -259,6 +259,17 @@ function projectdl -a repo
 
     # Make the downloaded file executable
     chmod +x /usr/local/bin/$filename
+
+# Ask the user if they want to extract the downloaded file
+echo "Do you want to extract the downloaded file? (yes/no)"
+read -l extract
+
+if test $extract = "yes"
+    # Extract the downloaded file
+    echo "Extracting the downloaded file..."
+    extract /usr/local/bin/$filename
+    echo "Extraction completed."
+end
 end
 
 function playtv
