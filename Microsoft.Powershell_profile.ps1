@@ -12,6 +12,47 @@ Set-Alias -Name gksu -Value gsudo
 
 Invoke-Expression (&scoop-search --hook)
 
+function afconvert {
+    ffmpeg $args
+}
+
+function afinfo {
+    mediainfo $args
+}
+
+function afplay {
+    smplayer $args
+}
+
+function airport {
+    networkstatus $args
+}
+
+function alloc {
+    free $args
+}
+
+function apropos {
+    tldr $args
+}
+
+function automator {
+    Write-Output "Automator not configured"
+}
+
+function asr {
+    Write-Output "Restore not necessary"
+}
+
+function atsutil {
+    fc-cache -vf $args
+}
+
+function bless {
+    Write-Output "All bootable OK"
+}
+
+
 # PowerShell function to mimic systemctl. Depending on the service you want to manage, you might want to use `Start-Service`, `Stop-Service`, `Restart-Service` or `Set-Service`
 function pmset([string]$serviceName, [string]$action){
     switch ($action) {
