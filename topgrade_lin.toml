@@ -99,7 +99,7 @@ redhat_distro_sync = true
 
 [python]
 #enable_pip_review = true   ###disabled by default
-#enable_pipupgrade = true   ###disabled by default
+enable_pipupgrade = true   ###disabled by default
 
 [windows]
 enable_winget = true
