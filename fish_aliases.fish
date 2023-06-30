@@ -353,27 +353,6 @@ function replaceline
     mv $tempFile $filePath
 end
 
-function printline
-    set -l file_path $argv[1]
-    set -l start_line $argv[2]
-    set -l end_line $argv[3]
-
-    if test -z $file_path
-        echo "File path is required."
-        return 1
-    end
-
-    if test -z $start_line -o -z $end_line
-        echo "Start and end lines are required."
-        return 1
-    end
-
-    # Use bat to colorize and paginate the output
-    bat --style=plain --pager=never --line-range="$start_line:$end_line" --color=always "$file_path" | rg --color=always .
-
-    return $status
-end
-
 function gitsetup
 git config --global user.name "Danny Kendall"
 git config --global user.email "d.manicx100@gmail.com"
