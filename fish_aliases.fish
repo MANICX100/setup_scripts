@@ -4,6 +4,7 @@ set now date -u +%Y-%m-%dT%H-%M-%S%Z
 set -x RIPGREP_CONFIG_PATH ~/.ripgreprc
 set -x EDITOR nvim
 
+alias uninstall='remove'
 alias winmount='sudo mount /dev/nvme1n1p4 /mnt/nvme1n1p4'
 alias loginmgr='bat /etc/X11/default-display-manager'
 alias nom='/home/dkendall/go/bin/nom'
@@ -122,6 +123,16 @@ alias addapp='xdg-open /usr/local/bin'
 alias shut='sudo systemctl suspend && i3lock -c 000000 -n'
 alias logoff='sudo service sddm restart'
 alias yt-dlp='/usr/local/bin/yt-dlp'
+
+function reinstall
+    set packagename $argv[1]
+    if test -n "$packagename"
+        sudo nala remove -y $packagename
+        sudo nala install -y $packagename
+    else
+        echo "Usage: reinstall <packagename>"
+    end
+end
 
 function syncfolders
   sudo mount sda1 /media/dkendall/exFAT/
