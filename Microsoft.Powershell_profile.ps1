@@ -13,7 +13,18 @@ Set-Alias -Name uninstall -Value remove
 
 Invoke-Expression (&scoop-search --hook)
 
-function replaceline ($filePath, $lineNumber, $newLine) {
+function replaceline {
+    param (
+        [Parameter(Position=0)]
+        [string]$filePath,
+        
+        [Parameter(Position=1)]
+        [int]$lineNumber,
+        
+        [Parameter(Position=2)]
+        [string]$newLine
+    )
+
     # Read all lines from the file
     $content = Get-Content $filePath
 
@@ -25,7 +36,8 @@ function replaceline ($filePath, $lineNumber, $newLine) {
 }
 
 function reinstall {
-	scoop reset $args
+	scoop uninstall $args
+ 	scoop install $args
  }
 
 function afconvert {
