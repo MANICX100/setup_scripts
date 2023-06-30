@@ -12,6 +12,21 @@ Set-Alias -Name gksu -Value gsudo
 
 Invoke-Expression (&scoop-search --hook)
 
+function replaceline ($filePath, $lineNumber, $newLine) {
+    # Read all lines from the file
+    $content = Get-Content $filePath
+
+    # Replace the line at the given line number
+    $content[$lineNumber - 1] = $newLine
+
+    # Write the updated content back to the file
+    Set-Content -Path $filePath -Value $content
+}
+
+function reinstall {
+	scoop reset $args
+ }
+
 function afconvert {
     ffmpeg $args
 }
