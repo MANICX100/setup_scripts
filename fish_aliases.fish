@@ -750,10 +750,6 @@ function subs
  cd "$HOME";
 end
 
-function macos
-	cd "$HOME/macOS-Simple-KVM/" ; ./basic.sh; cd "$HOME" ;
-end
-
 function yt
     cd "/home/dkendall/Videos/yt/"
     yt-dlp -f 'bv*[ext=mp4]+ba[ext=m4a]/b[ext=mp4]' 'https://www.youtube.com/playlist?list=PLJElTFmVZU3vW-BIfsI2AmfVDL9PzqFmg' --external-downloader aria2c --external-downloader-args "-x 16 -k 1M";
@@ -766,12 +762,6 @@ end
 
 function delyt
     rm -rf "/home/dkendall/Videos/yt"; cd "/home/dkendall/Videos/"; mkdir yt ; cd "$HOME";
-end
-
-function x
-    cd $("dirname" "$argv") ;
-    extract $argv;
-    cd "$HOME";
 end
 
 function lazyg
