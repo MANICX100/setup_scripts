@@ -13,6 +13,18 @@ Set-Alias -Name uninstall -Value remove
 
 Invoke-Expression (&scoop-search --hook)
 
+# PowerShell function
+function all {
+    param(
+        [Parameter(Mandatory=$true)]
+        [scriptblock]$cmd
+    )
+    $files = Get-ChildItem -File
+    foreach ($file in $files) {
+        . $cmd $file
+    }
+}
+
 function replaceline {
     param (
         [Parameter(Position=0)]
