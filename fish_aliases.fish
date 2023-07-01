@@ -124,6 +124,13 @@ alias shut='sudo systemctl suspend && i3lock -c 000000 -n'
 alias logoff='sudo service sddm restart'
 alias yt-dlp='/usr/local/bin/yt-dlp'
 
+# fish function
+function all
+    for file in (ls .)
+        $argv $file
+    end
+end
+
 function reinstall
     set packagename $argv[1]
     if test -n "$packagename"
