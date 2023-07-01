@@ -882,10 +882,6 @@ function datetime{
 pwsh -File "$env:OneDriveConsumer\time.ps1"
 }
 
-function x{
-7z x %~1 -o*
-}
-
 function untar{
 tar -xzvf
 }
