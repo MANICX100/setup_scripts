@@ -4,6 +4,7 @@ set now date -u +%Y-%m-%dT%H-%M-%S%Z
 set -x RIPGREP_CONFIG_PATH ~/.ripgreprc
 set -x EDITOR nvim
 
+alias micandsystem='pactl load-module module-loopback latency_msec=1'
 alias uninstall='remove'
 alias winmount='sudo mount /dev/nvme1n1p4 /mnt/nvme1n1p4'
 alias loginmgr='bat /etc/X11/default-display-manager'
