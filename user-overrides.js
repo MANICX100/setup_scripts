@@ -246,6 +246,8 @@ user_pref("reader.parse-on-load.enabled", false);
 user_pref("browser.urlbar.trimURLs", false);
 user_pref("security.enterprise_roots.enabled",true);
 user_pref("ui.key.menuAccessKey",17);
+user_pref("plugin.state.libgnome-shell-browser-plugin", 0);
+user_pref("widget.content.gtk-theme-override", "Adwaita:light");
 
 
 /****************************************************************************
