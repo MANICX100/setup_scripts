@@ -5,6 +5,7 @@ set -x RIPGREP_CONFIG_PATH ~/.ripgreprc
 set -x EDITOR nvim
 
 alias tvn='tvnamer --recursive'
+alias tvrename='tvn /home/dkendall/Videos/TV'
 
 alias micandsystem='pactl load-module module-loopback latency_msec=1'
 alias uninstall='remove'
