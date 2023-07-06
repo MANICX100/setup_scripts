@@ -4,6 +4,10 @@ set now date -u +%Y-%m-%dT%H-%M-%S%Z
 set -x RIPGREP_CONFIG_PATH ~/.ripgreprc
 set -x EDITOR nvim
 
+add_to_path "/home/dkendall/.local/bin"
+
+alias tvn='tvnamer --recursive'
+
 alias micandsystem='pactl load-module module-loopback latency_msec=1'
 alias uninstall='remove'
 alias winmount='sudo mount /dev/nvme1n1p4 /mnt/nvme1n1p4'
