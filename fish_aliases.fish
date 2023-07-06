@@ -4,8 +4,6 @@ set now date -u +%Y-%m-%dT%H-%M-%S%Z
 set -x RIPGREP_CONFIG_PATH ~/.ripgreprc
 set -x EDITOR nvim
 
-add_to_path "/home/dkendall/.local/bin"
-
 alias tvn='tvnamer --recursive'
 
 alias micandsystem='pactl load-module module-loopback latency_msec=1'
@@ -798,3 +796,6 @@ function gitIgnoreRm
 	git add .
 	git commit -m "Update .gitignore"
 end
+
+add_to_path "/home/dkendall/.local/bin"
+
