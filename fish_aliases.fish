@@ -127,7 +127,12 @@ alias shut='sudo systemctl suspend && i3lock -c 000000 -n'
 alias logoff='sudo service sddm restart'
 alias yt-dlp='/usr/local/bin/yt-dlp'
 
-# fish function
+function setresolution
+    for output in (xrandr | rg " connected" | frawk '{ print $1 }')
+        xrandr --output $output --mode $argv[1]
+    end
+end
+
 function all
     for file in (ls .)
         $argv $file
