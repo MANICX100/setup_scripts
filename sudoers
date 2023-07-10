@@ -2,10 +2,10 @@ dkendall ALL=(root)NOPASSWD: /usr/bin/nala
 dkendall ALL=(root)NOPASSWD: /usr/sbin/reboot
 dkendall ALL=(root)NOPASSWD: /usr/bin/sync
 dkendall ALL=(root)NOPASSWD: /usr/bin/flatpak
-dkendall ALL=(root)NOPASSWD: /usr/bin/snap
 dkendall ALL=(root)NOPASSWD: /usr/bin/xfe
-ALL ALL=NOPASSWD: /usr/bin/tee
+dkendall ALL=(root)NOPASSWD: /usr/bin/gdebi
 dkendall ALL=(root)NOPASSWD: /usr/bin/gh
+ALL ALL=NOPASSWD: /usr/bin/tee
 ALL ALL=(ALL) NOPASSWD: /bin/systemctl start jellyfin, /bin/systemctl stop jellyfin, /bin/systemctl enable jellyfin, /bin/systemctl disable jellyfin
 
 #dkendall ALL=(root)NOPASSWD: /usr/bin/thunar
@@ -15,3 +15,4 @@ ALL ALL=(ALL) NOPASSWD: /bin/systemctl start jellyfin, /bin/systemctl stop jelly
 #dkendall ALL=(root)NOPASSWD: /usr/bin/nautilus
 #dkendall ALL=(root)NOPASSWD: /usr/local/bin/*
 #dkendall ALL=(root)NOPASSWD: /usr/sbin/service
+#dkendall ALL=(root)NOPASSWD: /usr/bin/snap
