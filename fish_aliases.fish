@@ -6,7 +6,7 @@ set -x EDITOR nvim
 
 alias tvn='tvnamer --recursive'
 alias tvrename='tvn /home/dkendall/Videos/TV'
-
+alias debversion='apt-cache policy'
 alias micandsystem='pactl load-module module-loopback latency_msec=1'
 alias uninstall='remove'
 alias winmount='sudo mount /dev/nvme1n1p4 /mnt/nvme1n1p4'
