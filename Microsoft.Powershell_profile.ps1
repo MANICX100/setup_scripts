@@ -14,47 +14,14 @@ Set-Alias -Name uninstall -Value remove
 Invoke-Expression (&scoop-search --hook)
 
 function Set-Resolution {
-    param (
-        [string]$Resolution
-    )
-    Add-Type -TypeDefinition @"
-using System;
-using System.Runtime.InteropServices;
-
-public class ScreenResolution {
-    [DllImport("user32.dll")]
-    public static extern bool EnumDisplaySettings(string deviceName, int modeNum, ref DEVMODE devMode);
-    
-    [DllImport("user32.dll")]
-    public static extern int ChangeDisplaySettings(ref DEVMODE devMode, int flags);
-    
-    public struct DEVMODE {
-        public short dmSize;
-        // skipping unneeded fields for brevity...
-        public short dmPelsWidth;
-        public short dmPelsHeight;
-        // skipping unneeded fields for brevity...
-    }
-    
-    public static void ChangeResolution(int width, int height) {
-        DEVMODE dm = new DEVMODE();
-        dm.dmSize = (short)Marshal.SizeOf(typeof(DEVMODE));
-        if (0 != EnumDisplaySettings(null, -1, ref dm)) {
-            dm.dmPelsWidth = (short)width;
-            dm.dmPelsHeight = (short)height;
-            int iRet = ChangeDisplaySettings(ref dm, 0);
-            if (iRet == 0) {
-                // succeeded
-            }
-            else {
-                // failed
-            }
-        }
-    }
-}
-"@
-    $width, $height = $Resolution.Split('x')
-    [ScreenResolution]::ChangeResolution($width, $height)
+  param(
+    [string]$resolution
+  )
+  
+  $x = $resolution.Split('x')[0]
+  $y = $resolution.Split('x')[1]
+  
+  & 'QRes.exe' /x:$x /y:$y
 }
 
 function all {
