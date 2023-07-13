@@ -405,7 +405,7 @@ function instsearch($packageName) {
 
 # Function to edit the hosts file
 function Edit-Hosts {
-gsudo notepad "C:\Windows\System32\drivers\etc\hosts"
+gsudo nvim "C:\Windows\System32\drivers\etc\hosts"
 }
 
 # Function to display network device status
@@ -699,8 +699,8 @@ function sha256 { Get-FileHash -Algorithm SHA256 $args }
 
 function cred {rundll32.exe keymgr.dll, KRShowKeyMgr}
 
-# Quick shortcut to start notepad
-function n      { notepad3 $args }
+# Quick shortcut to start nvim
+function n      { nvim3 $args }
 
 # Drive shortcuts
 function HKLM:  { Set-Location HKLM: }
@@ -716,7 +716,7 @@ function rc
     }
     else
     {
-        notepad3 $profile
+        nvim3 $profile
     }
 }
 
