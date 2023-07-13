@@ -4,6 +4,7 @@ set now date -u +%Y-%m-%dT%H-%M-%S%Z
 set -x RIPGREP_CONFIG_PATH ~/.ripgreprc
 set -x EDITOR nvim
 
+alias icewmkeys='$EDITOR ~/.icewm/keys'
 alias tvn='tvnamer --recursive'
 alias tvrename='tvn /home/dkendall/Videos/TV'
 alias debversion='apt-cache policy'
