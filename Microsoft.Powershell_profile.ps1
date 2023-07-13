@@ -700,7 +700,7 @@ function sha256 { Get-FileHash -Algorithm SHA256 $args }
 function cred {rundll32.exe keymgr.dll, KRShowKeyMgr}
 
 # Quick shortcut to start nvim
-function n      { nvim3 $args }
+function n      { nvim $args }
 
 # Drive shortcuts
 function HKLM:  { Set-Location HKLM: }
@@ -716,7 +716,7 @@ function rc
     }
     else
     {
-        nvim3 $profile
+        nvim $profile
     }
 }
 
