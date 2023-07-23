@@ -4,11 +4,6 @@ Set-Alias -Name pfetch -Value macchina
 Set-Alias -Name neofetch -Value macchina
 Set-Alias -Name fixwifi -Value networkcycle
 Set-Alias -Name xclip -Value pbcopy
-Set-Alias -Name pkexec -Value gsudo
-Set-Alias -Name su -Value gsudo
-Set-Alias -Name lxqt-sudo -Value gsudo
-Set-Alias -Name kdesudo -Value gsudo
-Set-Alias -Name gksu -Value gsudo
 Set-Alias -Name uninstall -Value remove
 
 Invoke-Expression (&scoop-search --hook)
@@ -372,7 +367,7 @@ function instsearch($packageName) {
 
 # Function to edit the hosts file
 function Edit-Hosts {
-gsudo nvim "C:\Windows\System32\drivers\etc\hosts"
+ nvim "C:\Windows\System32\drivers\etc\hosts"
 }
 
 # Function to display network device status
@@ -525,7 +520,7 @@ Open-ShellGUID -ShellGUID "{A8A91A66-3A7D-4424-8D24-04E180695C7A}"
 }
 
 function fwoff {
-gsudo Set-NetFirewallProfile -Profile Domain,Private,Public -Enabled False
+ Set-NetFirewallProfile -Profile Domain,Private,Public -Enabled False
 }
 
 function playtv {
@@ -780,7 +775,7 @@ Get-Childitem -Path $env:APPDATA\Python\Python311 -Recurse | Unblock-File -Confi
 }
 
 function stopup {
-gsudo net stop wuauserv
+ net stop wuauserv
 }
 
 function uefi {
@@ -802,7 +797,7 @@ aria2c --max-connection-per-server=16 --allow-overwrite=true -d (Split-Path $pro
 
 function tgupdate {
 aria2c --max-connection-per-server=16 --allow-overwrite=true -d $env:APPDATA -o topgrade.toml "https://github.com/MANICX100/setup_scripts/raw/main/topgrade_win.toml"
-gsudo topgrade
+ topgrade
 }
 
 function repairwindows {
@@ -813,7 +808,7 @@ DISM.exe /Online /Cleanup-image /Restorehealth
 function e. {explorer .}
 
 function resetcorners {
-gsudo Remove-Item "C:\Windows\System32\uDWM_win11drc.bak" 
+ Remove-Item "C:\Windows\System32\uDWM_win11drc.bak" 
 }
 
 function delpins {
@@ -836,7 +831,7 @@ Get-WMIObject Win32_SerialPort | Select-Object Name,DeviceID,Description
 }
 
 function up{
-gsudo topgrade
+ topgrade
 }
 
 function winup {
@@ -950,7 +945,7 @@ pwsh -File "$env:OneDriveConsumer\move-into-folders.ps1"
 }
 
 function last{
-gsudo powercfg /sleepstudy
+ powercfg /sleepstudy
 }
 
 function rev{
@@ -960,14 +955,14 @@ $array_reversed -join ''
 }
 
 function envvar{
-gsudo rundll32.exe sysdm.cpl,EditEnvironmentVariables
+ rundll32.exe sysdm.cpl,EditEnvironmentVariables
 }
 
 function mobileapps{
 start-process shell:AppsFolder
 }
 
-Function backup {gsudo Checkpoint-Computer -Description "AutomatedBackupViaPwsh"}
+Function backup { Checkpoint-Computer -Description "AutomatedBackupViaPwsh"}
 
 function newgit {
   git add .
@@ -1003,3 +998,15 @@ function cleanup {
 scoop cleanup *
 scoop cache rm *
 }
+
+<#
+Set-Alias -Name pkexec -Value gsudo
+
+Set-Alias -Name su -Value gsudo
+
+Set-Alias -Name lxqt-sudo -Value gsudo
+
+Set-Alias -Name kdesudo -Value gsudo
+
+Set-Alias -Name gksu -Value gsudo
+#>
