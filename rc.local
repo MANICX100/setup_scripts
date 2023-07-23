@@ -1,0 +1,5 @@
+#!/bin/sh -e
+
+ethtool -s enp7s0 speed 100 duplex full
+dhclient enp7s0
+exit 0
