@@ -5,6 +5,8 @@ Set-Alias -Name neofetch -Value macchina
 Set-Alias -Name fixwifi -Value networkcycle
 Set-Alias -Name xclip -Value pbcopy
 Set-Alias -Name uninstall -Value remove
+Set-Alias -Name sync -Value RemoveDrive.exe
+
 
 Invoke-Expression (&scoop-search --hook)
 
