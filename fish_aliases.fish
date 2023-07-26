@@ -742,7 +742,7 @@ set -g osinfo (rg -ioP '^ID=\K.+' /etc/os-release)
 
 neofetch > ~/.cache/neofetch
 
-sd Ubuntu 'Kendall Linux' ~/.cache/neofetch
+sd Debian 'Kendall Linux' ~/.cache/neofetch
 sd 6500 6900 ~/.cache/neofetch
 sd 6400 6800  ~/.cache/neofetch
 sd 3.201 6.0 ~/.cache/neofetch
