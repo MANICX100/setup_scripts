@@ -31,9 +31,9 @@ Return
 
 ^!N::Run("`"Notepad3.exe`"")
 
-^!S::Shutdown(5)
+^!S::Shutdown(1)
 
-^!R::Shutdown(6)
+^!R::Shutdown(2)
 
 #F5::Run("narrator.exe")
 #F4::A_Clipboard := WinGetClass("A")
@@ -69,4 +69,3 @@ Run "C:\Users\dmani\scoop\apps\fscapture\current\FSCapture.exe"
 ^!i::Run "ms-settings:windowsupdate"
 
 ^+!d::Run "C:\Users\dmani\scoop\apps\landrop\current\LANDrop.exe"
-
