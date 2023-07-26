@@ -7,7 +7,7 @@ dkendall ALL=(root)NOPASSWD: /usr/bin/gh
 
 ALL ALL=NOPASSWD: /usr/bin/tee
 ALL ALL=(ALL) NOPASSWD: /bin/systemctl start jellyfin, /bin/systemctl stop jellyfin, /bin/systemctl enable jellyfin, /bin/systemctl disable jellyfin
-ALL ALL=(ALL) NOPASSWD: systemctl --force --force reboot
+ALL ALL=(ALL) NOPASSWD: /bin/systemctl --force --force reboot
 
 #dkendall ALL=(root)NOPASSWD: /usr/bin/thunar
 #dkendall ALL=(root)NOPASSWD: /usr/bin/peony
