@@ -8,7 +8,7 @@ key "Ctrl+Alt+s" /home/dkendall/sleep.sh
 
 key "Ctrl+Alt+L" /home/dkendall/lock.sh
 
-key "Ctrl+Alt+n" flatpak run org.contourterminal.Contour $EDITOR /home/dkendall/OneDrive/Documents/txt/ends.txt
+key "Ctrl+Alt+n" flatpak run org.contourterminal.Contour nvim /home/dkendall/OneDrive/Documents/txt/ends.txt
 key "Ctrl+Alt+E" xfe
 
 key "Ctrl+Alt+Shift+E" lxqt-sudo mount /dev/nvme1n1p4 /media/dkendall/windows;xfe '/media/dkendall/windows/Users/dkendall/My Documents'
