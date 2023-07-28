@@ -130,6 +130,11 @@ alias addapp='xdg-open /usr/local/bin'
 alias logoff='sudo service sddm restart'
 alias yt-dlp='/usr/local/bin/yt-dlp'
 
+function icewmup
+  aria2c --max-connection-per-server=16 -d ~/.icewm/-o ~/.icewm/keys -c --allow-overwrite=true "https://github.com/MANICX100/setup_scripts/raw/main/icewm-keys"
+  icesh restart
+end
+
 function setresolution
     for output in (xrandr | rg " connected" | frawk '{ print $1 }')
         xrandr --output $output --mode $argv[1]
