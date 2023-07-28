@@ -1,20 +1,25 @@
 # ~/.icewm/keys
 
-key "Ctrl+Alt+b" "xdg-open about:blank"
-key "Ctrl+Alt+t" "flatpak run org.contourterminal.Contour"  
+key "Ctrl+Alt+b" xdg-open about:blank
+key "Ctrl+Alt+t" flatpak run org.contourterminal.Contour
 key "Ctrl+Alt+r" "sudo systemctl reboot"
-key "Ctrl+Alt+s" "/home/dkendall/sleep.sh"
-key "Ctrl+Alt+L" "/home/dkendall/lock.sh"
-key "Ctrl+Alt+n" "/usr/local/bin/lite-xl/lite-xl /home/dkendall/OneDrive/Documents/txt/ends.txt"
-key "Ctrl+Alt+E" "xfe"
-key "Ctrl+Alt+Shift+E" "/home/dkendall/windows.sh"
-key "Ctrl+Alt+i" "pavucontrol" 
-key "Ctrl+Alt+v" "/usr/bin/diodon"
-key "Print" "flameshot gui"
-key "Shift+Print" "simplescreenrecorder"
-key "Ctrl+Alt+m" "flatpak run io.gitlab.zehkira.Monophony"
-key "Ctrl+Shift+Space" "ulauncher"
-key "Ctrl+Alt+x" "xkill"
-key "Ctrl+Shift+Esc" "gnome-system-monitor" 
-key "Ctrl+Shift+Alt+D" "/home/dkendall/.local/bin/landrop"
-key "Ctrl+Alt+Shift+t" "wmctrl -r :ACTIVE: -b toggle,above"
+
+key "Ctrl+Alt+s" echo 'disabled' | sudo tee /sys/bus/pci/devices/0000:00:14.0/power/wakeup;dbus-send --system --print-reply --dest="org.freedesktop.login1" /org/freedesktop/login1 org.freedesktop.login1.Manager.Suspend boolean:true;i3lock -c 000000 -n
+
+key "Ctrl+Alt+L" xset dpms force off;i3lock -c 000000 -n
+
+key "Ctrl+Alt+n" /usr/local/bin/lite-xl/lite-xl /home/dkendall/OneDrive/Documents/txt/ends.txt
+key "Ctrl+Alt+E" xfe
+
+key "Ctrl+Alt+Shift+E" lxqt-sudo mount /dev/nvme1n1p4 /media/dkendall/windows;xfe '/media/dkendall/windows/Users/dkendall/My Documents'
+
+key "Ctrl+Alt+i" pavucontrol
+key "Ctrl+Alt+v" /usr/bin/diodon
+key "Print" flameshot gui
+key "Shift+Print" simplescreenrecorder
+key "Ctrl+Alt+m" flatpak run io.gitlab.zehkira.Monophony
+key "Ctrl+Shift+Space" ulauncher
+key "Ctrl+Alt+x" xkill
+key "Ctrl+Shift+Esc" gnome-system-monitor
+key "Ctrl+Shift+Alt+D" /home/dkendall/.local/bin/landrop
+key "Ctrl+Alt+Shift+t" wmctrl -r :ACTIVE: -b toggle,above
