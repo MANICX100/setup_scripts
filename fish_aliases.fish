@@ -133,7 +133,8 @@ alias yt-dlp='/usr/local/bin/yt-dlp'
 function icewmup
 cd /  
 aria2c --max-connection-per-server=16 -o /home/dkendall/.icewm/keys -c --allow-overwrite=true "https://raw.githubusercontent.com/MANICX100/setup_scripts/main/icewm-keys"
-  icesh restart
+icesh restart
+gohome
 end
 
 function setresolution
