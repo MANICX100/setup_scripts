@@ -4,7 +4,7 @@ key "Ctrl+Alt+b" xdg-open about:blank
 key "Ctrl+Alt+t" flatpak run org.contourterminal.Contour
 key "Ctrl+Alt+r" sudo systemctl reboot
 key "Ctrl+Alt+s" /home/dkendall/sleep.sh
-key "Ctrl+Alt+L" i3lock -c 000000 -n
+key "Ctrl+Alt+L" i3lock -c 000000 -n && xset dpms force off
 key "Ctrl+Alt+n" /usr/local/bin/lite-xl/lite-xl '/home/dkendall/OneDrive/Docume>
 key "Ctrl+Alt+E" xfe
 key "Ctrl+Alt+Shift+E" /home/dkendall/windows.sh
