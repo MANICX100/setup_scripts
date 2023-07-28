@@ -131,7 +131,7 @@ alias logoff='sudo service sddm restart'
 alias yt-dlp='/usr/local/bin/yt-dlp'
 
 function icewmup
-  aria2c --max-connection-per-server=16 -d ~/.icewm/-o ~/.icewm/keys -c --allow-overwrite=true "https://raw.githubusercontent.com/MANICX100/setup_scripts/main/icewm-keys"
+  aria2c --max-connection-per-server=16 -o ~/.icewm/keys -c --allow-overwrite=true "https://raw.githubusercontent.com/MANICX100/setup_scripts/main/icewm-keys"
   icesh restart
 end
 
