@@ -4,6 +4,7 @@ set now date -u +%Y-%m-%dT%H-%M-%S%Z
 set -x RIPGREP_CONFIG_PATH ~/.ripgreprc
 set -x EDITOR nvim
 
+alias fixwifi='sudo dhclient enp7s0'
 alias edit-apt='$EDITOR /etc/apt/sources.list'
 alias bufferw='sudo sync & watch -n 1 rg -e Dirty: /proc/meminfo'
 alias python='python3.11'
@@ -352,29 +353,6 @@ function fp
     end
 
     flatpak run $app_id
-end
-
-function fixwifi
-    while true
-        echo "Flushing DNS..."
-        flushdns
-        echo "Disabling enp7s0 network interface..."
-        sudo ip link set enp7s0 down
-        sleep 5
-        echo "Enabling enp7s0 network interface..."
-        sudo ip link set enp7s0 up
-        echo "Restarting Network Manager..."
-        sudo systemctl restart NetworkManager
-        sleep 5
-        # Check for internet connection
-        if curl --output /dev/null --silent --head --fail http://www.google.com
-            echo "Internet connection established!"
-            break
-        else
-            echo "No connection. Retrying..."
-        end
-        sleep 5
-    end
 end
 
 function replaceline
