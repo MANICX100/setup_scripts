@@ -7,7 +7,7 @@ set -x EDITOR nvim
 alias fixwifi='sudo dhclient enp7s0'
 alias edit-apt='$EDITOR /etc/apt/sources.list'
 alias bufferw='sudo sync & watch -n 1 rg -e Dirty: /proc/meminfo'
-alias python='python3.11'
+alias python='/home/dkendall/pypy3.10-v7.3.12-linux64/bin/pypy'
 alias icewmkeys='$EDITOR ~/.icewm/keys'
 alias tvn='tvnamer --recursive'
 alias tvrename='tvn /home/dkendall/Videos/TV'
