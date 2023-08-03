@@ -714,8 +714,8 @@ function bak
 end
 
 function ffup
-	aria2c -x 16 -d /home/dkendall/.mozilla/firefox/5p7rx3j6.default-release-1/ -o user-overrides.js --allow-overwrite=true https://github.com/MANICX100/setup_scripts/raw/main/user-overrides.js
-	/home/dkendall/.mozilla/firefox/5p7rx3j6.default-release-1/updater.sh
+	aria2c -x 16 -d /home/dkendall/.mercury/nvmn7gov.default-default/ -o user-overrides.js --allow-overwrite=true https://github.com/MANICX100/setup_scripts/raw/main/user-overrides.js
+	/home/dkendall/.mercury/nvmn7gov.default-default/updater.sh
 end
 
 function stripclip
