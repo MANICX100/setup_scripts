@@ -8,6 +8,10 @@ function systemctl
     command sudo systemctl $argv; and watch -n 1 systemctl status $argv
 end
 
+alias usb='lsblk|rg sda'
+alias printers='lpstat -p'
+alias bluetooth='bluetoothctl devices'
+
 alias unmountios=' fusermount -u /media/dkendall/iOS'
 alias mountios='ifuse /media/dkendall/iOS'
 alias unmount='sudo umount'
