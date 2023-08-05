@@ -4,6 +4,10 @@ set now date -u +%Y-%m-%dT%H-%M-%S%Z
 set -x RIPGREP_CONFIG_PATH ~/.ripgreprc
 set -x EDITOR nvim
 
+alias unmountios=' fusermount -u /media/dkendall/iOS'
+alias mountios='ifuse /media/dkendall/iOS'
+alias unmount='sudo umount'
+
 alias fixwifi='sudo dhclient enp7s0'
 alias edit-apt='$EDITOR /etc/apt/sources.list'
 alias bufferw='sudo sync & watch -n 1 rg -e Dirty: /proc/meminfo'
