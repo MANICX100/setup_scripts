@@ -5,7 +5,7 @@ set -x RIPGREP_CONFIG_PATH ~/.ripgreprc
 set -x EDITOR nvim
 
 function systemctl
-    command systemctl $argv; and watch -n 1 systemctl status $argv
+    command sudo systemctl $argv; and watch -n 1 systemctl status $argv
 end
 
 alias unmountios=' fusermount -u /media/dkendall/iOS'
