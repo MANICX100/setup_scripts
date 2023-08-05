@@ -6,7 +6,13 @@ Set-Alias -Name fixwifi -Value networkcycle
 Set-Alias -Name xclip -Value pbcopy
 Set-Alias -Name uninstall -Value remove
 Set-Alias -Name sync -Value RemoveDrive.exe
+Set-Alias -Name bluetooth -Value btdiscovery -s
+Set-Alias -Name printers -Value Get-Printer
+Set-Alias -Name setresolution -Value Set-Resolution
 
+function usb {
+Get-PnpDevice -PresentOnly | Where-Object { $_.InstanceId -match '^USB' }
+}
 
 Invoke-Expression (&scoop-search --hook)
 
