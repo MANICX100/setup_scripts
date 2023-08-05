@@ -1,5 +1,8 @@
 # ~/.icewm/keys
 
+key "Super+Left" /home/dkendall/windowsnap.sh left
+key "Super+Right" /home/dkendall/windowsnap.sh right
+
 key "Ctrl+Alt+b" xdg-open about:blank
 key "Ctrl+Alt+t" flatpak run org.contourterminal.Contour
 key "Ctrl+Alt+r" sudo systemctl reboot
