@@ -4,11 +4,15 @@ set now date -u +%Y-%m-%dT%H-%M-%S%Z
 set -x RIPGREP_CONFIG_PATH ~/.ripgreprc
 set -x EDITOR nvim
 
+function systemctl
+    command systemctl $argv; and watch -n 1 systemctl status $argv
+end
+
 alias unmountios=' fusermount -u /media/dkendall/iOS'
 alias mountios='ifuse /media/dkendall/iOS'
 alias unmount='sudo umount'
 
-alias fixwifi='sudo dhclient enp7s0'
+alias fixwifi='sudo dhclient -v enp7s0'
 alias edit-apt='$EDITOR /etc/apt/sources.list'
 alias bufferw='sudo sync & watch -n 1 rg -e Dirty: /proc/meminfo'
 alias python='/home/dkendall/pypy3.10-v7.3.12-linux64/bin/pypy'
