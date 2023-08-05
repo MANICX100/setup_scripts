@@ -8,7 +8,9 @@ function systemctl
     command sudo systemctl $argv; and watch -n 1 systemctl status $argv
 end
 
-alias essentialpkgs='dpkg-query -Wf '''${Package;-40}${Priority}\n''' | rg "required"'
+function essentialpkgs
+	dpkg-query -Wf '${Package;-40}${Priority}\n' | rg "required"
+end
 
 alias usb='lsblk|rg sda'
 alias printers='lpstat -p'
