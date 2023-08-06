@@ -12,6 +12,8 @@ function essentialpkgs
 	dpkg-query -Wf '${Package;-40}${Priority}\n' | rg "required"
 end
 
+alias uptime='uptime --since && uptime --pretty'
+
 alias usb='lsblk|rg sda'
 alias printers='lpstat -p'
 alias bluetooth='bluetoothctl devices'
