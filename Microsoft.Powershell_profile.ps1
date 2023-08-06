@@ -11,7 +11,7 @@ Set-Alias -Name printers -Value Get-Printer
 Set-Alias -Name setresolution -Value Set-Resolution
 Set-Alias -Name grep -Value rg
 Set-Alias -Name sed -Value sd
-Set-Alias -Name awk -Value frawk
+Set-Alias -Name frawk -Value awk
 Set-Alias -Name uptime -Value Get-Uptime
 
 function usb {
@@ -736,9 +736,6 @@ function unzip ($file) {
         Expand-Archive -Path $fullFile -DestinationPath $pwd
 }
 
-function touch($file) {
-        "" | Out-File $file -Encoding ASCII
-}
 function df {
         get-volume
 }
