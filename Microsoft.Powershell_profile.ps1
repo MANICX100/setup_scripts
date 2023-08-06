@@ -11,7 +11,7 @@ Set-Alias -Name printers -Value Get-Printer
 Set-Alias -Name setresolution -Value Set-Resolution
 Set-Alias -Name grep -Value rg
 Set-Alias -Name sed -Value sd
-Set-Alias -Name frawk -Value awk
+Set-Alias -Name awk -Value frawk
 Set-Alias -Name uptime -Value Get-Uptime
 
 function usb {
@@ -734,10 +734,6 @@ function unzip ($file) {
         Write-Output("Extracting", $file, "to", $pwd)
 	$fullFile = Get-ChildItem -Path $pwd -Filter .\cove.zip | ForEach-Object{$_.FullName}
         Expand-Archive -Path $fullFile -DestinationPath $pwd
-}
-
-function df {
-        get-volume
 }
 
 function which($name) {
