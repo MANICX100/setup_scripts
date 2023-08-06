@@ -9,6 +9,10 @@ Set-Alias -Name sync -Value RemoveDrive.exe
 Set-Alias -Name bluetooth -Value btdiscovery
 Set-Alias -Name printers -Value Get-Printer
 Set-Alias -Name setresolution -Value Set-Resolution
+Set-Alias -Name grep -Value rg
+Set-Alias -Name sed -Value sd
+Set-Alias -Name awk -Value frawk
+Set-Alias -Name uptime -Value Get-Uptime
 
 function usb {
 Get-PnpDevice -PresentOnly | Where-Object { $_.InstanceId -match '^USB' }
@@ -717,11 +721,6 @@ Function Get-PubIP {
  (Invoke-WebRequest http://ifconfig.me/ip ).Content
 }
 
-function uptime {
-        Get-WmiObject win32_operatingsystem | Select-Object csname, @{LABEL='LastBootUpTime';
-        EXPRESSION={$_.ConverttoDateTime($_.lastbootuptime)}}
-}
-
 function source {
         & $profile
 }
@@ -736,22 +735,14 @@ function unzip ($file) {
 	$fullFile = Get-ChildItem -Path $pwd -Filter .\cove.zip | ForEach-Object{$_.FullName}
         Expand-Archive -Path $fullFile -DestinationPath $pwd
 }
-function grep($regex, $dir) {
-        if ( $dir ) {
-                Get-ChildItem $dir | select-string $regex
-                return
-        }
-        $input | select-string $regex
-}
+
 function touch($file) {
         "" | Out-File $file -Encoding ASCII
 }
 function df {
         get-volume
 }
-function sed($file, $find, $replace){
-        (Get-Content $file).replace("$find", $replace) | Set-Content $file
-}
+
 function which($name) {
         Get-Command $name | Select-Object -ExpandProperty Definition
 }
