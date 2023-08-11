@@ -771,7 +771,7 @@ function stopup {
 }
 
 function uefi {
-shutdown /o /r /t 0 /f
+shutdown /o /r /t 0 /f /fw
 }
 
 function inst {
