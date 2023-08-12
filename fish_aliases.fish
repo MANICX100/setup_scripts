@@ -12,6 +12,7 @@ function essentialpkgs
 	dpkg-query -Wf '${Package;-40}${Priority}\n' | rg "required"
 end
 
+alias lite-xl='/usr/local/bin/lite-xl/lite-xl'
 alias uptime='uptime --since && uptime --pretty'
 
 alias usb='lsblk|rg sda'
