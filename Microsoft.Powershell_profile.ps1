@@ -13,7 +13,6 @@ Set-Alias -Name grep -Value rg
 Set-Alias -Name sed -Value sd
 Set-Alias -Name awk -Value frawk
 Set-Alias -Name uptime -Value Get-Uptime
-Set-Alias -Name where -Value gcm
 Set-Alias -Name whereis -Value gcm
 
 function usb {
