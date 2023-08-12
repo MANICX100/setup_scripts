@@ -12,6 +12,10 @@ function essentialpkgs
 	dpkg-query -Wf '${Package;-40}${Priority}\n' | rg "required"
 end
 
+function displayserv
+	printf 'Session is: %s\n' "${DISPLAY:+X11}${WAYLAND_DISPLAY:+WAYLAND}"
+end
+
 alias gcm='whereis'
 alias lite-xl='/usr/local/bin/lite-xl/lite-xl'
 alias uptime='uptime --since && uptime --pretty'
