@@ -16,6 +16,8 @@ function displayserv
 	printf 'Session is: %s\n' "${DISPLAY:+X11}${WAYLAND_DISPLAY:+WAYLAND}"
 end
 
+alias gpuinfo='glxinfo -B'
+alias cpuinfo='sudo dmidecode --type processor'
 alias gcm='whereis'
 alias lite-xl='/usr/local/bin/lite-xl/lite-xl'
 alias uptime='uptime --since && uptime --pretty'
