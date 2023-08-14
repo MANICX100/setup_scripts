@@ -18,6 +18,20 @@ Set-Alias -Name cpuinfo -Value dxdiag
 Set-Alias -Name gpuinfo -Value dxdiag
 Set-Alias -Name vars -Value variable
 
+function Reload-Profile {
+    @(
+        $Profile.AllUsersAllHosts,
+        $Profile.AllUsersCurrentHost,
+        $Profile.CurrentUserAllHosts,
+        $Profile.CurrentUserCurrentHost
+    ) | % {
+        if(Test-Path $_){
+            Write-Verbose "Running $_"
+            . $_
+        }
+    }    
+}
+
 function SoundInfo {
   Powershell.exe -c "Get-WmiObject win32_VideoController"
 }
@@ -730,7 +744,7 @@ Function Get-PubIP {
 }
 
 function source {
-        & $profile
+        . Reload-Profile
 }
 
 function find-file($name) {
@@ -792,7 +806,7 @@ function remove {
 
 function rcupdate {
 aria2c --max-connection-per-server=16 --allow-overwrite=true -d (Split-Path $profile) -o Microsoft.Powershell_profile.ps1 "https://github.com/MANICX100/setup_scripts/raw/main/Microsoft.Powershell_profile.ps1"
-. $profile
+source
 }
 
 function tgupdate {
