@@ -16,6 +16,7 @@ function displayserv
 	printf 'Session is: %s\n' "${DISPLAY:+X11}${WAYLAND_DISPLAY:+WAYLAND}"
 end
 
+alias vars='set|less'
 alias gpuinfo='glxinfo -B'
 alias cpuinfo='sudo dmidecode --type processor'
 alias gcm='whereis'
@@ -96,7 +97,7 @@ alias invoke-expression='iex'
 alias iex='eval'
 alias zig='/home/dkendall/Downloads/zig/zig'
 alias drivers='sudo lspci -v'
-alias logs='journalctl|fmt|rg -i'
+alias logs='sudo journalctl|less|rg -i'
 alias convertdeb='sudo alien --to-rpm'
 alias convertrpm='sudo alien'
 alias gitc='git clone --depth 1'
