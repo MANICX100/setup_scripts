@@ -14,6 +14,12 @@ Set-Alias -Name sed -Value sd
 Set-Alias -Name awk -Value frawk
 Set-Alias -Name uptime -Value Get-Uptime
 Set-Alias -Name whereis -Value gcm
+Set-Alias -Name cpuinfo -Value dxdiag
+Set-Alias -Name gpuinfo -Value dxdiag
+
+function SoundInfo {
+  Powershell.exe -c "Get-WmiObject win32_VideoController"
+}
 
 function usb {
 Get-PnpDevice -PresentOnly | Where-Object { $_.InstanceId -match '^USB' }
