@@ -16,6 +16,7 @@ Set-Alias -Name uptime -Value Get-Uptime
 Set-Alias -Name whereis -Value gcm
 Set-Alias -Name cpuinfo -Value dxdiag
 Set-Alias -Name gpuinfo -Value dxdiag
+Set-Alias -Name vars -Value variable
 
 function SoundInfo {
   Powershell.exe -c "Get-WmiObject win32_VideoController"
