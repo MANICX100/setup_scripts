@@ -24,3 +24,4 @@ key "Ctrl+Alt+x" xkill
 key "Ctrl+Shift+Esc" gnome-system-monitor
 key "Ctrl+Shift+Alt+D" /home/dkendall/.local/bin/landrop
 key "Ctrl+Alt+Shift+t" wmctrl -r :ACTIVE: -b toggle,above
+key "XF86AudioPlay" playerctl play-pause
