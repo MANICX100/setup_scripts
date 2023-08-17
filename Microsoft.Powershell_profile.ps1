@@ -18,6 +18,30 @@ Set-Alias -Name cpuinfo -Value dxdiag
 Set-Alias -Name gpuinfo -Value dxdiag
 Set-Alias -Name vars -Value variable
 
+function dotfileshide {
+# Get all files recursively under C:\
+Get-ChildItem C:\ -File -Recurse |
+
+# Loop through each file  
+ForEach-Object {
+
+  # Store the current attributes
+  $attributes = $_.Attributes
+ 
+  # Add the Hidden attribute flag
+  $attributes = $attributes + [System.IO.FileAttributes]::Hidden
+
+  # Set the attributes back to the file  
+  $_.Attributes = $attributes
+
+  # Output status
+  Write-Verbose "Set Hidden attribute on $($_.FullName)"
+
+}
+
+}
+
+
 function timeweb {
   param (
     [string]$Website
