@@ -20,7 +20,8 @@ Set-Alias -Name vars -Value variable
 Set-Alias -Name timeweb -Value Get-WebsitePerformance
 
 
-function dotfileshide {
+function dotfileshide
+{
 # Get all files recursively under C:\
 Get-ChildItem C:\ -File -Recurse |
 
@@ -40,16 +41,15 @@ ForEach-Object {
   Write-Verbose "Set Hidden attribute on $($_.FullName)"
 
 }
-
 }
 
-
-function Get-WebsitePerformance {
+function Get-WebsitePerformance
+{
   param (
     [string]$Website
   )
 
-  $curlCommand = "curl -L -w \"%{time_namelookup}\n%{time_connect}\n…\" $Website"
+$curlCommand = "curl -L -w \"%{time_namelookup}\n\%{time_connect}\n…\" $Website"
 
   if ([string]::IsNullOrEmpty($Website)) {
     throw "The Website parameter cannot be empty."
