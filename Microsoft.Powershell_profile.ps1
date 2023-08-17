@@ -19,7 +19,6 @@ Set-Alias -Name gpuinfo -Value dxdiag
 Set-Alias -Name vars -Value variable
 Set-Alias -Name timeweb -Value Get-WebsitePerformance
 
-
 function dotfileshide
 {
 # Get all files recursively under C:\
@@ -45,21 +44,7 @@ ForEach-Object {
 
 function Get-WebsitePerformance
 {
-  param (
-    [string]$Website
-  )
-
-$curlCommand = "curl -L -w \"%{time_namelookup}\n\%{time_connect}\n…\" $Website"
-
-  if ([string]::IsNullOrEmpty($Website)) {
-    throw "The Website parameter cannot be empty."
-  }
-
-  $curlOutput = Invoke-Expression $curlCommand
-
-  $performanceData = $curlOutput -split '\n' | Select-Object -Skip 1
-
-  return $performanceData
+  curl -L -w "time_namelookup: %{time_namelookup}\ntime_connect: %{time_connect}\ntime_appconnect: %{time_appconnect}\ntime_pretransfer: %{time_pretransfer}\ntime_redirect: %{time_redirect}\ntime_starttransfer: %{time_starttransfer}\ntime_total: %{time_total}\n" $args
 }
 
 function Reload-Profile {
