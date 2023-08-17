@@ -20,6 +20,7 @@ function displayserv
 	printf 'Session is: %s\n' "${DISPLAY:+X11}${WAYLAND_DISPLAY:+WAYLAND}"
 end
 
+alias sysd='sudo $EDITOR /etc/systemd/system.conf'
 alias vars='set|less'
 alias gpuinfo='glxinfo -B'
 alias cpuinfo='sudo dmidecode --type processor'
