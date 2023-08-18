@@ -7,6 +7,7 @@ set -x EDITOR micro
 function clean
 flatpak uninstall --unused
 sudo nala clean
+sudo nala autoremove
 end
 
 function timeweb
