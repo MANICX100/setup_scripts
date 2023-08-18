@@ -2,7 +2,7 @@ set TERM linux
 set fish_greeting
 set now date -u +%Y-%m-%dT%H-%M-%S%Z
 set -x RIPGREP_CONFIG_PATH ~/.ripgreprc
-set -x EDITOR nvim
+set -x EDITOR micro
 
 function timeweb
 curl -L -w "time_namelookup: %{time_namelookup}\ntime_connect: %{time_connect}\ntime_appconnect: %{time_appconnect}\ntime_pretransfer: %{time_pretransfer}\ntime_redirect: %{time_redirect}\ntime_starttransfer: %{time_starttransfer}\ntime_total: %{time_total}\n" $argv
