@@ -6,7 +6,7 @@ set -x EDITOR vi
 
 function clean
 flatpak uninstall --unused
-sudo nala autoremove
+sudo nala autoremove -y
 sudo nala clean
 end
 
@@ -224,6 +224,7 @@ end
 
 function up
 	topgrade
+	clean
 end
 
 function display_path
