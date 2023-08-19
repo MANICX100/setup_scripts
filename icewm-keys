@@ -8,7 +8,7 @@ key "Ctrl+Alt+r" sudo systemctl reboot
 key "Ctrl+Alt+s" /usr/sbin/poweroff
 key "Ctrl+Alt+L" /home/dkendall/lock.sh
 key "Super+L" /home/dkendall/lock.sh
-key "Ctrl+Alt+n" flatpak run org.contourterminal.Contour nvim /home/dkendall/OneDrive/Documents/txt/ends.txt
+key "Ctrl+Alt+n" flatpak run org.contourterminal.Contour micro /home/dkendall/OneDrive/Documents/txt/ends.txt
 key "Super+E" xfe
 key "Ctrl+Alt+E" xfe
 key "Ctrl+Alt+Shift+E" /home/dkendall/windows.sh
