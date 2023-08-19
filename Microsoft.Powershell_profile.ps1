@@ -18,6 +18,7 @@ Set-Alias -Name cpuinfo -Value dxdiag
 Set-Alias -Name gpuinfo -Value dxdiag
 Set-Alias -Name vars -Value variable
 Set-Alias -Name timeweb -Value Get-WebsitePerformance
+Set-Alias -Name top -Value btop
 
 function dotfileshide
 {
