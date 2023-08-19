@@ -1,3 +1,4 @@
+
 Set-Alias -Name bak -Value backup
 Set-Alias -Name rm -Value delete
 Set-Alias -Name pfetch -Value macchina
@@ -51,8 +52,6 @@ function SoundInfo {
 function usb {
 Get-PnpDevice -PresentOnly | Where-Object { $_.InstanceId -match '^USB' }
 }
-
-Invoke-Expression (&scoop-search --hook)
 
 function Set-Resolution {
   param(
@@ -1024,6 +1023,8 @@ function cleanup {
 scoop cleanup *
 scoop cache rm *
 }
+
+Invoke-Expression (&scoop-search --hook)
 
 <#
 Set-Alias -Name pkexec -Value gsudo
