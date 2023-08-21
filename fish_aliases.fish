@@ -2,7 +2,7 @@ set TERM linux
 set fish_greeting
 set now date -u +%Y-%m-%dT%H-%M-%S%Z
 set -x RIPGREP_CONFIG_PATH ~/.ripgreprc
-set -x EDITOR vi
+set -x EDITOR vim
 
 function clean
 flatpak uninstall --unused
