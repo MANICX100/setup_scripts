@@ -117,7 +117,7 @@ alias edit-hosts='sudo $EDITOR /etc/hosts'
 alias fd='fzf --query'
 alias webcam='sudo modprobe v4l2loopback'
 alias cloudsync='onedrive --synchronize --force'
-alias am='appman'
+
 alias ffmpeg='/usr/local/bin/ffmpeg'
 alias linuxservices='systemctl list-unit-files --type=service --state=enabled'
 alias macosservices='sudo launchctl list'
