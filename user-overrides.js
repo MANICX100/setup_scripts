@@ -285,6 +285,7 @@ user_pref("plugin.state.libgnome-shell-browser-plugin", 0);
 user_pref("widget.content.gtk-theme-override", "Adwaita:light");
 user_pref("dom.element.popover.enabled",true);
 user_pref("webgl.disabled",false);
+user_pref("browser.migrate.chrome.extensions.enabled",true);
 
 /****************************************************************************
  * END: BETTERFOX                                                           *
