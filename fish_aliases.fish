@@ -8,6 +8,7 @@ function clean
 flatpak uninstall --unused
 sudo nala autoremove -y
 sudo nala clean
+appman -c
 end
 
 function timeweb
