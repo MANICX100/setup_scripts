@@ -854,8 +854,9 @@ function comlist {
 Get-WMIObject Win32_SerialPort | Select-Object Name,DeviceID,Description
 }
 
-function up{
- topgrade
+function up {
+topgrade
+cleanup
 }
 
 function winup {
