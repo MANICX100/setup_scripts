@@ -3,6 +3,8 @@ set fish_greeting
 set now date -u +%Y-%m-%dT%H-%M-%S%Z
 set -x RIPGREP_CONFIG_PATH ~/.ripgreprc
 set -x EDITOR vim
+set -x JAVA_HOME /corretto
+set -x PATH=$JAVA_HOME/bin:$PATH
 
 function clean
 flatpak uninstall --unused
