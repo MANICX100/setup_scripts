@@ -107,7 +107,6 @@ alias invoke-restmethod='irm'
 alias irm='curl'
 alias invoke-expression='iex'
 alias iex='eval'
-alias zig='/home/dkendall/Downloads/zig/zig'
 alias drivers='sudo lspci -v'
 alias logs='sudo journalctl|less|rg -i'
 alias convertdeb='sudo alien --to-rpm'
@@ -836,4 +835,6 @@ function gitIgnoreRm
 end
 
 add_to_path "/home/dkendall/.local/bin"
+add_to_path "/home/dkendall/Downloads/flutter/bin"
+add_to_path "/home/dkendall/Downloads/zig/"
 
