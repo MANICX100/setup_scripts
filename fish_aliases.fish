@@ -243,7 +243,6 @@ end
 
 function up
 	topgrade
-	clean
 end
 
 function display_path
