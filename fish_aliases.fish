@@ -207,23 +207,23 @@ function reinstall
 end
 
 function revsyncfolders
-clean
-sudo mount -o rw,uid=1000,gid=1000,user,exec,umask=003 /dev/sda1 /media/dkendall/exFAT
-rsync -avAXESlHh --delete --no-compress --no-whole-file --size-only /media/dkendall/exFAT/Linux /home/dkendall/ 
-sudo mount -o rw,uid=1000,gid=1000,user,exec,umask=003 /dev/nvme1n1p4 /media/dkendall/windows
-rsync -avAXESlHh --delete --no-compress --no-whole-file --size-only /media/dkendall/exFAT/Windows /media/dkendall/windows/Users/dkendall/ 
-sudo umount /dev/sda1
-sudo umount /dev/nvme1n1p4
+	clean
+	sudo mount -o rw,uid=1000,gid=1000,user,exec,umask=003 /dev/sda1 /media/dkendall/exFAT
+	rsync -avAXESlHh --delete --no-compress --no-whole-file --size-only /media/dkendall/exFAT/Linux /home/dkendall/ 
+	sudo mount -o rw,uid=1000,gid=1000,user,exec,umask=003 /dev/nvme1n1p4 /media/dkendall/windows
+	rsync -avAXESlHh --delete --no-compress --no-whole-file --size-only /media/dkendall/exFAT/Windows /media/dkendall/windows/Users/dkendall/ 
+	sudo umount /dev/sda1
+	sudo umount /dev/nvme1n1p4
 end
 
 function syncfolders
-clean
-sudo mount -o rw,uid=1000,gid=1000,user,exec,umask=003 /dev/sda1 /media/dkendall/exFAT
-rsync -avAXESlHh --delete --no-compress --no-whole-file --size-only /home/dkendall/ /media/dkendall/exFAT/Linux
-sudo mount -o rw,uid=1000,gid=1000,user,exec,umask=003 /dev/nvme1n1p4 /media/dkendall/windows
-rsync -avAXESlHh --delete --no-compress --no-whole-file --size-only /media/dkendall/windows/Users/dkendall/ /media/dkendall/exFAT/Windows
-sudo umount /dev/sda1
-sudo umount /dev/nvme1n1p4
+	clean
+	sudo mount -o rw,uid=1000,gid=1000,user,exec,umask=003 /dev/sda1 /media/dkendall/exFAT
+	rsync -avAXESlHh --delete --no-compress --no-whole-file --size-only /home/dkendall/ /media/dkendall/exFAT/Linux
+	sudo mount -o rw,uid=1000,gid=1000,user,exec,umask=003 /dev/nvme1n1p4 /media/dkendall/windows
+	rsync -avAXESlHh --delete --no-compress --no-whole-file --size-only /media/dkendall/windows/Users/dkendall/ /media/dkendall/exFAT/Windows
+	sudo umount /dev/sda1
+	sudo umount /dev/nvme1n1p4
 end
 
 function please --wraps=sudo
