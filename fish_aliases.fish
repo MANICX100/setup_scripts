@@ -30,6 +30,8 @@ function displayserv
 	printf 'Session is: %s\n' "${DISPLAY:+X11}${WAYLAND_DISPLAY:+WAYLAND}"
 end
 
+alias mpv='mpv --hwdec --speed=4'
+
 alias mount='sudo mount -o rw,uid=1000,gid=1000,user,exec,umask=003'
 alias sysd='sudo $EDITOR /etc/systemd/system.conf'
 alias vars='set|less'
