@@ -12,6 +12,7 @@ sudo nala autoremove -y
 sudo nala clean
 appman -c
 rm -rf $HOME/.cache
+sudo rm -rfv /var/tmp/flatpak-cache-*
 end
 
 function timeweb
