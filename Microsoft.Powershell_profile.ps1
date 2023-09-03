@@ -1025,6 +1025,10 @@ scoop cleanup *
 scoop cache rm *
 }
 
+function rmcache {
+Remove-Item -Path $env:TEMP\* -Recurse -Force -ErrorAction SilentlyContinue
+}
+
 Invoke-Expression (&scoop-search --hook)
 
 <#
