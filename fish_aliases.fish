@@ -35,6 +35,8 @@ function displayserv
 end
 
 alias mpv='mpv --hwdec --speed=4'
+alias setresolution='xrandr --output HDMI-A-2 --mode'
+alias Set-Resolution='setresolution'
 
 alias mount='sudo mount -o rw,uid=1000,gid=1000,user,exec,umask=003'
 alias sysd='sudo $EDITOR /etc/systemd/system.conf'
@@ -190,7 +192,7 @@ icesh restart
 gohome
 end
 
-function setresolution
+function setresolutionall
     for output in (xrandr | rg " connected" | frawk '{ print $1 }')
         xrandr --output $output --mode $argv[1]
     end
