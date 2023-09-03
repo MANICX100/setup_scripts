@@ -213,7 +213,7 @@ function reinstall
 end
 
 function revsyncfolders
-	clean
+	rmcache
 	sudo mount -o rw,uid=1000,gid=1000,user,exec,umask=003 /dev/sda1 /media/dkendall/exFAT
 	rsync -avAXESlHh --delete --no-compress --no-whole-file --size-only /media/dkendall/exFAT/Linux /home/dkendall/ 
 	sudo mount -o rw,uid=1000,gid=1000,user,exec,umask=003 /dev/nvme1n1p4 /media/dkendall/windows
@@ -223,7 +223,7 @@ function revsyncfolders
 end
 
 function syncfolders
-	clean
+	rmcache
 	sudo mount -o rw,uid=1000,gid=1000,user,exec,umask=003 /dev/sda1 /media/dkendall/exFAT
 	rsync -avAXESlHh --delete --no-compress --no-whole-file --size-only /home/dkendall/ /media/dkendall/exFAT/Linux
 	sudo mount -o rw,uid=1000,gid=1000,user,exec,umask=003 /dev/nvme1n1p4 /media/dkendall/windows
