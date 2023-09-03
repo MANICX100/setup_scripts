@@ -25,3 +25,7 @@ key "Ctrl+Shift+Esc" gnome-system-monitor
 key "Ctrl+Shift+Alt+D" /home/dkendall/.local/bin/landrop
 key "Ctrl+Alt+Shift+t" wmctrl -r :ACTIVE: -b toggle,above
 key "XF86AudioPlay" playerctl play-pause
+key "Ctrl+Alt+Up" xrandr --output HDMI-A-2 --rotate normal
+key "Ctrl+Alt+Down" xrandr --output HDMI-A-2 --rotate inverted
+key "Ctrl+Alt+Left" xrandr --output HDMI-A-2 --rotate left
+key "Ctrl+Alt+Right" xrandr --output HDMI-A-2 --rotate right
