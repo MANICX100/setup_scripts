@@ -415,7 +415,7 @@ function instsearch($packageName) {
 
 # Function to edit the hosts file
 function Edit-Hosts {
- Start-Process $EDITOR "C:\Windows\System32\drivers\etc\hosts"
+ $env:EDITOR "C:\Windows\System32\drivers\etc\hosts"
 }
 
 # Function to display network device status
@@ -710,7 +710,7 @@ function sha256 { Get-FileHash -Algorithm SHA256 $args }
 function cred {rundll32.exe keymgr.dll, KRShowKeyMgr}
 
 # Quick shortcut to start micro
-function n      { Start-Process $EDITOR $args }
+function n      { $env:EDITOR $args }
 
 # Drive shortcuts
 function HKLM:  { Set-Location HKLM: }
@@ -726,7 +726,7 @@ function rc
     }
     else
     {
-        Start-Process $EDITOR $profile
+        $env:EDITOR $profile
     }
 }
 
