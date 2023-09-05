@@ -1,3 +1,5 @@
+$env:EDITOR = "nvim"
+
 Set-Alias -Name bak -Value backup
 Set-Alias -Name rm -Value delete
 Set-Alias -Name pfetch -Value macchina
@@ -413,7 +415,7 @@ function instsearch($packageName) {
 
 # Function to edit the hosts file
 function Edit-Hosts {
- vi "C:\Windows\System32\drivers\etc\hosts"
+ $EDITOR "C:\Windows\System32\drivers\etc\hosts"
 }
 
 # Function to display network device status
@@ -708,7 +710,7 @@ function sha256 { Get-FileHash -Algorithm SHA256 $args }
 function cred {rundll32.exe keymgr.dll, KRShowKeyMgr}
 
 # Quick shortcut to start micro
-function n      { vi $args }
+function n      { $EDITOR $args }
 
 # Drive shortcuts
 function HKLM:  { Set-Location HKLM: }
@@ -724,7 +726,7 @@ function rc
     }
     else
     {
-        vi $profile
+        $EDITOR $profile
     }
 }
 
