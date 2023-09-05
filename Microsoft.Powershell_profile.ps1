@@ -20,6 +20,7 @@ Set-Alias -Name vars -Value variable
 Set-Alias -Name timeweb -Value Get-WebsitePerformance
 Set-Alias -Name top -Value btop
 Set-Alias -Name python -Value pypy
+Set-Alias -Name pl -Value perl
 
 function dotfileshide
 {
