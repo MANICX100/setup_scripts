@@ -6,6 +6,10 @@ set -x EDITOR nvem
 set -x JAVA_HOME /corretto
 set -x PATH $JAVA_HOME/bin:$PATH
 
+function cmdpath --argument pid
+  ps -p $pid -o cmd= | pbcopy
+end
+
 function clean
 flatpak uninstall --unused
 sudo nala autoremove -y
