@@ -1,4 +1,5 @@
 #!/bin/zsh
+sensible-browser &
 diodon &
 ulauncher &
 rustdesk --tray
