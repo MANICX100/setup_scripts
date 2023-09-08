@@ -1,4 +1,4 @@
-$env:EDITOR = "nvim"
+$env:EDITOR = "nvem"
 
 Set-Alias -Name bak -Value backup
 Set-Alias -Name rm -Value delete
@@ -23,6 +23,10 @@ Set-Alias -Name timeweb -Value Get-WebsitePerformance
 Set-Alias -Name top -Value btop
 Set-Alias -Name python -Value pypy
 Set-Alias -Name pl -Value perl
+
+function nvem {
+nvim -u vem/vemrc $args
+}
 
 function dotfileshide
 {
