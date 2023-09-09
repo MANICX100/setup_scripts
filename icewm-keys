@@ -8,7 +8,7 @@ key "Super+Shift+G" flatpak run com.github.dynobo.normcap
 key "Super+Left" /home/dkendall/windowsnap.sh left
 key "Super+Right" /home/dkendall/windowsnap.sh right
 key "Ctrl+Alt+b" sensible-browser
-key "Ctrl+Alt+t" flatpak run org.contourterminal.Contour
+key "Ctrl+Alt+t" /home/dkendall/termup.sh
 key "Ctrl+Alt+r" sudo systemctl reboot
 key "Ctrl+Alt+s" /usr/sbin/poweroff
 key "Ctrl+Alt+L" /home/dkendall/lock.sh
