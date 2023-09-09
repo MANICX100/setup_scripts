@@ -547,7 +547,7 @@ aria2c -x 16 $args
 }
 
 function dls {
-aria2c -x 16 --enable-rpc=true $args
+aria2c --enable-rpc=true --rpc-allow-origin-all=true --rpc-listen-all=true --console-log-level=error -x 16 $args
 }
 
 function rtdl {
