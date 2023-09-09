@@ -34,7 +34,7 @@ gohome
 }
 
 function nvem {
-nvim -u vem/vemrc $args
+nvim -u  $env:homepath/vem/vemrc $args
 }
 
 function dotfileshide
