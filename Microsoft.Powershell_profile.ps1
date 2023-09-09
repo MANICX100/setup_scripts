@@ -26,7 +26,9 @@ Set-Alias -Name pl -Value perl
 Set-Alias -Name pedeps -Value listpedeps
 
 function mpv {
-Start-Process "C:\Users\dkendall\scoop\apps\mpv\current\mpv.exe --hwdec --speed=4" $args
+cd "C:\Users\dkendall\scoop\apps\mpv\current\"
+Start-Process ".\mpv.exe --hwdec --speed=4" $args
+gohome
 }
 
 function nvem {
