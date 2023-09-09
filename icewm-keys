@@ -3,6 +3,8 @@
 key "Super+Shift+G" flatpak run com.github.dynobo.normcap
 key "Super+Left" /home/dkendall/windowsnap.sh left
 key "Super+Right" /home/dkendall/windowsnap.sh right
+key "Super+Up" wmctrl -r :ACTIVE: -b add,maximized_vert,maximized_horz
+key "Super+Down" wmctrl -r :ACTIVE: -b toggle,minimized
 key "Ctrl+Alt+b" sensible-browser
 key "Ctrl+Alt+t" /home/dkendall/termup.sh
 key "Ctrl+Alt+r" sudo systemctl reboot
