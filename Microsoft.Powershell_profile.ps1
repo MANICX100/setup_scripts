@@ -25,7 +25,7 @@ Set-Alias -Name python -Value pypy
 Set-Alias -Name pl -Value perl
 Set-Alias -Name pedeps -Value listpedeps
 
-function mpv {
+function smplayer {
 mpv --hwdec --speed=4 $args
 }
 
