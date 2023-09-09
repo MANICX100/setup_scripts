@@ -1,3 +1,5 @@
+# Dannys rc
+
 $env:EDITOR = "nvem"
 
 Set-Alias -Name bak -Value backup
