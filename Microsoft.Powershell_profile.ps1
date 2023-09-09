@@ -31,6 +31,7 @@ Start-Process ".\mpv.exe --hwdec --speed=4" $args
 gohome
 }
 
+
 function nvem {
 nvim -u vem/vemrc $args
 }
