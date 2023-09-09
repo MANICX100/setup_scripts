@@ -24,10 +24,9 @@ Set-Alias -Name top -Value btop
 Set-Alias -Name python -Value pypy
 Set-Alias -Name pl -Value perl
 Set-Alias -Name pedeps -Value listpedeps
-Set-Alias -Name mpv -Value smplayer
 
-function smplayer {
-mpv --hwdec --speed=4 $args
+function mpv {
+Out-Null && mpv --hwdec --speed=4 $args
 }
 
 function nvem {
