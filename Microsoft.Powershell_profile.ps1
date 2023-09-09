@@ -27,10 +27,9 @@ Set-Alias -Name pedeps -Value listpedeps
 
 function mpv {
 cd "C:\Users\dkendall\scoop\apps\mpv\current\"
-Start-Process ".\mpv.exe --hwdec --speed=4" $args
+.\mpv.exe --hwdec --speed=4 $args
 gohome
 }
-
 
 function nvem {
 nvim -u vem/vemrc $args
