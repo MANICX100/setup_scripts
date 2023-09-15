@@ -38,6 +38,8 @@ function displayserv
 	printf 'Session is: %s\n' "${DISPLAY:+X11}${WAYLAND_DISPLAY:+WAYLAND}"
 end
 
+alias cup='cargo install-update -a'
+alias flutterup='flutter upgrade --force'
 alias mpv='mpv --hwdec --speed=4'
 alias setresolution='xrandr --output HDMI-A-2 --mode'
 alias Set-Resolution='setresolution'
@@ -254,7 +256,14 @@ function please --wraps=sudo
 end
 
 function up
-	topgrade
+    if topgrade
+        git -C ~/powerlevel10k pull
+    else
+        echo "topgrade failed, running cup and flutterup"
+        cup
+        flutterup
+        git -C ~/powerlevel10k pull
+    end
 end
 
 function display_path
