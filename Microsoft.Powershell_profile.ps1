@@ -27,6 +27,14 @@ Set-Alias -Name python -Value pypy
 Set-Alias -Name pl -Value perl
 Set-Alias -Name pedeps -Value listpedeps
 
+function cup {
+cargo install-update -a
+}
+
+function flutterup {
+flutter upgrade --force
+}
+
 function mpv {
 cd "C:\Users\dkendall\scoop\apps\mpv\current\"
 .\mpv.exe --hwdec --speed=4 $args
@@ -871,9 +879,19 @@ Get-WMIObject Win32_SerialPort | Select-Object Name,DeviceID,Description
 }
 
 function up {
-topgrade
-cleanup
+    topgrade
+
+    # Check the exit code of topgrade
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "topgrade failed. Running cup and flutterup instead."
+        cup
+        flutterup
+	cleanup
+    } else {
+        cleanup
+    }
 }
+
 
 function winup {
 start $env:onedriveconsumer/wua-all.vbs
