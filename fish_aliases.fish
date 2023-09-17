@@ -64,11 +64,11 @@ alias unmount='sudo umount'
 alias fixwifi='sudo dhclient -v enp7s0'
 alias edit-apt='$EDITOR /etc/apt/sources.list'
 alias bufferw='sudo sync & watch -n 1 rg -e Dirty: /proc/meminfo'
-alias python='/home/dkendall/pypy3.10-v7.3.12-linux64/bin/pypy'
+alias python='$HOME/pypy3.10-v7.3.12-linux64/bin/pypy'
 alias pip='python -m pip'
 alias icewmkeys='$EDITOR ~/.icewm/keys'
 alias tvn='tvnamer --recursive'
-alias tvrename='tvn /home/dkendall/Videos/TV'
+alias tvrename='tvn $HOME/Videos/TV'
 alias debversion='apt-cache policy'
 alias micandsystem='pactl load-module module-loopback latency_msec=1'
 alias micandsystemoff='pactl unload-module module-loopback'
@@ -77,7 +77,7 @@ alias recordalloff='micandsystemoff'
 alias uninstall='remove'
 alias de='ls -l /usr/share/xsessions/'
 alias loginmgr='bat /etc/X11/default-display-manager'
-alias nom='/home/dkendall/go/bin/nom'
+alias nom='$HOME/go/bin/nom'
 alias kdesudo='lxqt-sudo'
 alias gksu='kdesudo'
 alias pkexec='kdesudo'
@@ -142,7 +142,7 @@ alias qt-faststart='$HOME/Downloads/ffmpeg/qt-faststart'
 
 alias linuxservices='systemctl list-unit-files --type=service --state=enabled'
 alias macosservices='sudo launchctl list'
-alias checkfiles='rsync --checksum --dry-run -rvn /media/dkendall/exFAT/ /home/dkendall/'
+alias checkfiles='rsync --checksum --dry-run -rvn /media/dkendall/exFAT/ $HOME/'
 alias dl='axel -a -n 16'
 alias dls='aria2c --enable-rpc=true --rpc-allow-origin-all=true --rpc-listen-all=true --console-log-level=error -x 16'
 alias rpmall='sudo rpm -Uvh *'
@@ -196,7 +196,7 @@ alias yt-dlp='/usr/local/bin/yt-dlp'
 
 function icewmup
 cd /  
-aria2c --max-connection-per-server=16 -o /home/dkendall/.icewm/keys -c --allow-overwrite=true "https://raw.githubusercontent.com/MANICX100/setup_scripts/main/icewm-keys"
+aria2c --max-connection-per-server=16 -o $HOME/.icewm/keys -c --allow-overwrite=true "https://raw.githubusercontent.com/MANICX100/setup_scripts/main/icewm-keys"
 icesh restart
 gohome
 end
@@ -226,7 +226,7 @@ end
 function revsyncfolders
 	rmcache
 	sudo mount -o rw,uid=1000,gid=1000,user,exec,umask=003 /dev/sda1 /media/dkendall/exFAT
-	rsync -avAXESlHh --delete --no-compress --no-whole-file --size-only /media/dkendall/exFAT/Linux /home/dkendall/ 
+	rsync -avAXESlHh --delete --no-compress --no-whole-file --size-only /media/dkendall/exFAT/Linux $HOME/ 
 	sudo mount -o rw,uid=1000,gid=1000,user,exec,umask=003 /dev/nvme1n1p4 /media/dkendall/windows
 	rsync -avAXESlHh --delete --no-compress --no-whole-file --size-only /media/dkendall/exFAT/Windows /media/dkendall/windows/Users/dkendall/ 
 	sudo umount /dev/sda1
@@ -236,7 +236,7 @@ end
 function syncfolders
 	rmcache
 	sudo mount -o rw,uid=1000,gid=1000,user,exec,umask=003 /dev/sda1 /media/dkendall/exFAT
-	rsync -avAXESlHh --delete --no-compress --no-whole-file --size-only /home/dkendall/ /media/dkendall/exFAT/Linux
+	rsync -avAXESlHh --delete --no-compress --no-whole-file --size-only $HOME/ /media/dkendall/exFAT/Linux
 	sudo mount -o rw,uid=1000,gid=1000,user,exec,umask=003 /dev/nvme1n1p4 /media/dkendall/windows
 	rsync -avAXESlHh --delete --no-compress --no-whole-file --size-only /media/dkendall/windows/Users/dkendall/ /media/dkendall/exFAT/Windows
 	sudo umount /dev/sda1
@@ -404,7 +404,7 @@ end
 end
 
 function playtv
-for file in /home/dkendall/Videos/Personal/*
+for file in $HOME/Videos/Personal/*
         xdg-open "$file"
     end
 end
@@ -795,8 +795,8 @@ function bak
 end
 
 function ffup
-	aria2c -x 16 -d /home/dkendall/.mercury/nvmn7gov.default-default/ -o user-overrides.js --allow-overwrite=true https://github.com/MANICX100/setup_scripts/raw/main/user-overrides.js
-	/home/dkendall/.mercury/nvmn7gov.default-default/updater.sh
+	aria2c -x 16 -d $HOME/.mercury/nvmn7gov.default-default/ -o user-overrides.js --allow-overwrite=true https://github.com/MANICX100/setup_scripts/raw/main/user-overrides.js
+	$HOME/.mercury/nvmn7gov.default-default/updater.sh
 end
 
 function stripclip
@@ -839,17 +839,17 @@ function subs
 end
 
 function yt
-    cd "/home/dkendall/Videos/yt/"
+    cd "$HOME/Videos/yt/"
     yt-dlp -f 'bv*[ext=mp4]+ba[ext=m4a]/b[ext=mp4]' 'https://www.youtube.com/playlist?list=PLJElTFmVZU3vW-BIfsI2AmfVDL9PzqFmg' --external-downloader aria2c --external-downloader-args "-x 16 -k 1M";
     cd "$HOME";
 end
 
 function deltv
-    rm -rf "/home/dkendall/Videos/Personal"; cd "/home/dkendall/Videos/"; mkdir Personal; cd "$HOME";
+    rm -rf "$HOME/Videos/Personal"; cd "$HOME/Videos/"; mkdir Personal; cd "$HOME";
 end
 
 function delyt
-    rm -rf "/home/dkendall/Videos/yt"; cd "/home/dkendall/Videos/"; mkdir yt ; cd "$HOME";
+    rm -rf "$HOME/Videos/yt"; cd "$HOME/Videos/"; mkdir yt ; cd "$HOME";
 end
 
 function lazyg
@@ -876,7 +876,7 @@ function gitIgnoreRm
 	git commit -m "Update .gitignore"
 end
 
-add_to_path "/home/dkendall/.local/bin"
-add_to_path "/home/dkendall/Downloads/flutter/bin"
-add_to_path "/home/dkendall/Downloads/zig/"
+add_to_path "$HOME/.local/bin"
+add_to_path "$HOME/Downloads/flutter/bin"
+add_to_path "$HOME/Downloads/zig/"
 
