@@ -136,7 +136,10 @@ alias fd='fzf --query'
 alias webcam='sudo modprobe v4l2loopback'
 alias cloudsync='onedrive --synchronize --force'
 
-alias ffmpeg='/usr/local/bin/ffmpeg'
+alias ffmpeg='$HOME/Downloads/ffmpeg/ffmpeg'
+alias ffprobe='$HOME/Downloads/ffmpeg/ffmpeg'
+alias qt-faststart='$HOME/Downloads/ffmpeg/qt-faststart'
+
 alias linuxservices='systemctl list-unit-files --type=service --state=enabled'
 alias macosservices='sudo launchctl list'
 alias checkfiles='rsync --checksum --dry-run -rvn /media/dkendall/exFAT/ /home/dkendall/'
