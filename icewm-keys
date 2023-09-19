@@ -1,5 +1,6 @@
 # ~/.icewm/keys
 
+key "Ctrl+Super+Enter" scrot --select - | tesseract stdin stdout 2>/dev/null | espeak
 key "Super+KP_Add" xzoom -mag 2
 key "Super+Shift+G" flatpak run com.github.dynobo.normcap
 key "Super+Left" /home/dkendall/windowsnap.sh left
