@@ -1,3 +1,5 @@
+printf "\e[?2004l"
+
 set TERM linux
 set fish_greeting
 set now date -u +%Y-%m-%dT%H-%M-%S%Z
