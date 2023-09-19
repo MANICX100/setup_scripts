@@ -1,5 +1,3 @@
-# Dannys rc
-
 $env:EDITOR = "nvem"
 
 Set-Alias afconvert "ffmpeg"
