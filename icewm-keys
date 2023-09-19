@@ -1,4 +1,4 @@
-# ~/.icewm/keys
+# $HOME/.icewm/keys
 
 key "Ctrl+Super+Enter" /home/dkendall/yasr.sh
 key "Super+KP_Add" xzoom -mag 2
