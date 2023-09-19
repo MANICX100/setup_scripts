@@ -1,5 +1,6 @@
 $env:EDITOR = "nvem"
 
+Set-Alias build "zig build-exe"
 Set-Alias afconvert "ffmpeg"
 Set-Alias afinfo "mediainfo"
 Set-Alias afplay "mpv"
