@@ -1,5 +1,6 @@
 # ~/.icewm/keys
 
+key "Super+Plus" xzoom -mag 2
 key "Super+Shift+G" flatpak run com.github.dynobo.normcap
 key "Super+Left" /home/dkendall/windowsnap.sh left
 key "Super+Right" /home/dkendall/windowsnap.sh right
