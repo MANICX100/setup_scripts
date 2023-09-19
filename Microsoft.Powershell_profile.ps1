@@ -2,6 +2,13 @@
 
 $env:EDITOR = "nvem"
 
+Set-Alias afconvert "ffmpeg"
+Set-Alias afinfo "mediainfo"
+Set-Alias afplay "mpv"
+Set-Alias airport "networkstatus"
+Set-Alias alloc "free"
+Set-Alias apropos "tldr"
+Set-Alias -Name ffprobe -Value mediainfo
 Set-Alias -Name trash -Value Remove-ItemSafely
 Set-Alias -Name bak -Value backup
 Set-Alias -Name rm -Value delete
@@ -123,30 +130,6 @@ function reinstall {
  	scoop install $args
  }
 
-function afconvert {
-    ffmpeg $args
-}
-
-function afinfo {
-    mediainfo $args
-}
-
-function afplay {
-    smplayer $args
-}
-
-function airport {
-    networkstatus $args
-}
-
-function alloc {
-    free $args
-}
-
-function apropos {
-    tldr $args
-}
-
 function automator {
     Write-Output "Automator not configured"
 }
@@ -258,7 +241,6 @@ function remove_from_path($removePath) {
         Write-Host "The path $removePath is not found in the User PATH variable."
     }
 }
-
 
 function extract {
     param(
@@ -590,7 +572,7 @@ function fwoff {
 }
 
 function playtv {
-smplayer $env:USERPROFILE/Videos/TV/Personal
+mpv $env:USERPROFILE/Videos/TV/Personal
 }
 
 function visualperf {
