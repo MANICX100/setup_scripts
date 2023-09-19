@@ -4,8 +4,7 @@ Set-Alias afconvert "ffmpeg"
 Set-Alias afinfo "mediainfo"
 Set-Alias afplay "mpv"
 Set-Alias airport "networkstatus"
-Set-Alias alloc "wmic OS get FreePhysicalMemory /Value"
-Set-Alias free "wmic OS get FreePhysicalMemory /Value"
+Set-Alias alloc "free"
 Set-Alias apropos "tldr"
 Set-Alias -Name ffprobe -Value mediainfo
 Set-Alias -Name trash -Value Remove-ItemSafely
@@ -33,6 +32,10 @@ Set-Alias -Name top -Value btop
 Set-Alias -Name python -Value pypy
 Set-Alias -Name pl -Value perl
 Set-Alias -Name pedeps -Value listpedeps
+
+function free {
+wmic OS get FreePhysicalMemory /Value
+}
 
 function cup {
 cargo install-update -a
