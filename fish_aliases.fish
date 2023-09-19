@@ -38,6 +38,7 @@ function displayserv
 	printf 'Session is: %s\n' "${DISPLAY:+X11}${WAYLAND_DISPLAY:+WAYLAND}"
 end
 
+alias eza='eza -a'
 alias build='zig build-exe'
 alias cup='cargo install-update -a'
 alias flutterup='flutter upgrade --force'
