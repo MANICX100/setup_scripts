@@ -1,7 +1,8 @@
 #!/bin/zsh
+
 sensible-browser &
 diodon &
 ulauncher --hide-window &
 rustdesk --tray &
-/home/dkendall/AppImages/gearlever_beeper_3e4322.appimage &
+$HOME/AppImages/gearlever_beeper_d363dc.appimage &
 thunderbird
