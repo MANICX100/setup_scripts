@@ -8,6 +8,10 @@ set -x EDITOR nvem
 set -x JAVA_HOME /jdk
 set -x PATH $JAVA_HOME/bin:$PATH
 
+alias beeper='$HOME/AppImages/gearlever_beeper_d363dc.appimage'
+alias chiaki='$HOME/AppImages/gearlever_chiaki_d5f7d1.appimage'
+alias cursor='$HOME/AppImages/gearlever_cursor_6b938d.appimage'
+
 alias eza='eza -a'
 alias build='zig build-exe'
 alias cup='cargo install-update -a'
