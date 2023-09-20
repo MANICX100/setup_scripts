@@ -22,6 +22,7 @@ alias vars='set|less'
 alias gpuinfo='glxinfo -B'
 alias cpuinfo='sudo dmidecode --type processor'
 alias gcm='whereis'
+alias lite='lite-xl'
 alias lite-xl='/usr/local/bin/lite-xl/lite-xl'
 alias uptime='uptime --since && uptime --pretty'
 
