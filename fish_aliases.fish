@@ -212,8 +212,8 @@ function displayserv
 end
 
 function icewmup
-cd /  
-aria2c --max-connection-per-server=16 -o $HOME/.icewm/keys -c --allow-overwrite=true "https://raw.githubusercontent.com/MANICX100/setup_scripts/main/icewm-keys"
+rm $HOME/.icewm/keys
+axel -n 16 -o $HOME/.icewm/keys "https://raw.githubusercontent.com/MANICX100/setup_scripts/main/icewm-keys"
 icesh restart
 gohome
 end
@@ -381,43 +381,47 @@ end
 
 
 function projectdl -a repo
-    set -l user (string split / $repo)[1]
-    set -l project (string split / $repo)[2]
 
-    # Fetch the latest release information
-    set -l release_info (curl -s https://api.github.com/repos/$user/$project/releases/latest)
+set -l user (string split / $repo)[1]
 
-    # Extract the names and URLs for the assets
-    set -l asset_info (echo $release_info | jq -r '.assets[] | "\(.name) \(.browser_download_url)"')
+set -l project (string split / $repo)[2]
 
-    # Prompt user for which file to download
-    echo "Please choose a file to download:"
-    for i in (seq (count $asset_info))
-        echo $i": "(string split " " $asset_info[$i])[1]
-    end
+set -l release_info (curl -s https://api.github.com/repos/$user/$project/releases/latest)
 
-    read -l choice
-    set -l url (echo $asset_info[$choice] | frawk '{print $NF}')
+set -l asset_info (echo $release_info | jq -r '.assets[] | "\(.name) \(.browser_download_url)"')
 
-    # Download the file with aria2c
-    aria2c -s16 -x16 -k1M --auto-file-renaming=false --allow-overwrite=true --dir=/usr/local/bin $url
+echo "Please choose a file to download:"
 
-    # Get filename from the URL
-    set -l filename (string split / $url)[-1]
+for i in (seq (count $asset_info))
 
-    # Make the downloaded file executable
-    chmod +x /usr/local/bin/$filename
+echo $i": "(string split " " $asset_info[$i])[1]
 
-# Ask the user if they want to extract the downloaded file
+end
+
+read -l choice
+
+set -l url (echo $asset_info[$choice] | frawk '{print $NF}')
+
+axel -n 16 -o /usr/local/bin $url
+
+set -l filename (string split / $url)[-1]
+
+chmod +x /usr/local/bin/$filename
+
 echo "Do you want to extract the downloaded file? (yes/no)"
+
 read -l extract
 
 if test $extract = "yes"
-    # Extract the downloaded file
-    echo "Extracting the downloaded file..."
-    extract /usr/local/bin/$filename
-    echo "Extraction completed."
+
+echo "Extracting the downloaded file..."
+
+extract /usr/local/bin/$filename
+
+echo "Extraction completed."
+
 end
+
 end
 
 function playtv
@@ -738,8 +742,9 @@ function hide_files
 end
 
 function tgupdate
-	aria2c --max-connection-per-server=16 -d $HOME/.config/ -o topgrade.toml -c --allow-overwrite=true "https://github.com/MANICX100/setup_scripts/raw/main/topgrade_lin.toml"
-	topgrade
+rm $HOME/.config/topgrade.toml
+axel -n 16 -o $HOME/.config/topgrade.toml "https://github.com/MANICX100/setup_scripts/raw/main/topgrade_lin.toml"
+topgrade
 end
 
 function serv
@@ -821,8 +826,9 @@ function stripclip
 end
 
 function rcupdate
-	aria2c -x 16 -d $HOME/.config/fish -o config.fish --allow-overwrite=true https://github.com/MANICX100/setup_scripts/raw/main/fish_aliases.fish
-	. $HOME/.config/fish/config.fish
+rm $HOME/.config/fish/config.fish
+axel -n 16 -o $HOME/.config/fish/config.fish https://github.com/MANICX100/setup_scripts/raw/main/fish_aliases.fish
+. $HOME/.config/fish/config.fish
 end
 
 set -g osinfo (rg -ioP '^ID=\K.+' /etc/os-release)
@@ -857,7 +863,7 @@ end
 
 function yt
     cd "$HOME/Videos/yt/"
-    yt-dlp -f 'bv*[ext=mp4]+ba[ext=m4a]/b[ext=mp4]' 'https://www.youtube.com/playlist?list=PLJElTFmVZU3vW-BIfsI2AmfVDL9PzqFmg' --external-downloader aria2c --external-downloader-args "-x 16 -k 1M";
+    yt-dlp -f 'bv*[ext=mp4]+ba[ext=m4a]/b[ext=mp4]' 'https://www.youtube.com/playlist?list=PLJElTFmVZU3vW-BIfsI2AmfVDL9PzqFmg' --external-downloader axel --external-downloader-args "-n 16";
     cd "$HOME";
 end
 
