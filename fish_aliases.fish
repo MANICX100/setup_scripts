@@ -3,7 +3,7 @@ printf "\e[?2004l"
 set TERM linux
 set fish_greeting
 set now date -u +%Y-%m-%dT%H-%M-%S%Z
-set -x RIPGREP_CONFIG_PATH ~/.ripgreprc
+set -x RIPGREP_CONFIG_PATH $HOME/.ripgreprc
 set -x EDITOR nvem
 set -x JAVA_HOME /jdk
 set -x PATH $JAVA_HOME/bin:$PATH
@@ -43,7 +43,7 @@ alias edit-apt='$EDITOR /etc/apt/sources.list'
 alias bufferw='sudo sync & watch -n 1 rg -e Dirty: /proc/meminfo'
 alias python='$HOME/pypy3.10-v7.3.12-linux64/bin/pypy'
 alias pip='python -m pip'
-alias icewmkeys='$EDITOR ~/.icewm/keys'
+alias icewmkeys='$EDITOR $HOME/.icewm/keys'
 alias tvn='tvnamer --recursive'
 alias tvrename='tvn $HOME/Videos/TV'
 alias debversion='apt-cache policy'
@@ -85,7 +85,7 @@ alias say='espeak'
 alias sips='vipsthumbnail'
 alias networksetup='nmcli'
 alias qlmanage='feh'
-#alias brew='~/homebrew/bin/brew'
+#alias brew='$HOME/homebrew/bin/brew'
 
 alias mkfs.ntfs='mkfs.ntfs --fast'
 alias mkfs.ext4='mkfs.ext4 -E lazy_itable_init'
@@ -145,19 +145,19 @@ alias ipconfig='ip route'
 alias ifconfig='ip route'
 alias cleanup='clean'
 alias audit='sudo lynis --forensics && pip-audit'
-alias rcview='bat --paging=never --style=plain ~/.config/fish/config.fish'
+alias rcview='bat --paging=never --style=plain $HOME/.config/fish/config.fish'
 alias batc='bat --paging=never --style=plain'
 alias lsh='ls -lah -U'
 alias lsf='ls -d "$PWD"/*'
 alias cls='clear'
-alias rc='$EDITOR ~/.config/fish/config.fish'
+alias rc='$EDITOR $HOME/.config/fish/config.fish'
 alias visudo='sudo $EDITOR /etc/sudoers.d/dkendall'
 alias edit-grub='sudo $EDITOR /etc/default/grub'
-alias pfetch='bat --paging=never --style=plain ~/.cache/neofetch'
+alias pfetch='bat --paging=never --style=plain $HOME/.cache/neofetch'
 alias instrpm='sudo rpm -ivh --force'
 alias gdebi='sudo gdebi'
 alias instdeb='gdebi'
-alias delrecent='rm ~/.local/share/recently-usd.xbel && sudo touch ~/.local/share/recently-usd.xbel'
+alias delrecent='rm $HOME/.local/share/recently-usd.xbel && sudo touch $HOME/.local/share/recently-usd.xbel'
 alias rm='rm -rf -v'
 alias unshareusb='/bin/eveusbc unshare all'
 alias shareusb='/bin/eveusbc share 12345 1-9.1'
@@ -277,12 +277,12 @@ end
 
 function up
     if topgrade
-        git -C ~/powerlevel10k pull
+        git -C $HOME/powerlevel10k pull
     else
         echo "topgrade failed, running cup and flutterup"
         cup
         flutterup
-        git -C ~/powerlevel10k pull
+        git -C $HOME/powerlevel10k pull
     end
 end
 
@@ -738,7 +738,7 @@ function hide_files
 end
 
 function tgupdate
-	aria2c --max-connection-per-server=16 -d ~/.config/ -o topgrade.toml -c --allow-overwrite=true "https://github.com/MANICX100/setup_scripts/raw/main/topgrade_lin.toml"
+	aria2c --max-connection-per-server=16 -d $HOME/.config/ -o topgrade.toml -c --allow-overwrite=true "https://github.com/MANICX100/setup_scripts/raw/main/topgrade_lin.toml"
 	topgrade
 end
 
@@ -808,7 +808,7 @@ function Get-PubIP
 end
 
 function bak
-	zip -r ~/$($now)-bak.zip /etc/default/ /etc/profile.d/ /usr/local/bin /opt/
+	zip -r $HOME/$($now)-bak.zip /etc/default/ /etc/profile.d/ /usr/local/bin /opt/
 end
 
 function ffup
@@ -821,19 +821,19 @@ function stripclip
 end
 
 function rcupdate
-	aria2c -x 16 -d ~/.config/fish -o config.fish --allow-overwrite=true https://github.com/MANICX100/setup_scripts/raw/main/fish_aliases.fish
-	. ~/.config/fish/config.fish
+	aria2c -x 16 -d $HOME/.config/fish -o config.fish --allow-overwrite=true https://github.com/MANICX100/setup_scripts/raw/main/fish_aliases.fish
+	. $HOME/.config/fish/config.fish
 end
 
 set -g osinfo (rg -ioP '^ID=\K.+' /etc/os-release)
 
-neofetch > ~/.cache/neofetch
+neofetch > $HOME/.cache/neofetch
 
-sd Debian 'Kendall Linux' ~/.cache/neofetch
-sd 6500 6900 ~/.cache/neofetch
-sd 6400 6800  ~/.cache/neofetch
-sd 3.201 6.0 ~/.cache/neofetch
-sd 99D "" ~/.cache/neofetch
+sd Debian 'Kendall Linux' $HOME/.cache/neofetch
+sd 6500 6900 $HOME/.cache/neofetch
+sd 6400 6800  $HOME/.cache/neofetch
+sd 3.201 6.0 $HOME/.cache/neofetch
+sd 99D "" $HOME/.cache/neofetch
 
 function flushdns
     sudo resolvectl flush-caches2>/dev/null
