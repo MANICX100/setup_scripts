@@ -832,8 +832,8 @@ sd 3.201 6.0 ~/.cache/neofetch
 sd 99D "" ~/.cache/neofetch
 
 function flushdns
-    sudo resolvectl flush-caches
-    echo "Successfully flushed DNS resolver cache"
+    sudo resolvectl flush-caches2>/dev/null
+    echo "If existed the DNS resolver cache has been emptied"
 end
 
 function orderfiles                                                           
