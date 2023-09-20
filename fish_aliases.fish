@@ -8,38 +8,6 @@ set -x EDITOR nvem
 set -x JAVA_HOME /jdk
 set -x PATH $JAVA_HOME/bin:$PATH
 
-function cmdpath --argument pid
-  ps -p $pid -o cmd= | pbcopy
-end
-
-function clean
-flatpak uninstall --unused
-sudo nala autoremove -y
-sudo nala clean
-appman -c
-end
-
-function rmcache
-rm -rf $HOME/.cache
-sudo rm -rfv /var/tmp/flatpak-cache-*
-end
-
-function timeweb
-curl -L -w "time_namelookup: %{time_namelookup}\ntime_connect: %{time_connect}\ntime_appconnect: %{time_appconnect}\ntime_pretransfer: %{time_pretransfer}\ntime_redirect: %{time_redirect}\ntime_starttransfer: %{time_starttransfer}\ntime_total: %{time_total}\n" $argv
-end
-
-function systemctl
-    command sudo systemctl $argv; and watch -n 1 systemctl status $argv
-end
-
-function essentialpkgs
-	dpkg-query -Wf '${Package;-40}${Priority}\n' | rg "required"
-end
-
-function displayserv
-	printf 'Session is: %s\n' "${DISPLAY:+X11}${WAYLAND_DISPLAY:+WAYLAND}"
-end
-
 alias eza='eza -a'
 alias build='zig build-exe'
 alias cup='cargo install-update -a'
@@ -119,7 +87,8 @@ alias Invoke-Item='xdg-open'
 alias Start-Process='xdg-open'
 alias open='xdg-open'
 alias move='mv'
-alias copy='cp'
+alias rename='mv'
+alias copy='cpr'
 alias remove-item='rm'
 alias remove-item-r='rm -r'
 alias get-content='bat'
@@ -196,6 +165,45 @@ alias changejava='sudo alternatives --config java'
 alias addapp='xdg-open /usr/local/bin'
 alias logoff='sudo service sddm restart'
 alias yt-dlp='/usr/local/bin/yt-dlp'
+
+function cpr
+  set source_file $argv[1]
+  set target_dir $argv[2]
+  
+  rsync -avAXESlHh --no-whole-file --size-only $source_file $target_dir
+end
+
+function cmdpath --argument pid
+  ps -p $pid -o cmd= | pbcopy
+end
+
+function clean
+flatpak uninstall --unused
+sudo nala autoremove -y
+sudo nala clean
+appman -c
+end
+
+function rmcache
+rm -rf $HOME/.cache
+sudo rm -rfv /var/tmp/flatpak-cache-*
+end
+
+function timeweb
+curl -L -w "time_namelookup: %{time_namelookup}\ntime_connect: %{time_connect}\ntime_appconnect: %{time_appconnect}\ntime_pretransfer: %{time_pretransfer}\ntime_redirect: %{time_redirect}\ntime_starttransfer: %{time_starttransfer}\ntime_total: %{time_total}\n" $argv
+end
+
+function systemctl
+    command sudo systemctl $argv; and watch -n 1 systemctl status $argv
+end
+
+function essentialpkgs
+	dpkg-query -Wf '${Package;-40}${Priority}\n' | rg "required"
+end
+
+function displayserv
+	printf 'Session is: %s\n' "${DISPLAY:+X11}${WAYLAND_DISPLAY:+WAYLAND}"
+end
 
 function icewmup
 cd /  
