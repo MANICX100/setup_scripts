@@ -34,6 +34,22 @@ Set-Alias -Name python -Value pypy
 Set-Alias -Name pl -Value perl
 Set-Alias -Name pedeps -Value listpedeps
 
+function Make-Project {
+  param([string]$Name)
+
+  mkdir "$Name\lib"
+  mkdir "$Name\res" 
+  mkdir "$Name\src"
+
+  ni "$Name\.gitignore"
+  ni "$Name\.gitmodules"
+  ni "$Name\LICENSE"
+  ni "$Name\README.md"
+  ni "$Name\build.zig"
+
+  Write-Host "Created project: $Name"
+}
+
 function free {
 wmic OS get FreePhysicalMemory /Value
 }
