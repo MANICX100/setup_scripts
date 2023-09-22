@@ -172,6 +172,21 @@ alias addapp='xdg-open /usr/local/bin'
 alias logoff='sudo service sddm restart'
 alias yt-dlp='/usr/local/bin/yt-dlp'
 
+function makeproject
+    mkdir -p $argv[1]
+    cd $argv[1]
+
+    mkdir lib res src
+
+    touch .gitignore
+    touch .gitmodules
+    touch LICENSE 
+    touch README.md
+    touch build.zig
+
+    echo "Created project: $argv[1]"
+end
+
 function cpr
   set source_file $argv[1]
   set target_dir $argv[2]
