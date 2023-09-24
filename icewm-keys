@@ -1,5 +1,6 @@
 # $HOME/.icewm/keys
 
+key "Super+`" yakuake
 key "Ctrl+Super+Enter" /home/dkendall/yasr.sh
 key "Super+KP_Add" xzoom -mag 2
 key "Super+Shift+G" flatpak run com.github.dynobo.normcap
@@ -21,8 +22,7 @@ key "Ctrl+Alt+i" pavucontrol
 key "Super+i" pavucontrol
 key "Ctrl+Alt+v" /usr/bin/diodon
 key "Super+Shift+S" scrot -s '/tmp/%F_%T_$wx$h.png' -e 'xclip -selection clipboard -target image/png -i $f'
-key "Ctrl+Alt+Print" flameshot gui
-key "Print" scrot '/tmp/%F_%T_$wx$h.png' -e 'xclip -selection clipboard -target image/png -i $f'
+key "Print" flameshot gui
 key "Shift+Print" simplescreenrecorder
 key "Ctrl+Alt+m" flatpak run io.gitlab.zehkira.Monophony
 key "Ctrl+Shift+Space" ulauncher
