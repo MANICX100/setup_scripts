@@ -2,6 +2,7 @@
 
 sensible-browser &
 diodon &
+yakuake &
 ulauncher --hide-window &
 rustdesk --tray &
 $HOME/AppImages/gearlever_beeper_d363dc.appimage &
