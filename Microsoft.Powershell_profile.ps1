@@ -71,7 +71,7 @@ nvim -u  $env:homepath/vem/vemrc $args
 function dotfileshide
 {
 cmd.exe /c "ATTRIB +H /s /d C:\.*"
-cmd.exe /c "ATTRIB +H /S /D ._*"
+cmd.exe /c "ATTRIB +H /S /D C:\_*"
 }
 
 function Get-WebsitePerformance
