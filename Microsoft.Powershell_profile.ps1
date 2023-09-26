@@ -34,6 +34,10 @@ Set-Alias -Name python -Value pypy
 Set-Alias -Name pl -Value perl
 Set-Alias -Name pedeps -Value listpedeps
 
+function rmhidden {
+Get-ChildItem -Path $pwd -Force -Attributes Hidden | Remove-Item -Force
+}
+
 function Make-Project {
   param([string]$Name)
 
