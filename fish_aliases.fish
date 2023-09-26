@@ -172,6 +172,10 @@ alias addapp='xdg-open /usr/local/bin'
 alias logoff='sudo service sddm restart'
 alias yt-dlp='/usr/local/bin/yt-dlp'
 
+function rmr
+  find . -type f -name $argv -delete
+end
+
 function makeproject
     mkdir -p $argv[1]
     cd $argv[1]
