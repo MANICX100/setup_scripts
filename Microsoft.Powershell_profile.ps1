@@ -34,6 +34,17 @@ Set-Alias -Name python -Value pypy
 Set-Alias -Name pl -Value perl
 Set-Alias -Name pedeps -Value listpedeps
 
+function cpr {
+  param(
+    [string]$SourceFile,
+    [string]$TargetDir
+  )
+
+  $rsyncArgs = '-avAXESlHh', '--no-whole-file', '--size-only'
+
+  rsync $rsyncArgs $SourceFile $TargetDir
+}
+
 function rmr {
 param(
 [string]$Path
