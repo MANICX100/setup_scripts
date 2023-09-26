@@ -33,16 +33,19 @@ Set-Alias -Name top -Value btop
 Set-Alias -Name python -Value pypy
 Set-Alias -Name pl -Value perl
 Set-Alias -Name pedeps -Value listpedeps
+Set-Alias -Name rsync -Value rclone
 
 function cpr {
-  param(
-    [string]$SourceFile,
-    [string]$TargetDir
+   param(
+    [string]$SourcePath,
+    [string]$DestPath  
   )
 
-  $rsyncArgs = '-avAXESlHh', '--no-whole-file', '--size-only'
+  $rcloneArgs = 'copy', '--stats=1s', '-vP' 
 
-  rsync $rsyncArgs $SourceFile $TargetDir
+  $command = 'rclone'
+
+  & $command $rcloneArgs "$SourcePath" "$DestPath"
 }
 
 function rmr {
