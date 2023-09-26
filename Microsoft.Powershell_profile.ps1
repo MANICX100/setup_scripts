@@ -41,7 +41,7 @@ function cpr {
     [string]$DestPath  
   )
 
-  $rcloneArgs = 'copy', '--stats=1s', '-vP' 
+  $rcloneArgs = 'copy', '--ignore-checksum', '--stats=1s', '-vP'
 
   $command = 'rclone'
 
