@@ -34,6 +34,13 @@ Set-Alias -Name python -Value pypy
 Set-Alias -Name pl -Value perl
 Set-Alias -Name pedeps -Value listpedeps
 
+function rmr {
+param(
+[string]$Path
+)
+gci $Path -Recurse -Force | Remove-Item -Force
+}
+
 function rmhidden {
 Get-ChildItem -Path $pwd -Force -Attributes Hidden | Remove-Item -Force
 }
