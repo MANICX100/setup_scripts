@@ -309,9 +309,7 @@ function up
     if topgrade
         git -C $HOME/powerlevel10k pull
     else
-        echo "topgrade failed, running cup and flutterup"
         cup
-        flutterup
         git -C $HOME/powerlevel10k pull
     end
 end
@@ -930,6 +928,5 @@ function gitIgnoreRm
 end
 
 add_to_path "$HOME/.local/bin"
-add_to_path "$HOME/Downloads/flutter/bin"
 add_to_path "$HOME/Downloads/zig/"
 
