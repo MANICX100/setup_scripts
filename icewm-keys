@@ -35,3 +35,5 @@ key "Ctrl+Alt+Up" xrandr --output HDMI-A-2 --rotate normal
 key "Ctrl+Alt+Down" xrandr --output HDMI-A-2 --rotate inverted
 key "Ctrl+Alt+Left" xrandr --output HDMI-A-2 --rotate left
 key "Ctrl+Alt+Right" xrandr --output HDMI-A-2 --rotate right
+key "Super+Page_Up" amixer -q sset Master 5%+
+key "Super+Page_Down" amixer -q sset Master 5%-
