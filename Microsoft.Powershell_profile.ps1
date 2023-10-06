@@ -87,12 +87,6 @@ function cup {
 cargo install-update -a
 }
 
-function mpv {
-cd "C:\Users\dkendall\scoop\apps\mpv\current\"
-.\mpv.exe --hwdec --speed=4 $args
-gohome
-}
-
 function nvem {
 nvim -u  $env:homepath/vem/vemrc $args
 }
