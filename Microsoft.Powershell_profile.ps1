@@ -35,6 +35,10 @@ Set-Alias -Name pl -Value perl
 Set-Alias -Name pedeps -Value listpedeps
 Set-Alias -Name rsync -Value rclone
 
+function modules {
+Get-Module -ListAvailable
+}
+
 function cpr {
    param(
     [string]$SourcePath,
