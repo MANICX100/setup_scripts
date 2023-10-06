@@ -6,4 +6,5 @@ yakuake &
 ulauncher --hide-window &
 rustdesk --tray &
 $HOME/AppImages/gearlever_beeper_d363dc.appimage &
+$HOME/AppImages/gearlever_conky_4d28d7.appimage &
 thunderbird
