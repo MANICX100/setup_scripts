@@ -74,3 +74,6 @@ Run "C:\Users\dkendall\apps\topgrade.exe"
 ^!i::Run "ms-settings:windowsupdate"
 
 ^+!d::Run "C:\Users\dmani\scoop\apps\landrop\current\LANDrop.exe"
+
+#PgUp::Send "{Volume_Up}"
+#PgDn::Send "{Volume_Down}"
