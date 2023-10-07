@@ -20,3 +20,6 @@ bld/
 
 .*
 !/.gitignore
+
+# File names and folders
+*cache*
