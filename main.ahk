@@ -27,13 +27,13 @@ WinShow(TheWindowTitle)
 Return
 }
 
-^!W::ToggleWinMinimize("Edge")
+^!W::ToggleWinMinimize("Thorium")
 
 ^!N::Run("`"Notepad3.exe`"")
 
-^!S::Shutdown(1)
+^!S::Shutdown(5)
 
-^!R::Shutdown(2)
+^!R::Shutdown(6)
 
 #F5::Run("narrator.exe")
 #F4::A_Clipboard := WinGetClass("A")
@@ -65,7 +65,12 @@ Run "C:\Users\dmani\scoop\apps\fscapture\current\FSCapture.exe"
 }
 
 ^!b::Run "http://"
-^!t::Run "C:\Users\dmani\scoop\apps\contour\current\contour.exe"
+^!t::
+{
+Run "C:\Users\dmani\scoop\apps\contour\current\contour.exe"
+Run "C:\Users\dkendall\apps\topgrade.exe"
+}
+
 ^!i::Run "ms-settings:windowsupdate"
 
 ^+!d::Run "C:\Users\dmani\scoop\apps\landrop\current\LANDrop.exe"
