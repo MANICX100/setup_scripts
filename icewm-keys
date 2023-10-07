@@ -1,5 +1,6 @@
 # $HOME/.icewm/keys
 
+key "Super+D" wmctrl -k on
 key "Super+`" yakuake
 key "Ctrl+Super+Enter" /home/dkendall/yasr.sh
 key "Super+KP_Add" xzoom -mag 2
