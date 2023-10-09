@@ -223,6 +223,7 @@ end
 function rmcache
 rm -rf $HOME/.cache
 sudo rm -rfv /var/tmp/flatpak-cache-*
+echo 3 | sudo tee /proc/sys/vm/drop_caches
 end
 
 function timeweb
