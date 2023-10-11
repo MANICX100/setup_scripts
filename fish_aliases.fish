@@ -311,9 +311,6 @@ end
 function up
     if topgrade
         git -C $HOME/powerlevel10k pull
-    else
-        cup
-        git -C $HOME/powerlevel10k pull
     end
 end
 
