@@ -12,7 +12,7 @@ key "Super+Down" wmctrl -r :ACTIVE: -b toggle,hidden
 key "Ctrl+Alt+b" sensible-browser
 key "Ctrl+Alt+t" /home/dkendall/termup.sh
 key "Ctrl+Alt+r" sudo systemctl reboot
-key "Ctrl+Alt+s" /usr/sbin/poweroff
+key "Ctrl+Alt+s" sudo /usr/sbin/poweroff
 key "Ctrl+Alt+L" /home/dkendall/lock.sh
 key "Super+L" /home/dkendall/lock.sh
 key "Ctrl+Alt+n" flatpak run org.contourterminal.Contour nvem /home/dkendall/OneDrive/Documents/txt/ends.txt
