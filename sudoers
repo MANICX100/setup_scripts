@@ -8,6 +8,7 @@ dkendall ALL=(root)NOPASSWD: /usr/sbin/dhclient
 dkendall ALL=(root)NOPASSWD: /usr/bin/ip
 dkendall ALL=(root)NOPASSWD: /usr/sbin/dmidecode
 dkendall ALL=(root)NOPASSWD: /usr/bin/journalctl
+dkendall ALL=(root)NOPASSWD: /usr/sbin/poweroff
 
 ALL ALL=NOPASSWD: /usr/bin/tee
 ALL ALL=(ALL) NOPASSWD: /bin/systemctl start jellyfin, /bin/systemctl stop jellyfin, /bin/systemctl enable jellyfin, /bin/systemctl disable jellyfin
