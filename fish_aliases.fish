@@ -929,4 +929,4 @@ end
 
 add_to_path "$HOME/.local/bin"
 add_to_path "$HOME/Downloads/zig/"
-
+add_to_path "/usr/sbin/"
