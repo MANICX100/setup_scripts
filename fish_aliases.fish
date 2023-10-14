@@ -930,3 +930,13 @@ end
 add_to_path "$HOME/.local/bin"
 add_to_path "$HOME/Downloads/zig/"
 add_to_path "/usr/sbin/"
+
+# bun completions
+if test -s "$HOME/.bun/_bun"
+    source "$HOME/.bun/_bun"
+end
+
+# bun
+set -x BUN_INSTALL "$HOME/.bun"
+set -x PATH "$BUN_INSTALL/bin" $PATH
+
