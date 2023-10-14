@@ -9,6 +9,7 @@ dkendall ALL=(root)NOPASSWD: /usr/bin/ip
 dkendall ALL=(root)NOPASSWD: /usr/sbin/dmidecode
 dkendall ALL=(root)NOPASSWD: /usr/bin/journalctl
 dkendall ALL=(root)NOPASSWD: /usr/sbin/poweroff
+dkendall ALL=(root)NOPASSWD: /usr/bin/snap
 
 ALL ALL=NOPASSWD: /usr/bin/tee
 ALL ALL=(ALL) NOPASSWD: /bin/systemctl start jellyfin, /bin/systemctl stop jellyfin, /bin/systemctl enable jellyfin, /bin/systemctl disable jellyfin
@@ -21,4 +22,3 @@ ALL ALL=(ALL) NOPASSWD: /bin/systemctl reboot
 #dkendall ALL=(root)NOPASSWD: /usr/bin/nautilus
 #dkendall ALL=(root)NOPASSWD: /usr/local/bin/*
 #dkendall ALL=(root)NOPASSWD: /usr/sbin/service
-#dkendall ALL=(root)NOPASSWD: /usr/bin/snap
