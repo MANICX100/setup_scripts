@@ -1,7 +1,6 @@
 # $HOME/.icewm/keys
 
 key "Super+D" wmctrl -k on
-key "Super+Del" flatpak run it.mijorus.smile
 key "Super+period" flatpak run it.mijorus.smile
 key "Super+`" yakuake
 key "Ctrl+Super+Enter" /home/dkendall/yasr.sh
