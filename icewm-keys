@@ -2,7 +2,8 @@
 
 key "Super+D" wmctrl -k on
 key "Super+period" flatpak run it.mijorus.smile
-key "Super+`" yakuake
+key "Super+grave" yakuake
+key "grave" yakuake
 key "Ctrl+Super+Enter" /home/dkendall/yasr.sh
 key "Super+KP_Add" xzoom -mag 2
 key "Super+Shift+G" flatpak run com.github.dynobo.normcap
