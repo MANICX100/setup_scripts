@@ -320,14 +320,6 @@ function display_path
     echo $PATH
 end
 
-function add_to_path
-    if contains -- $argv[1] $PATH
-        echo "The directory is already in the PATH"
-    else
-        set PATH $argv[1] $PATH
-    end
-end
-
 function remove_from_path
     set -l temp_path $PATH
     set -e temp_path[(contains -i $argv[1] $temp_path)]
