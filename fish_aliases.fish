@@ -929,18 +929,19 @@ function gitIgnoreRm
 	git commit -m "Update .gitignore"
 end
 
-add_to_path "$HOME/.local/bin"
-add_to_path "$HOME/Downloads/zig/"
-add_to_path "/usr/sbin/"
-add_to_path "/home/dkendall/pypy/bin"
-add_to_path "/usr/racket/bin"
+set -q fish_user_paths[1]; or set -gx fish_user_paths $HOME/.local/bin
+set -q fish_user_paths[1]; or set -gx fish_user_paths $HOME/Downloads/zig/
+set -q fish_user_paths[1]; or set -gx fish_user_paths /usr/sbin/
+set -q fish_user_paths[1]; or set -gx fish_user_paths /home/dkendall/pypy/bin
+set -q fish_user_paths[1]; or set -gx fish_user_paths /usr/racket/bin
+set -q fish_user_paths[1]; or set -gx fish_user_paths /usr/local/go/bin
 
-# bun completions
+set -gx PATH $fish_user_paths
+
 if test -s "$HOME/.bun/_bun"
     source "$HOME/.bun/_bun"
 end
 
-# bun
 set -x BUN_INSTALL "$HOME/.bun"
 set -x PATH "$BUN_INSTALL/bin" $PATH
 
