@@ -286,6 +286,8 @@ user_pref("widget.content.gtk-theme-override", "Adwaita:light");
 user_pref("dom.element.popover.enabled",true);
 user_pref("webgl.disabled",false);
 user_pref("browser.migrate.chrome.extensions.enabled",true);
+user_pref("extensions.webextensions.restrictedDomains","docs.google.com,github.com");
+user_pref("privacy.resistFingerprinting.block_mozAddonManager",true);
 
 /****************************************************************************
  * END: BETTERFOX                                                           *
