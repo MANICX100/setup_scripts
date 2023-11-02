@@ -12,12 +12,12 @@ key "Super+Right" /home/dkendall/windowsnap.sh right
 key "Super+Up" wmctrl -r :ACTIVE: -b add,maximized_vert,maximized_horz
 key "Super+Down" wmctrl -r :ACTIVE: -b toggle,hidden
 key "Ctrl+Alt+b" sensible-browser
-key "Ctrl+Alt+t" /home/dkendall/termup.sh
+key "Ctrl+Alt+t" alacritty
 key "Ctrl+Alt+r" sudo systemctl reboot
 key "Ctrl+Alt+s" sudo /usr/sbin/poweroff
 key "Ctrl+Alt+L" /home/dkendall/lock.sh
 key "Super+L" /home/dkendall/lock.sh
-key "Ctrl+Alt+n" flatpak run org.contourterminal.Contour nvem /home/dkendall/OneDrive/Documents/txt/ends.txt
+key "Ctrl+Alt+n" alacritty nvem /home/dkendall/OneDrive/Documents/txt/ends.txt
 key "Super+E" xfe
 key "Ctrl+Alt+E" xfe
 key "Ctrl+Alt+Shift+E" /home/dkendall/windows.sh
