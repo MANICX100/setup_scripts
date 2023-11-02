@@ -15,7 +15,7 @@ key "Ctrl+Alt+r" sudo systemctl reboot
 key "Ctrl+Alt+s" sudo /usr/sbin/poweroff
 key "Ctrl+Alt+L" /home/dkendall/lock.sh
 key "Super+L" /home/dkendall/lock.sh
-key "Ctrl+Alt+n" alacritty nvem /home/dkendall/OneDrive/Documents/txt/ends.txt
+key "Ctrl+Alt+n" alacritty -e nvem /home/dkendall/OneDrive/Documents/txt/ends.txt
 key "Super+E" xfe
 key "Ctrl+Alt+E" xfe
 key "Ctrl+Alt+Shift+E" /home/dkendall/windows.sh
