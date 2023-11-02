@@ -1,6 +1,5 @@
 #!/bin/zsh
 
-/usr/bin/lxqt-policykit-agent &
 sensible-browser &
 diodon &
 yakuake &
