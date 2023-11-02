@@ -10,10 +10,6 @@ set -x PATH $JAVA_HOME/bin:$PATH
 
 alias saveimgclip='xclip -selection clipboard -t image/png -o > /home/dkendall/Desktop/clipboard.png'
 
-alias beeper='$HOME/AppImages/gearlever_beeper_d363dc.appimage'
-alias chiaki='$HOME/AppImages/gearlever_chiaki_d5f7d1.appimage'
-alias cursor='$HOME/AppImages/gearlever_cursor_6b938d.appimage'
-
 alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
 
 alias eza='eza -a'
@@ -857,15 +853,14 @@ set -g osinfo (rg -ioP '^ID=\K.+' /etc/os-release)
 
 neofetch > $HOME/.cache/neofetch
 
-sd Debian 'Kendall Linux' $HOME/.cache/neofetch
+neofetch > $HOME/.cache/neofetch
 sd 6500 6900 $HOME/.cache/neofetch
 sd 6400 6800  $HOME/.cache/neofetch
 sd 3.201 6.0 $HOME/.cache/neofetch
-sd 99D "" $HOME/.cache/neofetch
 
 function flushdns
-    sudo resolvectl flush-caches2>/dev/null
-    echo "If existed the DNS resolver cache has been emptied"
+sudo resolvectl flush-caches
+echo "Successfully flushed the DNS Resolver Cache"
 end
 
 function orderfiles                                                           
