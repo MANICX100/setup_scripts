@@ -8,8 +8,8 @@ set -x EDITOR nvem
 set -x JAVA_HOME /jdk
 set -x PATH $JAVA_HOME/bin:$PATH
 
+alias jellyfin='flatpak run org.jellyfin.JellyfinServer'
 alias saveimgclip='xclip -selection clipboard -t image/png -o > /home/dkendall/Desktop/clipboard.png'
-
 alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
 
 alias eza='eza -a'
