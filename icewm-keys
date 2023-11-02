@@ -2,8 +2,6 @@
 
 key "Super+D" wmctrl -k on
 key "Super+period" flatpak run it.mijorus.smile
-key "Super+grave" yakuake
-key "grave" yakuake
 key "Ctrl+Super+Enter" /home/dkendall/yasr.sh
 key "Super+KP_Add" xzoom -mag 2
 key "Super+Shift+G" flatpak run com.github.dynobo.normcap
@@ -31,7 +29,6 @@ key "Ctrl+Alt+m" flatpak run io.gitlab.zehkira.Monophony
 key "Ctrl+Shift+Space" ulauncher
 key "Ctrl+Alt+x" xkill
 key "Ctrl+Shift+Esc" gnome-system-monitor
-key "Ctrl+Shift+Alt+D" /home/dkendall/.local/bin/landrop
 key "Ctrl+Alt+Shift+t" wmctrl -r :ACTIVE: -b toggle,above
 key "XF86AudioPlay" playerctl play-pause
 key "Ctrl+Alt+Up" xrandr --output HDMI-A-2 --rotate normal
