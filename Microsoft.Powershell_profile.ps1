@@ -902,7 +902,6 @@ Get-WMIObject Win32_SerialPort | Select-Object Name,DeviceID,Description
 
 function up {
     topgrade
-    winget update
 
     # Check the exit code of topgrade
     if ($LASTEXITCODE -ne 0) {
