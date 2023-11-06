@@ -65,10 +65,10 @@ Run "C:\Users\dmani\scoop\apps\fscapture\current\FSCapture.exe"
 }
 
 ^!b::Run "http://"
+
 ^!t::
 {
-Run "C:\Users\dmani\scoop\apps\contour\current\contour.exe"
-Run "C:\Users\dkendall\apps\topgrade.exe"
+Run "C:\Users\Dan Kendall\.cargo\bin\alacritty.exe"
 }
 
 ^!i::Run "ms-settings:windowsupdate"
