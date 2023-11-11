@@ -114,9 +114,9 @@ alias fd='fzf --query'
 alias webcam='sudo modprobe v4l2loopback'
 alias cloudsync='onedrive --synchronize --force'
 
-alias ffmpeg='$HOME/Downloads/ffmpeg/ffmpeg'
+alias ffmpeg='$HOME/ffmpeg/ffmpeg'
 alias ffprobe='mediainfo'
-alias qt-faststart='$HOME/Downloads/ffmpeg/qt-faststart'
+alias qt-faststart='$HOME/ffmpeg/qt-faststart'
 
 alias linuxservices='systemctl list-unit-files --type=service --state=enabled'
 alias macosservices='sudo launchctl list'
