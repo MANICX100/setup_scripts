@@ -4,7 +4,6 @@
 sensible-browser &
 diodon &
 alacritty &
-ulauncher --hide-window &
 rustdesk --tray &
 /usr/local/bin/conky &
 thunderbird
