@@ -169,7 +169,8 @@ alias delempty='emptydel'
 alias gohome='cd "$HOME"'
 alias changejava='sudo alternatives --config java'
 alias addapp='xdg-open /usr/local/bin'
-alias logoff='sudo service sddm restart'
+alias logoff='sudo pkill -u'
+alias logout='logoff'
 alias yt-dlp='/usr/local/bin/yt-dlp'
 
 function boostvolume
