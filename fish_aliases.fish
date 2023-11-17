@@ -174,9 +174,7 @@ alias logout='logoff'
 alias yt-dlp='/usr/local/bin/yt-dlp'
 
 function ffup
-sudo rm $HOME/.var/app/org.mozilla.firefox/.mozilla/firefox/0v4n3hk1.default-release/user.js
-sudo axel -n 16 -o $HOME/.var/app/org.mozilla.firefox/.mozilla/firefox/0v4n3hk1.default-release/user.js https://raw.githubusercontent.com/MANICX100/setup_scripts/main/user-overrides.js
-$HOME/.var/app/org.mozilla.firefox/.mozilla/firefox/0v4n3hk1.default-release/user.js
+parallel ::: "xfe $HOME" "axel -n 16 -o $HOME/user.js https://raw.githubusercontent.com/MANICX100/setup_scripts/main/user-overrides.js $HOME/user.js" "xfe $HOME/.var/app/org.mozilla.firefox/.mozilla/firefox/0v4n3hk1.default-release/"
 end
 
 function boostvolume
