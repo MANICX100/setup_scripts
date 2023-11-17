@@ -921,10 +921,12 @@ end
 set -q fish_user_paths[1]; or set -gx fish_user_paths $HOME/.local/bin
 set -q fish_user_paths[1]; or set -gx fish_user_paths $HOME/Downloads/zig/
 set -q fish_user_paths[1]; or set -gx fish_user_paths /usr/sbin/
-set -q fish_user_paths[1]; or set -gx fish_user_paths /home/dkendall/pypy/bin
+set -q fish_user_paths[1]; or set -gx fish_user_paths $HOME/pypy/bin
 set -q fish_user_paths[1]; or set -gx fish_user_paths /usr/racket/bin
 set -q fish_user_paths[1]; or set -gx fish_user_paths /usr/local/go/bin
-set -q fish_user_paths[1]; or set -gx fish_user_paths /home/dkendall/go/bin
+set -q fish_user_paths[1]; or set -gx fish_user_paths $HOME/go/bin
+set -q fish_user_paths[1]; or set -gx fish_user_paths $HOME/.local/share/flatpak/exports/bin 
+set -q fish_user_paths[1]; or set -gx fish_user_paths $HOME/var/lib/flatpak/exports/bin
 
 set -gx PATH $fish_user_paths
 
