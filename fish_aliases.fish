@@ -842,11 +842,6 @@ function bak
 	zip -r $HOME/$($now)-bak.zip /etc/default/ /etc/profile.d/ /usr/local/bin /opt/
 end
 
-function ffup
-	aria2c -x 16 -d $HOME/.mercury/nvmn7gov.default-default/ -o user-overrides.js --allow-overwrite=true https://github.com/MANICX100/setup_scripts/raw/main/user-overrides.js
-	$HOME/.mercury/nvmn7gov.default-default/updater.sh
-end
-
 function stripclip
 	xclip -selection c -o | xargs | rg -o '.*' | xclip -selection c
 end
