@@ -917,17 +917,6 @@ function gitIgnoreRm
 	git commit -m "Update .gitignore"
 end
 
-set -q fish_user_paths[1]; or set -gx fish_user_paths $HOME/.local/bin
-set -q fish_user_paths[1]; or set -gx fish_user_paths $HOME/Downloads/zig/
-set -q fish_user_paths[1]; or set -gx fish_user_paths /usr/sbin/
-set -q fish_user_paths[1]; or set -gx fish_user_paths $HOME/pypy/bin
-set -q fish_user_paths[1]; or set -gx fish_user_paths /usr/racket/bin
-set -q fish_user_paths[1]; or set -gx fish_user_paths /usr/local/go/bin
-set -q fish_user_paths[1]; or set -gx fish_user_paths $HOME/go/bin
-set -q fish_user_paths[1]; or set -gx fish_user_paths /var/lib/flatpak/exports/bin
-
-set -gx PATH $fish_user_paths
-
 if test -s "$HOME/.bun/_bun"
     source "$HOME/.bun/_bun"
 end
