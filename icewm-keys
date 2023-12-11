@@ -29,7 +29,10 @@ key "Ctrl+Alt+m" flatpak run io.gitlab.zehkira.Monophony
 key "Ctrl+Space" dmenu_run
 key "Ctrl+Alt+x" xkill
 key "Ctrl+Shift+Esc" gnome-system-monitor
+
 key "Ctrl+Alt+Shift+t" wmctrl -r :ACTIVE: -b toggle,above
+key "Ctrl+Super+t" wmctrl -r :ACTIVE: -b toggle,above
+
 key "XF86AudioPlay" playerctl play-pause
 key "Ctrl+Alt+Up" xrandr --output HDMI-A-2 --rotate normal
 key "Ctrl+Alt+Down" xrandr --output HDMI-A-2 --rotate inverted
