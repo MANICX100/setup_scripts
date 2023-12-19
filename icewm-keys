@@ -26,7 +26,7 @@ key "Super+Shift+S" scrot -s '/tmp/%F_%T_$wx$h.png' -e 'xclip -selection clipboa
 key "Print" flameshot gui
 key "Shift+Print" simplescreenrecorder
 key "Ctrl+Alt+m" flatpak run io.gitlab.zehkira.Monophony
-key "Ctrl+Space" dmenu_run
+key "Ctrl+Space" dmenu_run -i
 key "Ctrl+Alt+x" xkill
 key "Ctrl+Shift+Esc" gnome-system-monitor
 
