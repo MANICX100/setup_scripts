@@ -41,32 +41,6 @@ function time ($file) {
   Measure-Command { Start-Process $file | Out-Default }
 }
 
-function Get-CertificateInfo {
-    param (
-        [string]$domain
-    )
-
-    # Check if the domain is provided
-    if (-not $domain) {
-        Write-Host "Please provide a domain (e.g., example.com) as an argument."
-        return
-    }
-
-    # Construct the URL to check for SSL certificate
-    $url = "https://$domain"
-
-    try {
-        # Retrieve the SSL certificate from the server
-        $certificate = Get-PfxCertificate -Url $url -ErrorAction Stop
-
-        # Display certificate information
-        Write-Host "Certificate Information for $domain:"
-        $certificate | Format-List *
-    } catch {
-        Write-Host "Error: $_"
-    }
-}
-
 function modules {
 Get-Module -ListAvailable
 }
