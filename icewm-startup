@@ -6,4 +6,5 @@ diodon &
 alacritty &
 rustdesk --tray &
 /usr/local/bin/conky &
-thunderbird
+thunderbird &
+beeper
