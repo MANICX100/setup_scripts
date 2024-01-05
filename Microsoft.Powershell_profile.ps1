@@ -36,6 +36,11 @@ Set-Alias -Name pedeps -Value listpedeps
 Set-Alias -Name rsync -Value rclone
 Set-Alias -Name certinfo -Value Get-CertificateInfo
 
+function time ($file) {
+  # Run the command with the file name and measure the execution time
+  Measure-Command { Start-Process $file | Out-Default }
+}
+
 function Get-CertificateInfo {
     param (
         [string]$domain
