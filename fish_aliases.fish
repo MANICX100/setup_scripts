@@ -8,6 +8,7 @@ set -x EDITOR nvem
 set -x JAVA_HOME /jdk
 set -x PATH $JAVA_HOME/bin:$PATH
 
+alias dy="dig +noall +answer +additional $argv @dns.toys"
 alias flatpakdown='flatpak remote-info --log flathub'
 alias jellyfin='flatpak run org.jellyfin.JellyfinServer'
 alias saveimgclip='xclip -selection clipboard -t image/png -o > /home/dkendall/Desktop/clipboard.png'
