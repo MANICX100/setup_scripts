@@ -1,7 +1,16 @@
 dkendall ALL=(root)NOPASSWD: /usr/bin/nala
+dkendall ALL=(root)NOPASSWD: /usr/bin/pacstall
+dkendall ALL=(root)NOPASSWD: /usr/bin/dnf
+dkendall ALL=(root)NOPASSWD: /usr/bin/yum
+dkendall ALL=(root)NOPASSWD: /usr/bin/dnf5
+dkendall ALL=(root)NOPASSWD: /usr/bin/zypper
+dkendall ALL=(root)NOPASSWD: /usr/bin/paru
+
 dkendall ALL=(root)NOPASSWD: /usr/bin/sync
 dkendall ALL=(root)NOPASSWD: /usr/bin/flatpak
 dkendall ALL=(root)NOPASSWD: /usr/bin/xfe
+dkendall ALL=(root)NOPASSWD: /home/dkendall/rox-filer/ROX-Filer/AppRun
+
 dkendall ALL=(root)NOPASSWD: /usr/bin/gdebi
 dkendall ALL=(root)NOPASSWD: /usr/bin/gh
 dkendall ALL=(root)NOPASSWD: /usr/sbin/dhclient
