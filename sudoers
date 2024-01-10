@@ -1,3 +1,6 @@
+dkendall ALL=(root)NOPASSWD: /home/dkendall/.cargo/bin/topgrade
+dkendall ALL=(root)NOPASSWD: /usr/bin/topgrade
+
 dkendall ALL=(root)NOPASSWD: /usr/bin/nala
 dkendall ALL=(root)NOPASSWD: /usr/bin/pacstall
 dkendall ALL=(root)NOPASSWD: /usr/bin/dnf
