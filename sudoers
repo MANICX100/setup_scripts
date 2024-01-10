@@ -6,6 +6,10 @@ dkendall ALL=(root)NOPASSWD: /usr/bin/dnf5
 dkendall ALL=(root)NOPASSWD: /usr/bin/zypper
 dkendall ALL=(root)NOPASSWD: /usr/bin/paru
 
+dkendall ALL=(root)NOPASSWD: /usr/bin/dpkg
+dkendall ALL=(root)NOPASSWD: /usr/bin/gdebi
+dkendall ALL=(root)NOPASSWD: /usr/bin/rpm
+
 dkendall ALL=(root)NOPASSWD: /usr/bin/sync
 dkendall ALL=(root)NOPASSWD: /usr/bin/flatpak
 dkendall ALL=(root)NOPASSWD: /usr/bin/xfe
