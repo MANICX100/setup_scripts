@@ -2,7 +2,7 @@
 assume_yes = true
 
 # Disable specific steps - same options as the command line flag
-disable = ["emacs", "tldr", "gnome_shell_extensions"]
+#disable = ["emacs", "tldr", "gnome_shell_extensions"]
 
 # Ignore failures for these steps
 #ignore_failures = ["powershell"]
@@ -11,11 +11,12 @@ disable = ["emacs", "tldr", "gnome_shell_extensions"]
 #only = ["system", "emacs"]
 
 # Do not ask to retry failed steps (default: false)
-#no_retry = true
+no_retry = true
 
 # Run `sudo -v` to cache credentials at the start of the run; this avoids a
 # blocking password prompt in the middle of a possibly-unattended run.
-#pre_sudo = false
+pre_sudo = true
+sudo_command = "sudo"
 
 # Run inside tmux
 #run_in_tmux = true
