@@ -41,6 +41,10 @@ function time ($file) {
   Measure-Command { Start-Process $file | Out-Default }
 }
 
+function ch {
+sudo choco
+}
+
 function modules {
 Get-Module -ListAvailable
 }
