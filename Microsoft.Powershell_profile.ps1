@@ -42,7 +42,7 @@ function time ($file) {
 }
 
 function ch {
-sudo choco
+sudo choco $args
 }
 
 function modules {
