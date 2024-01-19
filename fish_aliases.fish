@@ -42,8 +42,11 @@ alias unmount='sudo umount'
 alias fixwifi='sudo dhclient -v enp7s0'
 alias edit-apt='$EDITOR /etc/apt/sources.list'
 alias bufferw='sudo sync & watch -n 1 rg -e Dirty: /proc/meminfo'
+
 alias python='$HOME/pypy/bin/pypy'
 alias pip='python -m pip'
+alias pip3='pip'
+
 alias icewmkeys='$EDITOR $HOME/.icewm/keys'
 alias icewmstart='$EDITOR $HOME/.icewm/startup'
 alias tvn='tvnamer --recursive'
