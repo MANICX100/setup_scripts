@@ -8,6 +8,14 @@ set -x EDITOR nvem
 set -x JAVA_HOME /jdk
 set -x PATH $JAVA_HOME/bin:$PATH
 
+function fish_command_not_found
+  /usr/lib/command-not-found -- $argv[1]
+end
+
+function __fish_default_command_not_found_handler
+  fish_command_not_found $argv
+end
+
 alias dy="dig +noall +answer +additional $argv @dns.toys"
 alias flatpakdown='flatpak remote-info --log flathub'
 alias jellyfin='flatpak run org.jellyfin.JellyfinServer'
