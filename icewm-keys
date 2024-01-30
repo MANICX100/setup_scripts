@@ -1,6 +1,10 @@
 # $HOME/.icewm/keys
 
 key "Super+D" wmctrl -k on
+key "Super+Shift+D" wmctrl -k off
+key "Super+Shift+M" flatpak run org.kde.kruler/x86_64/stable
+key "Super+Shift+C" gpick
+
 key "Super+period" flatpak run it.mijorus.smile
 key "Ctrl+Super+Enter" /home/dkendall/yasr.sh
 key "Super+KP_Add" xzoom -mag 2
