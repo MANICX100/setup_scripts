@@ -16,7 +16,7 @@ function __fish_default_command_not_found_handler
   fish_command_not_found $argv
 end
 
-alias upkernel='inst linux-image-liquorix-amd64 linux-generic'
+alias upkernel='inst linux-image-liquorix-amd64 linux-generic -y'
 
 alias dy="dig +noall +answer +additional $argv @dns.toys"
 alias flatpakdown='flatpak remote-info --log flathub'
