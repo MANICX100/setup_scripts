@@ -28,11 +28,11 @@ key "Super+i" pavucontrol
 key "Ctrl+Alt+v" /usr/bin/diodon
 key "Super+Shift+S" scrot -s '/tmp/%F_%T_$wx$h.png' -e 'xclip -selection clipboard -target image/png -i $f'
 key "Print" flatpak run org.flameshot.Flameshot/x86_64/stable gui
-key "Shift+Print" simplescreenrecorder
+key "Shift+Print" flatpak run sa.sy.bluerecorder/x86_64/stable
 key "Ctrl+Alt+m" flatpak run io.gitlab.zehkira.Monophony
 key "Ctrl+Space" dmenu_run -i
 key "Ctrl+Alt+x" xkill
-key "Ctrl+Shift+Esc" gnome-system-monitor
+key "Ctrl+Shift+Esc" flatpak run net.nokyan.Resources/x86_64/stable
 
 key "Ctrl+Alt+Shift+t" wmctrl -r :ACTIVE: -b toggle,above
 key "Ctrl+Super+t" wmctrl -r :ACTIVE: -b toggle,above
