@@ -8,6 +8,11 @@ set -x EDITOR nvem
 set -x JAVA_HOME /jdk
 set -x PATH $JAVA_HOME/bin:$PATH
 
+function reloadnetwork
+    sudo systemctl restart systemd-resolved.service
+    sudo systemctl restart NetworkManager.service
+end
+
 function fish_command_not_found
   /usr/lib/command-not-found -- $argv[1]
 end
