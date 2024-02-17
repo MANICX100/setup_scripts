@@ -32,7 +32,7 @@ alias errors='sudo journalctl -p err'
 alias eza='eza -a'
 alias build='zig build-exe'
 alias cup='cargo install-update -a'
-alias mpv='mpv --hwdec=auto --speed=4'
+alias mpv='flatpak run io.mpv.Mpv/x86_64/stable --hwdec=auto --speed=4'
 alias setresolution='xrandr --output HDMI-A-2 --mode'
 alias Set-Resolution='setresolution'
 
