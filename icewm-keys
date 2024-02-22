@@ -1,5 +1,3 @@
-# $HOME/.icewm/keys
-
 key "Super+D" wmctrl -k on
 key "Super+Shift+D" wmctrl -k off
 key "Super+Shift+M" flatpak run org.kde.kruler/x86_64/stable
