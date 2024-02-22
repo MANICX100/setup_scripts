@@ -8,7 +8,7 @@ key "Super+Shift+C" gpick
 key "Super+period" flatpak run it.mijorus.smile
 key "Ctrl+Super+Enter" /home/dkendall/yasr.sh
 key "Super+KP_Add" xzoom -mag 2
-key "Super+Shift+G" flatpak run com.github.dynobo.normcap
+key "Super+Shift+G" flatpak run com.github.dynobo.normcap/x86_64/stable 2>&1 | tee /dev/null
 key "Super+Left" /home/dkendall/windowsnap.sh left
 key "Super+Right" /home/dkendall/windowsnap.sh right
 key "Super+Up" wmctrl -r :ACTIVE: -b add,maximized_vert,maximized_horz
