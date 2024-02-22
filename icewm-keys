@@ -6,7 +6,7 @@ key "Super+Shift+C" gpick
 key "Super+period" flatpak run it.mijorus.smile
 key "Ctrl+Super+Enter" /home/dkendall/yasr.sh
 key "Super+KP_Add" xzoom -mag 2
-key "Super+Shift+G" /home/dkendall/normcap.sh
+key "Super+Shift+G" normcap
 
 key "Super+Left" /home/dkendall/windowsnap.sh left
 key "Super+Right" /home/dkendall/windowsnap.sh right
