@@ -23,6 +23,7 @@ end
 
 alias upkernel='inst linux-image-liquorix-amd64 linux-generic coreutils unzip firmware-sof-signed tracker-extract cloud-init golang-go dpkg libdpkg-perl ubuntu-pro-client-l10n -y'
 
+alias mupdf='mupdf-x11'
 alias dy="dig +noall +answer +additional $argv @dns.toys"
 alias flatpakdown='flatpak remote-info --log flathub'
 alias jellyfin='flatpak run org.jellyfin.JellyfinServer'
