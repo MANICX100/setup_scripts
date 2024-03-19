@@ -19,8 +19,8 @@ key "Ctrl+Alt+s" sudo /usr/sbin/poweroff
 key "Ctrl+Alt+L" /home/dkendall/lock.sh
 key "Super+L" /home/dkendall/lock.sh
 key "Ctrl+Alt+n" alacritty -e nvem /home/dkendall/OneDrive/Documents/txt/ends.txt
-key "Super+E" /home/dkendall/rox-filer/ROX-Filer/AppRun /home/dkendall
-key "Ctrl+Alt+E" /home/dkendall/rox-filer/ROX-Filer/AppRun /home/dkendall
+key "Super+E" xdg-open "/home/dkendall/Jellyfin Server Media/"
+
 key "Ctrl+Alt+Shift+E" /home/dkendall/windows.sh
 key "Ctrl+Alt+i" pavucontrol
 key "Super+i" pavucontrol
