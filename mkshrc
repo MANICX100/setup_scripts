@@ -1,0 +1,939 @@
+printf "\e[?2004l"
+
+export EDITOR=nvem
+export TERM=linux
+
+export JAVA_HOME=/jdk
+
+    if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+        source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+    fi
+
+setopt nullglob
+
+source $HOME/.antidote/antidote.zsh
+antidote load ${ZDOTDIR:-$HOME}/.zsh_plugins.txt
+
+setopt share_history
+SAVEHIST=1000  # Save most-recent 1000 lines
+HISTFILE=$HOME/.zsh_history
+
+function command_not_found_handler {
+  /usr/lib/command-not-found -- $1
+}
+
+zshaddhistory() {
+  if [[ $? -eq 127 ]]; then
+    command_not_found_handler $1
+  fi
+}
+
+reloadnetwork() {
+sudo systemctl restart systemd-resolved.service
+sudo systemctl restart systemd-resolved.service
+}
+
+alias mupdf='mupdf-x11'
+alias upkernel='inst linux-image-liquorix-amd64 linux-generic coreutils unzip firmware-sof-signed tracker-extract cloud-init golang-go dpkg libdpkg-perl ubuntu-pro-client-l10n -y'
+
+alias dy="dig +short @dns.toys"
+alias flatpakdown='flatpak remote-info --log flathub'
+
+alias jellyfin='flatpak run org.jellyfin.JellyfinServer'
+alias errors='sudo journalctl -p err'
+alias saveimgclip='xclip -selection clipboard -t image/png -o > /home/dkendall/Desktop/clipboard.png'
+alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
+
+alias eza='eza -a'
+alias build='zig build-exe'
+alias cup='cargo install-update -a'
+
+alias mpv='flatpak run io.mpv.Mpv/x86_64/stable --hwdec=auto --speed=4'
+alias setresolution='xrandr --output HDMI-A-2 --mode'
+alias Set-Resolution='setresolution'
+
+alias sysd='sudo $EDITOR /etc/systemd/system.conf'
+alias vars='set|less'
+alias gpuinfo='glxinfo -B'
+alias cpuinfo='sudo dmidecode --type processor'
+alias gcm='whereis'
+alias lite-xl='/usr/local/bin/lite-xl/lite-xl'
+alias lite='lite-xl'
+alias uptime='uptime --since && uptime --pretty'
+
+alias usb='lsblk|rg sda'
+alias printers='lpstat -p'
+alias bluetooth='bluetoothctl devices'
+
+alias unmountios='fusermount -u /media/dkendall/iOS'
+alias mountios='ifuse /media/dkendall/iOS'
+alias unmount='sudo umount'
+alias mount='sudo mount -o rw,uid=1000,gid=1000,user,exec,umask=003'
+
+alias fixwifi='sudo dhclient -v enp7s0'
+alias edit-apt='$EDITOR /etc/apt/sources.list'
+alias bufferw='sudo sync & watch -n 1 rg -e Dirty: /proc/meminfo'
+
+alias python='$HOME/pypy/bin/pypy'
+alias pip='python -m pip'
+alias pip3='pip'
+
+alias icewmkeys='$EDITOR $HOME/.icewm/keys'
+alias icewmstart='$EDITOR $HOME/.icewm/startup'
+alias tvn='tvnamer --recursive'
+alias tvrename='tvn "$HOME/Jellyfin Server Media/TV"'
+alias debversion='apt-cache policy'
+alias micandsystem='pactl load-module module-loopback latency_msec=1'
+alias micandsystemoff='pactl unload-module module-loopback'
+alias recordall='micandsystem'
+alias recordalloff='micandsystemoff'
+alias uninstall='remove'
+alias de='ls -l /usr/share/xsessions/'
+alias loginmgr='bat /etc/X11/default-display-manager'
+alias nom='$HOME/go/bin/nom'
+alias kdesudo='lxqt-sudo'
+alias gksu='kdesudo'
+alias pkexec='kdesudo'
+alias su='sudo'
+
+# macOS
+alias afconvert='ffmpeg'
+alias afinfo='mediainfo'
+alias afplay='mpv'
+alias airport='networkstatus'
+alias alloc='free'
+alias apropos='tldr'
+alias automator='echo Automator not configured'
+alias asr='echo Restore not necessary'
+alias atsutil='fc-cache -vf'
+alias bless='echo All bootable OK'
+alias pmset='systemctl'
+alias softwareupdate='up'
+alias caffeinate='caffeine'
+alias textutil='vips'
+alias mdfind='fd'
+alias locate='fd'
+alias networkquality='speedtest-cli'
+alias screencapture='scrot'
+alias pbcopy='xclip -selection clipboard'
+alias pbpaste='xclip -selection clipboard -o'
+alias say='espeak'
+alias sips='vipsthumbnail'
+alias networksetup='nmcli'
+alias qlmanage='feh'
+#alias brew='$HOME/homebrew/bin/brew'
+
+alias mkfs.ntfs='mkfs.ntfs --fast'
+alias mkfs.ext4='mkfs.ext4 -E lazy_itable_init'
+alias open='xdg-open'
+alias Invoke-Item='xdg-open'
+alias Start-Process='xdg-open'
+alias move='mv'
+alias rename='mv'
+alias copy='cpr'
+alias remove-item='rm'
+alias remove-item-r='rm -r'
+alias get-content='bat'
+alias gci='bat'
+alias gc='bat'
+alias invoke-restmethod='irm'
+alias irm='curl'
+alias invoke-expression='iex'
+alias iex='eval'
+alias drivers='sudo lspci -v'
+alias logs='sudo journalctl|less|rg -i'
+alias convertdeb='sudo alien --to-rpm'
+alias convertrpm='sudo alien'
+alias gitc='git clone --depth 1'
+alias edit-dns='sudo $EDITOR /etc/resolv.conf'
+alias edit-hosts='sudo $EDITOR /etc/hosts'
+alias fd='fzf --query'
+alias webcam='sudo modprobe v4l2loopback'
+alias cloudsync='onedrive --synchronize --force'
+
+alias ffmpeg='$HOME/ffmpeg/ffmpeg'
+alias ffprobe='mediainfo'
+alias qt-faststart='$HOME/ffmpeg/qt-faststart'
+
+alias linuxservices='systemctl list-unit-files --type=service --state=enabled'
+alias macosservices='sudo launchctl list'
+alias checkfiles='rsync --checksum --dry-run -rvn /media/dkendall/exFAT/ $HOME/'
+alias dl='axel -a -n 16'
+alias dls='aria2c --enable-rpc=true --rpc-allow-origin-all=true --rpc-listen-all=true --console-log-level=error -x 16'
+alias rpmall='sudo rpm -Uvh *'
+alias chkdsk='fsck'
+alias Get-Volume='sudo lsblk -o NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL | rg -v loop'
+alias default='kcmshell5 filetypes'
+alias rmpipall='pip freeze --user | xargs pip uninstall -y'
+alias rmpnpm='rm -rf -v $PNPM_HOME'
+
+alias nextdnsinstall='sh -c "$(curl -sL https://nextdns.io/install)"'
+alias e.='open .'
+alias uefi='systemctl reboot --firmware-setup'
+alias tldr='/usr/local/bin/tldr'
+alias img2txt='image2txt'
+alias networkstatus='nmcli dev status'
+alias inst='sudo nala install'
+alias remove='sudo nala remove'
+alias purge='sudo nala purge'
+alias netstat='ss -t -r state established'
+alias ipconfig='ip route'
+alias ifconfig='ip route'
+alias cleanup='clean'
+alias audit='sudo lynis --forensics && pip-audit'
+
+alias batc='bat --paging=never --style=plain'
+alias lsh='ls -lah -U'
+alias lsf='ls -d "$PWD"/*'
+alias cls='clear'
+alias rc='$EDITOR $HOME/.mkshrc'
+alias visudo='sudo $EDITOR /etc/sudoers.d/dkendall'
+alias edit-grub='sudo $EDITOR /etc/default/grub'
+alias pfetch='bat --paging=never --style=plain $HOME/.cache/neofetch'
+alias instrpm='sudo rpm -ivh --force'
+alias gdebi='sudo gdebi'
+alias instdeb='gdebi'
+alias delrecent='rm $HOME/.local/share/recently-usd.xbel && sudo touch $HOME/.local/share/recently-usd.xbel'
+alias rm='rm -rf -v'
+alias unshareusb='/bin/eveusbc unshare all'
+alias shareusb='/bin/eveusbc share 12345 1-9.1'
+alias screenrec='ffmpeg -video_size 1920x1200 -framerate 60 -f x11grab -i :0.0+0,0 -f pulse -ac 2 -i default output-"$($now)".mkv'
+alias ffmpeglist='ffmpeg -list_devices true -f dshow -i dummy'
+alias flatten="find ./ -mindepth 2 -type f -exec mv -i '{}' . \;"
+alias emptydel='find ./ -empty -type d -delete'
+alias delempty='emptydel'
+alias gohome='cd "$HOME"'
+alias changejava='sudo alternatives --config java'
+alias addapp='xdg-open /usr/local/bin'
+alias logoff='sudo pkill -u dkendall'
+alias logout='logoff'
+alias yt-dlp='/usr/local/bin/yt-dlp'
+
+certinfo() {
+  gnutls-cli --print-cert "$1" < /dev/null | certtool --certificate-info
+}
+
+clearhistory(){
+rm ~/.zsh_history
+history -p
+}
+
+ffup() {
+parallel ::: "xfe $HOME" "axel -n 16 -o $HOME/user.js https://raw.githubusercontent.com/MANICX100/setup_scripts/main/user-overrides.js $HOME/user.js" "xfe $HOME/.var/app/org.mozilla.firefox/.mozilla/firefox/0v4n3hk1.default-release/"
+}
+
+boostvolume() {
+pactl list | rg -oP 'Sink #\K([0-9]+)' | while read -r i ; do pactl -- set-sink-volume $i +100% ; done
+}
+
+resetvolume() {
+pactl list | rg -oP 'Sink #\K([0-9]+)' | while read -r i ; do pactl -- set-sink-volume $i 100% ; done
+}
+
+rmr() {
+  find . -type f -name "$1" -delete
+}
+
+makeproject() {
+  local project_name="$1"
+  
+  mkdir -p "$project_name"
+  cd "$project_name"
+
+  mkdir lib res src
+
+  touch .gitignore
+  touch .gitmodules 
+  touch LICENSE
+  touch README.md
+  touch build.zig
+
+  echo "Created project: $project_name"
+}
+
+function cpr() {
+  local source_file=$1
+  local target_dir=$2
+
+  rsync -avAXESlHh --no-whole-file --size-only "${source_file}" "${target_dir}"
+}
+
+function cmdpath() {
+  ps -p $1 -o cmd= | pbcopy
+}
+
+clean() {
+flatpak uninstall --unused
+sudo nala autoremove -y
+sudo nala clean
+appman -c
+}
+
+rmcache(){
+rm -rf -v $HOME/.cache
+sudo rm -rfv /var/tmp/flatpak-cache-*
+echo 3 | sudo tee /proc/sys/vm/drop_caches
+}
+
+timeweb(){
+curl -L -w "time_namelookup: %{time_namelookup}\ntime_connect: %{time_connect}\ntime_appconnect: %{time_appconnect}\ntime_pretransfer: %{time_pretransfer}\ntime_redirect: %{time_redirect}\ntime_starttransfer: %{time_starttransfer}\ntime_total: %{time_total}\n" $@
+}
+
+systemctl() {
+  command sudo systemctl "$@"
+  watch -n 1 systemctl status "$@"
+}
+
+essentialpkgs() {
+dpkg-query -Wf '${Package;-40}${Priority}\n' | rg "required"
+}
+
+displayserv() {
+printf 'Session is: %s\n' "${DISPLAY:+X11}${WAYLAND_DISPLAY:+WAYLAND}"
+}
+
+icewmup() {
+rm $HOME/.icewm/keys
+axel -n 16 -o $HOME/.icewm/keys "https://raw.githubusercontent.com/MANICX100/setup_scripts/main/icewm-keys"
+icesh restart
+gohome
+}
+
+setresolutionall() {
+    for output in $(xrandr | rg " connected" | frawk '{ print $1 }'); do
+        xrandr --output $output --mode $1
+    done
+}
+
+all() {
+    for file in ./*; do
+        "$@" "$file"
+    done
+}
+
+reinstall() {
+    if [ $# -eq 0 ]; then
+        echo "Usage: reinstall <packagename>"
+        return 1
+    fi
+    packagename=$@
+    sudo nala remove -y $packagename
+    sudo nala install -y $packagename
+}
+
+function revsyncfolders() {
+rmcache
+sudo mount -o rw,uid=1000,gid=1000,user,exec,umask=003 /dev/sda1 /media/dkendall/exFAT
+rsync -avAXESlHh --delete --no-compress --no-whole-file --size-only /media/dkendall/exFAT/Linux $HOME/ 
+sudo mount -o rw,uid=1000,gid=1000,user,exec,umask=003 /dev/nvme1n1p4 /media/dkendall/windows
+rsync -avAXESlHh --delete --no-compress --no-whole-file --size-only /media/dkendall/exFAT/Windows /media/dkendall/windows/Users/dkendall/ 
+sudo umount /dev/sda1
+sudo umount /dev/nvme1n1p4
+}
+
+function syncfolders() {
+rmcache
+sudo mount -o rw,uid=1000,gid=1000,user,exec,umask=003 /dev/sda1 /media/dkendall/exFAT
+rsync -avAXESlHh --delete --no-compress --no-whole-file --size-only $HOME/ /media/dkendall/exFAT/Linux
+sudo mount -o rw,uid=1000,gid=1000,user,exec,umask=003 /dev/nvme1n1p4 /media/dkendall/windows
+rsync -avAXESlHh --delete --no-compress --no-whole-file --size-only /media/dkendall/windows/Users/dkendall/ /media/dkendall/exFAT/Windows
+sudo umount /dev/sda1
+sudo umount /dev/nvme1n1p4
+}
+
+function please() {
+    if alias -L | rg -q "^alias $1="; then
+        cmd=$(alias -L | rg "^alias $1=" | sd "^alias $1='(.*)'$" "\$1")
+        /usr/bin/sudo zsh -c "$cmd ${@:2}"
+    elif typeset -f | rg -q "^$1 \(\)"; then
+        cmd=$(typeset -f $1)
+        /usr/bin/sudo zsh -c "$cmd; $1 ${@:2}"
+    else
+        /usr/bin/sudo "$@"
+    fi
+}
+
+function up() {
+  if topgrade; then
+    git -C $HOME/powerlevel10k pull
+  fi
+}
+
+function display_path() {
+    echo $PATH
+}
+
+function remove_from_path() {
+    PATH=$(echo $PATH | sd "(^|:)$1(:|$)" "\1\2" | sd '^:|:$' '' | sd '::' ':')
+}
+
+function extract {
+ if [ $# -eq 0 ]; then
+    echo "Usage: extract <path/file_name>.<zip|rar|bz2|gz|tar|tbz2|tgz|Z|7z|xz|ex|tar.bz2|tar.gz|tar.xz|.zlib|.cso>"
+    echo "       extract <path/file_name_1.ext> [path/file_name_2.ext] [path/file_name_3.ext]"
+ fi
+    for n in "$@"; do
+        if [ ! -f "$n" ]; then
+            echo "'$n' - file doesn't exist"
+            return 1
+        fi
+
+        case "${n%,}" in
+          *.cbt|*.tar.bz2|*.tar.gz|*.tar.xz|*.tbz2|*.tgz|*.txz|*.tar)
+                       tar zxvf "$n"       ;;
+          *.lzma)      unlzma ./"$n"      ;;
+          *.bz2)       bunzip2 ./"$n"     ;;
+          *.cbr|*.rar) unrar x -ad ./"$n" ;;
+          *.gz)        gunzip ./"$n"      ;;
+          *.cbz|*.epub|*.zip) unzip ./"$n"   ;;
+          *.z)         uncompress ./"$n"  ;;
+          *.7z|*.apk|*.arj|*.cab|*.cb7|*.chm|*.deb|*.iso|*.lzh|*.msi|*.pkg|*.rpm|*.udf|*.wim|*.xar|*.vhd)
+                       7z x ./"$n"        ;;
+          *.xz)        unxz ./"$n"        ;;
+          *.exe)       cabextract ./"$n"  ;;
+          *.cpio)      cpio -id < ./"$n"  ;;
+          *.cba|*.ace) unace x ./"$n"     ;;
+          *.zpaq)      zpaq x ./"$n"      ;;
+          *.arc)       arc e ./"$n"       ;;
+          *.cso)       ciso 0 ./"$n" ./"$n.iso" && \
+                            extract "$n.iso" && \rm -f "$n" ;;
+          *.zlib)      zlib-flate -uncompress < ./"$n" > ./"$n.tmp" && \
+                            mv ./"$n.tmp" ./"${n%.*zlib}" && rm -f "$n"   ;;
+          *.dmg)
+                      hdiutil mount ./"$n" -mountpoint "./$n.mounted" ;;
+          *)
+                      echo "extract: '$n' - unknown archive method"
+                      return 1
+                      ;;
+        esac
+    done
+}
+
+onedrivelink() {
+    if [ $# -eq 0 ]; then
+        echo "Please provide a filename."
+        return 1
+    fi
+
+    filename=$1
+    homedir=$HOME"/OneDrive/"$filename
+
+    if [ -e "$homedir" ]; then
+        sudo ln -s $homedir /usr/local/bin/$filename
+        sudo chmod +x /usr/local/bin/$filename
+        echo "Symlink created and execution permission granted."
+    else
+        echo "The file does not exist in the OneDrive folder."
+    fi
+}
+
+function projectdl() {
+
+  if [ $# -eq 0 ]; then
+    echo "No arguments supplied. Please supply a Github username/repo."
+    return 1
+  fi
+
+  local user_repo=$1
+  local download_dir="/usr/local/bin"
+
+  curl -s https://api.github.com/repos/$user_repo/releases/latest \
+    | jq -r '.assets[] | select(.name | test("linux";"i")) | .browser_download_url' \
+    | xargs -I{} axel -n 16 -o $download_dir {}
+
+  printf "Do you want to extract the downloaded files? (yes/no): "
+  read -r extract_choice
+  extract_choice=$(echo "$extract_choice" | tr '[:upper:]' '[:lower:]')
+
+  if [[ $extract_choice == "yes" ]]; then
+    for file in $download_dir/*; do
+      extract "$file" 
+    done
+  fi
+
+}
+
+
+playtv() {
+    for file in $HOME/Videos/Personal/*; do
+        xdg-open "$file"
+    done
+}
+
+openall() {
+    for file in *; do
+        if [ -f "$file" ]; then
+            xdg-open "$file"
+        fi
+    done
+}
+
+rename-item() {
+    mv "$1" "$2"
+}
+
+fp() {
+    if [ $# -eq 0 ]; then
+        echo "Usage: fp <application-name>"
+        return
+    fi
+
+    app_name=$1
+
+    # Find the application ID
+    app_id=$(flatpak list --app --columns=name,application | frawk -v app="$app_name" '{ if ($1 == app) { print $2 } }')
+
+    if [ -z "$app_id" ]; then
+        echo "No application found with the name: $app_name"
+        return
+    fi
+
+    flatpak run $app_id
+}
+
+replaceline() {
+    lineNumber=$1
+    replacement=$2
+    filePath=$3
+    tempFile=${filePath}_temp
+    frawk -v n="$lineNumber" -v s="$replacement" 'NR == n {print s; next} {print}' $filePath > $tempFile
+    mv $tempFile $filePath
+}
+
+gitsetup() {
+git config --global user.name "Danny Kendall"
+git config --global user.email "d.manicx100@gmail.com"
+git config --global rebase.updateRefs true
+git config --global credential.helper store
+git config --global --add push.default current
+git config --global --add push.autoSetupRemote true
+}
+
+instsearch() {
+  if test $# -eq 0; then
+    echo "Please provide a package name."
+    return 1
+  fi
+
+  pkg_name=$1
+
+  echo "Searching for package '$pkg_name'"
+
+# Search in dpkg
+if type dpkg >/dev/null 2>&1; then
+  echo "=== DEB ==="
+  dpkg -l | rg -i "$pkg_name"
+fi
+
+
+  # Search in flatpak
+  if type flatpak >/dev/null 2>&1; then
+    echo "=== FLATPAK ==="
+    flatpak list | rg -i "$pkg_name"
+  fi
+
+  # Search in snap
+  if type snap >/dev/null 2>&1; then
+    echo "=== SNAP ==="
+    snap list | rg -i "$pkg_name"
+  fi
+
+  # Search in am
+  if type am >/dev/null 2>&1; then
+    echo "=== APPIMAGES ==="
+    am -f | rg -i "$pkg_name"
+  fi
+
+  # Search in dnf
+  if type dnf >/dev/null 2>&1; then
+    echo "=== RPM ==="
+    dnf list installed | rg -i "$pkg_name"
+  fi
+
+  # Search in zypper
+  if type zypper >/dev/null 2>&1; then
+    echo "=== RPM ==="
+    zypper se -i | rg -i "$pkg_name"
+  fi
+
+  # Search in paru
+  if type paru >/dev/null 2>&1; then
+    echo "=== AUR ==="
+    paru -Q | rg -i "$pkg_name"
+  fi
+
+  # Search in brew
+  if type brew >/dev/null 2>&1; then
+    echo "=== BREW ==="
+    brew list | rg -i "$pkg_name"
+  fi
+
+  # Search in mas
+  if type mas >/dev/null 2>&1; then
+    echo "=== APPSTORE ==="
+    mas list | rg -i "$pkg_name"
+  fi
+}
+
+pkgsearch() {
+  if test $# -eq 0; then
+    echo "Please provide a package name."
+    return 1
+  fi
+
+  pkg_name=$1
+
+  echo "Searching for package '$pkg_name'"
+
+  if command -v dpkg >/dev/null; then
+    # Search in apt
+    echo "=== DEB ==="
+    apt-cache search "$pkg_name" | rg -i "$pkg_name"
+  fi
+
+  if command -v dnf >/dev/null; then
+    # Search in dnf
+    echo "=== RPM ==="
+    dnf search "$pkg_name"
+  fi
+
+  if command -v zypper >/dev/null; then
+    # Search in zypper
+    echo "=== RPM ==="
+    zypper se "$pkg_name"
+  fi
+
+  if command -v paru >/dev/null; then
+    # Search in paru
+    echo "=== AUR ==="
+    paru -Ss "$pkg_name"
+  fi
+
+  if command -v brew >/dev/null; then
+    # Search in brew
+    echo "=== BREW ==="
+    brew search "$pkg_name"
+  fi
+
+  # Search in flatpak
+  if command -v flatpak >/dev/null; then
+    echo "=== FLATPAK ==="
+    flatpak remote-ls flathub | rg -i "$pkg_name"
+  fi
+
+  # Search in snap
+  if command -v snap >/dev/null; then
+    echo "=== SNAP ==="
+    snap find "$pkg_name"
+  fi
+
+  # Search in am
+  if command -v am >/dev/null; then
+    echo "=== APPIMAGES ==="
+    am -q "$pkg_name"
+  fi
+
+  if command -v mas >/dev/null; then
+    # Search in mas
+    echo "=== APPSTORE ==="
+    mas search "$pkg_name"
+  fi
+}
+
+disable-all-network-interfaces() {
+    if type ip > /dev/null 2>&1; then
+        for iface in $(ip link show | rg '^[0-9]+:' | rg -oP '[a-zA-Z0-9@.:]+'); do
+            echo "Disabling $iface"
+            sudo ip link set $iface down
+        done
+    else
+        for service in $(networksetup -listallnetworkservices); do
+            echo "Disabling $service"
+            sudo networksetup -setnetworkserviceenabled "$service" off
+        done
+    fi
+}
+
+enable-all-network-interfaces() {
+    if type ip > /dev/null 2>&1; then
+        for iface in $(ip link show | rg '^[0-9]+:' | rg -oP '[a-zA-Z0-9@.:]+'); do
+            echo "Enabling $iface"
+            sudo ip link set $iface up
+        done
+    else
+        for service in $(networksetup -listallnetworkservices); do
+            echo "Enabling $service"
+            sudo networksetup -setnetworkserviceenabled "$service" on
+        done
+    fi
+}
+
+networkcycle() {
+    disable-all-network-interfaces
+    enable-all-network-interfaces
+}
+
+Resync-Time() {
+    if ! command -v ntpdate >/dev/null 2>&1; then
+        echo "ntpdate is not installed. Please install it and try again."
+        return 1
+    fi
+    echo "Resyncing system time..."
+    sudo ntpdate pool.ntp.org
+}
+
+download_yt_video() {
+    resolution=$1
+    video_url=$2
+    command="yt-dlp -f \"bestvideo[height<=$resolution]+bestaudio/best[height<=$resolution]\" \"$video_url\""
+    eval $command
+}
+
+z() {
+    target_dir=$(find $PWD -type d -name "*$1*" -print | fzf)
+    if [ -n "$target_dir" ]; then
+        cd $target_dir
+    fi
+}
+
+fdo() {
+    query=$(printf "%s " "$@")
+    selected_file=$(fzf --query "$query")
+    xdg-open "$selected_file"
+}
+
+git_unsynced() {
+    for dir in $(find . -name .git -type d -prune); do
+        if ! git -C "${dir%/*}" diff --quiet; then
+            echo "$dir has uncommitted changes"
+            git -C "${dir%/*}" status --short
+        fi
+    done
+}
+
+burnin_srt() {
+    filename=$(basename "$1")  # get the full file name
+    base=$(echo $filename | sed 's/\.[^.]*$//')  # get the file name without the extension
+    subtitle=$(echo $1 | sed 's/\.[^.]*$/.srt/')
+    ffmpeg -i "$1" -vf subtitles="$subtitle" -preset ultrafast -threads 0 "$base-srt.mkv"
+}
+
+speedupvid() {
+    filename=$(basename "$1")  # get the full file name
+    extension=$(echo $filename | sed 's/.*\.//')  # get the extension
+    base=$(echo $filename | sed 's/\.[^.]*$//')  # get the file name without the extension
+    ffmpeg -i "$1" -filter_complex "[0:v]setpts=1/$2*PTS[v];[0:a]atempo=$2[a]" -map "[v]" -map "[a]" -preset ultrafast -threads 0 "$base-speed.mkv"
+}
+
+burnin_srt_all() {
+    for ext in mp4 avi mkv; do
+        for file in *.$ext; do
+            # If the glob didn't match any files, move to next iteration
+            [ -e "$file" ] || continue
+            burnin_srt "$file"
+            rm "$file"
+        done
+    done
+}
+
+speedupvid_all() {
+    for ext in mp4 avi mkv; do
+        for file in *.$ext; do
+            # If the glob didn't match any files, move to next iteration
+            [ -e "$file" ] || continue
+            speedupvid "$file" 1.2
+            rm "$file"
+            rm *.srt
+        done
+    done
+}
+
+create_empty_srt_files() {
+    for f in *.mp4 *.mkv *.avi; do
+        if [ -f "$f" ]; then
+            base=$(echo "$f" | sed -E 's/\.[^.]+$//')
+            srt_file="$base.srt"
+            if [ ! -f "$srt_file" ]; then
+                touch "$srt_file"
+            fi
+        fi
+    done
+}
+
+unhide_files() {
+    for file in .*; do
+        mv "$file" "${file#.}"
+    done
+}
+
+hide_files() {
+    for file in *; do
+        if [ -f "$file" ]; then
+            mv "$file" ".$file"
+        fi
+    done
+}
+
+tgupdate() {
+rm $HOME/.config/topgrade.toml
+axel -n 16 -o $HOME/.config/topgrade.toml "https://github.com/MANICX100/setup_scripts/raw/main/topgrade_lin.toml"
+topgrade
+}
+
+serv() {
+    sudo redbean -C /usr/local/bin/ca.crt -K /usr/local/bin/ca.key -p 80 -p 443 -D $@
+}
+
+rmopt() {
+    rm -rf -v "/opt/$1"
+    rm -rf -v "/usr/local/bin/$1"
+    rm -rf -v "/usr/local/share/applications/$1.desktop"
+}
+
+openperm() {
+    sudo chmod -R a+rwx $@
+}
+
+takeown() {
+    sudo chown dkendall $@
+}
+
+rmspecial() {
+    find . -type f -exec bash -c 'mv "$1" "${1//[^[:alnum:].-]/}"' _ {} \;
+    unhide_files
+}
+
+dictate() {
+    cd nerd-dictation
+    ./nerd-dictation begin --vosk-model-dir=./model &
+}
+
+enddictate() {
+    ./nerd-dictation end
+    gohome
+}
+
+yt-dlp-trim() {
+    yt-dlp -f "[protocol!*=dash]" --external-downloader ffmpeg --external-downloader-args "ffmpeg_i:-ss $2 -to $3" $1
+}
+
+ffsrtspeed() {
+    ffmpeg -i $1 -i $3 -filter_complex "[0:v]setpts=1/$2*PTS[v];[0:a]rubberband=tempo=$2[a]" -map "[v]" -map "[a]" -map 1 -preset ultrafast $($now)-output.mkv
+}
+
+image2txt() {
+    read -p 'Please provide the file path for the image: ' confirm
+    tesseract -l eng $confirm $($now)-output-from-ocr
+    cat $($now)-output-from-ocr.txt|xclip -selection c
+}
+
+yt-dlp-audio() {
+    yt-dlp -f 'ba' -x --audio-format mp3 $@
+}
+
+Get-PubIP() {
+    wget --no-cache -q -O - ipinfo.io/ip
+}
+
+bak() {
+    zip -r $HOME/$($now)-bak.zip /etc/default/ /etc/profile.d/ /usr/local/bin /opt/
+}
+
+stripclip() {
+    xclip -selection c -o | xargs | rg -o '.*' | xclip -selection c
+}
+
+rcupdate() {
+rm $HOME/.mkshrc
+axel -n 16 -o $HOME/.mkshrc https://github.com/MANICX100/mksh-scripts/raw/main/mkshrc
+. $HOME/.mkshrc
+}
+
+osinfo=$(rg -ioP '^ID=\K.+' /etc/os-release)
+
+neofetch > $HOME/.cache/neofetch
+sd 6500 6900 $HOME/.cache/neofetch
+sd 6400 6800  $HOME/.cache/neofetch
+sd 3.201 6.0 $HOME/.cache/neofetch
+
+flushdns() {
+sudo resolvectl flush-caches
+echo "Successfully flushed the DNS Resolver Cache"
+}
+
+orderfiles() {
+    list=(./**.*)
+    for val in ${list[@]}; do
+        ext=$(path extension -- $val | string replace . "")
+        mkdir -p "$ext"
+        cp "$val" "./$ext"
+    done
+}
+
+subs() {
+    cd "$(dirname "$1")"
+    "$HOME/OneDrive/OpenSubtitlesDownload.py" --cli --auto --username MANICX100 --password 5z6!!Evd "$1"
+    cd "$HOME"
+}
+
+yt() {
+  cd "$HOME/Videos/yt/"
+  yt-dlp -f 'bv*[ext=mp4]+ba[ext=m4a]/b[ext=mp4]' \
+    'https://www.youtube.com/playlist?list=PLJElTFmVZU3vW-BIfsI2AmfVDL9PzqFmg' \
+    --external-downloader axel --external-downloader-args "-n 16"
+
+  cd "$HOME"
+}
+
+
+deltv() {
+    rm -rf "$HOME/Videos/Personal"
+    cd "$HOME/Videos/"
+    mkdir Personal
+    cd "$HOME"
+}
+
+delyt() {
+    rm -rf "$HOME/Videos/yt"
+    cd "$HOME/Videos/"
+    mkdir yt
+    cd "$HOME"
+}
+
+lazyg() {
+    git add .
+    git commit -a -m "$1"
+    git push
+}
+
+newgit() {
+    git add .
+    git commit -a --allow-empty-message -m " "
+    git push
+}
+
+gitprep() {
+    git stash
+    git pull
+    git stash pop
+}
+
+gitIgnoreRm() {
+    git rm -r --cached .
+    git add .
+    git commit -m "Update .gitignore"
+}
+
+if [ -n "$ZSH_VERSION" ]; then
+source $HOME/powerlevel10k/powerlevel10k.zsh-theme
+fi
+
+if [ -n "$ZSH_VERSION" ]; then
+# To customize prompt, run `p10k configure` or edit $HOME/.p10k.zsh.
+[[ ! -f $HOME/.p10k.zsh ]] || source $HOME/.p10k.zsh
+fi
+
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
+
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
