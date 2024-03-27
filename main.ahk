@@ -27,9 +27,9 @@ WinShow(TheWindowTitle)
 Return
 }
 
-^!W::ToggleWinMinimize("Thorium")
+^!W::ToggleWinMinimize("Edge")
 
-^!N::Run("`"Notepad3.exe`"")
+^!N::Run("C:\Users\Dan Kendall\OneDrive\Documents\txt\ends.txt")
 
 ^!S::Shutdown(5)
 
@@ -52,11 +52,11 @@ return
     return
 }
 
-^!x::Run "C:\Users\dmani\scoop\apps\xkill\current\XKill.exe"
+^!x::Run "C:\Users\Dan Kendall\scoop\apps\xkill\current\XKill.exe"
 
 +PrintScreen::
 {
-Run "C:\Users\dmani\scoop\apps\fscapture\current\FSCapture.exe"
+Run "C:\Users\Dan Kendall\scoop\apps\fscapture\current\FSCapture.exe"
 }
 
 ^!+t::
@@ -68,12 +68,12 @@ Run "C:\Users\dmani\scoop\apps\fscapture\current\FSCapture.exe"
 
 ^!t::
 {
-Run "C:\Users\Dan Kendall\.cargo\bin\alacritty.exe"
+    Run 'C:\Users\Dan Kendall\scoop\apps\alacritty\current\alacritty.exe --working-directory "C:\Users\Dan Kendall"'
 }
 
 ^!i::Run "ms-settings:windowsupdate"
 
-^+!d::Run "C:\Users\dmani\scoop\apps\landrop\current\LANDrop.exe"
+^+!d::Run "C:\Users\Dan Kendall\scoop\apps\landrop\current\LANDrop.exe"
 
 #PgUp::Send "{Volume_Up}"
 #PgDn::Send "{Volume_Down}"
