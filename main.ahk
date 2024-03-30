@@ -31,7 +31,13 @@ Return
 
 ^!N::Run("C:\Users\Dan Kendall\OneDrive\Documents\txt\ends.txt")
 
-^!S::Shutdown(5)
+;^!S::Shutdown(5)
+
+^!s::
+{
+    DllCall("PowrProf\SetSuspendState", "Int", 0, "Int", 0, "Int", 0)
+    return
+}
 
 ^!R::Shutdown(6)
 

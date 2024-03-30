@@ -859,7 +859,7 @@ function stopup {
 }
 
 function uefi {
-shutdown /r /fw /t 0
+sudo shutdown /r /fw /t 0
 }
 
 function inst {
