@@ -1,9 +1,10 @@
+[misc]
 # Don't ask for confirmations
 assume_yes = true
 
 # Disable specific steps - same options as the command line flag
-#disable = ["emacs", "wsl", "wsl_update", "system", "winget"]
-disable = ["powershell"]
+disable = ["emacs", "wsl", "wsl_update", "system", "winget"]
+# disable = ["powershell"]
 
 # Ignore failures for these steps
 #ignore_failures = ["powershell"]
@@ -129,4 +130,4 @@ enable_winget = true
 
 [distrobox]
 #use_root = false
-#containers = ["archlinux-latest"]
+#containers = ["archlinux-lat

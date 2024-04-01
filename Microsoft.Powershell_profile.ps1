@@ -875,11 +875,6 @@ aria2c --max-connection-per-server=16 --allow-overwrite=true -d (Split-Path $pro
 source
 }
 
-function tgupdate {
-aria2c --max-connection-per-server=16 --allow-overwrite=true -d $env:APPDATA -o topgrade.toml "https://github.com/MANICX100/setup_scripts/raw/main/topgrade_win.toml"
- gsudo topgrade
-}
-
 function repairwindows {
 chkdsk c: /F /R
 DISM.exe /Online /Cleanup-image /Restorehealth
