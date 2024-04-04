@@ -935,7 +935,7 @@ function disable-all-network-interfaces {
     Write-Host "Starting to disable all network interfaces"
     $adapters = Get-NetAdapter
     Write-Host "Found $($adapters.Count) network interfaces"
-    $adapters | Disable-NetAdapter -Confirm:$false
+    $adapters | gsudo Disable-NetAdapter -Confirm:$false
     Write-Host "All network interfaces have been disabled"
 }
 
@@ -943,7 +943,7 @@ function enable-all-network-interfaces {
     Write-Host "Starting to enable all network interfaces"
     $adapters = Get-NetAdapter
     Write-Host "Found $($adapters.Count) network interfaces"
-    $adapters | Enable-NetAdapter -Confirm:$false
+    $adapters | gsudo Enable-NetAdapter -Confirm:$false
     Write-Host "All network interfaces have been enabled"
 }
 
