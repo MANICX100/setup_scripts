@@ -60,6 +60,13 @@ return
 
 ^!x::Run "C:\Users\dmani\scoop\apps\xkill\current\XKill.exe"
 
+
+;+PrintScreen::
+;{
+;Run("SnippingTool.exe /clip")
+;return
+;}
+
 +PrintScreen::
 {
 Run "C:\Users\dmani\scoop\apps\fscapture\current\FSCapture.exe"
