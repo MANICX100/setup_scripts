@@ -16,4 +16,5 @@ if [ -d "$HOME/.local/bin" ] ; then
 fi
 . "$HOME/.cargo/env"
 
-export PATH=$PATH:/home/dkendall/.local/bin:/usr/sbin/:/home/dkendall/pypy/bin:/usr/racket/bin:/usr/local/go/bin:/home/dkendall/go/bin:/var/lib/flatpak/exports/bin
+export BUN_INSTALL="$HOME/.bun"
+export PATH=$PATH:/home/dkendall/.local/bin:/usr/sbin/:/home/dkendall/pypy/bin:/usr/racket/bin:/usr/local/go/bin:/home/dkendall/go/bin:/var/lib/flatpak/exports/bin:$BUN_INSTALL
