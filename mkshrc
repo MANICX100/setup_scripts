@@ -191,7 +191,7 @@ alias cls='clear'
 alias rc='$EDITOR $HOME/.mkshrc'
 alias visudo='sudo $EDITOR /etc/sudoers.d/dkendall'
 alias edit-grub='sudo $EDITOR /etc/default/grub'
-alias pfetch='bat --paging=never --style=plain $HOME/.cache/neofetch'
+
 alias instrpm='sudo rpm -ivh --force'
 alias gdebi='sudo gdebi'
 alias instdeb='gdebi'
