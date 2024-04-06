@@ -1,5 +1,7 @@
 printf "\e[?2004l"
 
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+
 export EDITOR=nvem
 export TERM=linux
 
@@ -850,11 +852,6 @@ axel -n 16 -o $HOME/.mkshrc https://github.com/MANICX100/mksh-scripts/raw/main/m
 }
 
 osinfo=$(rg -ioP '^ID=\K.+' /etc/os-release)
-
-neofetch > $HOME/.cache/neofetch
-sd 6500 6900 $HOME/.cache/neofetch
-sd 6400 6800  $HOME/.cache/neofetch
-sd 3.201 6.0 $HOME/.cache/neofetch
 
 flushdns() {
 sudo resolvectl flush-caches
