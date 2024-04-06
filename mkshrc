@@ -931,7 +931,3 @@ if [ -n "$ZSH_VERSION" ]; then
 fi
 
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
-
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-export PATH="/var/lib/flatpak/exports/bin/bin:$PATH"
