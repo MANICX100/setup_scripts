@@ -3,8 +3,7 @@
 /usr/bin/lxqt-policykit-agent &
 sensible-browser &
 diodon &
-alacritty &
-rustdesk --tray &
+flatpak run com.rustdesk.RustDesk/x86_64/master &
 /usr/local/bin/conky &
 thunderbird &
 beeper
