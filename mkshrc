@@ -172,7 +172,7 @@ alias rmpnpm='rm -rf -v $PNPM_HOME'
 alias nextdnsinstall='sh -c "$(curl -sL https://nextdns.io/install)"'
 alias e.='open .'
 alias uefi='systemctl reboot --firmware-setup'
-alias tldr='/usr/local/bin/tldr'
+
 alias img2txt='image2txt'
 alias networkstatus='nmcli dev status'
 alias inst='sudo nala install'
