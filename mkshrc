@@ -691,13 +691,6 @@ download_yt_video() {
     eval $command
 }
 
-z() {
-    target_dir=$(find $PWD -type d -name "*$1*" -print | fzf)
-    if [ -n "$target_dir" ]; then
-        cd $target_dir
-    fi
-}
-
 fdo() {
     query=$(printf "%s " "$@")
     selected_file=$(fzf --query "$query")
@@ -931,3 +924,5 @@ if [ -n "$ZSH_VERSION" ]; then
 fi
 
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
+
+eval "$(zoxide init zsh)"
