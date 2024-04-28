@@ -131,7 +131,7 @@ alias open='xdg-open'
 alias Invoke-Item='xdg-open'
 alias Start-Process='xdg-open'
 alias move='mv'
-alias rename='mv'
+
 alias copy='cpr'
 alias remove-item='rm'
 alias remove-item-r='rm -r'

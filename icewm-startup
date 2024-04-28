@@ -4,5 +4,4 @@
 sensible-browser &
 diodon &
 rustdesk --tray &
-/usr/local/bin/conky &
-beeper
+/usr/local/bin/conky
