@@ -35,6 +35,8 @@ sudo systemctl restart systemd-resolved.service
 sudo systemctl restart systemd-resolved.service
 }
 
+alias openallpdf='find . -iname '*\.pdf' -print0 | xargs -0 -n1 mupdf-x11'
+
 alias mupdf='mupdf-x11'
 alias upkernel='inst librados2 ubuntu-standard gnome-control-center gvfs gvfs-backends gvfs-common gvfs-daemons gvfs-fuse gvfs-libs libaria2-0 linux-generic coreutils unzip firmware-sof-signed tracker-extract cloud-init golang-go dpkg libdpkg-perl ubuntu-pro-client-l10n -y'
 
