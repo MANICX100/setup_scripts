@@ -67,12 +67,13 @@ Set-Alias pl "perl"
 Set-Alias pedeps "listpedeps"
 Set-Alias rsync "rclone"
 Set-Alias certinfo "Get-CertificateInfo"
+Set-Alias rcupdate "Update-Profile"
 
 # Functions
 function Update-Profile {
     if (-not $global:canConnectToGitHub) { return }
     
-    $url = "https://raw.githubusercontent.com/ChrisTitusTech/powershell-profile/main/Microsoft.PowerShell_profile.ps1"
+    $url = "https://github.com/MANICX100/setup_scripts/raw/main/Microsoft.Powershell_profile.ps1"
     $oldHash = Get-FileHash $PROFILE
     Invoke-RestMethod $url -OutFile "$env:TEMP/Microsoft.PowerShell_profile.ps1"
     $newHash = Get-FileHash "$env:TEMP/Microsoft.PowerShell_profile.ps1"
@@ -190,10 +191,6 @@ function Set-Resolution($resolution) {
 }
 function ffmpeglist { ffmpeg -list_devices true -f dshow -i dummy }
 function screenrec { ffmpeg -f dshow -i audio=$args[0] -y -f gdigrab -framerate 30 -draw_mouse 1 -i desktop -c:v libx264 -f mp4 output-$(Get-Date -UFormat "%Y-%m-%d_%H-%m-%S").mp4 }
-function rcupdate { 
-    aria2c --max-connection-per-server=16 --allow-overwrite=true -d (Split-Path $PROFILE) -o Microsoft.Powershell_profile.ps1 "https://github.com/MANICX100/setup_scripts/raw/main/Microsoft.Powershell_profile.ps1"
-    source
-}
 
 # Final Setup
 oh-my-posh init pwsh --config https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/cobalt2.omp.json | Invoke-Expression
