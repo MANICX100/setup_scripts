@@ -4,4 +4,5 @@
 sensible-browser &
 diodon &
 rustdesk --tray &
+ksnip &
 /usr/local/bin/conky

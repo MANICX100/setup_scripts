@@ -35,6 +35,8 @@ sudo systemctl restart systemd-resolved.service
 sudo systemctl restart systemd-resolved.service
 }
 
+alias uxplayaudio='uxplay -vs 0'
+
 alias openallpdf="find . -iname '*\.pdf' -print0 | xargs -0 -n1 mupdf-x11"
 
 alias mupdf='mupdf-x11'
