@@ -35,8 +35,8 @@ sudo systemctl restart systemd-resolved.service
 sudo systemctl restart systemd-resolved.service
 }
 
-upheldhack() {
-sudo nala install $(sudo nala list --upgradable | rg -o '^[^[:space:]├└]+' | tr '\n' ' ')
+function upheldback() {
+    sudo nala install $(sudo nala list --upgradable | rg -o '^[^[:space:]├└]+' | tr '\n' ' ')
 }
 
 alias uxplayaudio='uxplay -vs 0'
