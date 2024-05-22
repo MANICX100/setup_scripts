@@ -8,8 +8,8 @@ INTERVAL=300  # Change every 5 minutes
 
 while true; do
     for wallpaper in "$WALLPAPER_DIR"/*; do
-        # Set the wallpaper with feh using --bg-fill
-        feh --bg-fill "$wallpaper"
+        # Set the wallpaper with feh
+        feh --bg-center "$wallpaper"
         # Wait for the specified interval
         sleep "$INTERVAL"
     done
