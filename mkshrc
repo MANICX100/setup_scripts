@@ -39,6 +39,8 @@ function upheldback() {
     sudo nala install $(sudo nala list --upgradable | rg -o '^[^[:space:]├└]+' | tr '\n' ' ')
 }
 
+alias glances='sudo docker run --rm -e TZ="${TZ}" -v /var/run/docker.sock:/var/run/docker.sock:ro -v /run/user/1000/podman/podman.sock:/run/user/1000/podman/podman.sock:ro --pid host --network host -it nicolargo/glances:latest-full'
+
 alias uxplayaudio='uxplay -vs 0'
 alias openallpdf="find . -iname '*\.pdf' -print0 | xargs -0 -n1 mupdf-x11"
 alias mupdf='mupdf-x11'

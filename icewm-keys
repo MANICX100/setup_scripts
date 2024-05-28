@@ -14,7 +14,7 @@ key "Super+Up" wmctrl -r :ACTIVE: -b add,maximized_vert,maximized_horz
 key "Super+Down" wmctrl -r :ACTIVE: -b toggle,hidden
 key "Ctrl+Alt+b" sensible-browser
 
-key "Menu" xdg-open https://claude.ai
+key "Menu" /home/dkendall/gpt4all/bin/chat
 
 key "Ctrl+Alt+t" alacritty
 key "Ctrl+Alt+r" sudo systemctl reboot
