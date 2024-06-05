@@ -6,4 +6,6 @@ diodon &
 rustdesk --tray &
 ksnip &
 /home/dkendall/cyclewallpapers.sh &
-/usr/local/bin/conky
+/usr/local/bin/conky &
+thunderbird &
+/usr/local/bin/cortile

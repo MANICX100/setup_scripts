@@ -8,13 +8,9 @@ key "Ctrl+Super+Enter" /home/dkendall/yasr.sh
 key "Super+KP_Add" xzoom -mag 2
 key "Super+Shift+G" normcap
 
-key "Super+Left" /home/dkendall/windowsnap.sh left
-key "Super+Right" /home/dkendall/windowsnap.sh right
-key "Super+Up" wmctrl -r :ACTIVE: -b add,maximized_vert,maximized_horz
-key "Super+Down" wmctrl -r :ACTIVE: -b toggle,hidden
 key "Ctrl+Alt+b" sensible-browser
 
-key "Menu" /home/dkendall/gpt4all/bin/chat
+key "Menu" flatpak run com.jeffser.Alpaca/x86_64/stable
 
 key "Ctrl+Alt+t" alacritty
 key "Ctrl+Alt+r" sudo systemctl reboot

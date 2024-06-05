@@ -276,7 +276,7 @@ clean() {
 flatpak uninstall --unused
 sudo nala autoremove -y
 sudo nala clean
-appman -c
+am -c
 }
 
 rmcache(){
