@@ -1,0 +1,51 @@
+# Set modifier key
+set $mod Mod4
+
+# Key bindings
+bindsym $mod+d exec wmctrl -k on
+bindsym $mod+Shift+d exec wmctrl -k off
+bindsym $mod+Shift+m exec flatpak run org.kde.kruler/x86_64/stable
+bindsym $mod+Shift+c exec gpick
+bindsym $mod+period exec flatpak run it.mijorus.smile
+bindsym Ctrl+$mod+Return exec /home/dkendall/yasr.sh
+bindsym $mod+KP_Add exec xzoom -mag 2
+bindsym $mod+Shift+g exec normcap
+bindsym Ctrl+Mod1+b exec sensible-browser
+bindsym Menu exec flatpak run com.jeffser.Alpaca/x86_64/stable
+bindsym Ctrl+Mod1+t exec alacritty
+bindsym Ctrl+Mod1+r exec sudo systemctl reboot
+bindsym Ctrl+Mod1+s exec sudo /usr/sbin/poweroff
+bindsym Ctrl+Mod1+l exec /home/dkendall/lock.sh
+bindsym $mod+l exec /home/dkendall/lock.sh
+bindsym Ctrl+Mod1+n exec alacritty -e nvem /home/dkendall/OneDrive/Documents/txt/ends.txt
+bindsym $mod+e exec xdg-open "/home/dkendall/Jellyfin Server Media/"
+bindsym Ctrl+Mod1+Shift+e exec /home/dkendall/windows.sh
+bindsym Ctrl+Mod1+i exec pavucontrol
+bindsym $mod+i exec pavucontrol
+bindsym Ctrl+Mod1+v exec /usr/bin/diodon
+bindsym $mod+Shift+s exec scrot -s '/tmp/%F_%T_$wx$h.png' -e 'xclip -selection clipboard -target image/png -i $f'
+bindsym Shift+Print exec flatpak run sa.sy.bluerecorder/x86_64/stable
+bindsym Ctrl+Mod1+m exec flatpak run io.gitlab.zehkira.Monophony
+bindsym Ctrl+Space exec dmenu_run -i
+bindsym Ctrl+Mod1+x exec xkill
+bindsym Ctrl+Shift+Escape exec flatpak run net.nokyan.Resources/x86_64/stable
+bindsym Ctrl+Mod1+Shift+t exec wmctrl -r :ACTIVE: -b toggle,above
+bindsym Ctrl+$mod+t exec wmctrl -r :ACTIVE: -b toggle,above
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym Ctrl+Mod1+Up exec xrandr --output HDMI-A-2 --rotate normal
+bindsym Ctrl+Mod1+Down exec xrandr --output HDMI-A-2 --rotate inverted
+bindsym Ctrl+Mod1+Left exec xrandr --output HDMI-A-2 --rotate left
+bindsym Ctrl+Mod1+Right exec xrandr --output HDMI-A-2 --rotate right
+bindsym $mod+Page_Up exec amixer -q sset Master 5%+
+bindsym $mod+Page_Down exec amixer -q sset Master 5%-
+
+# Start applications on startup in Sway
+exec /usr/bin/lxqt-policykit-agent
+exec sensible-browser
+exec diodon
+exec rustdesk --tray
+exec ksnip
+exec /home/dkendall/cyclewallpapers.sh
+exec /usr/local/bin/conky
+exec thunderbird
+exec espanso
