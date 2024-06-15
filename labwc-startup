@@ -1,5 +1,19 @@
-# Start diodon
+#!/bin/sh
+
+# PolicyKit authentication agent
+/usr/bin/lxqt-policykit-agent &
+
+# Launch sensible-browser
+sensible-browser &
+
+# Launch Diodon clipboard manager
 diodon &
 
-# Start sensible-browser
-sensible-browser &
+# Launch RustDesk with tray icon
+rustdesk --tray &
+
+# Launch Ksnip screenshot tool
+ksnip &
+
+# Run custom wallpaper cycle script
+/home/dkendall/cyclewallpapers.sh &
