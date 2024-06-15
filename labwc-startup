@@ -1,0 +1,5 @@
+# Start diodon
+diodon &
+
+# Start sensible-browser
+sensible-browser &
