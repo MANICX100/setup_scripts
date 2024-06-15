@@ -27,7 +27,7 @@ key "Ctrl+Alt+v" /usr/bin/diodon
 key "Super+Shift+S" scrot -s '/tmp/%F_%T_$wx$h.png' -e 'xclip -selection clipboard -target image/png -i $f'
 
 key "Shift+Print" flatpak run sa.sy.bluerecorder/x86_64/stable
-key "Ctrl+Alt+m" flatpak run io.gitlab.zehkira.Monophony
+key "Ctrl+Alt+m" flatpak run org.kde.audiotube
 key "Ctrl+Space" dmenu_run -i
 key "Ctrl+Alt+x" xkill
 key "Ctrl+Shift+Esc" flatpak run net.nokyan.Resources/x86_64/stable
