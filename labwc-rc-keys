@@ -1,5 +1,15 @@
 <keyboard>
-    <keybind key="W-d">
+
+     <!-- Alt+Tab for window switching -->
+        <keybind key="A-Tab">
+            <action name="NextWindow">
+                <finalactions>
+                    <action name="Focus"/>
+                </finalactions>
+            </action>
+        </keybind>
+
+<keybind key="W-d">
         <action name="Execute">
             <command>wmctrl -k on</command>
         </action>
