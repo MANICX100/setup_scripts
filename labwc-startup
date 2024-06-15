@@ -8,9 +8,3 @@ sensible-browser &
 
 # Launch Diodon clipboard manager
 diodon &
-
-# Launch RustDesk with tray icon
-rustdesk --tray &
-
-# Launch Ksnip screenshot tool
-ksnip &
