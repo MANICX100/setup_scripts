@@ -4,4 +4,4 @@
 sensible-browser &
 diodon &
 rustdesk &
-setxkbmap gb &
+/home/dkendall/setup_scripts/setxbmap.sh &
