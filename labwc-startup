@@ -1,13 +1,7 @@
 #!/bin/sh
 
-# PolicyKit authentication agent
 /usr/bin/lxqt-policykit-agent &
-
-# Launch sensible-browser
 sensible-browser &
-
-# Launch Diodon clipboard manager
 diodon &
-
-# Launch Rustdesk
 rustdesk &
+setxkbmap gb &
