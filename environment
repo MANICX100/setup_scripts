@@ -1,3 +1,3 @@
 BUN_INSTALL="$HOME/.bun"
-PATH="/home/dkendall/.local/bin:/usr/sbin/:/home/dkendall/pypy/bin:/usr/racket/bin:/usr/local/go/bin:/home/dkendall/go/bin:/var/lib/flatpak/exports/bin:/home/dkendall/.bun:/usr/bin"
+PATH="/home/dkendall/.local/bin:/usr/sbin/:/home/dkendall/pypy/bin:/usr/racket/bin:/usr/local/go/bin:/home/dkendall/go/bin:/var/lib/flatpak/exports/bin:/home/dkendall/.bun:/usr/bin:/usr/local/bin"
 XDG_DATA_DIRS="/usr/local/share:/usr/share:/var/lib/flatpak/exports/share"
