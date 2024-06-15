@@ -1,0 +1,182 @@
+<keyboard>
+    <keybind key="W-d">
+        <action name="Execute">
+            <command>wmctrl -k on</command>
+        </action>
+    </keybind>
+    <keybind key="W-S-d">
+        <action name="Execute">
+            <command>wmctrl -k off</command>
+        </action>
+    </keybind>
+    <keybind key="W-S-m">
+        <action name="Execute">
+            <command>flatpak run org.kde.kruler/x86_64/stable</command>
+        </action>
+    </keybind>
+    <keybind key="W-S-c">
+        <action name="Execute">
+            <command>gpick</command>
+        </action>
+    </keybind>
+    <keybind key="W-period">
+        <action name="Execute">
+            <command>flatpak run it.mijorus.smile</command>
+        </action>
+    </keybind>
+    <keybind key="C-W-Return">
+        <action name="Execute">
+            <command>/home/dkendall/yasr.sh</command>
+        </action>
+    </keybind>
+    <keybind key="W-KP_Add">
+        <action name="Execute">
+            <command>xzoom -mag 2</command>
+        </action>
+    </keybind>
+    <keybind key="W-S-g">
+        <action name="Execute">
+            <command>normcap</command>
+        </action>
+    </keybind>
+    <keybind key="C-A-b">
+        <action name="Execute">
+            <command>sensible-browser</command>
+        </action>
+    </keybind>
+    <keybind key="Menu">
+        <action name="Execute">
+            <command>flatpak run com.jeffser.Alpaca/x86_64/stable</command>
+        </action>
+    </keybind>
+    <keybind key="C-A-t">
+        <action name="Execute">
+            <command>alacritty</command>
+        </action>
+    </keybind>
+    <keybind key="C-A-r">
+        <action name="Execute">
+            <command>sudo systemctl reboot</command>
+        </action>
+    </keybind>
+    <keybind key="C-A-s">
+        <action name="Execute">
+            <command>sudo /usr/sbin/poweroff</command>
+        </action>
+    </keybind>
+    <keybind key="C-A-l">
+        <action name="Execute">
+            <command>/home/dkendall/lock.sh</command>
+        </action>
+    </keybind>
+    <keybind key="W-l">
+        <action name="Execute">
+            <command>/home/dkendall/lock.sh</command>
+        </action>
+    </keybind>
+    <keybind key="C-A-n">
+        <action name="Execute">
+            <command>alacritty -e nvim /home/dkendall/OneDrive/Documents/txt/ends.txt</command>
+        </action>
+    </keybind>
+    <keybind key="W-e">
+        <action name="Execute">
+            <command>xdg-open "/home/dkendall/Jellyfin Server Media/"</command>
+        </action>
+    </keybind>
+    <keybind key="C-A-S-e">
+        <action name="Execute">
+            <command>/home/dkendall/windows.sh</command>
+        </action>
+    </keybind>
+    <keybind key="C-A-i">
+        <action name="Execute">
+            <command>pavucontrol</command>
+        </action>
+    </keybind>
+    <keybind key="W-i">
+        <action name="Execute">
+            <command>pavucontrol</command>
+        </action>
+    </keybind>
+    <keybind key="C-A-v">
+        <action name="Execute">
+            <command>/usr/bin/diodon</command>
+        </action>
+    </keybind>
+    <keybind key="W-S-s">
+        <action name="Execute">
+            <command>scrot -s '/tmp/%F_%T_$wx$h.png' -e 'xclip -selection clipboard -target image/png -i $f'</command>
+        </action>
+    </keybind>
+    <keybind key="S-Print">
+        <action name="Execute">
+            <command>flatpak run sa.sy.bluerecorder/x86_64/stable</command>
+        </action>
+    </keybind>
+    <keybind key="C-A-m">
+        <action name="Execute">
+            <command>flatpak run org.kde.audiotube</command>
+        </action>
+    </keybind>
+    <keybind key="C-Space">
+        <action name="Execute">
+            <command>bemenu-run -i</command>
+        </action>
+    </keybind>
+    <keybind key="C-A-x">
+        <action name="Execute">
+            <command>xkill</command>
+        </action>
+    </keybind>
+    <keybind key="C-S-Escape">
+        <action name="Execute">
+            <command>flatpak run net.nokyan.Resources/x86_64/stable</command>
+        </action>
+    </keybind>
+    <keybind key="C-A-S-t">
+        <action name="Execute">
+            <command>wmctrl -r :ACTIVE: -b toggle,above</command>
+        </action>
+    </keybind>
+    <keybind key="C-W-t">
+        <action name="Execute">
+            <command>wmctrl -r :ACTIVE: -b toggle,above</command>
+        </action>
+    </keybind>
+    <keybind key="XF86AudioPlay">
+        <action name="Execute">
+            <command>playerctl play-pause</command>
+        </action>
+    </keybind>
+    <keybind key="C-A-Up">
+        <action name="Execute">
+            <command>xrandr --output HDMI-A-2 --rotate normal</command>
+        </action>
+    </keybind>
+    <keybind key="C-A-Down">
+        <action name="Execute">
+            <command>xrandr --output HDMI-A-2 --rotate inverted</command>
+        </action>
+    </keybind>
+    <keybind key="C-A-Left">
+        <action name="Execute">
+            <command>xrandr --output HDMI-A-2 --rotate left</command>
+        </action>
+    </keybind>
+    <keybind key="C-A-Right">
+        <action name="Execute">
+            <command>xrandr --output HDMI-A-2 --rotate right</command>
+        </action>
+    </keybind>
+    <keybind key="W-Page_Up">
+        <action name="Execute">
+            <command>amixer -q sset Master 5%+</command>
+        </action>
+    </keybind>
+    <keybind key="W-Page_Down">
+        <action name="Execute">
+            <command>amixer -q sset Master 5%-</command>
+        </action>
+    </keybind>
+</keyboard>
