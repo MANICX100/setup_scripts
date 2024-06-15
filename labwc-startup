@@ -8,3 +8,6 @@ sensible-browser &
 
 # Launch Diodon clipboard manager
 diodon &
+
+# Launch Rustdesk
+rustdesk &

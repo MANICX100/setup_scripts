@@ -1,6 +1,12 @@
 <keyboard>
 
-     <!-- Alt+Tab for window switching -->
+  <keybind key="Print">
+        <action name="Execute">
+            <command>/home/dkendall/setup_scripts/wayland-screenshot.sh</command>
+        </action>
+    </keybind>
+
+<!-- Alt+Tab for window switching -->
         <keybind key="A-Tab">
             <action name="NextWindow">
                 <finalactions>
