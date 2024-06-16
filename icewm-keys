@@ -16,7 +16,7 @@ key "Ctrl+Alt+t" alacritty
 key "Ctrl+Alt+r" sudo systemctl reboot
 key "Ctrl+Alt+s" sudo /usr/sbin/poweroff
 key "Ctrl+Alt+L" /home/dkendall/lock-x11.sh
-key "Super+L" /home/dkendall/lock.sh
+key "Super+L" /home/dkendall/lock-x11.sh
 key "Ctrl+Alt+n" alacritty -e nvem /home/dkendall/OneDrive/Documents/txt/ends.txt
 key "Super+E" xdg-open "/home/dkendall/Jellyfin Server Media/"
 
