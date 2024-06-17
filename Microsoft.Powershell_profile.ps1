@@ -1,5 +1,12 @@
 ### PowerShell Profile Refactor
 
+function Update-DockerImages {
+    $images = docker images --format "{{.Repository}}" | Sort-Object -Unique | Where-Object { $_ -ne "<none>" }
+    foreach ($image in $images) {
+        docker pull $image
+    }
+}
+
 # Initial GitHub.com connectivity check with 1 second timeout
 $canConnectToGitHub = Test-Connection github.com -Count 1 -Quiet -TimeoutSeconds 1
 

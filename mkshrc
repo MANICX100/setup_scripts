@@ -39,6 +39,8 @@ function upheldback() {
     sudo nala install $(sudo nala list --upgradable | rg -o '^[^[:space:]├└]+' | tr '\n' ' ')
 }
 
+alias dockerupdate='sudo sh -c '\''docker images --format "{{.Repository}}" | sort | uniq | grep -v "<none>" | xargs -I {} docker pull {}'\'''
+
 alias labwcstart='$EDITOR ~/.config/labwc/autostart'
 alias labwckeys='$EDITOR ~/.config/labwc/rc.xml'
 alias keymap='setxkbmap -print -verbose 10'
@@ -370,6 +372,7 @@ function please() {
 function up() {
   if topgrade; then
     git -C $HOME/powerlevel10k pull
+  dockerupdate
   fi
 }
 
