@@ -147,7 +147,7 @@
     </keybind>
     <keybind key="C-A-n">
         <action name="Execute">
-            <command>alacritty -e nvim /home/dkendall/OneDrive/Documents/txt/ends.txt</command>
+            <command>alacritty -e nvem /home/dkendall/OneDrive/Documents/txt/ends.txt</command>
         </action>
     </keybind>
     <keybind key="W-e">
