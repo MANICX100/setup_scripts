@@ -39,6 +39,8 @@ function upheldback() {
     sudo nala install $(sudo nala list --upgradable | rg -o '^[^[:space:]├└]+' | tr '\n' ' ')
 }
 
+alias setlocale='setxkbmap gb &'
+
 alias dockerupdate='sudo sh -c '\''docker images --format "{{.Repository}}" | sort | uniq | grep -v "<none>" | xargs -I {} docker pull {}'\'''
 
 alias labwcstart='$EDITOR ~/.config/labwc/autostart'
