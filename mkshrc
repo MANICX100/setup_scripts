@@ -39,7 +39,7 @@ function upheldback() {
     sudo nala install $(sudo nala list --upgradable | rg -o '^[^[:space:]├└]+' | tr '\n' ' ')
 }
 
-alias wc='wc2 -lwm'
+alias wc='/home/dkendall/wc2/wc2 -lwm'
 
 alias setlocale='setxkbmap gb &'
 
