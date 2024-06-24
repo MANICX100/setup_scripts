@@ -68,7 +68,7 @@ alias eza='eza -a'
 alias build='zig build-exe'
 alias cup='cargo install-update -a'
 
-alias mpv='flatpak run io.mpv.Mpv/x86_64/stable --hwdec=auto --speed=4'
+alias mpv='flatpak run io.mpv.Mpv/x86_64/stable'
 alias setresolution='xrandr --output HDMI-A-2 --mode'
 alias Set-Resolution='setresolution'
 
