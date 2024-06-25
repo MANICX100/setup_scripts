@@ -287,6 +287,7 @@ flatpak uninstall --unused
 sudo nala autoremove -y
 sudo nala clean
 am -c
+docker system prune --all
 }
 
 rmcache(){
