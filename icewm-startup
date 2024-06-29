@@ -2,10 +2,7 @@
 
 /usr/bin/lxqt-policykit-agent &
 sensible-browser &
-diodon &
-rustdesk --tray &
+qlipper &
 ksnip &
-/home/dkendall/cyclewallpapers.sh &
-/usr/local/bin/conky &
-thunderbird &
-/usr/local/bin/cortile
+/usr/local/bin/cortile &
+flatpak run com.rustdesk.RustDesk/x86_64/master

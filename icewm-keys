@@ -10,11 +10,11 @@ key "Super+Shift+G" normcap
 
 key "Ctrl+Alt+b" sensible-browser
 
-key "Menu" flatpak run com.jeffser.Alpaca/x86_64/stable
+key "Menu" xdg-open https://claude.ai
 
 key "Ctrl+Alt+t" alacritty
 key "Ctrl+Alt+r" sudo systemctl reboot
-key "Ctrl+Alt+s" sudo /usr/sbin/poweroff
+key "Ctrl+Alt+s" sudo systemctl hibernate
 key "Ctrl+Alt+L" /home/dkendall/lock-x11.sh
 key "Super+L" /home/dkendall/lock-x11.sh
 key "Ctrl+Alt+n" alacritty -e nvem /home/dkendall/OneDrive/Documents/txt/ends.txt
@@ -23,7 +23,7 @@ key "Super+E" xdg-open "/home/dkendall/Jellyfin Server Media/"
 key "Ctrl+Alt+Shift+E" /home/dkendall/windows.sh
 key "Ctrl+Alt+i" pavucontrol
 key "Super+i" pavucontrol
-key "Ctrl+Alt+v" /usr/bin/diodon
+
 key "Super+Shift+S" scrot -s '/tmp/%F_%T_$wx$h.png' -e 'xclip -selection clipboard -target image/png -i $f'
 
 key "Shift+Print" flatpak run sa.sy.bluerecorder/x86_64/stable
