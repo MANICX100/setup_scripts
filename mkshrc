@@ -789,8 +789,7 @@ hide_files() {
 }
 
 tgupdate() {
-rm $HOME/.config/topgrade.toml
-axel -n 16 -o $HOME/.config/topgrade.toml "https://github.com/MANICX100/setup_scripts/raw/main/topgrade_lin.toml"
+nvem $HOME/.config/topgrade.toml
 topgrade
 }
 
