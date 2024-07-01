@@ -3,7 +3,7 @@
 assume_yes = true
 
 # Disable specific steps - same options as the command line flag
-disable = ["emacs", "wsl", "wsl_update", "system", "winget"]
+disable = ["emacs", "wsl", "wsl_update", "system"]
 # disable = ["powershell"]
 
 # Ignore failures for these steps
@@ -104,7 +104,6 @@ disable = ["emacs", "wsl", "wsl_update", "system", "winget"]
 #enable_pipupgrade = true   ###disabled by default
 
 [windows]
-enable_winget = true
 # Manually select Windows updates
 #accept_all_updates = false
 #open_remotes_in_new_terminal = true
