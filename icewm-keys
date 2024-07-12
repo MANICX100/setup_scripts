@@ -1,3 +1,9 @@
+key "Pause" playerctl play-pause
+
+key "XF86AudioRaiseVolume" wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
+key "XF86AudioLowerVolume" wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+key "XF86AudioMute" wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+
 key "Super+D" wmctrl -k on
 key "Super+Shift+D" wmctrl -k off
 key "Super+Shift+M" flatpak run org.kde.kruler/x86_64/stable
