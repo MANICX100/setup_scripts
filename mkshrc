@@ -43,6 +43,9 @@ alias explorer='xdg-open' start='xdg-open' e='xdg-open' ii='xdg-open'
 
 alias wakeups='cat /proc/acpi/wakeup |rg -i enabled'
 alias wc='/home/dkendall/wc2/wc2 -lwm'
+alias wc2='/home/dkendall/wc2/wc2 -lwm'
+alias ls='eza'
+alias shuf='shuf-rs'
 
 alias setlocale='setxkbmap gb &'
 
@@ -67,7 +70,6 @@ alias errors='sudo journalctl -p err'
 alias saveimgclip='xclip -selection clipboard -t image/png -o > /home/dkendall/Desktop/clipboard.png'
 alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
 
-alias eza='eza -a'
 alias build='zig build-exe'
 alias cup='cargo install-update -a'
 
