@@ -17,8 +17,21 @@ source $HOME/.antidote/antidote.zsh
 antidote load ${ZDOTDIR:-$HOME}/.zsh_plugins.txt
 
 setopt share_history
-SAVEHIST=1000  # Save most-recent 1000 lines
+SAVEHIST=1000
 HISTFILE=$HOME/.zsh_history
+
+function macos() {
+    sudo docker run -it \
+        --device /dev/kvm \
+        -p 50922:10022 \
+        -v /tmp/.X11-unix:/tmp/.X11-unix \
+        -e "DISPLAY=${DISPLAY:-:0.0}" \
+        -e GENERATE_UNIQUE=true \
+        -e CPU='Haswell-noTSX' \
+        -e CPUID_FLAGS='kvm=on,vendor=GenuineIntel,+invtsc,vmware-cpuid-freq=on' \
+        -e MASTER_PLIST_URL='https://raw.githubusercontent.com/sickcodes/osx-serial-generator/master/config-custom-sonoma.plist' \
+        sickcodes/docker-osx:sonoma
+}
 
 function command_not_found_handler {
   /usr/lib/command-not-found -- $1
@@ -166,6 +179,9 @@ alias invoke-expression='iex'
 alias iex='eval'
 alias drivers='sudo lspci -v'
 alias logs='sudo journalctl|less|rg -i'
+
+alias last='sudo journalctl -u acpid'
+
 alias convertdeb='sudo alien --to-rpm'
 alias convertrpm='sudo alien'
 alias gitc='git clone --depth 1'
