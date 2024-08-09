@@ -49,9 +49,10 @@ sudo systemctl restart systemd-resolved.service
 }
 
 function upheldback() {
-    sudo nala install $(sudo nala list --upgradable | rg -o '^[^[:space:]├└]+' | tr '\n' ' ')
+    sudo nala install $(sudo nala list --upgradable | rg -o '^[^[:space:]├└]+' | tr '\n' ' ') -y
 }
 
+alias pkill='killall -I -v'
 alias explorer='xdg-open' start='xdg-open' e='xdg-open' ii='xdg-open'
 
 alias wakeups='cat /proc/acpi/wakeup |rg -i enabled'

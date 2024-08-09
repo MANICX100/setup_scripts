@@ -12,7 +12,6 @@ key "Super+Shift+C" gpick
 key "Super+period" flatpak run it.mijorus.smile
 key "Ctrl+Super+Enter" /home/dkendall/yasr.sh
 key "Super+KP_Add" xzoom -mag 2
-key "Super+Shift+G" normcap
 
 key "Ctrl+Alt+b" sensible-browser
 
