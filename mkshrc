@@ -23,14 +23,19 @@ HISTFILE=$HOME/.zsh_history
 cd() {
   if [ "$#" = "0" ]; then
     builtin cd
+  elif [ "$1" = ".." ] || [ "${1:0:1}" = "/" ] || [ "${1:0:2}" = "~/" ]; then
+    builtin cd "$1"
   else
-    target_dir=$(bfs ~ -maxdepth 1 -iname "$1" -type d -print -quit)
-    if [ -n "$target_dir" ]; then
-      echo "Found directory: $target_dir"
-      builtin cd "$target_dir"
-    else
-      echo "Directory not found: $1"
+    if [ -d "$1" ]; then
       builtin cd "$1"
+    else
+      target_dir=$(bfs . -maxdepth 1 -iname "$1" -type d -print -quit)
+      if [ -n "$target_dir" ]; then
+        echo "Found directory: $target_dir"
+        builtin cd "$target_dir"
+      else
+        echo "Directory not found: $1"
+      fi
     fi
   fi
 }
