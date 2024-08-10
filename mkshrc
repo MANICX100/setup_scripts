@@ -20,6 +20,21 @@ setopt share_history
 SAVEHIST=1000
 HISTFILE=$HOME/.zsh_history
 
+cd() {
+  if [ "$#" = "0" ]; then
+    builtin cd
+  else
+    target_dir=$(bfs ~ -maxdepth 1 -iname "$1" -type d -print -quit)
+    if [ -n "$target_dir" ]; then
+      echo "Found directory: $target_dir"
+      builtin cd "$target_dir"
+    else
+      echo "Directory not found: $1"
+      builtin cd "$1"
+    fi
+  fi
+}
+
 function macos() {
     sudo docker run -it \
         --device /dev/kvm \
