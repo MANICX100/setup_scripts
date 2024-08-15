@@ -36,7 +36,7 @@ key "Super+Shift+S" scrot -s '/tmp/%F_%T_$wx$h.png' -e 'xclip -selection clipboa
 
 key "Shift+Print" flatpak run sa.sy.bluerecorder/x86_64/stable
 key "Ctrl+Alt+m" flatpak run org.kde.audiotube
-key "Ctrl+Space" dmenu_run -i
+key "Ctrl+Space" /home/dkendall/setup_scripts/custom_dmenu_run.sh
 key "Ctrl+Alt+x" xkill
 key "Ctrl+Shift+Esc" flatpak run net.nokyan.Resources/x86_64/stable
 
