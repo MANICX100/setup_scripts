@@ -1,66 +1,63 @@
 #!/bin/bash
-
-# Path to your Wine prefix
 WINEPREFIX="$HOME/.wine"
 
-# Get the list of directories in the PATH variable and filter out non-existent directories
-IFS=: read -r -a path_dirs <<< "$PATH"
-valid_path_dirs=()
-for dir in "${path_dirs[@]}"; do
-    if [ -d "$dir" ]; then
-        valid_path_dirs+=("$dir")
-    fi
-done
+# Function to print debug information
+debug_print() {
+    echo "DEBUG: $1" >&2
+}
 
-# Get list of regular applications by searching in valid PATH directories
-regular_apps=$(bfs "${valid_path_dirs[@]}" -type f -executable -not -name "*.desktop" -not -name "*.exe" -print0 | xargs -0 -I {} basename {} | sort -f)
+# Get valid PATH directories and ensure /usr/local/bin and Flatpak bin are included
+IFS=: read -r -a path_dirs <<< "$PATH"
+valid_path_dirs=("${path_dirs[@]}")
+[[ ! " ${valid_path_dirs[*]} " =~ " /usr/local/bin " ]] && valid_path_dirs+=("/usr/local/bin")
+[[ ! " ${valid_path_dirs[*]} " =~ " /var/lib/flatpak/exports/bin " ]] && valid_path_dirs+=("/var/lib/flatpak/exports/bin")
+
+debug_print "Valid PATH directories: ${valid_path_dirs[*]}"
+
+# Get list of all executable files in PATH directories
+path_files=$(bfs "${valid_path_dirs[@]}" -executable -printf "%f\n" 2>/dev/null | tr '[:upper:]' '[:lower:]' | sort -u)
+debug_print "PATH files: $path_files"
+
+# Get list of Flatpak apps
+flatpak_apps=$(bfs /var/lib/flatpak/exports/bin -executable -printf "Flatpak: %f\n" 2>/dev/null | tr '[:upper:]' '[:lower:]' | sort -u)
+debug_print "Flatpak apps: $flatpak_apps"
 
 # Get list of Wine applications
-wine_apps=$(bfs "$WINEPREFIX" -type f -iname "*.exe" | sort -f | sed 's/^/Wine: /')
+wine_apps=$(bfs "$WINEPREFIX" -type f -iname "*.exe" -printf "Wine: %f\n" 2>/dev/null | tr '[:upper:]' '[:lower:]' | sort -u)
+debug_print "Wine apps: $wine_apps"
 
 # Get list of .desktop files
-desktop_files=$(bfs /usr/share/applications ~/.local/share/applications -type f -iname "*.desktop" | sort -f | sed 's/^/Desktop: /')
+desktop_files=$(bfs /usr/share/applications ~/.local/share/applications -type f -iname "*.desktop" -printf "Desktop: %f\n" 2>/dev/null | tr '[:upper:]' '[:lower:]' | sort -u)
+debug_print "Desktop files: $desktop_files"
 
 # Combine all lists
-all_apps=$(printf "%s\n%s\n%s\n" "$regular_apps" "$wine_apps" "$desktop_files" | sort -f)
+all_apps=$(printf "%s\n%s\n%s\n%s\n" "$path_files" "$flatpak_apps" "$wine_apps" "$desktop_files" | sort -u)
+
+debug_print "All apps:"
+debug_print "$all_apps"
 
 # Use dmenu to select an application
 selected_app=$(echo "$all_apps" | dmenu -i -p "Run:")
 
 # Launch the selected application
-if [[ $selected_app == Wine:* ]]; then
-    # It's a Wine app
-    wine_exe="${selected_app#Wine: }"
-    wine "$wine_exe" &
-elif [[ $selected_app == Desktop:* ]]; then
-    # It's a .desktop file
-    desktop_file="${selected_app#Desktop: }"
-    if command -v gtk-launch &> /dev/null; then
-        gtk-launch "$(basename "$desktop_file" .desktop)" &
-    elif command -v dex &> /dev/null; then
-        dex "$desktop_file" &
-    elif command -v gio &> /dev/null; then
-        GIO_LAUNCHED_DESKTOP_FILE_LOG_STDOUT=1 gio launch "$desktop_file" &
-    else
-        echo "Failed to launch $desktop_file: No suitable launcher found"
-        exit 1
-    fi
-else
-    # Check if the selected app is a .desktop file
-    if [[ $selected_app == *.desktop ]]; then
-        if command -v gtk-launch &> /dev/null; then
-            gtk-launch "$(basename "$selected_app" .desktop)" &
-        elif command -v dex &> /dev/null; then
-            dex "$selected_app" &
-        elif command -v gio &> /dev/null; then
-            GIO_LAUNCHED_DESKTOP_FILE_LOG_STDOUT=1 gio launch "$selected_app" &
+case "$selected_app" in
+    wine:*)
+        wine "${selected_app#wine: }" &
+        ;;
+    desktop:*)
+        desktop_file="${selected_app#desktop: }"
+        if command -v gio &> /dev/null; then
+            GIO_LAUNCHED_DESKTOP_FILE_LOG_STDOUT=1 gio launch "$desktop_file" &
         else
-            echo "Failed to launch $selected_app: No suitable launcher found"
+            echo "Failed to launch $desktop_file: gio not found"
             exit 1
         fi
-    else
-        # It's a regular app, just execute it by name
+        ;;
+    flatpak:*)
+        "${selected_app#flatpak: }" &
+        ;;
+    *)
         "$selected_app" &
-    fi
-fi
+        ;;
+esac
 
