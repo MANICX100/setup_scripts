@@ -142,7 +142,7 @@ alias mupdf='mupdf-x11'
 alias dy="dig +short @dns.toys"
 alias flatpakdown='flatpak remote-info --log flathub'
 
-alias jellyfin='sudo docker run -d -v /srv/jellyfin/config:/config -v /srv/jellyfin/cache:/cache -v "/home/dkendall/Jellyfin Server Media":/media -p 8096:8096 jellyfin/jellyfin:latest'
+alias jellyfin='sudo docker run -d -v /srv/jellyfin/config:/config -v /srv/jellyfin/cache:/cache -v "/home/dkendall/Jellyfin Server Media":/media -p 8096:8096 -p 7359:7359/udp jellyfin/jellyfin:latest'
 
 alias errors='sudo journalctl -p err'
 alias saveimgclip='xclip -selection clipboard -t image/png -o > /home/dkendall/Desktop/clipboard.png'
