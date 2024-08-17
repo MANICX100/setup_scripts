@@ -82,6 +82,7 @@ function upheldback() {
     sudo nala install $(sudo nala list --upgradable | rg -o '^[^[:space:]├└]+' | tr '\n' ' ') -y
 }
 
+alias publicip='curl --http3 -s https://ipinfo.io/ip'
 alias wine='wine64'
 alias pkill='killall -I -v'
 alias explorer='xdg-open' start='xdg-open' e='xdg-open' ii='xdg-open'
