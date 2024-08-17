@@ -68,6 +68,16 @@ sudo systemctl restart systemd-resolved.service
 sudo systemctl restart systemd-resolved.service
 }
 
+function cargo-update {
+for crate in $(cargo install --list | gawk '{print $1}'); do
+    if [ "$crate" = "pdu" ]; then
+        echo "Skipping $crate"
+        continue
+    fi
+    cargo binstall $crate
+done
+}
+
 function upheldback() {
     sudo nala install $(sudo nala list --upgradable | rg -o '^[^[:space:]├└]+' | tr '\n' ' ') -y
 }
@@ -106,7 +116,6 @@ alias saveimgclip='xclip -selection clipboard -t image/png -o > /home/dkendall/D
 alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
 
 alias build='zig build-exe'
-alias cup='cargo install-update -a'
 
 alias setresolution='xrandr --output HDMI-A-2 --mode'
 alias Set-Resolution='setresolution'
@@ -420,6 +429,7 @@ function up() {
   if topgrade; then
     git -C $HOME/powerlevel10k pull
   dockerupdate
+  cargo-update
   fi
 }
 
