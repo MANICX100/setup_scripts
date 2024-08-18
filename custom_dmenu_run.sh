@@ -6,15 +6,20 @@ debug_print() {
     echo "DEBUG: $1" >&2
 }
 
-# Get valid PATH directories and ensure /usr/local/bin and Flatpak bin are included
+# Get valid PATH directories and ensure /usr/local/bin is included
 IFS=: read -r -a path_dirs <<< "$PATH"
-valid_path_dirs=("${path_dirs[@]}")
+valid_path_dirs=()
+for dir in "${path_dirs[@]}"; do
+    # Exclude Flatpak directories from PATH
+    if [[ "$dir" != */flatpak/* ]]; then
+        valid_path_dirs+=("$dir")
+    fi
+done
 [[ ! " ${valid_path_dirs[*]} " =~ " /usr/local/bin " ]] && valid_path_dirs+=("/usr/local/bin")
-[[ ! " ${valid_path_dirs[*]} " =~ " /var/lib/flatpak/exports/bin " ]] && valid_path_dirs+=("/var/lib/flatpak/exports/bin")
 
 debug_print "Valid PATH directories: ${valid_path_dirs[*]}"
 
-# Get list of all executable files in PATH directories
+# Get list of all executable files in PATH directories (excluding Flatpak)
 path_files=$(bfs "${valid_path_dirs[@]}" -executable -printf "%f\n" 2>/dev/null | tr '[:upper:]' '[:lower:]' | sort -u)
 debug_print "PATH files: $path_files"
 
@@ -32,7 +37,6 @@ debug_print "Desktop files: $desktop_files"
 
 # Combine all lists
 all_apps=$(printf "%s\n%s\n%s\n%s\n" "$path_files" "$flatpak_apps" "$wine_apps" "$desktop_files" | sort -u)
-
 debug_print "All apps:"
 debug_print "$all_apps"
 
@@ -60,4 +64,3 @@ case "$selected_app" in
         "$selected_app" &
         ;;
 esac
-
