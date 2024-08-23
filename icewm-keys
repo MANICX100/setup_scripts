@@ -15,7 +15,7 @@ key "Super+KP_Add" xzoom -mag 2
 
 key "Ctrl+Alt+b" sensible-browser
 
-key "Menu" xdg-open https://claude.ai
+key "Menu" xdg-open https://poe.com
 
 key "Ctrl+Alt+t" alacritty
 key "Ctrl+Alt+r" sudo systemctl reboot

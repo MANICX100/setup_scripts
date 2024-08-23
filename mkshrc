@@ -112,6 +112,7 @@ function upheldback() {
     sudo nala install $(sudo nala list --upgradable | rg -o '^[^[:space:]├└]+' | tr '\n' ' ') -y
 }
 
+alias polkit='/usr/lib/x86_64-linux-gnu/libexec/polkit-kde-authentication-agent-1'
 alias dockermanage='sudo $(which lazydocker)'
 alias winedesktop='cd  ~/.local/share/applications/wine'
 alias freshrss='sudo docker start freshrss'
