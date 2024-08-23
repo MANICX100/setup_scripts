@@ -1,8 +1,8 @@
 #!/bin/zsh
 
-/usr/bin/lxqt-policykit-agent &
+/usr/lib/x86_64-linux-gnu/libexec/polkit-kde-authentication-agent-1 &
 sensible-browser &
 qlipper &
-ksnip &
-/usr/local/bin/cortile &
-flatpak run com.rustdesk.RustDesk/x86_64/master
+rustdesk &
+(sleep 3 && wmctrl -c "RustDesk" -b add,hidden) &
+ksnip

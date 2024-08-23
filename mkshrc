@@ -100,7 +100,7 @@ sudo systemctl restart systemd-resolved.service
 
 function cargo-update {
 for crate in $(cargo install --list | gawk '{print $1}'); do
-    if [ "$crate" = "pdu" ]; then
+    if [ "$crate" = "pdu" ] || [ "$crate" = "btm" ]; then
         echo "Skipping $crate"
         continue
     fi
@@ -462,11 +462,11 @@ function please() {
 }
 
 function up() {
-  if topgrade; then
-    git -C $HOME/powerlevel10k pull
+  sudo nala upgrade
+  flatpak update
+  git -C $HOME/powerlevel10k pull
   dockerupdate
   cargo-update
-  fi
 }
 
 function display_path() {
