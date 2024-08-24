@@ -116,6 +116,7 @@ alias df='dysk'
 alias grep='rg'
 alias nala='apt-get'
 alias awk='gawk'
+alias find='bfs'
 
 alias rmtrash='rm -rfv ~/.local/share/Trash/*'
 alias polkit='/usr/lib/x86_64-linux-gnu/libexec/polkit-kde-authentication-agent-1'
