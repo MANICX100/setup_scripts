@@ -466,6 +466,7 @@ function up() {
   git -C $HOME/powerlevel10k pull
   dockerupdate
   cargo-update
+  bun upgrade
 }
 
 function display_path() {
@@ -1034,3 +1035,10 @@ fi
 eval "$(zoxide init zsh)"
 
 . "$HOME/.cargo/env"
+
+# bun completions
+[ -s "/home/dkendall/$HOME/.bun/_bun" ] && source "/home/dkendall/$HOME/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
