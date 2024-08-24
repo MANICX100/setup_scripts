@@ -99,7 +99,7 @@ sudo systemctl restart systemd-resolved.service
 }
 
 function cargo-update {
-for crate in $(cargo install --list | gawk '{print $1}'); do
+for crate in $(cargo install --list | frawk '{print $1}'); do
     if [ "$crate" = "pdu" ] || [ "$crate" = "btm" ]; then
         echo "Skipping $crate"
         continue
@@ -115,8 +115,9 @@ function upheldback() {
 alias df='dysk'
 alias grep='rg'
 alias nala='apt-get'
-alias awk='gawk'
+alias awk='frawk'
 alias find='bfs'
+alias xargs='gargs'
 
 alias rmtrash='rm -rfv ~/.local/share/Trash/*'
 alias polkit='/usr/lib/x86_64-linux-gnu/libexec/polkit-kde-authentication-agent-1'
