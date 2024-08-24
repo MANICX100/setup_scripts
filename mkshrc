@@ -109,9 +109,15 @@ done
 }
 
 function upheldback() {
-    sudo nala install $(sudo nala list --upgradable | rg -o '^[^[:space:]├└]+' | tr '\n' ' ') -y
+    sudo apt-get install $(sudo apt-get list --upgradable | rg -o '^[^[:space:]├└]+' | tr '\n' ' ') -y
 }
 
+alias df='dysk'
+alias grep='rg'
+alias nala='apt-get'
+alias awk='gawk'
+
+alias rmtrash='rm -rfv ~/.local/share/Trash/*'
 alias polkit='/usr/lib/x86_64-linux-gnu/libexec/polkit-kde-authentication-agent-1'
 alias dockermanage='sudo $(which lazydocker)'
 alias winedesktop='cd  ~/.local/share/applications/wine'
@@ -194,9 +200,6 @@ alias uninstall='remove'
 alias de='ls -l /usr/share/xsessions/'
 alias loginmgr='bat /etc/X11/default-display-manager'
 alias nom='$HOME/go/bin/nom'
-alias kdesudo='lxqt-sudo'
-alias gksu='kdesudo'
-alias pkexec='kdesudo'
 alias su='sudo'
 
 # macOS
@@ -279,9 +282,9 @@ alias uefi='systemctl reboot --firmware-setup'
 
 alias img2txt='image2txt'
 alias networkstatus='nmcli dev status'
-alias inst='sudo nala install'
-alias remove='sudo nala remove'
-alias purge='sudo nala purge'
+alias inst='sudo apt-get install'
+alias remove='sudo apt-get remove'
+alias purge='sudo apt-get purge'
 alias netstat='ss -t -r state established'
 alias ipconfig='ip route'
 alias ifconfig='ip route'
@@ -370,10 +373,9 @@ function cmdpath() {
 
 clean() {
 flatpak uninstall --unused
-sudo nala autoremove -y
-sudo nala clean
+sudo apt-get autoremove -y
+sudo apt-get clean
 am -c
-docker system prune --all
 }
 
 rmcache(){
@@ -424,8 +426,8 @@ reinstall() {
         return 1
     fi
     packagename=$@
-    sudo nala remove -y $packagename
-    sudo nala install -y $packagename
+    sudo apt-get remove -y $packagename
+    sudo apt-get install -y $packagename
 }
 
 function revsyncfolders() {
@@ -461,7 +463,7 @@ function please() {
 }
 
 function up() {
-  sudo nala upgrade
+  sudo apt-get upgrade
   flatpak update
   git -C $HOME/powerlevel10k pull
   dockerupdate
