@@ -1,3 +1,5 @@
+key "Super+Shift+H" highlight-pointer --show-cursor --outline 2 --radius 40 --auto-hide-highlight --hide-timeout 1 &
+
 key "Pause" playerctl play-pause
 
 key "XF86AudioRaiseVolume" wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
