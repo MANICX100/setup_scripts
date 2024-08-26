@@ -112,6 +112,14 @@ function upheldback() {
     sudo apt-get install $(sudo apt-get list --upgradable | rg -o '^[^[:space:]├└]+' | tr '\n' ' ') -y
 }
 
+alias fat32format='sudo mkfs.vfat -F 32'
+alias exfatformat='sudo mkfs.exfat'
+alias ext4format='sudo mkfs.ext4'
+alias xfsformat='sudo mkfs.xfs'
+alias ntfsformat='sudo mkfs.ntfs'
+alias f2fsformat='sudo mkfs.f2fs'
+alias btrfsformat='sudo mkfs.btrfs'
+
 alias df='dysk'
 alias grep='rg'
 alias nala='apt-get'
@@ -172,7 +180,8 @@ alias lite-xl='/usr/local/bin/lite-xl/lite-xl'
 alias lite='lite-xl'
 alias uptime='uptime --since && uptime --pretty'
 
-alias usb='lsblk|rg sda'
+alias lsblk='lsblk|rg -v loop'
+alias usb='/usr/binlsblk|rg sda'
 alias printers='lpstat -p'
 alias bluetooth='bluetoothctl devices'
 
@@ -318,7 +327,7 @@ alias changejava='sudo alternatives --config java'
 alias addapp='xdg-open /usr/local/bin'
 alias logoff='sudo pkill -u dkendall'
 alias logout='logoff'
-alias yt-dlp='/usr/local/bin/yt-dlp'
+#alias yt-dlp='/usr/local/bin/yt-dlp'
 
 certinfo() {
   gnutls-cli --print-cert "$1" < /dev/null | certtool --certificate-info
