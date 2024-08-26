@@ -480,6 +480,7 @@ function up() {
   dockerupdate
   cargo-update
   bun upgrade
+  sudo snap refresh
 }
 
 function display_path() {
