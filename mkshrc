@@ -167,7 +167,7 @@ alias saveimgclip='xclip -selection clipboard -t image/png -o > /home/dkendall/D
 alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
 
 alias build='zig build-exe'
-
+alias zig='snap run zig'
 alias setresolution='xrandr --output HDMI-A-2 --mode'
 alias Set-Resolution='setresolution'
 

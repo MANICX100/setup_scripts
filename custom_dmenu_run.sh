@@ -13,11 +13,13 @@ path_files=$(bfs "${valid_path_dirs[@]}" -maxdepth 1 -printf "%f\n" 2>/dev/null 
 
 flatpak_apps=$(flatpak list --app --columns=application | sort -u | sed 's/^/Flatpak: /')
 
+snap_apps=$(snap list | frawk 'NR>1 {print "Snap: " $1}' | sort -u)
+
 wine_apps=$(bfs "$WINEPREFIX" -type f -iname "*.exe" -printf "Wine: %P\n" 2>/dev/null | sort -u)
 
 desktop_files=$(bfs /usr/share/applications ~/.local/share/applications -type f -name "*.desktop" -printf "Desktop: %f\n" 2>/dev/null | sort -u)
 
-all_apps=$(printf "%s\n%s\n%s\n%s\n" "$path_files" "$flatpak_apps" "$wine_apps" "$desktop_files" | sort -u)
+all_apps=$(printf "%s\n%s\n%s\n%s\n%s\n" "$path_files" "$flatpak_apps" "$snap_apps" "$wine_apps" "$desktop_files" | sort -u)
 
 selected_app=$(echo "$all_apps" | dmenu -i -p "Run:")
 
@@ -44,6 +46,10 @@ case "$selected_app" in
     Flatpak:*)
         flatpak_app="${selected_app#Flatpak: }"
         flatpak run "$flatpak_app" &
+        ;;
+    Snap:*)
+        snap_app="${selected_app#Snap: }"
+        snap run "$snap_app" &
         ;;
     *)
         if command -v "$selected_app" >/dev/null 2>&1; then
