@@ -109,7 +109,7 @@ done
 }
 
 function upheldback() {
-    sudo apt-get install $(sudo apt-get list --upgradable | rg -o '^[^[:space:]├└]+' | tr '\n' ' ') -y
+    sudo apt-get install $(sudo apt list --upgradable | rg -o '^[^[:space:]├└]+' | tr '\n' ' ') -y
 }
 
 alias fat32format='sudo mkfs.vfat -F 32'
@@ -328,6 +328,7 @@ alias addapp='xdg-open /usr/local/bin'
 alias logoff='sudo pkill -u dkendall'
 alias logout='logoff'
 #alias yt-dlp='/usr/local/bin/yt-dlp'
+alias autoremove='sudo apt autoremove'
 
 certinfo() {
   gnutls-cli --print-cert "$1" < /dev/null | certtool --certificate-info
@@ -474,7 +475,7 @@ function please() {
 }
 
 function up() {
-  sudo apt-get upgrade
+  sudo apt upgrade --with-new-pkgs
   flatpak update
   git -C $HOME/powerlevel10k pull
   dockerupdate
