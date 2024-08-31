@@ -109,7 +109,7 @@ done
 }
 
 function upheldback() {
-    sudo apt-get install $(sudo apt list --upgradable | rg -o '^[^[:space:]├└]+' | tr '\n' ' ') -y
+    sudo apt install $(sudo apt list --upgradable | rg -o '^[^[:space:]├└]+' | tr '\n' ' ') -y
 }
 
 alias fat32format='sudo mkfs.vfat -F 32'
@@ -122,7 +122,7 @@ alias btrfsformat='sudo mkfs.btrfs'
 
 alias df='dysk'
 alias grep='rg'
-alias nala='apt-get'
+alias nala='apt'
 alias awk='frawk'
 alias find='bfs'
 alias xargs='gargs'
@@ -293,9 +293,9 @@ alias uefi='systemctl reboot --firmware-setup'
 
 alias img2txt='image2txt'
 alias networkstatus='nmcli dev status'
-alias inst='sudo apt-get install'
-alias remove='sudo apt-get remove'
-alias purge='sudo apt-get purge'
+alias inst='sudo apt install'
+alias remove='sudo apt remove'
+alias purge='sudo apt purge'
 alias netstat='ss -t -r state established'
 alias ipconfig='ip route'
 alias ifconfig='ip route'
@@ -385,8 +385,8 @@ function cmdpath() {
 
 clean() {
 flatpak uninstall --unused
-sudo apt-get autoremove -y
-sudo apt-get clean
+sudo apt autoremove -y
+sudo apt clean
 am -c
 }
 
@@ -438,8 +438,8 @@ reinstall() {
         return 1
     fi
     packagename=$@
-    sudo apt-get remove -y $packagename
-    sudo apt-get install -y $packagename
+    sudo apt remove -y $packagename
+    sudo apt install -y $packagename
 }
 
 function revsyncfolders() {
