@@ -109,9 +109,10 @@ done
 }
 
 function upheldback() {
-    sudo apt install $(sudo apt list --upgradable | rg -o '^[^[:space:]├└]+' | tr '\n' ' ') -y
+sudo apt list --upgradable | awk -F/ '/upgradable/ {print $1}' | /usr/bin/xargs sudo apt install -y
 }
 
+alias lutris='/usr/games/lutris'
 alias fat32format='sudo mkfs.vfat -F 32'
 alias exfatformat='sudo mkfs.exfat'
 alias ext4format='sudo mkfs.ext4'
@@ -475,13 +476,13 @@ function please() {
 }
 
 function up() {
-  sudo apt upgrade --with-new-pkgs
-  flatpak update
+  sudo apt upgrade --with-new-pkgs -y
+  flatpak update -y
   git -C $HOME/powerlevel10k pull
   dockerupdate
   cargo-update
   bun upgrade
-  sudo snap refresh
+  #sudo snap refresh
 }
 
 function display_path() {
