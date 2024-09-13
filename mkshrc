@@ -98,15 +98,15 @@ sudo systemctl restart systemd-resolved.service
 sudo systemctl restart systemd-resolved.service
 }
 
-function cargo-update {
-for crate in $(cargo install --list | frawk '{print $1}'); do
-    if [ "$crate" = "pdu" ] || [ "$crate" = "btm" ]; then
-        echo "Skipping $crate"
-        continue
-    fi
-    cargo binstall $crate
-done
-}
+# function cargo-update {
+# for crate in $(cargo install --list | frawk '{print $1}'); do
+#     if [ "$crate" = "pdu" ] || [ "$crate" = "btm" ]; then
+#         echo "Skipping $crate"
+#         continue
+#     fi
+#     cargo binstall $crate
+# done
+# }
 
 function upheldback() {
 sudo apt list --upgradable | awk -F/ '/upgradable/ {print $1}' | /usr/bin/xargs sudo apt install -y
@@ -127,8 +127,9 @@ alias grep='rg'
 alias nala='apt'
 alias awk='frawk'
 alias find='bfs'
-alias xargs='gargs'
+#alias xargs='gargs'
 
+alias runningprocesses='sudo lsof|rg txt'
 alias rmtrash='rm -rfv ~/.local/share/Trash/*'
 alias polkit='/usr/lib/x86_64-linux-gnu/libexec/polkit-kde-authentication-agent-1'
 alias dockermanage='sudo $(which lazydocker)'
@@ -481,7 +482,8 @@ function up() {
   flatpak update -y
   git -C $HOME/powerlevel10k pull
   dockerupdate
-  cargo-update
+  #cargo-update
+  cargo install-update -a
   bun upgrade
   #sudo snap refresh
 }
