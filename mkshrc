@@ -112,7 +112,11 @@ function upheldback() {
 sudo apt list --upgradable | awk -F/ '/upgradable/ {print $1}' | /usr/bin/xargs sudo apt install -y
 }
 
-alias dict='curl dict://dict.org/d:'
+dict() {
+  local word=${1:?Word required}
+  curl -s "dict://dict.org/d:$word"
+}
+
 alias beeperfix='rm -rfv .config/Beeper/GPUCache'
 alias lutris='/usr/games/lutris'
 alias fat32format='sudo mkfs.vfat -F 32'
