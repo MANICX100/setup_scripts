@@ -1,5 +1,22 @@
 ### PowerShell Profile Refactor
 
+function Get-Dictionary {
+    param(
+        [Parameter(Mandatory=$true)]
+        [string]$Word
+    )
+
+    $url = "dict://dict.org/d:$Word"
+    
+    try {
+        $result = Invoke-WebRequest -Uri $url -UseBasicParsing
+        $result.Content
+    }
+    catch {
+        Write-Error "An error occurred: $_"
+    }
+}
+
 function Update-DockerImages {
     $images = docker images --format "{{.Repository}}" | Sort-Object -Unique | Where-Object { $_ -ne "<none>" }
     foreach ($image in $images) {
