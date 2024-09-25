@@ -3,3 +3,4 @@ PATH="/home/dkendall/.local/bin:/usr/sbin/:/home/dkendall/pypy/bin:/var/lib/flat
 XDG_DATA_DIRS="/usr/local/share:/usr/share:/var/lib/flatpak/exports/share"
 QAPTDISTR="bookworm"
 QT_QPA_PLATFORMTHEME=qt6ct
+FREETYPE_PROPERTIES="cff:no-stem-darkening=0 autofitter:no-stem-darkening=0"
