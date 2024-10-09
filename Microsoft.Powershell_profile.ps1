@@ -1,5 +1,9 @@
 ### PowerShell Profile Refactor
 
+function biosversion {
+ Get-WmiObject win32_bios
+}
+
 function Get-Dictionary {
     param(
         [Parameter(Mandatory=$true)]
