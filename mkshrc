@@ -20,49 +20,6 @@ setopt share_history
 SAVEHIST=1000
 HISTFILE=$HOME/.zsh_history
 
-dd_parallel() {
-    if [[ $# -ne 2 ]]; then
-        echo "Usage: dd_parallel <input_file> <output_device>"
-        return 1
-    fi
-
-    local input_file="$1"
-    local output_device="$2"
-    local block_size="64M"
-    local num_threads=$(nproc)
-
-    if ! command -v rust-parallel &> /dev/null; then
-        echo "Error: rust-parallel is not installed. Please install it first."
-        return 1
-    fi
-
-    if [[ ! -f "$input_file" ]]; then
-        echo "Error: Input file '$input_file' does not exist."
-        return 1
-    fi
-
-    if [[ ! -b "$output_device" ]]; then
-        echo "Error: Output device '$output_device' is not a block device."
-        return 1
-    fi
-
-    echo "Writing $input_file to $output_device using rust-parallel"
-    echo "Block size: $block_size, Number of threads: $num_threads"
-    echo "This operation will overwrite data on $output_device. Are you sure? (y/N)"
-    read -q response
-    echo
-
-    if [[ $response =~ ^[Yy]$ ]]; then
-        sudo sh -c "cat '$input_file' | \
-        rust-parallel -j $num_threads -b $block_size \
-        'dd of=$output_device conv=fdatasync oflag=direct bs=$block_size seek={#}' \
-        && sync"
-        echo "\nOperation completed."
-    else
-        echo "Operation cancelled."
-    fi
-}
-
 vaultwarden() {
 sudo docker run -d --name vaultwarden -v /vw-data/:/data/ -p 80:80 vaultwarden/server:latest
 }
