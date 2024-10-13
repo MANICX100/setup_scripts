@@ -117,6 +117,7 @@ dict() {
   curl -s "dict://dict.org/d:$word"
 }
 
+alias mvupdir='mv * ../'
 alias biosversion='sudo dmidecode -s bios-version'
 alias beeperfix='rm -rfv .config/Beeper/GPUCache'
 alias lutris='/usr/games/lutris'
