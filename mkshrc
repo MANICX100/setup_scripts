@@ -280,7 +280,7 @@ alias edit-dns='sudo $EDITOR /etc/resolv.conf'
 alias edit-hosts='sudo $EDITOR /etc/hosts'
 alias fd='fzf --query'
 alias webcam='sudo modprobe v4l2loopback'
-alias cloudsync='onedrive --synchronize --force'
+alias cloudsync='onedrive --sync --force'
 
 #alias ffmpeg='$HOME/ffmpeg/ffmpeg'
 alias ffprobe='mediainfo'
