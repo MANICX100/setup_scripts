@@ -20,6 +20,11 @@ setopt share_history
 SAVEHIST=1000
 HISTFILE=$HOME/.zsh_history
 
+changebrowser(){
+sudo update-alternatives --config gnome-www-browser
+sudo update-alternatives --config x-www-browser
+}
+
 vaultwarden() {
 sudo docker run -d --name vaultwarden -v /vw-data/:/data/ -p 80:80 vaultwarden/server:latest
 }
