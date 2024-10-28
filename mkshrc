@@ -20,6 +20,11 @@ setopt share_history
 SAVEHIST=1000
 HISTFILE=$HOME/.zsh_history
 
+fixpihole(){
+sudo killall dnsmasq
+pihole restartdns
+}
+
 changebrowser(){
 sudo update-alternatives --config gnome-www-browser
 sudo update-alternatives --config x-www-browser
