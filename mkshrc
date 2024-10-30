@@ -22,8 +22,8 @@ HISTFILE=$HOME/.zsh_history
 
 fixpihole(){
 sudo killall dnsmasq
-pihole -g
 pihole restartdns
+pihole -g
 #sudo nvem /etc/resolv.conf
 sudo systemctl restart NetworkManager
 sudo ip addr flush dev wlp7s0
