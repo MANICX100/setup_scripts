@@ -11,7 +11,7 @@ key "Super+Shift+D" wmctrl -k off
 key "Super+Shift+M" flatpak run org.kde.kruler/x86_64/stable
 key "Super+Shift+C" gpick
 
-key "Super+period" flatpak run it.mijorus.smile
+key "Super+period" flatpak run org.gnome.Characters/x86_64/stable
 key "Ctrl+Super+Enter" /home/dkendall/yasr.sh
 key "Super+KP_Add" xzoom -mag 2
 
