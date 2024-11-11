@@ -832,13 +832,6 @@ Resync-Time() {
     sudo ntpdate pool.ntp.org
 }
 
-download_yt_video() {
-    resolution=$1
-    video_url=$2
-    command="yt-dlp -f \"bestvideo[height<=$resolution]+bestaudio/best[height<=$resolution]\" \"$video_url\""
-    eval $command
-}
-
 fdo() {
     query=$(printf "%s " "$@")
     selected_file=$(fzf --query "$query")
