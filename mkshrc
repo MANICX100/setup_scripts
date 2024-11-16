@@ -130,6 +130,10 @@ dict() {
   curl -s "dict://dict.org/d:$word"
 }
 
+alias lockdns='sudo chattr +i /etc/resolv.conf'
+alias unlockdns='sudo chattr +i /etc/resolv.conf'
+alias editdns='sudo $EDITOR /etc/resolv.conf'
+
 alias mvupdir='mv * ../'
 alias biosversion='sudo dmidecode -s bios-version'
 alias beeperfix='rm -rfv .config/Beeper/GPUCache'
@@ -289,8 +293,7 @@ alias last='sudo journalctl -u acpid'
 alias convertdeb='sudo alien --to-rpm'
 alias convertrpm='sudo alien'
 alias gitc='git clone --depth 1'
-alias edit-dns='sudo $EDITOR /etc/resolv.conf'
-alias edit-hosts='sudo $EDITOR /etc/hosts'
+alias edithosts='sudo $EDITOR /etc/hosts'
 alias fd='fzf --query'
 alias webcam='sudo modprobe v4l2loopback'
 alias cloudsync='onedrive --sync --force'
@@ -911,7 +914,7 @@ hide_files() {
 }
 
 tgupdate() {
-nvem $HOME/.config/topgrade.toml
+$EDITOR $HOME/.config/topgrade.toml
 topgrade
 }
 

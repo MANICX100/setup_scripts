@@ -4,6 +4,10 @@ function biosversion {
  Get-WmiObject win32_bios
 }
 
+function scoopadmin {
+iex "& {$(irm get.scoop.sh)} -RunAsAdmin"
+}
+
 function Get-Dictionary {
     param(
         [Parameter(Mandatory=$true)]
