@@ -505,10 +505,10 @@ function up() {
   sudo apt upgrade --with-new-pkgs -y
   flatpak update -y
   git -C $HOME/powerlevel10k pull
-  dockerupdate
+  #dockerupdate
   #cargo-update
   cargo install-update -a
-  bun upgrade
+  #bun upgrade
   #sudo snap refresh
 }
 
@@ -1078,3 +1078,6 @@ eval "$(zoxide init zsh)"
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+autoload bashcompinit
+bashcompinit
+source "/home/dkendall/.local/share/bash-completion/completions/am"
