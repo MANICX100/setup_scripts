@@ -130,10 +130,12 @@ dict() {
   curl -s "dict://dict.org/d:$word"
 }
 
+alias zig='/home/dkendall/Desktop/zig-linux-x86_64-0.13.0/zig'
 alias lockdns='sudo chattr +i /etc/resolv.conf'
 alias unlockdns='sudo chattr +i /etc/resolv.conf'
 alias editdns='sudo $EDITOR /etc/resolv.conf'
-
+alias 7ztargz='7z x "*.tar.gz" -so | 7z x -si -ttar'
+alias 7ztarxz='7z x "*.tar.xz" -so | 7z x -si -ttar'
 alias mvupdir='mv * ../'
 alias biosversion='sudo dmidecode -s bios-version'
 alias beeperfix='rm -rfv .config/Beeper/GPUCache'
