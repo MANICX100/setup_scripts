@@ -11,46 +11,47 @@
         <Program icon="exit.png" label="Exit">jwm -exit</Program>
     </RootMenu>
 
-    <!-- Your key bindings -->
-    <Key key="Super+Shift+h">exec highlight-pointer --show-cursor --outline 2 --radius 40 --auto-hide-highlight --hide-timeout 1</Key>
-    <Key key="Pause">exec playerctl play-pause</Key>
-    <Key key="XF86AudioRaiseVolume">exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+</Key>
-    <Key key="XF86AudioLowerVolume">exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-</Key>
-    <Key key="XF86AudioMute">exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle</Key>
-    <Key key="Super+d">exec wmctrl -k on</Key>
-    <Key key="Super+Shift+d">exec wmctrl -k off</Key>
-    <Key key="Super+Shift+m">exec flatpak run org.kde.kruler/x86_64/stable</Key>
-    <Key key="Super+Shift+c">exec gpick</Key>
-    <Key key="Super+period">exec flatpak run org.gnome.Characters/x86_64/stable</Key>
-    <Key key="Ctrl+Super+Return">exec /home/dkendall/yasr.sh</Key>
-    <Key key="Super+KP_Add">exec xzoom -mag 2</Key>
-    <Key key="Ctrl+Alt+b">exec sensible-browser</Key>
-    <Key key="Menu">exec xdg-open https://poe.com</Key>
-    <Key key="Ctrl+Alt+t">exec ghostty</Key>
-    <Key key="Ctrl+Alt+r">exec sudo systemctl reboot</Key>
-    <Key key="Ctrl+Alt+s">exec sudo systemctl suspend</Key>
-    <Key key="Ctrl+Alt+l">exec /home/dkendall/lock-x11.sh</Key>
-    <Key key="Super+l">exec /home/dkendall/lock-x11.sh</Key>
-    <Key key="Ctrl+Alt+n">exec alacritty -e nvem /home/dkendall/OneDrive/notepad.txt</Key>
-    <Key key="Super+e">exec xdg-open "/home/dkendall/Jellyfin Server Media/"</Key>
-    <Key key="Ctrl+Alt+Shift+e">exec /home/dkendall/windows.sh</Key>
-    <Key key="Ctrl+Alt+i">exec pavucontrol</Key>
-    <Key key="Super+i">exec pavucontrol</Key>
-    <Key key="Super+Shift+s">exec scrot -s '/tmp/%F_%T_$wx$h.png' -e 'xclip -selection clipboard -target image/png -i $f'</Key>
-    <Key key="Shift+Print">exec flatpak run com.dec05eba.gpu_screen_recorder/x86_64/stable</Key>
-    <Key key="Ctrl+Alt+m">exec flatpak run org.kde.audiotube</Key>
-    <Key key="Ctrl+Space">exec /home/dkendall/setup_scripts/custom_dmenu_run.sh</Key>
-    <Key key="Ctrl+Alt+x">exec xkill</Key>
-    <Key key="Ctrl+Shift+Escape">exec flatpak run net.nokyan.Resources/x86_64/stable</Key>
-    <Key key="Ctrl+Alt+Shift+t">exec wmctrl -r :ACTIVE: -b toggle,above</Key>
-    <Key key="Ctrl+Super+t">exec wmctrl -r :ACTIVE: -b toggle,above</Key>
-    <Key key="XF86AudioPlay">exec playerctl play-pause</Key>
-    <Key key="Ctrl+Alt+Up">exec xrandr --output HDMI-A-2 --rotate normal</Key>
-    <Key key="Ctrl+Alt+Down">exec xrandr --output HDMI-A-2 --rotate inverted</Key>
-    <Key key="Ctrl+Alt+Left">exec xrandr --output HDMI-A-2 --rotate left</Key>
-    <Key key="Ctrl+Alt+Right">exec xrandr --output HDMI-A-2 --rotate right</Key>
-    <Key key="Super+Page_Up">exec amixer -q sset Master 5%+</Key>
-    <Key key="Super+Page_Down">exec amixer -q sset Master 5%-</Key>
+    <!-- Key bindings -->
+    <!-- Mask legend: A=Alt, C=Control, S=Shift, 4=Win/Super -->
+    <Key mask="4S" key="h">exec:highlight-pointer --show-cursor --outline 2 --radius 40 --auto-hide-highlight --hide-timeout 1</Key>
+    <Key key="Pause">exec:playerctl play-pause</Key>
+    <Key key="XF86AudioRaiseVolume">exec:wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+</Key>
+    <Key key="XF86AudioLowerVolume">exec:wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-</Key>
+    <Key key="XF86AudioMute">exec:wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle</Key>
+    <Key mask="4" key="d">exec:wmctrl -k on</Key>
+    <Key mask="4S" key="d">exec:wmctrl -k off</Key>
+    <Key mask="4S" key="m">exec:flatpak run org.kde.kruler/x86_64/stable</Key>
+    <Key mask="4S" key="c">exec:gpick</Key>
+    <Key mask="4" key="period">exec:flatpak run org.gnome.Characters/x86_64/stable</Key>
+    <Key mask="C4" key="Return">exec:/home/dkendall/yasr.sh</Key>
+    <Key mask="4" key="KP_Add">exec:xzoom -mag 2</Key>
+    <Key mask="CA" key="b">exec:sensible-browser</Key>
+    <Key key="Menu">exec:xdg-open https://poe.com</Key>
+    <Key mask="CA" key="t">exec:ghostty</Key>
+    <Key mask="CA" key="r">exec:sudo systemctl reboot</Key>
+    <Key mask="CA" key="s">exec:sudo systemctl suspend</Key>
+    <Key mask="CA" key="l">exec:/home/dkendall/lock-x11.sh</Key>
+    <Key mask="4" key="l">exec:/home/dkendall/lock-x11.sh</Key>
+    <Key mask="CA" key="n">exec:alacritty -e nvem /home/dkendall/OneDrive/notepad.txt</Key>
+    <Key mask="4" key="e">exec:xdg-open "/home/dkendall/Jellyfin Server Media/"</Key>
+    <Key mask="CAS" key="e">exec:/home/dkendall/windows.sh</Key>
+    <Key mask="CA" key="i">exec:pavucontrol</Key>
+    <Key mask="4" key="i">exec:pavucontrol</Key>
+    <Key mask="4S" key="s">exec:scrot -s '/tmp/%F_%T_$wx$h.png' -e 'xclip -selection clipboard -target image/png -i $f'</Key>
+    <Key mask="S" key="Print">exec:flatpak run com.dec05eba.gpu_screen_recorder/x86_64/stable</Key>
+    <Key mask="CA" key="m">exec:flatpak run org.kde.audiotube</Key>
+    <Key mask="C" key="space">exec:/home/dkendall/setup_scripts/custom_dmenu_run.sh</Key>
+    <Key mask="CA" key="x">exec:xkill</Key>
+    <Key mask="CS" key="Escape">exec:flatpak run net.nokyan.Resources/x86_64/stable</Key>
+    <Key mask="CAS" key="t">exec:wmctrl -r :ACTIVE: -b toggle,above</Key>
+    <Key mask="C4" key="t">exec:wmctrl -r :ACTIVE: -b toggle,above</Key>
+    <Key key="XF86AudioPlay">exec:playerctl play-pause</Key>
+    <Key mask="CA" key="Up">exec:xrandr --output HDMI-A-2 --rotate normal</Key>
+    <Key mask="CA" key="Down">exec:xrandr --output HDMI-A-2 --rotate inverted</Key>
+    <Key mask="CA" key="Left">exec:xrandr --output HDMI-A-2 --rotate left</Key>
+    <Key mask="CA" key="Right">exec:xrandr --output HDMI-A-2 --rotate right</Key>
+    <Key mask="4" key="Page_Up">exec:amixer -q sset Master 5%+</Key>
+    <Key mask="4" key="Page_Down">exec:amixer -q sset Master 5%-</Key>
 
     <!-- Default window decorations -->
     <WindowStyle>
