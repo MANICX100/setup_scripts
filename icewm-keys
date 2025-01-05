@@ -19,7 +19,7 @@ key "Ctrl+Alt+b" sensible-browser
 
 key "Menu" xdg-open https://poe.com
 
-key "Ctrl+Alt+t" alacritty
+key "Ctrl+Alt+t" ghostty
 key "Ctrl+Alt+r" sudo systemctl reboot
 
 #key "Ctrl+Alt+s" sudo poweroff
