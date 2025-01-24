@@ -130,6 +130,7 @@ dict() {
   curl -s "dict://dict.org/d:$word"
 }
 
+alias rmfolders='rm -r */'
 alias zig='/home/dkendall/Desktop/zig-linux-x86_64-0.13.0/zig'
 alias lockdns='sudo chattr +i /etc/resolv.conf'
 alias unlockdns='sudo chattr +i /etc/resolv.conf'
@@ -142,9 +143,9 @@ alias beeperfix='rm -rfv .config/Beeper/GPUCache'
 alias lutris='/usr/games/lutris'
 alias fat32format='sudo mkfs.vfat -F 32'
 alias exfatformat='sudo mkfs.exfat'
-alias ext4format='sudo mkfs.ext4'
+alias ext4format='sudo mkfs.ext4 -I 256 -O 64bit'
 alias xfsformat='sudo mkfs.xfs'
-alias ntfsformat='sudo mkfs.ntfs'
+alias ntfsformat='sudo mkfs.ntfs -f'
 alias f2fsformat='sudo mkfs.f2fs'
 alias btrfsformat='sudo mkfs.btrfs'
 
