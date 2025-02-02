@@ -6,4 +6,5 @@ sensible-browser &
 qlipper &
 rustdesk &
 #killall kwalletd6 &
+kdeconnect-indicator &
 (sleep 3 && wmctrl -c "RustDesk" -b add,hidden)
