@@ -26,7 +26,7 @@ key "Ctrl+Alt+r" sudo systemctl reboot
 
 #key "Ctrl+Alt+s" sudo poweroff
 #key "Ctrl+Alt+s" sudo systemctl suspend
-key "Ctrl+Alt+s" sudo rtcwake -m mem -t $(date +%s -d "today 07:00")
+key "Ctrl+Alt+s" sudo rtcwake -m mem -t $(date +%s -d "tomorrow 07:00")
 
 key "Ctrl+Alt+L" /home/dkendall/lock-x11.sh
 key "Super+L" /home/dkendall/lock-x11.sh
