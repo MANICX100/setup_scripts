@@ -509,6 +509,7 @@ function please() {
 }
 
 function up() {
+sudo apt update
   sudo apt upgrade --with-new-pkgs -y
   flatpak update -y
   git -C $HOME/powerlevel10k pull
@@ -517,6 +518,7 @@ function up() {
   cargo install-update -a
   #bun upgrade
   #sudo snap refresh
+  upheldback
 }
 
 function display_path() {
