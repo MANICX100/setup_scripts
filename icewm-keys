@@ -25,8 +25,8 @@ key "Ctrl+Alt+t" ghostty
 key "Ctrl+Alt+r" sudo systemctl reboot
 
 #key "Ctrl+Alt+s" sudo poweroff
-#key "Ctrl+Alt+s" sudo systemctl suspend
-key "Ctrl+Alt+s" /home/dkendall/wakeschedule.sh
+key "Ctrl+Alt+s" sudo systemctl suspend
+#key "Ctrl+Alt+s" /home/dkendall/wakeschedule.sh
 
 key "Ctrl+Alt+L" /home/dkendall/lock-x11.sh
 key "Super+L" /home/dkendall/lock-x11.sh
