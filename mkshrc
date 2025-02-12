@@ -299,7 +299,7 @@ alias last='sudo journalctl -u acpid'
 
 alias convertdeb='sudo alien --to-rpm'
 alias convertrpm='sudo alien'
-alias gitc='git clone --depth 1'
+alias gitc='git clone --depth 2'
 alias edithosts='sudo $EDITOR /etc/hosts'
 alias fd='fzf --query'
 alias webcam='sudo modprobe v4l2loopback'
@@ -434,10 +434,10 @@ timeweb(){
 curl -L -w "time_namelookup: %{time_namelookup}\ntime_connect: %{time_connect}\ntime_appconnect: %{time_appconnect}\ntime_pretransfer: %{time_pretransfer}\ntime_redirect: %{time_redirect}\ntime_starttransfer: %{time_starttransfer}\ntime_total: %{time_total}\n" $@
 }
 
-systemctl() {
-  command sudo systemctl "$@"
-  watch -n 1 systemctl status "$@"
-}
+#systemctl() {
+ # command sudo systemctl "$@"
+ # watch -n 1 systemctl status "$@"
+#}
 
 essentialpkgs() {
 dpkg-query -Wf '${Package;-40}${Priority}\n' | rg "required"
