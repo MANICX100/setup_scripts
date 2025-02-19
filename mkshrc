@@ -20,6 +20,11 @@ setopt share_history
 SAVEHIST=1000
 HISTFILE=$HOME/.zsh_history
 
+recent() {
+    local count=${1:-20}  # Default to 20 if no argument is given
+    bfs . -type f -printf "%T@ %p\n" | sort -nr | cut -d ' ' -f2- | head -n "$count"
+}
+
 fixpihole(){
 sudo killall dnsmasq
 pihole restartdns
