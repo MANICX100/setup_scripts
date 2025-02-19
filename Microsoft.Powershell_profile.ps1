@@ -1,4 +1,13 @@
-### PowerShell Profile Refactor
+function Recent {
+    param (
+        [int]$Count = 20  # Default to 20 if no argument is given
+    )
+
+    Get-ChildItem -Path . -File -Recurse | 
+        Sort-Object LastWriteTime -Descending | 
+        Select-Object -First $Count | 
+        ForEach-Object { $_.FullName }
+}
 
 function biosversion {
  Get-WmiObject win32_bios
