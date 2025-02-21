@@ -3,7 +3,7 @@
 /usr/lib/x86_64-linux-gnu/libexec/polkit-kde-authentication-agent-1 &
 #ksnip &
 flameshot &
-beeper --disable-gpu &
+#beeper --disable-gpu &
 sensible-browser &
 qlipper &
 rustdesk &
