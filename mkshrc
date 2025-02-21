@@ -517,6 +517,7 @@ function up() {
 sudo apt update
   sudo apt upgrade --with-new-pkgs -y
   flatpak update -y
+  flatpak remove --unused
   git -C $HOME/powerlevel10k pull
   #dockerupdate
   #cargo-update
