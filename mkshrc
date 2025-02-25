@@ -525,6 +525,7 @@ sudo apt update
   #bun upgrade
   #sudo snap refresh
   upheldback
+  sudo pihole -up
 }
 
 function display_path() {
