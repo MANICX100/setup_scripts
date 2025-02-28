@@ -1,3 +1,32 @@
+function Delete-GitHistory {
+    param(
+        [string]$CommitMessage = "Clean git history"
+    )
+    
+    Write-Host "Creating new orphan branch..." -ForegroundColor Cyan
+    git checkout --orphan latest_branch
+    
+    Write-Host "Adding all files to the new branch..." -ForegroundColor Cyan
+    git add -A
+    
+    Write-Host "Committing changes..." -ForegroundColor Cyan
+    git commit -am $CommitMessage
+    
+    Write-Host "Deleting main branch..." -ForegroundColor Cyan
+    git branch -D main
+    
+    Write-Host "Renaming current branch to main..." -ForegroundColor Cyan
+    git branch -m main
+    
+    Write-Host "Force pushing to remote repository..." -ForegroundColor Cyan
+    git push -f origin main
+    
+    Write-Host "Running garbage collection..." -ForegroundColor Cyan
+    git gc --aggressive --prune=all
+    
+    Write-Host "Git history has been reset!" -ForegroundColor Green
+}
+
 function Recent {
     param (
         [int]$Count = 20  # Default to 20 if no argument is given
