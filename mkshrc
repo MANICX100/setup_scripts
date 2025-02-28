@@ -68,6 +68,33 @@ sudo docker run -it -p 8080:80 \
   openproject/openproject:14
 }
 
+del_git_history() {
+  local commit_message="${1:-Clean git history}"
+  
+  echo "Creating new orphan branch..."
+  git checkout --orphan latest_branch
+  
+  echo "Adding all files to the new branch..."
+  git add -A
+  
+  echo "Committing changes..."
+  git commit -am "$commit_message"
+  
+  echo "Deleting main branch..."
+  git branch -D main
+  
+  echo "Renaming current branch to main..."
+  git branch -m main
+  
+  echo "Force pushing to remote repository..."
+  git push -f origin main
+  
+  echo "Running garbage collection..."
+  git gc --aggressive --prune=all
+  
+  echo "Git history has been reset!"
+}
+
 cd() {
   if [ "$#" = "0" ]; then
     builtin cd
