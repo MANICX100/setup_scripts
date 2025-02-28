@@ -135,6 +135,8 @@ dict() {
   curl -s "dict://dict.org/d:$word"
 }
 
+alias mpvav1='mpv * --hwdec=0'
+
 alias extracttgz='7zstargz'
 alias extracttxz='7ztarxz'
 alias extracttargz='7ztargz'
@@ -1019,11 +1021,6 @@ orderfiles() {
     done
 }
 
-subs() {
-    cd "$(dirname "$1")"
-    "$HOME/OneDrive/OpenSubtitlesDownload.py" --cli --auto --username MANICX100 --password 5z6!!Evd "$1"
-    cd "$HOME"
-}
 
 yt() {
   cd "$HOME/Videos/yt/"
@@ -1032,21 +1029,6 @@ yt() {
     --external-downloader axel --external-downloader-args "-n 16"
 
   cd "$HOME"
-}
-
-
-deltv() {
-    rm -rf "$HOME/Videos/Personal"
-    cd "$HOME/Videos/"
-    mkdir Personal
-    cd "$HOME"
-}
-
-delyt() {
-    rm -rf "$HOME/Videos/yt"
-    cd "$HOME/Videos/"
-    mkdir yt
-    cd "$HOME"
 }
 
 lazyg() {
