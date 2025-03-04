@@ -164,7 +164,7 @@ dict() {
 
 alias mpvav1='mpv * --hwdec=0'
 
-alias extracttgz='7zstargz'
+alias extracttgz='7ztargz'
 alias extracttxz='7ztarxz'
 alias extracttargz='7ztargz'
 alias extracttarxz'7ztarxz'
