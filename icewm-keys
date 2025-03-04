@@ -1,4 +1,4 @@
-key "Super+Shift+H" highlight-pointer --show-cursor --outline 2 --radius 40 --auto-hide-highlight --hide-timeout 1 &
+key "Super+Shift+H" /home/dkendall/highlight-pointer --show-cursor --outline 2 --radius 40 --auto-hide-highlight --hide-timeout 1 &
 
 key "BTN_SOUTH" xdotool key space
 
