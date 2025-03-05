@@ -1,3 +1,46 @@
+function UninstallAll-Modules {
+    [CmdletBinding()]
+    param()
+
+    process {
+        # Check if gsudo is available
+        if (-not (Get-Command -Name gsudo -ErrorAction SilentlyContinue)) {
+            Write-Error "gsudo not found. Please install it with 'winget install gerardog.gsudo' or visit https://github.com/gerardog/gsudo"
+            return
+        }
+
+        $documentsPath = [Environment]::GetFolderPath('MyDocuments')
+        $modulesPath = Join-Path -Path $documentsPath -ChildPath 'PowerShell\Modules'
+        
+        if (Test-Path -Path $modulesPath) {
+            Write-Warning "This will permanently delete all PowerShell modules at: $modulesPath"
+            $confirmation = Read-Host "Are you sure you want to proceed? (y/n)"
+            
+            if ($confirmation -eq 'y') {
+                Write-Output "Removing all PowerShell modules at: $modulesPath"
+                
+                # Properly escape the path for use in the command
+                $escapedPath = $modulesPath -replace "'", "''"
+                
+                # Use a script block instead of a string command for better handling of paths with spaces
+                $scriptBlock = [ScriptBlock]::Create("Remove-Item -Path '$escapedPath' -Recurse -Force -ErrorAction Stop")
+                
+                try {
+                    gsudo powershell.exe -NoProfile -Command "& {$scriptBlock}"
+                    Write-Output "Successfully removed all modules from $modulesPath"
+                }
+                catch {
+                    Write-Error "Failed to remove modules: $_"
+                }
+            }
+            else {
+                Write-Output "Operation cancelled by user."
+            }
+        }
+        else {
+            Write-Output "PowerShell Modules folder not found at: $modulesPath"
+        }
+    }
 }
 
 function heavytasklist {
