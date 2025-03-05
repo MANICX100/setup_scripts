@@ -1,3 +1,7 @@
+function heavytasklist {
+Get-Process | Select-Object Name, ID, CPU, @{Name="MemoryMB";Expression={$_.WorkingSet / 1MB}}, Description | Sort-Object -Property CPU, MemoryMB -Descending | Select-Object -First 20 | Format-Table -AutoSize
+}
+
 function Delete-GitHistory {
     param(
         [string]$CommitMessage = "Clean git history"
