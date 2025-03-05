@@ -1,28 +1,3 @@
-function UninstallAll-Modules {
-    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
-    param()
-
-    process {
-        $documentsPath = [Environment]::GetFolderPath('MyDocuments')
-        $modulesPath = Join-Path -Path $documentsPath -ChildPath 'PowerShell\Modules'
-        
-        if (Test-Path -Path $modulesPath) {
-            Write-Warning "This will permanently delete all PowerShell modules at: $modulesPath"
-            
-            if ($PSCmdlet.ShouldProcess($modulesPath, "Remove all PowerShell modules")) {
-                try {
-                    Remove-Item -Path $modulesPath -Recurse -Force -ErrorAction Stop
-                    Write-Output "Successfully removed all modules from $modulesPath"
-                }
-                catch {
-                    Write-Error "Failed to remove modules: $_"
-                }
-            }
-        }
-        else {
-            Write-Output "PowerShell Modules folder not found at: $modulesPath"
-        }
-    }
 }
 
 function heavytasklist {
@@ -202,29 +177,20 @@ function Update-PowerShell {
     }
 }
 
-function touch($file) { "" | Out-File $file -Encoding ASCII }
 function ff($name) { Get-ChildItem -Recurse -Filter "*${name}*" -ErrorAction SilentlyContinue | ForEach-Object { "$($_.Directory)\$_" } }
 function mkcd($dir) { mkdir $dir -Force; Set-Location $dir }
 function reload-profile { & $PROFILE }
-function unzip($file) {
-    Expand-Archive -Path (Get-ChildItem -Path $pwd -Filter $file | ForEach-Object { $_.FullName }) -DestinationPath $pwd
-}
+
 function hb($filePath) {
     $uri = "http://bin.christitus.com/documents"
     $response = Invoke-RestMethod -Uri $uri -Method Post -Body (Get-Content $filePath -Raw)
     "http://bin.christitus.com/$($response.key)"
-}
-function grep($regex, $dir) { 
-    if ($dir) { Get-ChildItem $dir | Select-String $regex }
-    else { $input | Select-String $regex }
 }
 function sed($file, $find, $replace) { (Get-Content $file).Replace($find, $replace) | Set-Content $file }
 function which($name) { Get-Command $name | Select-Object -ExpandProperty Definition }
 function export($name, $value) { Set-Item -Force -Path "env:$name" -Value $value }
 function pkill($name) { Get-Process $name -ErrorAction SilentlyContinue | Stop-Process }
 function pgrep($name) { Get-Process $name }
-function head($Path, $n=10) { Get-Content $Path -Head $n }
-function tail($Path, $n=10) { Get-Content $Path -Tail $n }
 function nf($name) { New-Item -ItemType "file" -Path . -Name $name }
 
 # Project Management
