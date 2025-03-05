@@ -1,3 +1,30 @@
+function UninstallAll-Modules {
+    [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
+    param()
+
+    process {
+        $documentsPath = [Environment]::GetFolderPath('MyDocuments')
+        $modulesPath = Join-Path -Path $documentsPath -ChildPath 'PowerShell\Modules'
+        
+        if (Test-Path -Path $modulesPath) {
+            Write-Warning "This will permanently delete all PowerShell modules at: $modulesPath"
+            
+            if ($PSCmdlet.ShouldProcess($modulesPath, "Remove all PowerShell modules")) {
+                try {
+                    Remove-Item -Path $modulesPath -Recurse -Force -ErrorAction Stop
+                    Write-Output "Successfully removed all modules from $modulesPath"
+                }
+                catch {
+                    Write-Error "Failed to remove modules: $_"
+                }
+            }
+        }
+        else {
+            Write-Output "PowerShell Modules folder not found at: $modulesPath"
+        }
+    }
+}
+
 function heavytasklist {
 Get-Process | Select-Object Name, ID, CPU, @{Name="MemoryMB";Expression={$_.WorkingSet / 1MB}}, Description | Sort-Object -Property CPU, MemoryMB -Descending | Select-Object -First 20 | Format-Table -AutoSize
 }
