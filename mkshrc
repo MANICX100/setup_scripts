@@ -26,16 +26,16 @@ recent() {
 }
 
 fixpihole(){
-sudo killall dnsmasq
-pihole restartdns
-sudo systemctl restart NetworkManager
-sudo ip addr flush dev wlp7s0
-sudo ip addr add 192.168.1.132/24 dev wlp7s0
+sudo-rs killall dnsmasq
+sudo-rs pihole -r
+sudo-rs systemctl restart NetworkManager
+sudo-rs ip addr flush dev wlp7s0
+sudo-rs ip addr add 192.168.1.183/24 dev wlp7s0
 }
 
 changebrowser(){
-sudo update-alternatives --config gnome-www-browser
-sudo update-alternatives --config x-www-browser
+sudo-rs update-alternatives --config gnome-www-browser
+sudo-rs update-alternatives --config x-www-browser
 }
 
 vaultwarden() {
