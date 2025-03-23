@@ -1,4 +1,4 @@
-key "Super+Shift+H" /home/dkendall/highlight-pointer --show-cursor --outline 2 --radius 40 --auto-hide-highlight --hide-timeout 1 &
+key "Super+Shift+H" /home/dan/highlight-pointer --show-cursor --outline 2 --radius 40 --auto-hide-highlight --hide-timeout 1 &
 
 key "BTN_SOUTH" xdotool key space
 
@@ -14,7 +14,7 @@ key "Super+Shift+M" flatpak run org.kde.kruler/x86_64/stable
 key "Super+Shift+C" gpick
 
 key "Super+period" flatpak run org.gnome.Characters/x86_64/stable
-key "Ctrl+Super+Enter" /home/dkendall/yasr.sh
+key "Ctrl+Super+Enter" /home/dan/yasr.sh
 key "Super+KP_Add" xzoom -mag 2
 
 key "Ctrl+Alt+b" sensible-browser
@@ -26,10 +26,10 @@ key "Ctrl+Alt+r" sudo systemctl reboot
 
 #key "Ctrl+Alt+s" sudo poweroff
 key "Ctrl+Alt+s" sudo systemctl suspend
-#key "Ctrl+Alt+s" /home/dkendall/wakeschedule.sh
+#key "Ctrl+Alt+s" /home/dan/wakeschedule.sh
 
-key "Ctrl+Alt+L" /home/dkendall/lock-x11.sh
-key "Super+L" /home/dkendall/lock-x11.sh
+key "Ctrl+Alt+L" /home/dan/lock-x11.sh
+key "Super+L" /home/dan/lock-x11.sh
 key "Ctrl+Alt+n" alacritty -e nvem /home/dkendall/OneDrive/notepad.txt
 key "Super+E" xdg-open "/home/dkendall/Jellyfin Server Media/"
 
