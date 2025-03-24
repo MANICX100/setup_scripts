@@ -211,8 +211,8 @@ alias pkill='killall -I -v'
 alias explorer='xdg-open' start='xdg-open' e='xdg-open' ii='xdg-open'
 
 alias wakeups='cat /proc/acpi/wakeup |rg -i enabled'
-alias wc='/home/dkendall/wc2/wc2 -lwm'
-alias wc2='/home/dkendall/wc2/wc2 -lwm'
+alias wc='$HOME/wc2/wc2 -lwm'
+alias wc2='$HOME/wc2/wc2 -lwm'
 alias ls='eza'
 alias shuf='shuf-rs'
 
@@ -232,10 +232,10 @@ alias openallpdf="find . -iname '*\.pdf' -print0 | xargs -0 -n1 mupdf"
 alias dy="dig +short @dns.toys"
 alias flatpakdown='flatpak remote-info --log flathub'
 
-alias jellyfin='sudo docker run -d -v /srv/jellyfin/config:/config -v /srv/jellyfin/cache:/cache -v "/home/dkendall/Jellyfin Server Media":/media -p 8096:8096 -p 7359:7359/udp jellyfin/jellyfin:latest'
+alias jellyfin='sudo docker run -d -v /srv/jellyfin/config:/config -v /srv/jellyfin/cache:/cache -v "$HOME/Jellyfin Server Media":/media -p 8096:8096 -p 7359:7359/udp jellyfin/jellyfin:latest'
 
 alias errors='sudo journalctl -p err'
-alias saveimgclip='xclip -selection clipboard -t image/png -o > /home/dkendall/Desktop/clipboard.png'
+alias saveimgclip='xclip -selection clipboard -t image/png -o > $HOME/Desktop/clipboard.png'
 alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
 
 alias build='zig build-exe'
@@ -283,7 +283,8 @@ alias de='ls -l /usr/share/xsessions/'
 alias loginmgr='cat /etc/X11/default-display-manager'
 alias displaymanager='loginmgr'
 alias nom='$HOME/go/bin/nom'
-alias su='sudo'
+alias su='su-rs'
+alias sudo='sudo-rs'
 
 # macOS
 alias afconvert='ffmpeg'
@@ -546,10 +547,11 @@ function please() {
 }
 
 function up() {
-sudo apt update
-  sudo apt upgrade --with-new-pkgs -y
-  flatpak update -y
-  flatpak remove --unused
+#sudo apt update
+ topgrade
+ sudo apt upgrade --with-new-pkgs -y
+  #flatpak update -y
+  #flatpak remove --unused
   git -C $HOME/powerlevel10k pull
   #dockerupdate
   #cargo-update
@@ -557,7 +559,7 @@ sudo apt update
   #bun upgrade
   #sudo snap refresh
   upheldback
-  sudo pihole -up
+  #sudo pihole -up
 }
 
 function display_path() {
@@ -1095,7 +1097,7 @@ eval "$(zoxide init zsh)"
 . "$HOME/.cargo/env"
 
 # bun completions
-[ -s "/home/dkendall/$HOME/.bun/_bun" ] && source "/home/dkendall/$HOME/.bun/_bun"
+[ -s "$HOME/$HOME/.bun/_bun" ] && source "$HOME/$HOME/.bun/_bun"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
