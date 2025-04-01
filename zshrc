@@ -162,6 +162,8 @@ dict() {
   curl -s "dict://dict.org/d:$word"
 }
 
+alias emptyramslots='sudo dmidecode -t memory| rg -i "No module installed"'
+
 alias ghosttyconfig='$HOME/.config/ghostty/config'
 alias heavytasklist='ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%cpu | head -n 20'
 #alias mpvav1='mpv * --hwdec=0'
@@ -1105,3 +1107,8 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 autoload bashcompinit
 bashcompinit
 source "$HOME/.local/share/bash-completion/completions/am"
+
+# ZVM
+export ZVM_INSTALL="$HOME/.zvm/self"
+export PATH="$PATH:$HOME/.zvm/bin"
+export PATH="$PATH:$ZVM_INSTALL/"
