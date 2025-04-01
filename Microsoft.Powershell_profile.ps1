@@ -1,3 +1,81 @@
+function Repair-Windows {
+    <#
+    .SYNOPSIS
+        Runs standard Windows image repair and system file check commands (DISM and SFC) with elevated privileges using gsudo.
+    .DESCRIPTION
+        This function utilizes the 'gsudo' utility to launch an elevated command prompt (cmd.exe).
+        Within that elevated prompt, it executes two commands sequentially:
+        1. DISM.exe /Online /Cleanup-image /Restorehealth
+        2. sfc /scannow
+
+        These commands are commonly used to repair Windows system image corruption and fix protected system files.
+
+        Ensure 'gsudo' is installed and accessible in your system's PATH for this function to work.
+        You can get gsudo from https://github.com/gerardog/gsudo
+
+        You will likely see a UAC prompt when gsudo requests elevation.
+    .EXAMPLE
+        Repair-Windows
+
+        Runs the DISM and SFC commands in an elevated cmd.exe window via gsudo.
+    .NOTES
+        Author: Gemini
+        Requires: gsudo (https://github.com/gerardog/gsudo) installed and in PATH.
+        Platform: Windows PowerShell / PowerShell 7+
+    #>
+    [CmdletBinding()]
+    [OutputType([void])] # This function doesn't return specific objects, output is from the commands run via gsudo.
+    param()
+
+    begin {
+        # Check if gsudo command is available
+        if (-not (Get-Command gsudo -ErrorAction SilentlyContinue)) {
+            Write-Error "The 'gsudo' command was not found. Please ensure gsudo is installed and available in your system's PATH."
+            Write-Host "You can download gsudo from: https://github.com/gerardog/gsudo"
+            # Stop the function if gsudo is missing
+            return
+        }
+        Write-Host "Preparing to run DISM Restorehealth and SFC ScanNow using gsudo..."
+        Write-Host "This will request administrative privileges via a UAC prompt."
+    }
+
+    process {
+        # Define the commands to run within cmd.exe
+        # Using && ensures sfc /scannow only runs if DISM completes successfully (exit code 0)
+        $commandsToRun = "DISM.exe /Online /Cleanup-image /Restorehealth && sfc /scannow"
+
+        # Construct the argument list for gsudo
+        # We tell gsudo to run cmd.exe, using /C to execute the command string and then exit.
+        $gsudoArgs = @(
+            "cmd.exe",
+            "/C",
+            "`"$commandsToRun`"" # Encapsulate the commands in quotes for cmd.exe
+        )
+
+        Write-Host "Executing commands via gsudo. Please approve the UAC prompt if it appears."
+        Write-Verbose "Running: gsudo $($gsudoArgs -join ' ')"
+
+        try {
+            # Execute gsudo with the specified arguments
+            # Using Start-Process allows capturing output/errors if needed, but direct execution is simpler here.
+            # We expect gsudo to handle showing the output from cmd.exe in the current console or a new one based on gsudo's config.
+            gsudo @gsudoArgs
+
+            # Note: Error checking based on $LASTEXITCODE after gsudo might be unreliable
+            # as it depends on gsudo's behavior and whether it passes through cmd.exe's exit code correctly.
+            # It's best to observe the output directly from the commands.
+
+        } catch {
+            Write-Error "An error occurred while trying to execute gsudo: $_"
+        }
+    }
+
+    end {
+        Write-Host "The Repair-Windows function has finished attempting the DISM and SFC operations."
+        Write-Host "Please review the output from the elevated window/console for the results of the scans."
+    }
+}
+
 function Setup-ScriptLink {
     [CmdletBinding(SupportsShouldProcess=$true)]
     Param(
