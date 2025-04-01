@@ -20,6 +20,95 @@ setopt share_history
 SAVEHIST=1000
 HISTFILE=$HOME/.zsh_history
 
+setup_script_link() {
+  # Check if an argument (filename) was provided
+  if [[ $# -eq 0 ]]; then
+    print -u2 "Usage: setup_script_link <filename>"
+    print -u2 "Error: No file specified."
+    return 1
+  fi
+
+  local source_file="$1"
+  local target_dir="$HOME/setup_scripts"
+
+  # Check if the source file exists and is a regular file
+  if [[ ! -f "$source_file" ]]; then
+    print -u2 "Error: File '$source_file' not found or is not a regular file."
+    return 1
+  fi
+
+  # --- Get Absolute Paths ---
+  # Use realpath to resolve the full path, handling symlinks and relative paths
+  local source_file_abs
+  source_file_abs=$(realpath "$source_file")
+  if [[ $? -ne 0 || -z "$source_file_abs" ]]; then
+     print -u2 "Error: Could not determine absolute path for '$source_file'."
+     return 1
+  fi
+
+  local source_filename=$(basename "$source_file_abs")
+  local target_path="$target_dir/$source_filename"
+
+  # --- Ensure Target Directory Exists ---
+  print -P "%F{cyan}Ensuring target directory exists: %f'$target_dir'"
+  mkdir -p "$target_dir"
+  if [[ $? -ne 0 ]]; then
+    print -u2 "%F{red}Error: Could not create directory '$target_dir'.%f"
+    return 1
+  fi
+
+  # --- Check for Existing File/Link in Target ---
+  if [[ -e "$target_path" ]]; then
+      print -u2 "%F{yellow}Warning: '$target_path' already exists. Aborting to prevent overwrite.%f"
+      return 1
+  fi
+
+  # --- Move the File ---
+  print -P "%F{cyan}Moving: %f'$source_file_abs' -> '$target_path'"
+  # Use mv -v for verbose output (optional)
+  mv -v "$source_file_abs" "$target_path"
+  if [[ $? -ne 0 ]]; then
+    print -u2 "%F{red}Error: Failed to move file '$source_filename'.%f"
+    return 1
+  fi
+
+  # --- Create the Symlink ---
+  print -P "%F{cyan}Creating symlink: %f'$source_file_abs' -> '$target_path'"
+  # Use ln -sv for symbolic (s) and verbose (v)
+  ln -sv "$target_path" "$source_file_abs"
+  if [[ $? -ne 0 ]]; then
+    print -u2 "%F{red}Error: Failed to create symlink at '$source_file_abs'.%f"
+    # Attempt to move the file back if symlink fails? (Optional - can add complexity)
+    # print -u2 "%F{yellow}Attempting to move file back...%f"
+    # mv -v "$target_path" "$source_file_abs"
+    return 1
+  fi
+
+  # --- Run lazygit Sync ---
+  print -P "%F{cyan}Changing to '$target_dir' and running 'lazyg \"sync\"'...%f"
+  # Use pushd/popd to manage directory changes cleanly
+  pushd "$target_dir" >/dev/null 2>&1
+  if [[ $? -ne 0 ]]; then
+      print -u2 "%F{red}Error: Could not change directory to '$target_dir'.%f"
+      return 1 # pushd failed, no need for popd
+  fi
+
+  # Run the command
+  lazyg "sync"
+  local lazyg_status=$? # Capture the exit status
+
+  # Return to the original directory
+  popd >/dev/null 2>&1
+
+  if [[ $lazyg_status -ne 0 ]]; then
+    print -u2 "%F{yellow}Warning: 'lazyg \"sync\"' command finished with non-zero status ($lazyg_status).%f"
+    # Decide if this should be a failure - returning 0 allows script to continue
+  fi
+
+  print -P "%F{green}Successfully processed '%f$source_filename%F{green}'.%f"
+  return 0 # Indicate success
+}
+
 recent() {
     local count=${1:-20}  # Default to 20 if no argument is given
     bfs . -type f -printf "%T@ %p\n" | sort -nr | cut -d ' ' -f2- | head -n "$count"
