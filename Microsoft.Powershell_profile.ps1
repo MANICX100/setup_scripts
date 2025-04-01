@@ -1,3 +1,117 @@
+function Setup-ScriptLink {
+    [CmdletBinding(SupportsShouldProcess=$true)]
+    Param(
+        [Parameter(Mandatory=$true, Position=0, ValueFromPipeline=$true)]
+        [string]$SourcePath
+    )
+
+    Process {
+        # --- Validate Source ---
+        $resolvedSource = Resolve-Path -Path $SourcePath -ErrorAction SilentlyContinue
+        if (-not $resolvedSource) {
+            Write-Error "Source path '$SourcePath' not found or is invalid."
+            return
+        }
+        if (-not (Test-Path -Path $resolvedSource.Path -PathType Leaf)) {
+            Write-Error "Source path '$($resolvedSource.Path)' is not a file."
+            return
+        }
+        $sourceFileAbsPath = $resolvedSource.Path
+        $sourceFilename = Split-Path -Path $sourceFileAbsPath -Leaf
+
+        # --- Define and Ensure Target Directory ---
+        $targetDir = Join-Path -Path $HOME -ChildPath 'setup_scripts'
+        $targetPath = Join-Path -Path $targetDir -ChildPath $sourceFilename
+
+        if (-not (Test-Path -Path $targetDir -PathType Container)) {
+            if ($PSCmdlet.ShouldProcess($targetDir, "Create Directory")) {
+                try {
+                    New-Item -Path $targetDir -ItemType Directory -Force -ErrorAction Stop | Out-Null
+                    Write-Verbose "Created directory: $targetDir"
+                } catch {
+                    Write-Error "Failed to create directory '$targetDir': $($_.Exception.Message)"
+                    return
+                }
+            } else {
+                Write-Warning "Directory creation skipped by user request."
+                return
+            }
+        }
+
+        # --- Check for Existing Target ---
+        if (Test-Path -Path $targetPath) {
+            Write-Error "Target path '$targetPath' already exists. Aborting to prevent overwrite."
+            return
+        }
+
+        # --- Check Admin for Symlink (Informational) ---
+        $currentUser = New-Object Security.Principal.WindowsPrincipal $([Security.Principal.WindowsIdentity]::GetCurrent())
+        if (-not $currentUser.IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator)) {
+            Write-Warning "Administrator privileges may be required to create symbolic links unless Developer Mode is enabled."
+        }
+
+        # --- Perform Operations ---
+        try {
+            # Move File
+            if ($PSCmdlet.ShouldProcess($targetPath, "Move File from '$sourceFileAbsPath'")) {
+                Move-Item -Path $sourceFileAbsPath -Destination $targetPath -Force -ErrorAction Stop -Verbose
+            } else {
+                 Write-Warning "Move operation skipped by user request."
+                 return
+            }
+
+            # Create Symlink
+            if ($PSCmdlet.ShouldProcess($sourceFileAbsPath, "Create Symlink pointing to '$targetPath'")) {
+                 # Note: -Force is used here to overwrite the *link path* if it somehow still exists after move, not the target.
+                 New-Item -ItemType SymbolicLink -Path $sourceFileAbsPath -Value $targetPath -Force -ErrorAction Stop -Verbose
+            } else {
+                 Write-Warning "Symlink creation skipped by user request. Attempting to rollback move..."
+                 # Simple rollback attempt
+                 Move-Item -Path $targetPath -Destination $sourceFileAbsPath -Force -ErrorAction SilentlyContinue -Verbose
+                 return
+            }
+
+            # Run lazyg sync
+            Write-Host "Changing location to '$targetDir' and running 'lazyg ""sync""'..."
+            Push-Location -Path $targetDir -ErrorAction Stop
+
+            if ($PSCmdlet.ShouldProcess($targetDir, "Run 'lazyg ""sync""'")) {
+                # Execute the command. Adapt if 'lazyg' needs specific invocation.
+                lazyg "sync"
+                $lazygExitCode = $LASTEXITCODE
+                if ($lazygExitCode -ne 0) {
+                    Write-Warning "'lazyg ""sync""' command finished with non-zero exit code: $lazygExitCode"
+                } else {
+                     Write-Verbose "'lazyg ""sync""' completed successfully."
+                }
+            } else {
+                 Write-Warning "'lazyg ""sync""' execution skipped by user request."
+            }
+
+        } catch {
+            Write-Error "An error occurred: $($_.Exception.Message)"
+            # Simple rollback attempt if move succeeded but symlink failed or other error
+            if ((Test-Path -Path $targetPath -PathType Leaf) -and (-not (Test-Path -Path $sourceFileAbsPath))) {
+                 Write-Warning "Attempting to rollback file move..."
+                 Move-Item -Path $targetPath -Destination $sourceFileAbsPath -Force -ErrorAction SilentlyContinue -Verbose
+            }
+        } finally {
+            # Ensure we always pop location if push succeeded
+            if ($pwd.Path -eq (Resolve-Path $targetDir).Path) {
+                 Pop-Location -ErrorAction SilentlyContinue
+                 Write-Verbose "Returned to original location."
+            }
+        }
+
+        # Final check to indicate overall success/failure based on existence of link and target file
+        if ((Test-Path -Path $targetPath -PathType Leaf) -and (Test-Path -Path $sourceFileAbsPath -PathType SymbolicLink)) {
+             Write-Host "Successfully processed '$sourceFilename'." -ForegroundColor Green
+        } else {
+             Write-Warning "Processing '$sourceFilename' may not have completed successfully. Please check paths."
+        }
+    }
+}
+
 function UninstallAll-Modules {
     [CmdletBinding()]
     param()
