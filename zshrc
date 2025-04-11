@@ -257,18 +257,11 @@ alias ghosttyconfig='$HOME/.config/ghostty/config'
 alias heavytasklist='ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%cpu | head -n 20'
 #alias mpvav1='mpv * --hwdec=0'
 
-alias extracttgz='7ztargz'
-alias extracttxz='7ztarxz'
-alias extracttargz='7ztargz'
-alias extracttarxz'7ztarxz'
-
 alias rmfolders='rm -r */'
-
 alias lockdns='sudo chattr +i /etc/resolv.conf'
 alias unlockdns='sudo chattr +i /etc/resolv.conf'
 alias editdns='sudo $EDITOR /etc/resolv.conf'
-alias 7ztargz='7z x "*.tar.gz" -so | 7z x -si -ttar'
-alias 7ztarxz='for f in *.tar.xz; do 7z x "$f" -so | tar x && rm "$f"; done'
+
 alias mvupdir='mv * ../'
 alias biosversion='sudo dmidecode -s bios-version'
 alias beeperfix='rm -rfv .config/Beeper/GPUCache'
