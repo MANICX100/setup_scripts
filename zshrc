@@ -257,6 +257,7 @@ dict() {
   curl -s "dict://dict.org/d:$word"
 }
 
+alias apthistory='$EDITOR /var/log/apt/history.log'
 alias emptyramslots='sudo dmidecode -t memory| rg -i "No module installed"'
 
 alias ghosttyconfig='$HOME/.config/ghostty/config'
