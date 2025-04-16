@@ -109,6 +109,12 @@ setup_script_link() {
   return 0 # Indicate success
 }
 
+currentconnections() {
+ for ip in $(ss -nt | frawk 'NR>1 {print $5}' | cut -d':' -f1 | sort -u); do
+      dig -x "$ip" +short
+  done
+}
+
 recent() {
     local count=${1:-20}  # Default to 20 if no argument is given
     bfs . -type f -printf "%T@ %p\n" | sort -nr | cut -d ' ' -f2- | head -n "$count"
