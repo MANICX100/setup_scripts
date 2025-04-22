@@ -4,7 +4,7 @@ typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
 export EDITOR=nvem
 export TERM=linux
-
+export NODE_COMPILE_CACHE=~/.cache/nodejs-compile-cache
 export JAVA_HOME=/jdk
 
     if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
