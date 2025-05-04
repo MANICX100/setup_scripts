@@ -638,11 +638,8 @@ function please() {
 }
 
 function up() {
-#sudo apt update
- topgrade
- sudo apt upgrade --with-new-pkgs -y
-  #flatpak update -y
-  #flatpak remove --unused
+  topgrade
+  sudo apt upgrade --with-new-pkgs -y
   git -C $HOME/powerlevel10k pull
   #dockerupdate
   #cargo-update
