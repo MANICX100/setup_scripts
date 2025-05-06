@@ -20,6 +20,77 @@ setopt share_history
 SAVEHIST=1000
 HISTFILE=$HOME/.zsh_history
 
+localsdl() {
+    echo "Please copy the 'Copy as cURL (bash)' command for the YouTube playlist manifest (.m3u8) from your browser's network tab."
+    echo "Paste the command below and press Enter:"
+
+    read curl_command
+
+    local curl_script="get_playlist.sh"
+    local playlist_file="playlist.m3u8"
+    local file_list="file_list.txt"
+    local merged_ts="merged.ts"
+    local output_mp4="video.mp4"
+
+    echo "Saving cURL command to ${curl_script}..."
+    echo "${curl_command}" > "${curl_script}"
+
+    echo "Making ${curl_script} executable..."
+    chmod +x "${curl_script}"
+
+    echo "Fetching playlist manifest using ${curl_script}..."
+    if ! ./"${curl_script}" > "${playlist_file}"; then
+        echo "Error: Failed to fetch playlist manifest."
+        rm -f "${curl_script}"
+        return 1
+    fi
+
+    echo "Downloading videos using yt-dlp from ${playlist_file}..."
+    if ! yt-dlp --no-part --continue -a "${playlist_file}"; then
+        echo "Error: yt-dlp failed."
+        rm -f "${curl_script}" "${playlist_file}"
+        return 1
+    fi
+
+    echo "Creating list of downloaded .ts files..."
+    if ! find . -maxdepth 1 -name "*.ts" -print > "${file_list}"; then
+        echo "Error: Failed to find .ts files."
+        rm -f "${curl_script}" "${playlist_file}"
+        return 1
+    fi
+
+    echo "Formatting file list for ffmpeg..."
+    if ! sed -i "s/^/file '/; s/$/'/" "${file_list}"; then
+         if ! sed -i "" "s/^/file '/; s/$/'/" "${file_list}"; then
+             echo "Error: Failed to format file list with sed."
+             rm -f "${curl_script}" "${playlist_file}" "${file_list}"
+             return 1
+         fi
+    fi
+
+
+    echo "Merging .ts files into ${merged_ts} using ffmpeg..."
+    if ! ffmpeg -f concat -safe 0 -i "${file_list}" -c copy "${merged_ts}"; then
+        echo "Error: ffmpeg merging failed."
+        rm -f "${curl_script}" "${playlist_file}" "${file_list}"
+        return 1
+    fi
+
+    echo "Converting ${merged_ts} to ${output_mp4} using ffmpeg..."
+    if ! ffmpeg -i "${merged_ts}" -c:v libx264 -movflags +faststart -c:a copy "${output_mp4}"; then
+        echo "Error: ffmpeg conversion to MP4 failed."
+        rm -f "${curl_script}" "${playlist_file}" "${file_list}" "${merged_ts}"
+        return 1
+    fi
+
+    echo "Cleaning up temporary files..."
+    rm -f "${curl_script}" "${playlist_file}" "${file_list}" "${merged_ts}"
+
+    echo "Process completed successfully. Output file: ${output_mp4}"
+}
+
+
+
 setup_script_link() {
   # Check if an argument (filename) was provided
   if [[ $# -eq 0 ]]; then
