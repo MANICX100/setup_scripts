@@ -1,21 +1,20 @@
-printf "\e[?2004l"
-
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
+zsh_plugins=${ZDOTDIR:-$HOME}/.zsh_plugins
+if [[ ! ${zsh_plugins}.zsh -nt ${zsh_plugins}.txt ]]; then
+  (
+    source /path-to-antidote/antidote.zsh
+    antidote bundle <${zsh_plugins}.txt >${zsh_plugins}.zsh
+  )
+fi
+source ${zsh_plugins}.zsh
+
+printf "\e[?2004l"
 export EDITOR=nvem
 export TERM=linux
 export NODE_COMPILE_CACHE=~/.cache/nodejs-compile-cache
 export JAVA_HOME=/jdk
-
-    if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-        source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-    fi
-
 setopt nullglob
-
-source $HOME/.antidote/antidote.zsh
-antidote load ${ZDOTDIR:-$HOME}/.zsh_plugins.txt
-
 setopt share_history
 SAVEHIST=1000
 HISTFILE=$HOME/.zsh_history
@@ -1240,32 +1239,9 @@ gitIgnoreRm() {
     git commit -m "Update .gitignore"
 }
 
-if [ -n "$ZSH_VERSION" ]; then
-source $HOME/powerlevel10k/powerlevel10k.zsh-theme
-fi
-
-if [ -n "$ZSH_VERSION" ]; then
-# To customize prompt, run `p10k configure` or edit $HOME/.p10k.zsh.
-[[ ! -f $HOME/.p10k.zsh ]] || source $HOME/.p10k.zsh
-fi
-
-[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
-
 eval "$(zoxide init zsh)"
-
 . "$HOME/.cargo/env"
-
-# bun completions
-[ -s "$HOME/$HOME/.bun/_bun" ] && source "$HOME/$HOME/.bun/_bun"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-autoload bashcompinit
-bashcompinit
-source "$HOME/.local/share/bash-completion/completions/am"
-
-# ZVM
 export ZVM_INSTALL="$HOME/.zvm/self"
 export PATH="$PATH:$HOME/.zvm/bin"
 export PATH="$PATH:$ZVM_INSTALL/"
+source ~/powerlevel10k/powerlevel10k.zsh-theme
