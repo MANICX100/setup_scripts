@@ -19,6 +19,16 @@ setopt share_history
 SAVEHIST=1000
 HISTFILE=$HOME/.zsh_history
 
+saveclipimg() {
+  if xclip -selection clipboard -t image/png -o > /dev/null 2>&1; then
+    xclip -selection clipboard -t image/png -o | convert png:- output.jpg
+    echo "✅ Saved clipboard image to output.jpg"
+  else
+    echo "⚠️  Clipboard does not contain a PNG image" >&2
+    return 1
+  fi
+}
+
 localsdl() {
     echo "Please copy the 'Copy as cURL (bash)' command for the YouTube playlist manifest (.m3u8) from your browser's network tab."
     echo "Paste the command below and press Enter:"
@@ -327,6 +337,7 @@ dict() {
   curl -s "dict://dict.org/d:$word"
 }
 
+alias kdedefaults='kcmshell6 componentchooser'
 alias apthistory='$EDITOR /var/log/apt/history.log'
 alias emptyramslots='sudo dmidecode -t memory| rg -i "No module installed"'
 
