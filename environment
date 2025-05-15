@@ -1,5 +1,5 @@
 BUN_INSTALL="$HOME/.bun"
-PATH="/home/dkendall/.local/bin:/usr/sbin/:/home/dkendall/pypy/bin:/var/lib/flatpak/exports/bin:/home/dkendall/.bun:/usr/bin:/usr/local/bin:/home/dkendall/.cargo/bin/:/home/dkendall/.local/share/applications:/home/dkendall/Downloads/go/bin"
+PATH="$HOME/.local/bin:/usr/sbin/:$HOME/pypy/bin:/var/lib/flatpak/exports/bin:$HOME/.bun:/usr/bin:/usr/local/bin:$HOME/.cargo/bin/:$HOME/.local/share/applications:$HOME/Downloads/go/bin"
 XDG_DATA_DIRS="/usr/local/share:/usr/share:/var/lib/flatpak/exports/share"
 QAPTDISTR="bookworm"
 QT_QPA_PLATFORMTHEME=qt6ct
