@@ -19,6 +19,8 @@ setopt share_history
 SAVEHIST=1000
 HISTFILE=$HOME/.zsh_history
 
+bgrun() { rust-parallel "$1" ::: "${@:2}"; }
+
 saveclipimg() {
   if xclip -selection clipboard -t image/png -o > /dev/null 2>&1; then
     xclip -selection clipboard -t image/png -o | convert png:- output.jpg
