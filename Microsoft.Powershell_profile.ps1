@@ -1,194 +1,202 @@
-function Repair-Windows {
-    <#
-    .SYNOPSIS
-        Runs standard Windows image repair and system file check commands (DISM and SFC) with elevated privileges using gsudo.
-    .DESCRIPTION
-        This function utilizes the 'gsudo' utility to launch an elevated command prompt (cmd.exe).
-        Within that elevated prompt, it executes two commands sequentially:
-        1. DISM.exe /Online /Cleanup-image /Restorehealth
-        2. sfc /scannow
-
-        These commands are commonly used to repair Windows system image corruption and fix protected system files.
-
-        Ensure 'gsudo' is installed and accessible in your system's PATH for this function to work.
-        You can get gsudo from https://github.com/gerardog/gsudo
-
-        You will likely see a UAC prompt when gsudo requests elevation.
-    .EXAMPLE
-        Repair-Windows
-
-        Runs the DISM and SFC commands in an elevated cmd.exe window via gsudo.
-    .NOTES
-        Author: Gemini
-        Requires: gsudo (https://github.com/gerardog/gsudo) installed and in PATH.
-        Platform: Windows PowerShell / PowerShell 7+
-    #>
-    [CmdletBinding()]
-    [OutputType([void])] # This function doesn't return specific objects, output is from the commands run via gsudo.
-    param()
-
-    begin {
-        # Check if gsudo command is available
-        if (-not (Get-Command gsudo -ErrorAction SilentlyContinue)) {
-            Write-Error "The 'gsudo' command was not found. Please ensure gsudo is installed and available in your system's PATH."
-            Write-Host "You can download gsudo from: https://github.com/gerardog/gsudo"
-            # Stop the function if gsudo is missing
-            return
-        }
-        Write-Host "Preparing to run DISM Restorehealth and SFC ScanNow using gsudo..."
-        Write-Host "This will request administrative privileges via a UAC prompt."
-    }
-
-    process {
-        # Define the commands to run within cmd.exe
-        # Using && ensures sfc /scannow only runs if DISM completes successfully (exit code 0)
-        $commandsToRun = "DISM.exe /Online /Cleanup-image /Restorehealth && sfc /scannow"
-
-        # Construct the argument list for gsudo
-        # We tell gsudo to run cmd.exe, using /C to execute the command string and then exit.
-        $gsudoArgs = @(
-            "cmd.exe",
-            "/C",
-            "`"$commandsToRun`"" # Encapsulate the commands in quotes for cmd.exe
-        )
-
-        Write-Host "Executing commands via gsudo. Please approve the UAC prompt if it appears."
-        Write-Verbose "Running: gsudo $($gsudoArgs -join ' ')"
-
-        try {
-            # Execute gsudo with the specified arguments
-            # Using Start-Process allows capturing output/errors if needed, but direct execution is simpler here.
-            # We expect gsudo to handle showing the output from cmd.exe in the current console or a new one based on gsudo's config.
-            gsudo @gsudoArgs
-
-            # Note: Error checking based on $LASTEXITCODE after gsudo might be unreliable
-            # as it depends on gsudo's behavior and whether it passes through cmd.exe's exit code correctly.
-            # It's best to observe the output directly from the commands.
-
-        } catch {
-            Write-Error "An error occurred while trying to execute gsudo: $_"
+function webserver {
+    param(
+        [string]$Port = "8080",
+        [string]$Path = (Get-Location).Path
+    )
+    
+    $listener = New-Object Net.HttpListener
+    $listener.Prefixes.Add("http://localhost:$Port/")
+    $listener.Start()
+    Write-Host "File server running on http://localhost:$Port"
+    Write-Host "Serving files from: $Path"    
+    try {
+        while ($true) {
+            $context = $listener.GetContext()
+            
+            # Get files in the specified directory
+            $files = Get-ChildItem -Path $Path -File | ForEach-Object {
+                "<a href='/download/$($_.Name)'>$($_.Name)</a> ($([math]::Round($_.Length/1KB,2)) KB)<br>"
+            }
+            
+            $html = "<h1>Files in $Path</h1>$($files -join '')"
+            
+            if ($context.Request.Url.AbsolutePath.StartsWith('/download/')) {
+                # Handle file download
+                $fileName = $context.Request.Url.AbsolutePath.Substring(10)
+                $filePath = Join-Path $Path $fileName
+                
+                if (Test-Path $filePath) {
+                    $bytes = [IO.File]::ReadAllBytes($filePath)
+                    $context.Response.ContentLength64 = $bytes.Length
+                    $context.Response.Headers.Add('Content-Disposition', "attachment; filename=$fileName")
+                    $context.Response.OutputStream.Write($bytes, 0, $bytes.Length)
+                } else {
+                    $context.Response.StatusCode = 404
+                }
+            } else {
+                # Handle file listing
+                $bytes = [Text.Encoding]::UTF8.GetBytes($html)
+                $context.Response.ContentLength64 = $bytes.Length
+                $context.Response.OutputStream.Write($bytes, 0, $bytes.Length)
+            }
+            
+            $context.Response.Close()
         }
     }
-
-    end {
-        Write-Host "The Repair-Windows function has finished attempting the DISM and SFC operations."
-        Write-Host "Please review the output from the elevated window/console for the results of the scans."
+    finally {
+        $listener.Stop()
+        Write-Host "Server stopped"
     }
 }
 
-function Setup-ScriptLink {
-    [CmdletBinding(SupportsShouldProcess=$true)]
-    Param(
-        [Parameter(Mandatory=$true, Position=0, ValueFromPipeline=$true)]
-        [string]$SourcePath
+function sudo {
+    gsudo --loadprofile @args
+}
+
+function bgrun {
+rust-parallel $args[0] ::: $args[1..$args.Length]
+}
+
+function synctime {gsudo w32tm /resync}
+
+function saveclipimg {
+    [CmdletBinding()]
+    param(
+        [Parameter(Position=0,ValueFromPipeline=$false)]
+        [string]$Path = 'output.jpg'
     )
 
-    Process {
-        # --- Validate Source ---
-        $resolvedSource = Resolve-Path -Path $SourcePath -ErrorAction SilentlyContinue
-        if (-not $resolvedSource) {
-            Write-Error "Source path '$SourcePath' not found or is invalid."
-            return
-        }
-        if (-not (Test-Path -Path $resolvedSource.Path -PathType Leaf)) {
-            Write-Error "Source path '$($resolvedSource.Path)' is not a file."
-            return
-        }
-        $sourceFileAbsPath = $resolvedSource.Path
-        $sourceFilename = Split-Path -Path $sourceFileAbsPath -Leaf
+    # Load WinForms + Drawing if not already loaded
+    Add-Type -AssemblyName System.Windows.Forms,System.Drawing -ErrorAction SilentlyContinue
 
-        # --- Define and Ensure Target Directory ---
-        $targetDir = Join-Path -Path $HOME -ChildPath 'setup_scripts'
-        $targetPath = Join-Path -Path $targetDir -ChildPath $sourceFilename
+    # Grab image from clipboard
+    $img = [Windows.Forms.Clipboard]::GetImage()
 
-        if (-not (Test-Path -Path $targetDir -PathType Container)) {
-            if ($PSCmdlet.ShouldProcess($targetDir, "Create Directory")) {
-                try {
-                    New-Item -Path $targetDir -ItemType Directory -Force -ErrorAction Stop | Out-Null
-                    Write-Verbose "Created directory: $targetDir"
-                } catch {
-                    Write-Error "Failed to create directory '$targetDir': $($_.Exception.Message)"
-                    return
-                }
-            } else {
-                Write-Warning "Directory creation skipped by user request."
-                return
-            }
-        }
-
-        # --- Check for Existing Target ---
-        if (Test-Path -Path $targetPath) {
-            Write-Error "Target path '$targetPath' already exists. Aborting to prevent overwrite."
-            return
-        }
-
-        # --- Check Admin for Symlink (Informational) ---
-        $currentUser = New-Object Security.Principal.WindowsPrincipal $([Security.Principal.WindowsIdentity]::GetCurrent())
-        if (-not $currentUser.IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator)) {
-            Write-Warning "Administrator privileges may be required to create symbolic links unless Developer Mode is enabled."
-        }
-
-        # --- Perform Operations ---
-        try {
-            # Move File
-            if ($PSCmdlet.ShouldProcess($targetPath, "Move File from '$sourceFileAbsPath'")) {
-                Move-Item -Path $sourceFileAbsPath -Destination $targetPath -Force -ErrorAction Stop -Verbose
-            } else {
-                 Write-Warning "Move operation skipped by user request."
-                 return
-            }
-
-            # Create Symlink
-            if ($PSCmdlet.ShouldProcess($sourceFileAbsPath, "Create Symlink pointing to '$targetPath'")) {
-                 # Note: -Force is used here to overwrite the *link path* if it somehow still exists after move, not the target.
-                 New-Item -ItemType SymbolicLink -Path $sourceFileAbsPath -Value $targetPath -Force -ErrorAction Stop -Verbose
-            } else {
-                 Write-Warning "Symlink creation skipped by user request. Attempting to rollback move..."
-                 # Simple rollback attempt
-                 Move-Item -Path $targetPath -Destination $sourceFileAbsPath -Force -ErrorAction SilentlyContinue -Verbose
-                 return
-            }
-
-            # Run lazyg sync
-            Write-Host "Changing location to '$targetDir' and running 'lazyg ""sync""'..."
-            Push-Location -Path $targetDir -ErrorAction Stop
-
-            if ($PSCmdlet.ShouldProcess($targetDir, "Run 'lazyg ""sync""'")) {
-                # Execute the command. Adapt if 'lazyg' needs specific invocation.
-                lazyg "sync"
-                $lazygExitCode = $LASTEXITCODE
-                if ($lazygExitCode -ne 0) {
-                    Write-Warning "'lazyg ""sync""' command finished with non-zero exit code: $lazygExitCode"
-                } else {
-                     Write-Verbose "'lazyg ""sync""' completed successfully."
-                }
-            } else {
-                 Write-Warning "'lazyg ""sync""' execution skipped by user request."
-            }
-
-        } catch {
-            Write-Error "An error occurred: $($_.Exception.Message)"
-            # Simple rollback attempt if move succeeded but symlink failed or other error
-            if ((Test-Path -Path $targetPath -PathType Leaf) -and (-not (Test-Path -Path $sourceFileAbsPath))) {
-                 Write-Warning "Attempting to rollback file move..."
-                 Move-Item -Path $targetPath -Destination $sourceFileAbsPath -Force -ErrorAction SilentlyContinue -Verbose
-            }
-        } finally {
-            # Ensure we always pop location if push succeeded
-            if ($pwd.Path -eq (Resolve-Path $targetDir).Path) {
-                 Pop-Location -ErrorAction SilentlyContinue
-                 Write-Verbose "Returned to original location."
-            }
-        }
-
-        # Final check to indicate overall success/failure based on existence of link and target file
-        if ((Test-Path -Path $targetPath -PathType Leaf) -and (Test-Path -Path $sourceFileAbsPath -PathType SymbolicLink)) {
-             Write-Host "Successfully processed '$sourceFilename'." -ForegroundColor Green
-        } else {
-             Write-Warning "Processing '$sourceFilename' may not have completed successfully. Please check paths."
-        }
+    if ($img) {
+        # Save as JPEG
+        $img.Save($Path, [System.Drawing.Imaging.ImageFormat]::Jpeg)
+        Write-Output "✅ Saved clipboard image to $Path"
+    }
+    else {
+        Write-Warning "⚠️ Clipboard does not contain an image."
+        return 1
     }
 }
+
+function Get-NetHosts {
+    <#
+    .SYNOPSIS
+    Retrieves active TCP connections and resolves remote hostnames using the 'dig' command.
+    Outputs a list of unique, resolved remote hostnames that contain a dot (.).
+
+    .DESCRIPTION
+    This function lists active TCP network connections using Get-NetTCPConnection.
+    For each connection with a valid remote IP address, it attempts a reverse DNS lookup
+    using the external 'dig' command (requires BIND tools installed and in PATH).
+    It filters out local, private, loopback, and unresolved addresses.
+    The final output is a list of unique hostnames (containing at least one '.') associated
+    with the remote ends of these connections.
+
+    .REQUIREMENTS
+    - Windows PowerShell 5.1 or later.
+    - BIND tools for Windows installed, with 'dig.exe' accessible via the system's PATH environment variable.
+
+    .EXAMPLE
+    Get-NetHosts
+
+    Outputs a list of resolved remote hostnames, one per line.
+
+    .EXAMPLE
+    Get-NetHosts | Sort-Object -Unique
+
+    Outputs a sorted list of unique resolved remote hostnames.
+
+    .NOTES
+    Author: Gemini Assistant based on user script
+    Date:   2025-04-16
+    #>
+
+    # Check if dig command is available
+    if (-not (Get-Command dig -ErrorAction SilentlyContinue)) {
+        Write-Error "The 'dig' command was not found. Please install BIND tools for Windows and ensure dig.exe is in your PATH."
+        return
+    }
+
+    # --- Internal Helper Function ---
+    # Performs reverse DNS lookup using dig
+    function Resolve-HostnameWithDigInternal ($ipAddress) {
+        # Avoid resolving non-routable, loopback, or unspecified addresses
+        if ($ipAddress -match '^127\.' -or `
+            $ipAddress -eq '::1' -or `
+            $ipAddress -match '^169\.254\.' -or `
+            $ipAddress -match '^fe80:' -or ` # Link-local IPv6
+            $ipAddress -match '^0\.0\.0\.0' -or `
+            $ipAddress -eq '::') {
+            return $null # Ignore these addresses
+        }
+        # Add checks for private ranges if desired (uncomment if needed)
+        # if ($ipAddress -match '^192\.168\.' -or $ipAddress -match '^10\.' -or $ipAddress -match '^172\.(1[6-9]|2[0-9]|3[0-1])\.' -or $ipAddress -match '^fd[0-9a-f]{2}:') { # Added Private IPv6 ULA
+        #     return $null # Ignore private IPs
+        # }
+
+        try {
+            # Execute dig with short timeout and limited retries for efficiency
+            $digResult = dig -x $ipAddress +short +time=1 +tries=1 2>$null # Redirect stderr to prevent dig errors cluttering output
+            $lastExitCode = $LASTEXITCODE # Capture exit code immediately
+
+            if ($lastExitCode -ne 0 -or -not $digResult) {
+                # Dig command failed, timed out, or found no PTR record
+                return $null
+            } else {
+                # dig +short often returns FQDN ending in '.', trim it and any whitespace.
+                # Take only the first result if multiple lines are returned.
+                $hostnames = ($digResult | ForEach-Object { $_.TrimEnd('.').Trim() })
+                # Ensure we actually got something back after trimming before returning
+                if ($hostnames -and $hostnames[0]) {
+                   return $hostnames[0]
+                } else {
+                   return $null # Return null if trimming resulted in empty string
+                }
+            }
+        } catch {
+            # Catch PowerShell errors during the process (e.g., dig execution failed)
+            # Write-Warning "Error resolving '$ipAddress': $($_.Exception.Message)" # Suppress PS warnings for cleaner output
+            return $null
+        }
+    }
+    # --- End Internal Helper Function ---
+
+
+    # --- Main Processing Logic ---
+    # Use a HashSet for efficient unique storage
+    $uniqueHosts = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
+
+    # Process only TCP Connections
+    Get-NetTCPConnection | ForEach-Object {
+        $remoteAddress = $_.RemoteAddress
+
+        # Resolve hostname only if it's a potentially public, specified address
+        $remoteHost = Resolve-HostnameWithDigInternal $remoteAddress
+
+        # Only add to set if a hostname was resolved AND it contains a dot (valid FQDN pattern)
+        if ($remoteHost -and $remoteHost -like '*.*') {
+            # Add returns $true if the item was added, $false if it already existed
+            [void]$uniqueHosts.Add($remoteHost)
+        }
+    }
+
+    # Output the unique hostnames
+    # Convert HashSet to array and sort it for consistent output order
+    $sortedHosts = $uniqueHosts | Sort-Object
+    foreach ($hostEntry in $sortedHosts) {
+         Write-Host $hostEntry
+    }
+    # --- End Main Processing Logic ---
+
+}
+
+# Example Usage:
+# Get-NetHosts
 
 function UninstallAll-Modules {
     [CmdletBinding()]
@@ -338,7 +346,7 @@ function Test-CommandExists($command) {
 }
 
 # Editor Configuration
-$EDITOR = @('nvim', 'pvim', 'vim', 'vi', 'code', 'notepad++', 'sublime_text', 'notepad') | Where-Object { Test-CommandExists $_ } | Select-Object -First 1
+$EDITOR = @('nvem','nvim', 'pvim', 'vim', 'vi', 'code', 'notepad++', 'sublime_text', 'notepad') | Where-Object { Test-CommandExists $_ } | Select-Object -First 1
 Set-Alias -Name vim -Value $EDITOR
 
 function Edit-Profile { & $EDITOR $PROFILE.CurrentUserAllHosts }
@@ -381,6 +389,8 @@ Set-Alias certinfo "Get-CertificateInfo"
 Set-Alias rcupdate "Update-Profile"
 
 # Functions
+
+function rc {Notepad $PROFILE}
 function Update-Profile {
     if (-not $global:canConnectToGitHub) { return }
     
@@ -465,9 +475,9 @@ function wg($Args) {
     }
 }
 
-function ch { gsudo choco $args }
-function cup { cargo install-update -a }
-function up { gsudo topgrade; if ($LASTEXITCODE -ne 0) { cup; cleanup } else { cleanup } }
+#function ch { gsudo choco $args }
+#function cup { cargo install-update -a }
+#function up { gsudo topgrade; if ($LASTEXITCODE -ne 0) { cup; cleanup } else { cleanup } }
 function inst { scoop install $args }
 function remove { scoop uninstall $args }
 
@@ -494,15 +504,194 @@ function Set-Resolution($resolution) {
 function ffmpeglist { ffmpeg -list_devices true -f dshow -i dummy }
 function screenrec { ffmpeg -f dshow -i audio=$args[0] -y -f gdigrab -framerate 30 -draw_mouse 1 -i desktop -c:v libx264 -f mp4 output-$(Get-Date -UFormat "%Y-%m-%d_%H-%m-%S").mp4 }
 
-# Final Setup
-oh-my-posh init pwsh --config https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/cobalt2.omp.json | Invoke-Expression
-if (Get-Command zoxide -ErrorAction SilentlyContinue) {
-    Invoke-Expression (zoxide init powershell | Out-String)
-} else {
-    Write-Host "zoxide command not found. Attempting to install via winget..."
-    winget install -e --id ajeetdsouza.zoxide
-    Write-Host "zoxide installed successfully. Initializing..."
-    Invoke-Expression (zoxide init powershell | Out-String)
-}
-
 Invoke-Expression (&scoop-search --hook)
+Invoke-Expression (& { (zoxide init powershell | Out-String) })
+
+function prompt {
+    class Color {
+        [int] $R
+        [int] $G
+        [int] $B
+
+        static [Color] $Default = $null
+
+        Color([int] $r, [int] $g, [int] $b) {
+            $this.R = $r
+            $this.G = $g
+            $this.B = $b
+        }
+
+        static [string] Foreground([Color] $color) {
+            if ($color) {
+                return "$([char]0x1B)[38;2;$($color.R);$($color.G);$($color.B)m"
+            }
+            else {
+                return "$([char]0x1B)[39m"
+            }
+        }
+
+        static [string] Background([Color] $color) {
+            if ($color) {
+                return "$([char]0x1B)[48;2;$($color.R);$($color.G);$($color.B)m"
+            }
+            else {
+                return "$([char]0x1B)[49m"
+            }
+        }
+    }
+
+    class PromptBuilder {
+        hidden [string] $Text
+        hidden [Color] $Foreground
+        hidden [Color] $Background
+        hidden [string] $Separator
+        hidden [string] $ReversedSeparator
+
+        PromptBuilder() {
+            $this.Text = ""
+            $this.Foreground = $null
+            $this.Background = $null
+            $this.Separator = $null
+            $this.ReversedSeparator = $null
+        }
+
+        hidden PromptBuilder(
+            [string] $text,
+            [Color] $foreground,
+            [Color] $background,
+            [string] $separator,
+            [string] $reversedSeparator
+        ) {
+            $this.Text = $text
+            $this.Foreground = $foreground
+            $this.Background = $background
+            $this.Separator = $separator
+            $this.ReversedSeparator = $reversedSeparator
+        }
+
+        [PromptBuilder] WithForeground([Color] $color) {
+            return [PromptBuilder]::new(
+                $this.Text,
+                $color,
+                $this.Background,
+                $this.Separator,
+                $this.ReversedSeparator
+            )
+        }
+
+        [PromptBuilder] WithSection([string] $text) {
+            return $this.WithSection($text, $this.Background)
+        }
+
+        [PromptBuilder] WithSection([string] $text, [Color] $background) {
+            return [PromptBuilder]::new(
+                "$($this.Text)$([Color]::Foreground($background))$([Color]::Background($this.Background))$($this.ReversedSeparator)$([Color]::Foreground($this.Background))$([Color]::Background($background))$($this.Separator)$([Color]::Foreground($this.Foreground))$text",
+                $this.Foreground,
+                $background,
+                $null,
+                $null
+            )
+        }
+
+        [PromptBuilder] WithSeparator([char] $separator) {
+            return [PromptBuilder]::new(
+                $this.Text,
+                $this.Foreground,
+                $this.Background,
+                "$separator",
+                $null
+            )
+        }
+
+        [PromptBuilder] WithoutSeparator() {
+            return [PromptBuilder]::new(
+                $this.Text,
+                $this.Foreground,
+                $this.Background,
+                $null,
+                $null
+            )
+        }
+
+        [PromptBuilder] WithReversedSeparator([char] $separator) {
+            return [PromptBuilder]::new(
+                $this.Text,
+                $this.Foreground,
+                $this.Background,
+                $null,
+                "$separator"
+            )
+        }
+
+        [string] ToString() {
+            $final = $this.WithForeground([Color]::Default).WithSection("", [Color]::Default)
+            return $final.Text
+        }
+    }
+
+    $path = $(Get-Location).Path
+    $sections = $path.Split([char]'\')
+    $level = 0
+
+    $git_root = -1
+    if ($(git rev-parse --is-inside-work-tree) -eq "true")
+    {
+        $git_root = $(git rev-parse --show-toplevel).Split([char]'/').Length - 1
+        $git_branch = $(git rev-parse --abbrev-ref HEAD)
+    }
+    
+    $builder = [PromptBuilder]::new()    
+    $builder = $builder.WithReversedSeparator(0xE0CA)
+
+    if ($sections[0].EndsWith(":"))
+    {
+        $builder = $builder.WithSection(" $($sections[0].TrimEnd([char]':'))", [Color]::new(227, 146, 52))
+        $builder = $builder.WithSeparator(0xE0B4)
+
+        $level += 1
+    }
+
+    if ($path.StartsWith("C:\Users\dan"))
+    {
+        $builder = $builder.WithSection("Daniel Kendall", [Color]::new(52, 128, 235))
+        $builder = $builder.WithSeparator(0xE0B8)
+
+        $level += 2
+    }
+
+    if ($path.StartsWith("C:\Users\dan\Programy"))
+    {
+        $builder = $builder.WithSection(" 💻 ", [Color]::new(54, 109, 186))
+        $builder = $builder.WithSeparator(0xE0B8)
+
+        $level += 1
+    }
+    
+    for(; $level -lt $sections.Length; $level++)
+    {
+        if ($level -eq $git_root) {
+            $builder = $builder.WithSection(" $($sections[$level]) ", [Color]::new(70, 138, 74))
+            $builder = $builder.WithSeparator(0xE0A0)
+            $builder = $builder.WithSection(" $git_branch ", [Color]::new(72, 163, 77))
+        }
+        elseif ($sections[$level] -eq "Debug" -or $sections[$level] -eq "Release")
+        {
+            $builder = $builder.WithReversedSeparator(0xE0C2)
+            $builder = $builder.WithSection(" $($sections[$level]) ", [Color]::new(186, 54, 54))
+        }
+        elseif ($level % 2 -eq 0) {
+            $builder = $builder.WithSection(" $($sections[$level]) ", [Color]::new(99, 99, 99))
+        }
+        else {
+            $builder = $builder.WithSection(" $($sections[$level]) ", [Color]::new(80, 80, 80))
+        }
+
+        $builder = $builder.WithSeparator(0xE0B8)
+    }
+
+    $builder = $builder.WithoutSeparator()
+    $builder = $builder.WithSeparator(0xE0B0)
+    $builder = $builder.WithSection(" ", [Color]::Default)
+
+    return $builder.ToString()
+}
