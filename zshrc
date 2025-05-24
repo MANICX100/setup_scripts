@@ -1229,6 +1229,7 @@ yt() {
 }
 
 lazyg() {
+    git pull -f
     git add .
     git commit -a -m "$1"
     git push
