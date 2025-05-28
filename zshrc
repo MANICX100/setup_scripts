@@ -350,7 +350,6 @@ alias heavytasklist='ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%cpu | head -n 20'
 alias rmfolders='rm -r */'
 alias lockdns='sudo chattr +i /etc/resolv.conf'
 alias unlockdns='sudo chattr +i /etc/resolv.conf'
-alias editdns='sudo $EDITOR /etc/resolv.conf'
 
 alias mvupdir='mv * ../'
 alias biosversion='sudo dmidecode -s bios-version'
@@ -575,6 +574,11 @@ alias logoff='sudo pkill -u dkendall'
 alias logout='logoff'
 #alias yt-dlp='/usr/local/bin/yt-dlp'
 alias autoremove='sudo apt autoremove'
+
+function editdns(){
+sudo $EDITOR /etc/supervisor/conf.d/dnsproxy.conf
+sudo systemctl restart supervisor
+}
 
 certinfo() {
   gnutls-cli --print-cert "$1" < /dev/null | certtool --certificate-info
