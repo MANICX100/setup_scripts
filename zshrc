@@ -343,6 +343,8 @@ dict() {
   curl -s "dict://dict.org/d:$word"
 }
 
+alias wp='sudo-rs docker start wordpressdb && sudo-rs docker start wordpress'
+alias lzd='sudo-rs $(which lazydocker)'
 alias kdedefaults='kcmshell6 componentchooser'
 alias apthistory='$EDITOR /var/log/apt/history.log'
 alias emptyramslots='sudo dmidecode -t memory| rg -i "No module installed"'
