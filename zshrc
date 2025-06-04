@@ -192,7 +192,7 @@ setup_script_link() {
 }
 
 dockerstop(){
-docker stop $(docker ps -q) && sudo systemctl stop docker
+docker stop $(docker ps -q) && sudo-rs systemctl stop docker
 }
 
 currentconnections() {
