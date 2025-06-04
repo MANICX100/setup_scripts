@@ -313,13 +313,13 @@ function command_not_found_handler {
   /usr/lib/command-not-found -- $1
 }
 
-zshaddhistory() {
+function zshaddhistory() {
   if [[ $? -eq 127 ]]; then
     command_not_found_handler $1
   fi
 }
 
-reloadnetwork() {
+function reloadnetwork() {
 sudo systemctl restart systemd-resolved.service
 sudo systemctl restart systemd-resolved.service
 }
@@ -338,11 +338,12 @@ function upheldback() {
 sudo apt list --upgradable | awk -F/ '/upgradable/ {print $1}' | /usr/bin/xargs sudo apt install -y
 }
 
-dict() {
+function dict() {
   local word=${1:?Word required}
   curl -s "dict://dict.org/d:$word"
 }
 
+alias clip='xclip -selection clipboard'
 alias wp='sudo-rs docker start wordpressdb && sudo-rs docker start wordpress'
 alias lzd='sudo-rs $(which lazydocker)'
 alias kdedefaults='kcmshell6 componentchooser'
