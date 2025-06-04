@@ -191,6 +191,10 @@ setup_script_link() {
   return 0 # Indicate success
 }
 
+dockerstop(){
+docker stop $(docker ps -q) && sudo systemctl stop docker
+}
+
 currentconnections() {
  for ip in $(ss -nt | frawk 'NR>1 {print $5}' | cut -d':' -f1 | sort -u); do
       dig -x "$ip" +short
