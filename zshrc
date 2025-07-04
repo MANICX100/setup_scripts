@@ -19,6 +19,24 @@ setopt share_history
 SAVEHIST=1000
 HISTFILE=$HOME/.zsh_history
 
+# ~/.zshrc
+
+benchopen() {
+  local cmd1 cmd2
+
+  # Prompt for the two commands
+  echo -n "First command: "
+  read cmd1
+  echo -n "Second command: "
+  read cmd2
+
+  # Run hyperfine: ignore failures, no warmup, 3 runs,
+  # wrap each in timeout 1s
+  hyperfine -i --warmup 0 --runs 3 \
+    "timeout 1s $cmd1" \
+    "timeout 1s $cmd2"
+}
+
 bgrun() { rust-parallel "$1" ::: "${@:2}"; }
 
 saveclipimg() {
