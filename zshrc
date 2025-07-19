@@ -19,8 +19,6 @@ setopt share_history
 SAVEHIST=1000
 HISTFILE=$HOME/.zsh_history
 
-# ~/.zshrc
-
 benchopen() {
   local cmd1 cmd2
 
@@ -210,7 +208,7 @@ setup_script_link() {
 }
 
 dockerstop(){
-sudo-rs docker stop $(sudo-rs docker ps -q) && sudo-rs systemctl stop docker
+doas docker stop $(doas docker ps -q) && doas systemctl stop docker
 }
 
 currentconnections() {
@@ -225,28 +223,28 @@ recent() {
 }
 
 fixpihole(){
-sudo-rs killall dnsmasq
-sudo-rs pihole -r
-sudo-rs systemctl restart NetworkManager
-sudo-rs ip addr flush dev wlp7s0
-sudo-rs ip addr add 192.168.1.183/24 dev wlp7s0
+doas killall dnsmasq
+doas pihole -r
+doas systemctl restart NetworkManager
+doas ip addr flush dev wlp7s0
+doas ip addr add 192.168.1.183/24 dev wlp7s0
 }
 
 changebrowser(){
-sudo-rs update-alternatives --config gnome-www-browser
-sudo-rs update-alternatives --config x-www-browser
+doas update-alternatives --config gnome-www-browser
+doas update-alternatives --config x-www-browser
 }
 
 vaultwarden() {
-sudo docker run -d --name vaultwarden -v /vw-data/:/data/ -p 80:80 vaultwarden/server:latest
+doas docker run -d --name vaultwarden -v /vw-data/:/data/ -p 80:80 vaultwarden/server:latest
 }
 
 rmpaywall(){
-sudo docker run -p 8080:8080 -d --env RULESET=https://t.ly/14PSf --name ladder ghcr.io/everywall/ladder:latest
+doas docker run -p 8080:8080 -d --env RULESET=https://t.ly/14PSf --name ladder ghcr.io/everywall/ladder:latest
 }
 
 pdftools(){
-sudo docker run -d \
+doas docker run -d \
   -p 8080:8080 \
   -v ./trainingData:/usr/share/tessdata \
   -v ./extraConfigs:/configs \
@@ -259,7 +257,7 @@ sudo docker run -d \
 }
 
 openproject(){
-sudo docker run -it -p 8080:80 \
+doas docker run -it -p 8080:80 \
   -e OPENPROJECT_SECRET_KEY_BASE=secret \
   -e OPENPROJECT_HOST__NAME=localhost:8080 \
   -e OPENPROJECT_HTTPS=false \
@@ -315,7 +313,7 @@ cd() {
 }
 
 function macos() {
-    sudo docker run -it \
+    doas docker run -it \
         --device /dev/kvm \
         -p 50922:10022 \
         -v /tmp/.X11-unix:/tmp/.X11-unix \
@@ -338,8 +336,8 @@ function zshaddhistory() {
 }
 
 function reloadnetwork() {
-sudo systemctl restart systemd-resolved.service
-sudo systemctl restart systemd-resolved.service
+doas systemctl restart systemd-resolved.service
+doas systemctl restart systemd-resolved.service
 }
 
 # function cargo-update {
@@ -353,7 +351,7 @@ sudo systemctl restart systemd-resolved.service
 # }
 
 function upheldback() {
-sudo apt list --upgradable | awk -F/ '/upgradable/ {print $1}' | /usr/bin/xargs sudo apt install -y
+doas apt list --upgradable | awk -F/ '/upgradable/ {print $1}' | /usr/bin/xargs doas apt install -y
 }
 
 function dict() {
@@ -362,31 +360,31 @@ function dict() {
 }
 
 alias clip='xclip -selection clipboard'
-alias wp='sudo-rs docker start wordpressdb && sudo-rs docker start wordpress'
-alias lzd='sudo-rs $(which lazydocker)'
+alias wp='doas docker start wordpressdb && doas docker start wordpress'
+alias lzd='doas $(which lazydocker)'
 alias kdedefaults='kcmshell6 componentchooser'
 alias apthistory='$EDITOR /var/log/apt/history.log'
-alias emptyramslots='sudo dmidecode -t memory| rg -i "No module installed"'
+alias emptyramslots='doas dmidecode -t memory| rg -i "No module installed"'
 
 alias ghosttyconfig='$HOME/.config/ghostty/config'
 alias heavytasklist='ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%cpu | head -n 20'
 #alias mpvav1='mpv * --hwdec=0'
 
 alias rmfolders='rm -r */'
-alias lockdns='sudo chattr +i /etc/resolv.conf'
-alias unlockdns='sudo chattr +i /etc/resolv.conf'
+alias lockdns='doas chattr +i /etc/resolv.conf'
+alias unlockdns='doas chattr +i /etc/resolv.conf'
 
 alias mvupdir='mv * ../'
-alias biosversion='sudo dmidecode -s bios-version'
+alias biosversion='doas dmidecode -s bios-version'
 alias beeperfix='rm -rfv .config/Beeper/GPUCache'
 alias lutris='/usr/games/lutris'
-alias fat32format='sudo mkfs.vfat -F 32'
-alias exfatformat='sudo mkfs.exfat'
-alias ext4format='sudo mkfs.ext4 -I 256 -O 64bit -E lazy_itable_init'
-alias xfsformat='sudo mkfs.xfs'
-alias ntfsformat='sudo mkfs.ntfs -f'
-alias f2fsformat='sudo mkfs.f2fs'
-alias btrfsformat='sudo mkfs.btrfs'
+alias fat32format='doas mkfs.vfat -F 32'
+alias exfatformat='doas mkfs.exfat'
+alias ext4format='doas mkfs.ext4 -I 256 -O 64bit -E lazy_itable_init'
+alias xfsformat='doas mkfs.xfs'
+alias ntfsformat='doas mkfs.ntfs -f'
+alias f2fsformat='doas mkfs.f2fs'
+alias btrfsformat='doas mkfs.btrfs'
 
 alias gfn='google-chrome-stable --proxy-server="127.0.0.1:8080"'
 alias df='dysk'
@@ -396,13 +394,13 @@ alias awk='frawk'
 alias find='bfs'
 #alias xargs='gargs'
 
-alias runningprocesses='sudo lsof|rg txt'
+alias runningprocesses='doas lsof|rg txt'
 alias rmtrash='rm -rfv ~/.local/share/Trash/*'
 alias polkit='/usr/lib/x86_64-linux-gnu/libexec/polkit-kde-authentication-agent-1'
-alias dockermanage='sudo $(which lazydocker)'
+alias dockermanage='doas $(which lazydocker)'
 alias winedesktop='cd  ~/.local/share/applications/wine'
-alias freshrss='sudo docker start freshrss'
-alias dockerkillall='sudo docker kill $(sudo docker ps -q)'
+alias freshrss='doas docker start freshrss'
+alias dockerkillall='doas docker kill $(doas docker ps -q)'
 alias publicip='curl --http3 -s https://ipinfo.io/ip'
 alias wine='wine64'
 alias pkill='killall -I -v'
@@ -416,13 +414,13 @@ alias shuf='shuf-rs'
 
 alias setlocale='setxkbmap gb &'
 
-alias dockerupdate='sudo sh -c '\''docker images --format "{{.Repository}}" | sort | uniq | grep -v "<none>" | xargs -I {} docker pull {}'\'''
+alias dockerupdate='doas sh -c '\''docker images --format "{{.Repository}}" | sort | uniq | grep -v "<none>" | xargs -I {} docker pull {}'\'''
 
 alias labwcstart='$EDITOR ~/.config/labwc/autostart'
 alias labwckeys='$EDITOR ~/.config/labwc/rc.xml'
 alias keymap='setxkbmap -print -verbose 10'
 
-alias glances='sudo docker run --rm -e TZ="${TZ}" -v /var/run/docker.sock:/var/run/docker.sock:ro -v /run/user/1000/podman/podman.sock:/run/user/1000/podman/podman.sock:ro --pid host --network host -it nicolargo/glances:latest-full'
+alias glances='doas docker run --rm -e TZ="${TZ}" -v /var/run/docker.sock:/var/run/docker.sock:ro -v /run/user/1000/podman/podman.sock:/run/user/1000/podman/podman.sock:ro --pid host --network host -it nicolargo/glances:latest-full'
 
 alias uxplayaudio='uxplay -vs 0'
 alias openallpdf="find . -iname '*\.pdf' -print0 | xargs -0 -n1 mupdf"
@@ -430,20 +428,20 @@ alias openallpdf="find . -iname '*\.pdf' -print0 | xargs -0 -n1 mupdf"
 alias dy="dig +short @dns.toys"
 alias flatpakdown='flatpak remote-info --log flathub'
 
-alias jellyfin='sudo docker run -d -v /srv/jellyfin/config:/config -v /srv/jellyfin/cache:/cache -v "$HOME/Jellyfin Server Media":/media -p 8096:8096 -p 7359:7359/udp jellyfin/jellyfin:latest'
+alias jellyfin='doas docker run -d -v /srv/jellyfin/config:/config -v /srv/jellyfin/cache:/cache -v "$HOME/Jellyfin Server Media":/media -p 8096:8096 -p 7359:7359/udp jellyfin/jellyfin:latest'
 
-alias errors='sudo journalctl -p err'
+alias errors='doas journalctl -p err'
 alias saveimgclip='xclip -selection clipboard -t image/png -o > $HOME/Desktop/clipboard.png'
-alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
+alias update-grub='doas grub-mkconfig -o /boot/grub/grub.cfg'
 
 alias build='zig build-exe'
 alias setresolution='xrandr --output HDMI-A-2 --mode'
 alias Set-Resolution='setresolution'
 
-alias sysd='sudo $EDITOR /etc/systemd/system.conf'
+alias sysd='doas $EDITOR /etc/systemd/system.conf'
 alias vars='set|less'
 alias gpuinfo='glxinfo -B'
-alias cpuinfo='sudo dmidecode --type processor'
+alias cpuinfo='doas dmidecode --type processor'
 alias gcm='whereis'
 alias lite-xl='/usr/local/bin/lite-xl/lite-xl'
 alias lite='lite-xl'
@@ -456,12 +454,12 @@ alias bluetooth='bluetoothctl devices'
 
 alias unmountios='fusermount -u /media/dkendall/iOS'
 alias mountios='ifuse /media/dkendall/iOS'
-alias unmount='sudo umount'
-alias mount='sudo mount -o rw,uid=1000,gid=1000,user,exec,umask=003'
+alias unmount='doas umount'
+alias mount='doas mount -o rw,uid=1000,gid=1000,user,exec,umask=003'
 
-alias fixwifi='sudo dhclient -v enp7s0'
+alias fixwifi='doas dhclient -v enp7s0'
 alias edit-apt='$EDITOR /etc/apt/sources.list'
-alias bufferw='sudo sync & watch -n 1 rg -e Dirty: /proc/meminfo'
+alias bufferw='doas sync & watch -n 1 rg -e Dirty: /proc/meminfo'
 
 alias python='$HOME/pypy/bin/pypy'
 alias pip='python -m pip'
@@ -482,7 +480,7 @@ alias loginmgr='cat /etc/X11/default-display-manager'
 alias displaymanager='loginmgr'
 alias nom='$HOME/go/bin/nom'
 alias su='su-rs'
-alias sudo='sudo-rs'
+alias doas='doas'
 
 # macOS
 alias afconvert='ffmpeg'
@@ -528,17 +526,17 @@ alias invoke-restmethod='irm'
 alias irm='curl'
 alias invoke-expression='iex'
 alias iex='eval'
-alias drivers='sudo lspci -v'
-alias logs='sudo journalctl|less|rg -i'
+alias drivers='doas lspci -v'
+alias logs='doas journalctl|less|rg -i'
 
-alias last='sudo journalctl -u acpid'
+alias last='doas journalctl -u acpid'
 
-alias convertdeb='sudo alien --to-rpm'
-alias convertrpm='sudo alien'
+alias convertdeb='doas alien --to-rpm'
+alias convertrpm='doas alien'
 alias gitc='git clone --depth 2'
-alias edithosts='sudo $EDITOR /etc/hosts'
+alias edithosts='doas $EDITOR /etc/hosts'
 alias fd='fzf --query'
-alias webcam='sudo modprobe v4l2loopback'
+alias webcam='doas modprobe v4l2loopback'
 alias cloudsync='onedrive --sync --force'
 
 #alias ffmpeg='$HOME/ffmpeg/ffmpeg'
@@ -546,13 +544,13 @@ alias ffprobe='mediainfo'
 #alias qt-faststart='$HOME/ffmpeg/qt-faststart'
 
 alias linuxservices='systemctl list-unit-files --type=service --state=enabled'
-alias macosservices='sudo launchctl list'
+alias macosservices='doas launchctl list'
 alias checkfiles='rsync --checksum --dry-run -rvn /media/dkendall/exFAT/ $HOME/'
 alias dl='axel -a -n 16'
 alias dls='aria2c --enable-rpc=true --rpc-allow-origin-all=true --rpc-listen-all=true --console-log-level=error -x 16'
-alias rpmall='sudo rpm -Uvh *'
+alias rpmall='doas rpm -Uvh *'
 alias chkdsk='fsck'
-alias Get-Volume='sudo lsblk -o NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL | rg -v loop'
+alias Get-Volume='doas lsblk -o NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL | rg -v loop'
 alias default='kcmshell5 filetypes'
 alias rmpipall='pip freeze --user | xargs pip uninstall -y'
 alias rmpnpm='rm -rf -v $PNPM_HOME'
@@ -563,27 +561,27 @@ alias uefi='systemctl reboot --firmware-setup'
 
 alias img2txt='image2txt'
 alias networkstatus='nmcli dev status'
-alias inst='sudo apt install'
-alias remove='sudo apt remove'
-alias purge='sudo apt purge'
+alias inst='doas apt install'
+alias remove='doas apt remove'
+alias purge='doas apt purge'
 alias netstat='ss -t -r state established'
 alias ipconfig='ip route'
 alias ifconfig='ip route'
 alias cleanup='clean'
-alias audit='sudo lynis --forensics && pip-audit'
+alias audit='doas lynis --forensics && pip-audit'
 
 alias batc='bat --paging=never --style=plain'
 alias lsh='ls -lah -U'
 alias lsf='ls -d "$PWD"/*'
 alias cls='clear'
 alias rc='$EDITOR $HOME/.zshrc'
-alias visudo='sudo $EDITOR /etc/sudoers.d/dkendall'
-alias edit-grub='sudo $EDITOR /etc/default/grub'
+alias visudo='doas $EDITOR /etc/sudoers.d/dkendall'
+alias edit-grub='doas $EDITOR /etc/default/grub'
 
-alias instrpm='sudo rpm -ivh --force'
-alias gdebi='sudo gdebi'
+alias instrpm='doas rpm -ivh --force'
+alias gdebi='doas gdebi'
 alias instdeb='gdebi'
-alias delrecent='rm $HOME/.local/share/recently-usd.xbel && sudo touch $HOME/.local/share/recently-usd.xbel'
+alias delrecent='rm $HOME/.local/share/recently-usd.xbel && doas touch $HOME/.local/share/recently-usd.xbel'
 alias rm='rm -rf -v'
 alias unshareusb='/bin/eveusbc unshare all'
 alias shareusb='/bin/eveusbc share 12345 1-9.1'
@@ -593,16 +591,16 @@ alias flatten="find ./ -mindepth 2 -type f -exec mv -i '{}' . \;"
 alias emptydel='find ./ -empty -type d -delete'
 alias delempty='emptydel'
 alias gohome='cd "$HOME"'
-alias changejava='sudo alternatives --config java'
+alias changejava='doas alternatives --config java'
 alias addapp='xdg-open /usr/local/bin'
-alias logoff='sudo pkill -u dkendall'
+alias logoff='doas pkill -u dkendall'
 alias logout='logoff'
 #alias yt-dlp='/usr/local/bin/yt-dlp'
-alias autoremove='sudo apt autoremove'
+alias autoremove='doas apt autoremove'
 
 function editdns(){
-sudo $EDITOR /etc/supervisor/conf.d/dnsproxy.conf
-sudo systemctl restart supervisor
+doas $EDITOR /etc/supervisor/conf.d/dnsproxy.conf
+doas systemctl restart supervisor
 }
 
 certinfo() {
@@ -660,15 +658,15 @@ function cmdpath() {
 
 clean() {
 flatpak uninstall --unused
-sudo apt autoremove -y
-sudo apt clean
+doas apt autoremove -y
+doas apt clean
 am -c
 }
 
 rmcache(){
 rm -rf -v $HOME/.cache
-sudo rm -rfv /var/tmp/flatpak-cache-*
-echo 3 | sudo tee /proc/sys/vm/drop_caches
+doas rm -rfv /var/tmp/flatpak-cache-*
+echo 3 | doas tee /proc/sys/vm/drop_caches
 }
 
 timeweb(){
@@ -676,7 +674,7 @@ curl -L -w "time_namelookup: %{time_namelookup}\ntime_connect: %{time_connect}\n
 }
 
 #systemctl() {
- # command sudo systemctl "$@"
+ # command doas systemctl "$@"
  # watch -n 1 systemctl status "$@"
 #}
 
@@ -713,53 +711,53 @@ reinstall() {
         return 1
     fi
     packagename=$@
-    sudo apt remove -y $packagename
-    sudo apt install -y $packagename
+    doas apt remove -y $packagename
+    doas apt install -y $packagename
 }
 
 function revsyncfolders() {
 rmcache
-sudo mount -o rw,uid=1000,gid=1000,user,exec,umask=003 /dev/sda1 /media/dkendall/exFAT
+doas mount -o rw,uid=1000,gid=1000,user,exec,umask=003 /dev/sda1 /media/dkendall/exFAT
 rsync -avAXESlHh --delete --no-compress --no-whole-file --size-only /media/dkendall/exFAT/Linux $HOME/ 
-sudo mount -o rw,uid=1000,gid=1000,user,exec,umask=003 /dev/nvme1n1p4 /media/dkendall/windows
+doas mount -o rw,uid=1000,gid=1000,user,exec,umask=003 /dev/nvme1n1p4 /media/dkendall/windows
 rsync -avAXESlHh --delete --no-compress --no-whole-file --size-only /media/dkendall/exFAT/Windows /media/dkendall/windows/Users/dkendall/ 
-sudo umount /dev/sda1
-sudo umount /dev/nvme1n1p4
+doas umount /dev/sda1
+doas umount /dev/nvme1n1p4
 }
 
 function syncfolders() {
 rmcache
-sudo mount -o rw,uid=1000,gid=1000,user,exec,umask=003 /dev/sda1 /media/dkendall/exFAT
+doas mount -o rw,uid=1000,gid=1000,user,exec,umask=003 /dev/sda1 /media/dkendall/exFAT
 rsync -avAXESlHh --delete --no-compress --no-whole-file --size-only $HOME/ /media/dkendall/exFAT/Linux
-sudo mount -o rw,uid=1000,gid=1000,user,exec,umask=003 /dev/nvme1n1p4 /media/dkendall/windows
+doas mount -o rw,uid=1000,gid=1000,user,exec,umask=003 /dev/nvme1n1p4 /media/dkendall/windows
 rsync -avAXESlHh --delete --no-compress --no-whole-file --size-only /media/dkendall/windows/Users/dkendall/ /media/dkendall/exFAT/Windows
-sudo umount /dev/sda1
-sudo umount /dev/nvme1n1p4
+doas umount /dev/sda1
+doas umount /dev/nvme1n1p4
 }
 
 function please() {
     if alias -L | rg -q "^alias $1="; then
         cmd=$(alias -L | rg "^alias $1=" | sd "^alias $1='(.*)'$" "\$1")
-        /usr/bin/sudo zsh -c "$cmd ${@:2}"
+        /usr/bin/doas zsh -c "$cmd ${@:2}"
     elif typeset -f | rg -q "^$1 \(\)"; then
         cmd=$(typeset -f $1)
-        /usr/bin/sudo zsh -c "$cmd; $1 ${@:2}"
+        /usr/bin/doas zsh -c "$cmd; $1 ${@:2}"
     else
-        /usr/bin/sudo "$@"
+        /usr/bin/doas "$@"
     fi
 }
 
 function up() {
   topgrade
-  sudo apt upgrade --with-new-pkgs -y
+  doas apt upgrade --with-new-pkgs -y
   git -C $HOME/powerlevel10k pull
   #dockerupdate
   #cargo-update
   cargo install-update -a
   #bun upgrade
-  #sudo snap refresh
+  #doas snap refresh
   upheldback
-  #sudo pihole -up
+  #doas pihole -up
 }
 
 function display_path() {
@@ -822,8 +820,8 @@ onedrivelink() {
     homedir=$HOME"/OneDrive/"$filename
 
     if [ -e "$homedir" ]; then
-        sudo ln -s $homedir /usr/local/bin/$filename
-        sudo chmod +x /usr/local/bin/$filename
+        doas ln -s $homedir /usr/local/bin/$filename
+        doas chmod +x /usr/local/bin/$filename
         echo "Symlink created and execution permission granted."
     else
         echo "The file does not exist in the OneDrive folder."
@@ -1047,12 +1045,12 @@ disable-all-network-interfaces() {
     if type ip > /dev/null 2>&1; then
         for iface in $(ip link show | rg '^[0-9]+:' | rg -oP '[a-zA-Z0-9@.:]+'); do
             echo "Disabling $iface"
-            sudo ip link set $iface down
+            doas ip link set $iface down
         done
     else
         for service in $(networksetup -listallnetworkservices); do
             echo "Disabling $service"
-            sudo networksetup -setnetworkserviceenabled "$service" off
+            doas networksetup -setnetworkserviceenabled "$service" off
         done
     fi
 }
@@ -1061,12 +1059,12 @@ enable-all-network-interfaces() {
     if type ip > /dev/null 2>&1; then
         for iface in $(ip link show | rg '^[0-9]+:' | rg -oP '[a-zA-Z0-9@.:]+'); do
             echo "Enabling $iface"
-            sudo ip link set $iface up
+            doas ip link set $iface up
         done
     else
         for service in $(networksetup -listallnetworkservices); do
             echo "Enabling $service"
-            sudo networksetup -setnetworkserviceenabled "$service" on
+            doas networksetup -setnetworkserviceenabled "$service" on
         done
     fi
 }
@@ -1082,7 +1080,7 @@ Resync-Time() {
         return 1
     fi
     echo "Resyncing system time..."
-    sudo ntpdate pool.ntp.org
+    doas ntpdate pool.ntp.org
 }
 
 fdo() {
@@ -1169,7 +1167,7 @@ topgrade
 }
 
 serv() {
-    sudo redbean -C /usr/local/bin/ca.crt -K /usr/local/bin/ca.key -p 80 -p 443 -D $@
+    doas redbean -C /usr/local/bin/ca.crt -K /usr/local/bin/ca.key -p 80 -p 443 -D $@
 }
 
 rmopt() {
@@ -1179,11 +1177,11 @@ rmopt() {
 }
 
 openperm() {
-    sudo chmod -R a+rwx $@
+    doas chmod -R a+rwx $@
 }
 
 takeown() {
-    sudo chown dkendall $@
+    doas chown dkendall $@
 }
 
 rmspecial() {
@@ -1234,7 +1232,7 @@ stripclip() {
 osinfo=$(rg -ioP '^ID=\K.+' /etc/os-release)
 
 flushdns() {
-sudo resolvectl flush-caches
+doas resolvectl flush-caches
 echo "Successfully flushed the DNS Resolver Cache"
 }
 
