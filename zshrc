@@ -479,8 +479,6 @@ alias de='ls -l /usr/share/xsessions/'
 alias loginmgr='cat /etc/X11/default-display-manager'
 alias displaymanager='loginmgr'
 alias nom='$HOME/go/bin/nom'
-alias su='su-rs'
-alias doas='doas'
 
 # macOS
 alias afconvert='ffmpeg'
