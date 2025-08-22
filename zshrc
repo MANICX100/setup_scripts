@@ -8,6 +8,7 @@ if [[ ! ${zsh_plugins}.zsh -nt ${zsh_plugins}.txt ]]; then
   )
 fi
 source ${zsh_plugins}.zsh
+source $HOME/.profile
 
 printf "\e[?2004l"
 export EDITOR=nvem
