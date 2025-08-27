@@ -360,6 +360,7 @@ function dict() {
   curl -s "dict://dict.org/d:$word"
 }
 
+alias kernels='ls -1 /boot/vmlinuz-*'
 alias clip='xclip -selection clipboard'
 alias wp='doas docker start wordpressdb && doas docker start wordpress'
 alias lzd='doas $(which lazydocker)'
