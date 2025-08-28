@@ -757,6 +757,7 @@ function up() {
   #doas snap refresh
   upheldback
   #doas pihole -up
+  autoremove
 }
 
 function display_path() {
