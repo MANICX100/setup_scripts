@@ -595,7 +595,7 @@ alias addapp='xdg-open /usr/local/bin'
 alias logoff='doas pkill -u dkendall'
 alias logout='logoff'
 #alias yt-dlp='/usr/local/bin/yt-dlp'
-alias autoremove='doas apt autoremove'
+alias autoremove='doas apt autoremove -y'
 
 function editdns(){
 doas $EDITOR /etc/supervisor/conf.d/dnsproxy.conf
