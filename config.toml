@@ -130,7 +130,7 @@ enable = "Control-Shift-Home"
 disable = "Control-Shift-End"
 
 # Toggle between enable and disable on the current screen.
-toggle = "Control-Shift-T"
+#toggle = "Control-Shift-T"
 
 # Toggle window decoration on and off on the current screen.
 decoration = "Control-Shift-D"
