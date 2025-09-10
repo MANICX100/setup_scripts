@@ -360,6 +360,28 @@ function dict() {
   curl -s "dict://dict.org/d:$word"
 }
 
+# Smart open function
+__smart_open() {
+  local target="${1:-.}"
+  local abs
+
+  abs=$(realpath -m "$target" 2>/dev/null || echo "$target")
+
+  if [[ -d "$abs" ]]; then
+    # Use the .desktop entry for ROX
+    command gtk-launch rox.desktop "$abs" 2>/dev/null || \
+    command xdg-open "$abs"
+  else
+    command xdg-open "$abs"
+  fi
+}
+
+# Aliases with same behavior
+e()        { __smart_open "$@"; }
+explorer() { __smart_open "$@"; }
+ii()       { __smart_open "$@"; }
+start()    { __smart_open "$@"; }
+
 alias kernels='ls -1 /boot/vmlinuz-*'
 alias clip='xclip -selection clipboard'
 alias wp='doas docker start wordpressdb && doas docker start wordpress'
@@ -405,7 +427,6 @@ alias dockerkillall='doas docker kill $(doas docker ps -q)'
 alias publicip='curl --http3 -s https://ipinfo.io/ip'
 alias wine='wine64'
 alias pkill='killall -I -v'
-alias explorer='xdg-open' start='xdg-open' e='xdg-open' ii='xdg-open'
 
 alias wakeups='cat /proc/acpi/wakeup |rg -i enabled'
 alias wc='$HOME/wc2/wc2 -lwm'
