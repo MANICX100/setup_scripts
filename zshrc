@@ -602,7 +602,6 @@ alias instrpm='doas rpm -ivh --force'
 alias gdebi='doas gdebi'
 alias instdeb='gdebi'
 alias delrecent='rm $HOME/.local/share/recently-usd.xbel && doas touch $HOME/.local/share/recently-usd.xbel'
-alias rm='rm -rf -v'
 alias unshareusb='/bin/eveusbc unshare all'
 alias shareusb='/bin/eveusbc share 12345 1-9.1'
 alias screenrec='ffmpeg -video_size 1920x1200 -framerate 60 -f x11grab -i :0.0+0,0 -f pulse -ac 2 -i default output-"$($now)".mkv'
@@ -1321,3 +1320,6 @@ if [ -d "$FNM_PATH" ]; then
   export PATH="$FNM_PATH:$PATH"
   eval "`fnm env`"
 fi
+
+# rm-safely - Safe rm command
+source "/home/dan/.rm-safely" >/dev/null 2>&1
