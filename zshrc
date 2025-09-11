@@ -418,7 +418,7 @@ alias find='bfs'
 #alias xargs='gargs'
 
 alias runningprocesses='doas lsof|rg txt'
-alias rmtrash='rm -rfv ~/.local/share/Trash/*'
+alias rmtrash='rm --empty-trash'
 alias polkit='/usr/lib/x86_64-linux-gnu/libexec/polkit-kde-authentication-agent-1'
 alias dockermanage='doas $(which lazydocker)'
 alias winedesktop='cd  ~/.local/share/applications/wine'
