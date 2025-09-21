@@ -382,6 +382,8 @@ explorer() { __smart_open "$@"; }
 ii()       { __smart_open "$@"; }
 start()    { __smart_open "$@"; }
 
+alias trash='xdg-open ~/.local/share/Trash'
+alias termeverything='~/AppImages/term.everythingmmulet.com.appimage'
 alias kernels='ls -1 /boot/vmlinuz-*'
 alias clip='xclip -selection clipboard'
 alias wp='doas docker start wordpressdb && doas docker start wordpress'
