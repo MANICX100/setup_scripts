@@ -20,6 +20,14 @@ setopt share_history
 SAVEHIST=1000
 HISTFILE=$HOME/.zsh_history
 
+lastmodified() {
+  local file
+  file=$(bfs . -type f -printf '%T@ %TY-%Tm-%Td %TH:%TM %p\n' 2>/dev/null | sort -nr | cut -d' ' -f2- | fzf --height 40% --reverse | gawk '{sub(/^[^ ]+ [^ ]+ /, ""); print}')
+  if [[ -n "$file" ]]; then
+    xdg-open "$file"
+  fi
+}
+
 benchopen() {
   local cmd1 cmd2
 
@@ -382,7 +390,7 @@ explorer() { __smart_open "$@"; }
 ii()       { __smart_open "$@"; }
 start()    { __smart_open "$@"; }
 
-alias trash='xdg-open ~/.local/share/Trash'
+alias trash='xdg-open ~/.local/share/Trash/files'
 alias termeverything='~/AppImages/term.everythingmmulet.com.appimage'
 alias kernels='ls -1 /boot/vmlinuz-*'
 alias clip='xclip -selection clipboard'
