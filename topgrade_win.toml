@@ -7,7 +7,7 @@ disable = ["emacs", "wsl", "wsl_update", "system"]
 # disable = ["powershell"]
 
 # Ignore failures for these steps
-#ignore_failures = ["powershell"]
+ignore_failures = ["powershell","microsoft_store"]
 
 # Run specific steps - same options as the command line flag
 #only = ["system", "emacs"]
