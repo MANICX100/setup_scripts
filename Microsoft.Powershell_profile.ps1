@@ -1,5 +1,161 @@
 function gohome {cd $env:USERPROFILE}
 
+function benchopen {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [string[]]$Commands,
+        [int]$Runs = 1
+    )
+
+    if (-not (Get-Command hyperfine -ErrorAction SilentlyContinue)) {
+        Write-Error "hyperfine is not installed or not in PATH"
+        return
+    }
+
+    # Normalize incoming items: strip wrapping quotes; detect files vs commands
+    $validItems = @()
+    foreach ($raw in $Commands) {
+        if ([string]::IsNullOrWhiteSpace($raw)) { continue }
+
+        # Strip wrapping quotes if present
+        $item = $raw.Trim()
+        if (($item.StartsWith('"') -and $item.EndsWith('"')) -or
+            ($item.StartsWith("'") -and $item.EndsWith("'"))) {
+            $item = $item.Substring(1, $item.Length - 2)
+        }
+
+        # Try to resolve as path (file)
+        $resolved = $null
+        try {
+            $resolved = Resolve-Path -LiteralPath $item -ErrorAction Stop
+        } catch {
+            $resolved = $null
+        }
+
+        if ($resolved) {
+            # Keep full path
+            $fullPath = $resolved.ProviderPath
+            if (Test-Path -LiteralPath $fullPath -PathType Leaf) {
+                $validItems += [pscustomobject]@{
+                    Type    = 'File'
+                    Value   = $fullPath
+                    Display = Split-Path -Path $fullPath -Leaf
+                }
+                continue
+            }
+        }
+
+        # If not a file, try as an executable/command in PATH
+        $cmdInfo = Get-Command -Name $item -ErrorAction SilentlyContinue
+        if ($cmdInfo) {
+            $validItems += [pscustomobject]@{
+                Type    = 'Command'
+                Value   = $item
+                Display = $item
+            }
+        } else {
+            Write-Warning "Command or file '$raw' not found"
+        }
+    }
+
+    if ($validItems.Count -eq 0) {
+        Write-Error "No valid commands found"
+        return
+    }
+
+    # Build hyperfine args. For files, we will measure Start-Process launching them.
+    # Use PowerShell -NoProfile -Command to ensure consistent quoting across shells.
+    $hyperfineCommands = @()
+    foreach ($item in $validItems) {
+        $name = $item.Display
+
+        if ($item.Type -eq 'File') {
+            # Properly quoted path for PowerShell command
+            # Use Start-Process -FilePath 'C:\path\app.exe' -WindowStyle Hidden
+            # Note: Hidden avoids window flashes; remove if undesired.
+            $psCmd = "Start-Process -FilePath " + ('"{0}"' -f $item.Value)
+            # Wrap for hyperfine as a single command string executed by pwsh
+            # Using pwsh if available; fall back to powershell.exe on Windows if needed.
+            $launcher = if (Get-Command pwsh -ErrorAction SilentlyContinue) { "pwsh" } else { "powershell" }
+            $fullCmd = "$launcher -NoProfile -Command $psCmd"
+
+            $hyperfineCommands += @(
+                "-n", $name,
+                $fullCmd
+            )
+        } else {
+            # Plain command; pass as-is
+            $hyperfineCommands += @(
+                "-n", $name,
+                $item.Value
+            )
+        }
+    }
+
+    $hyperfineArgs = @(
+        "--runs", $Runs.ToString(),
+        "--warmup", "0"
+    ) + $hyperfineCommands + @(
+        "--export-json", "bench-results.json"
+    )
+
+    Write-Host "Benchmarking: $($validItems.Display -join ', ')"
+
+    try {
+        $psi = New-Object System.Diagnostics.ProcessStartInfo
+        $psi.FileName = "hyperfine"
+        $psi.Arguments = ($hyperfineArgs | ForEach-Object {
+            # Basic escaping for spaces and quotes for the outer process invocation
+            if ($_ -match '\s' -or $_ -match '"') {
+                '"' + ($_ -replace '"','\"') + '"'
+            } else {
+                $_
+            }
+        }) -join " "
+        $psi.UseShellExecute = $false
+        $psi.RedirectStandardOutput = $true
+        $psi.RedirectStandardError = $true
+        $psi.CreateNoWindow = $true
+
+        $p = [System.Diagnostics.Process]::Start($psi)
+        $stdout = $p.StandardOutput.ReadToEnd()
+        $stderr = $p.StandardError.ReadToEnd()
+        $p.WaitForExit()
+
+        if ($stdout) { Write-Host $stdout }
+        if ($stderr) { Write-Host $stderr }
+
+        if ($p.ExitCode -eq 0 -and (Test-Path "bench-results.json")) {
+            $results = Get-Content "bench-results.json" -Raw | ConvertFrom-Json
+            if ($results.results.Count -ge 1) {
+                Write-Host "`nTimes (ms):"
+                foreach ($result in $results.results) {
+                    $timeMs = [math]::Round($result.mean * 1000, 2)
+                    Write-Host "$($result.command_name): ${timeMs}ms"
+                }
+            }
+            Remove-Item "bench-results.json" -Force
+        } elseif (Test-Path "bench-results.json") {
+            Remove-Item "bench-results.json" -Force
+        }
+    } catch {
+        Write-Error "Failed to run benchmark: $_"
+    }
+}
+
+function gitc {
+    param(
+        [Parameter(Mandatory=$true, Position=0)]
+        [string]$Repo,
+        [string]$Destination
+    )
+
+    $args = @("clone", "--depth=2", $Repo)
+    if ($Destination) { $args += $Destination }
+    git @args
+}
+
 function webserver {
     param(
         [string]$Port = "8080",
@@ -363,9 +519,6 @@ Set-Alias apropos "tldr"
 Set-Alias ffprobe "mediainfo"
 Set-Alias trash "Remove-ItemSafely"
 Set-Alias bak "backup"
-Set-Alias rm "delete"
-Set-Alias pfetch "macchina"
-Set-Alias neofetch "macchina"
 Set-Alias fixwifi "networkcycle"
 Set-Alias xclip "pbcopy"
 Set-Alias uninstall "remove"
@@ -506,9 +659,6 @@ function Set-Resolution($resolution) {
 }
 function ffmpeglist { ffmpeg -list_devices true -f dshow -i dummy }
 function screenrec { ffmpeg -f dshow -i audio=$args[0] -y -f gdigrab -framerate 30 -draw_mouse 1 -i desktop -c:v libx264 -f mp4 output-$(Get-Date -UFormat "%Y-%m-%d_%H-%m-%S").mp4 }
-
-Invoke-Expression (&scoop-search --hook)
-Invoke-Expression (& { (zoxide init powershell | Out-String) })
 
 function prompt {
     class Color {
@@ -698,3 +848,6 @@ function prompt {
 
     return $builder.ToString()
 }
+
+Invoke-Expression (&scoop-search --hook)
+Invoke-Expression (& { (zoxide init powershell | Out-String) })
