@@ -1,3 +1,5 @@
+function gohome {cd $env:USERPROFILE}
+
 function webserver {
     param(
         [string]$Port = "8080",
@@ -477,7 +479,8 @@ function wg($Args) {
 
 #function ch { gsudo choco $args }
 #function cup { cargo install-update -a }
-function up { gsudo topgrade;}
+function up {gsudo topgrade}
+
 function inst { scoop install $args }
 function remove { scoop uninstall $args }
 
