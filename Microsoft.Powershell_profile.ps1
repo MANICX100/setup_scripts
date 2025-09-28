@@ -1,5 +1,44 @@
 function gohome {cd $env:USERPROFILE}
 
+function rmfunction {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Name
+    )
+
+    $profilePath = $PROFILE
+
+    if (-not (Test-Path $profilePath)) {
+        Write-Error "Profile file not found: $profilePath"
+        return
+    }
+
+    $lines = Get-Content $profilePath
+    $pattern = "function\s+$Name\s*{"
+    $start = $null
+    $end = $null
+
+    for ($i = 0; $i -lt $lines.Count; $i++) {
+        if ($null -eq $start -and $lines[$i] -match $pattern) {
+            $start = $i
+            continue
+        }
+        if ($null -ne $start -and $lines[$i] -match '^\s*}\s*$') {
+            $end = $i
+            break
+        }
+    }
+
+    if ($null -ne $start -and $null -ne $end) {
+        $before = $lines[0..($start-1)]
+        $after  = $lines[($end+1)..($lines.Count-1)]
+        ($before + $after) | Set-Content $profilePath
+        Write-Host "Removed function '$Name' from $profilePath"
+    } else {
+        Write-Warning "Function '$Name' not found in $profilePath"
+    }
+}
+
 function benchopen {
     [CmdletBinding()]
     param(

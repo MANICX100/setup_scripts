@@ -29,19 +29,65 @@ lastmodified() {
 }
 
 benchopen() {
-  local cmd1 cmd2
+  local runs=1
+  local cmds=()
+  local opt
+  local -a hf_args=()
 
-  # Prompt for the two commands
-  echo -n "First command: "
-  read cmd1
-  echo -n "Second command: "
-  read cmd2
+  # Parse flags manually
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --runs|-r)
+        runs="$2"
+        shift 2
+        ;;
+      *)
+        cmds+=("$1")
+        shift
+        ;;
+    esac
+  done
 
-  # Run hyperfine: ignore failures, no warmup, 3 runs,
-  # wrap each in timeout 1s
-  hyperfine -i --warmup 0 --runs 3 \
-    "timeout 1s $cmd1" \
-    "timeout 1s $cmd2"
+  if ! command -v hyperfine >/dev/null 2>&1; then
+    echo "Error: hyperfine not installed or not in PATH" >&2
+    return 1
+  fi
+
+  if [[ ${#cmds[@]} -eq 0 ]]; then
+    echo "Usage: benchopen [--runs N] <command-or-path> ..." >&2
+    return 1
+  fi
+
+  echo "Benchmarking: ${cmds[*]}"
+
+  for cmd in "${cmds[@]}"; do
+    if [[ -f "$cmd" && -x "$cmd" ]]; then
+      # It's a file path to an executable
+      local name="$(basename "$cmd")"
+      # Launch with 'nohup' + wait to avoid background orphan
+      hf_args+=("-n" "$name" "bash -c 'nohup \"$cmd\" >/dev/null 2>&1 &'")
+    elif command -v "$cmd" >/dev/null 2>&1; then
+      # It's a command from PATH
+      hf_args+=("-n" "$cmd" "$cmd")
+    else
+      echo "Warning: '$cmd' not found" >&2
+    fi
+  done
+
+  if [[ ${#hf_args[@]} -eq 0 ]]; then
+    echo "Error: no valid commands to benchmark" >&2
+    return 1
+  fi
+
+  hyperfine --runs "$runs" --warmup 0 "${hf_args[@]}" --export-json bench-results.json
+
+  if [[ -f bench-results.json ]]; then
+    jq -r '
+      "\nTimes (ms):",
+      (.results[] | "\(.command_name): " + ((.mean * 1000) | round | tostring) + "ms")
+    ' bench-results.json
+    rm -f bench-results.json
+  fi
 }
 
 bgrun() { rust-parallel "$1" ::: "${@:2}"; }
