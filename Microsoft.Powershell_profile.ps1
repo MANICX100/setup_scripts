@@ -692,7 +692,7 @@ function ga { git add . }
 function gc($m) { git commit -m "$m" }
 function gp { git push }
 function gcom { git add .; git commit -m $args }
-function lazyg { git add .; git commit -m $args; git push }
+function lazyg { git pull -f; git add .; git commit -m $args; git push }
 function newgit { git add .; git commit -a --allow-empty-message -m " "; git push }
 function gitprep { git stash; git pull; git stash pop }
 function gitIgnoreRm { git rm -r --cached .; git add .; git commit -m "Update .gitignore" }
