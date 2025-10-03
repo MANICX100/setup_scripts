@@ -1,3 +1,50 @@
+function dnscheck {
+  param(
+    [Parameter(Mandatory = $true)]
+    [string]$domain
+  )
+
+  $resolvers = [ordered]@{
+    "Cloudflare" = "1.1.1.1"
+    "Google"     = "8.8.8.8"
+    "Quad9"      = "9.9.9.9"
+    "OpenDNS"    = "208.67.222.222"
+    "AdGuard"    = "94.140.14.14"
+    "dns.sb-1"   = "185.222.222.222"
+    "dns.sb-2"   = "45.11.45.11"
+    "Lumen3-1"   = "4.2.2.1"
+    "Lumen3-2"   = "4.2.2.2"
+    "Lumen3-3"   = "4.2.2.3"
+    "Lumen3-4"   = "4.2.2.4"
+    "Lumen3-5"   = "4.2.2.5"
+    "Lumen3-6"   = "4.2.2.6"
+  }
+
+  foreach ($kv in $resolvers.GetEnumerator()) {
+    $name = $kv.Key
+    $addr = $kv.Value
+
+    $ans = & dig @"$addr" "$domain" A +time=2 +tries=1 +nocmd +noall +answer 2>$null
+    if ($LASTEXITCODE -ne 0) {
+      Write-Output "$name: Blocked"
+      continue
+    }
+    if ($ans -and ($ans.Trim() -ne "")) {
+      Write-Output "$name: Allowed"
+      continue
+    }
+
+    $full = & dig @"$addr" "$domain" A +time=2 +tries=1 2>$null
+    $code = ($full | Select-String -Pattern 'status:\s*([A-Z0-9_-]+)' -AllMatches | Select-Object -First 1).Matches.Groups[1].Value
+
+    if ($code -eq 'NOERROR') {
+      Write-Output "$name: Allowed"
+    } else {
+      Write-Output "$name: Blocked"
+    }
+  }
+}
+
 function gohome {cd $env:USERPROFILE}
 
 function rmfunction {
