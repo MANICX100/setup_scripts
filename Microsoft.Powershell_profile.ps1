@@ -1,8 +1,21 @@
 function dnscheck {
+  [CmdletBinding()]
   param(
     [Parameter(Mandatory = $true)]
     [string]$domain
   )
+
+  Write-Verbose "Raw input: $domain"
+
+  try {
+    $u = [uri]$domain
+    if ($u.Host) {
+      $domain = $u.Host
+      Write-Verbose "Parsed as URL. Using host: $domain"
+    }
+  } catch {
+    Write-Verbose "Input is not a URL. Using as domain: $domain"
+  }
 
   $resolvers = [ordered]@{
     "Cloudflare" = "1.1.1.1"
@@ -20,214 +33,227 @@ function dnscheck {
     "Lumen3-6"   = "4.2.2.6"
   }
 
+  $dig = (Get-Command dig.exe -ErrorAction SilentlyContinue)?.Source
+  if (-not $dig) { $dig = (Get-Command dig -ErrorAction SilentlyContinue)?.Source }
+  if ($dig) {
+    Write-Verbose "Found dig at: $dig"
+  } else {
+    Write-Verbose "dig not found; will use Resolve-DnsName fallback"
+  }
+
+  function Invoke-DigQueryRaw {
+    [CmdletBinding()]
+    param(
+      [Parameter(Mandatory = $true)] [string]$Server,
+      [Parameter(Mandatory = $true)] [string]$Name,
+      [Parameter(Mandatory = $true)] [string]$Type
+    )
+    $args = @("@$Server", $Name, $Type, "+time=3", "+tries=1")
+    $cmdLine = "& `"$dig`" $(@($args) -join ' ')"
+    Write-Verbose "Executing: $cmdLine"
+    $out = $null
+    try {
+      $out = & $dig $args 2>$null
+    } catch {
+      Write-Verbose "dig threw: $_"
+      $out = $null
+    }
+    $ec = $LASTEXITCODE
+    Write-Verbose "Exit code: $ec"
+
+    $text =
+      if ($out -is [array]) { $out -join "`n" }
+      else { [string]$out }
+
+    if ([string]::IsNullOrWhiteSpace($text)) {
+      Write-Verbose "Output: <empty>"
+    } else {
+      $preview = ($text -split "`r?`n") | Select-Object -First 8
+      Write-Verbose ("Output preview:`n" + ($preview -join "`n"))
+    }
+
+    [pscustomobject]@{ ExitCode = $ec; Text = $text }
+  }
+
+  function Get-DigStatus {
+    [CmdletBinding()]
+    param([Parameter(Mandatory = $true)] [string]$Text)
+    $m = [regex]::Match($Text, 'status:\s*([A-Z0-9_-]+)')
+    if ($m.Success) {
+      $status = $m.Groups[1].Value
+      Write-Verbose "Parsed status: $status"
+      return $status
+    } else {
+      Write-Verbose "No status line found"
+      return $null
+    }
+  }
+
   foreach ($kv in $resolvers.GetEnumerator()) {
     $name = $kv.Key
     $addr = $kv.Value
 
-    $ans = & dig @"$addr" "$domain" A +time=2 +tries=1 +nocmd +noall +answer 2>$null
-    if ($LASTEXITCODE -ne 0) {
-      Write-Output "$name: Blocked"
-      continue
-    }
-    if ($ans -and ($ans.Trim() -ne "")) {
-      Write-Output "$name: Allowed"
-      continue
-    }
+    if ($dig) {
+      Write-Verbose "Checking ${name} (${addr}) with dig"
+      $res = Invoke-DigQueryRaw -Server $addr -Name $domain -Type 'A'
 
-    $full = & dig @"$addr" "$domain" A +time=2 +tries=1 2>$null
-    $code = ($full | Select-String -Pattern 'status:\s*([A-Z0-9_-]+)' -AllMatches | Select-Object -First 1).Matches.Groups[1].Value
+      if ($res.ExitCode -ne 0) {
+        Write-Output "${name}: Blocked"
+        continue
+      }
 
-    if ($code -eq 'NOERROR') {
-      Write-Output "$name: Allowed"
+      if ([string]::IsNullOrWhiteSpace($res.Text)) {
+        Write-Output "${name}: Blocked"
+        continue
+      }
+
+      $status = Get-DigStatus -Text $res.Text
+      if ($status -eq 'NOERROR') {
+        Write-Output "${name}: Allowed"
+      } else {
+        Write-Output "${name}: Blocked"
+      }
     } else {
-      Write-Output "$name: Blocked"
+      Write-Verbose "Checking ${name} (${addr}) with Resolve-DnsName"
+      try {
+        Resolve-DnsName -Name $domain -Type A -Server $addr -TimeoutSec 3 -DnsOnly -ErrorAction Stop | Out-Null
+        Write-Output "${name}: Allowed"
+      } catch {
+        try {
+          Resolve-DnsName -Name $domain -Type AAAA -Server $addr -TimeoutSec 3 -DnsOnly -ErrorAction Stop | Out-Null
+          Write-Output "${name}: Allowed"
+        } catch {
+          Write-Output "${name}: Blocked"
+        }
+      }
     }
   }
 }
 
-function gohome {cd $env:USERPROFILE}
-
 function rmfunction {
-    param(
-        [Parameter(Mandatory = $true)]
-        [string]$Name
-    )
+  [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+  param(
+    [Parameter(Mandatory = $true, Position = 0)]
+    [ValidatePattern('^[A-Za-z_][A-Za-z0-9_]*$')]
+    [string]$Name,
 
-    $profilePath = $PROFILE
+    [string]$ProfilePath = $PROFILE
+  )
 
-    if (-not (Test-Path $profilePath)) {
-        Write-Error "Profile file not found: $profilePath"
-        return
+  if (-not (Test-Path -LiteralPath $ProfilePath)) {
+    Write-Error "Profile file not found: $ProfilePath"
+    return
+  }
+
+  $text = Get-Content -LiteralPath $ProfilePath -Raw
+  if ([string]::IsNullOrWhiteSpace($text)) {
+    Write-Warning "Profile is empty: $ProfilePath"
+    return
+  }
+
+  # Regex to find the function header (supports attributes/cmdletbinding/whitespace)
+  $headerPattern = '(?ms)(?<!\w)function\s+' + [regex]::Escape($Name) + '\s*(\[[^\]]*\]\s*)*\{'
+  $m = [regex]::Match($text, $headerPattern)
+  if (-not $m.Success) {
+    Write-Warning "Function '$Name' not found in $ProfilePath"
+    return
+  }
+
+  $start = $m.Index
+  $openBraceIdx = $text.IndexOf('{', $m.Index)
+  if ($openBraceIdx -lt 0) {
+    Write-Error "Malformed function '$Name': opening brace not found."
+    return
+  }
+
+  # Walk forward and match braces accurately, accounting for strings/comments
+  $i = $openBraceIdx
+  $len = $text.Length
+  $depth = 0
+  $inSLComment = $false
+  $inMLComment = $false
+  $inSQuote = $false
+  $inDQuote = $false
+
+  while ($i -lt $len) {
+    $ch = $text[$i]
+
+    if ($inSLComment) {
+      if ($ch -eq "`n") { $inSLComment = $false }
+      $i++; continue
+    }
+    if ($inMLComment) {
+      if ($ch -eq '*' -and $i + 1 -lt $len -and $text[$i + 1] -eq ')') {
+        $inMLComment = $false; $i += 2; continue
+      }
+      $i++; continue
+    }
+    if ($inSQuote) {
+      if ($ch -eq "'" ) {
+        if ($i + 1 -lt $len -and $text[$i + 1] -eq "'") { $i += 2; continue }
+        $inSQuote = $false; $i++; continue
+      }
+      $i++; continue
+    }
+    if ($inDQuote) {
+      if ($ch -eq '"') {
+        # Handle escaped double quote as ""
+        if ($i + 1 -lt $len -and $text[$i + 1] -eq '"') { $i += 2; continue }
+        $inDQuote = $false; $i++; continue
+      }
+      # Handle PowerShell escape with backtick inside double quotes
+      if ($ch -eq '`' -and $i + 1 -lt $len) { $i += 2; continue }
+      $i++; continue
     }
 
-    $lines = Get-Content $profilePath
-    $pattern = "function\s+$Name\s*{"
-    $start = $null
-    $end = $null
+    # Not inside string or comment here
+    if ($ch -eq '#') {
+      $inSLComment = $true; $i++; continue
+    }
+    if ($ch -eq '<' -and $i + 3 -lt $len -and $text.Substring($i, 4) -eq '<#') {
+      $inMLComment = $true; $i += 2; continue
+    }
+    if ($ch -eq "'") { $inSQuote = $true; $i++; continue }
+    if ($ch -eq '"') { $inDQuote = $true; $i++; continue }
 
-    for ($i = 0; $i -lt $lines.Count; $i++) {
-        if ($null -eq $start -and $lines[$i] -match $pattern) {
-            $start = $i
-            continue
-        }
-        if ($null -ne $start -and $lines[$i] -match '^\s*}\s*$') {
-            $end = $i
-            break
-        }
+    if ($ch -eq '{') {
+      $depth++
+      $i++
+      continue
+    }
+    if ($ch -eq '}') {
+      $depth--
+      $i++
+      if ($depth -le 0) {
+        $end = $i # index after the closing brace
+        break
+      }
+      continue
     }
 
-    if ($null -ne $start -and $null -ne $end) {
-        $before = $lines[0..($start-1)]
-        $after  = $lines[($end+1)..($lines.Count-1)]
-        ($before + $after) | Set-Content $profilePath
-        Write-Host "Removed function '$Name' from $profilePath"
-    } else {
-        Write-Warning "Function '$Name' not found in $profilePath"
-    }
-}
+    $i++
+  }
 
-function benchopen {
-    [CmdletBinding()]
-    param(
-        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
-        [string[]]$Commands,
-        [int]$Runs = 1
-    )
+  if ($depth -gt 0) {
+    Write-Error "Malformed function '$Name': unmatched braces."
+    return
+  }
+  if (-not $end) {
+    Write-Error "Could not find the end of function '$Name'."
+    return
+  }
 
-    if (-not (Get-Command hyperfine -ErrorAction SilentlyContinue)) {
-        Write-Error "hyperfine is not installed or not in PATH"
-        return
-    }
+  $before = if ($start -gt 0) { $text.Substring(0, $start) } else { "" }
+  $after  = if ($end -lt $text.Length) { $text.Substring($end) } else { "" }
 
-    # Normalize incoming items: strip wrapping quotes; detect files vs commands
-    $validItems = @()
-    foreach ($raw in $Commands) {
-        if ([string]::IsNullOrWhiteSpace($raw)) { continue }
+  # Clean up extra newlines around the removed block
+  $newText = ($before + $after) -replace "(\r?\n){3,}", "`r`n`r`n"
+  $newText = $newText.TrimEnd() + "`r`n"
 
-        # Strip wrapping quotes if present
-        $item = $raw.Trim()
-        if (($item.StartsWith('"') -and $item.EndsWith('"')) -or
-            ($item.StartsWith("'") -and $item.EndsWith("'"))) {
-            $item = $item.Substring(1, $item.Length - 2)
-        }
-
-        # Try to resolve as path (file)
-        $resolved = $null
-        try {
-            $resolved = Resolve-Path -LiteralPath $item -ErrorAction Stop
-        } catch {
-            $resolved = $null
-        }
-
-        if ($resolved) {
-            # Keep full path
-            $fullPath = $resolved.ProviderPath
-            if (Test-Path -LiteralPath $fullPath -PathType Leaf) {
-                $validItems += [pscustomobject]@{
-                    Type    = 'File'
-                    Value   = $fullPath
-                    Display = Split-Path -Path $fullPath -Leaf
-                }
-                continue
-            }
-        }
-
-        # If not a file, try as an executable/command in PATH
-        $cmdInfo = Get-Command -Name $item -ErrorAction SilentlyContinue
-        if ($cmdInfo) {
-            $validItems += [pscustomobject]@{
-                Type    = 'Command'
-                Value   = $item
-                Display = $item
-            }
-        } else {
-            Write-Warning "Command or file '$raw' not found"
-        }
-    }
-
-    if ($validItems.Count -eq 0) {
-        Write-Error "No valid commands found"
-        return
-    }
-
-    # Build hyperfine args. For files, we will measure Start-Process launching them.
-    # Use PowerShell -NoProfile -Command to ensure consistent quoting across shells.
-    $hyperfineCommands = @()
-    foreach ($item in $validItems) {
-        $name = $item.Display
-
-        if ($item.Type -eq 'File') {
-            # Properly quoted path for PowerShell command
-            # Use Start-Process -FilePath 'C:\path\app.exe' -WindowStyle Hidden
-            # Note: Hidden avoids window flashes; remove if undesired.
-            $psCmd = "Start-Process -FilePath " + ('"{0}"' -f $item.Value)
-            # Wrap for hyperfine as a single command string executed by pwsh
-            # Using pwsh if available; fall back to powershell.exe on Windows if needed.
-            $launcher = if (Get-Command pwsh -ErrorAction SilentlyContinue) { "pwsh" } else { "powershell" }
-            $fullCmd = "$launcher -NoProfile -Command $psCmd"
-
-            $hyperfineCommands += @(
-                "-n", $name,
-                $fullCmd
-            )
-        } else {
-            # Plain command; pass as-is
-            $hyperfineCommands += @(
-                "-n", $name,
-                $item.Value
-            )
-        }
-    }
-
-    $hyperfineArgs = @(
-        "--runs", $Runs.ToString(),
-        "--warmup", "0"
-    ) + $hyperfineCommands + @(
-        "--export-json", "bench-results.json"
-    )
-
-    Write-Host "Benchmarking: $($validItems.Display -join ', ')"
-
-    try {
-        $psi = New-Object System.Diagnostics.ProcessStartInfo
-        $psi.FileName = "hyperfine"
-        $psi.Arguments = ($hyperfineArgs | ForEach-Object {
-            # Basic escaping for spaces and quotes for the outer process invocation
-            if ($_ -match '\s' -or $_ -match '"') {
-                '"' + ($_ -replace '"','\"') + '"'
-            } else {
-                $_
-            }
-        }) -join " "
-        $psi.UseShellExecute = $false
-        $psi.RedirectStandardOutput = $true
-        $psi.RedirectStandardError = $true
-        $psi.CreateNoWindow = $true
-
-        $p = [System.Diagnostics.Process]::Start($psi)
-        $stdout = $p.StandardOutput.ReadToEnd()
-        $stderr = $p.StandardError.ReadToEnd()
-        $p.WaitForExit()
-
-        if ($stdout) { Write-Host $stdout }
-        if ($stderr) { Write-Host $stderr }
-
-        if ($p.ExitCode -eq 0 -and (Test-Path "bench-results.json")) {
-            $results = Get-Content "bench-results.json" -Raw | ConvertFrom-Json
-            if ($results.results.Count -ge 1) {
-                Write-Host "`nTimes (ms):"
-                foreach ($result in $results.results) {
-                    $timeMs = [math]::Round($result.mean * 1000, 2)
-                    Write-Host "$($result.command_name): ${timeMs}ms"
-                }
-            }
-            Remove-Item "bench-results.json" -Force
-        } elseif (Test-Path "bench-results.json") {
-            Remove-Item "bench-results.json" -Force
-        }
-    } catch {
-        Write-Error "Failed to run benchmark: $_"
-    }
+  if ($PSCmdlet.ShouldProcess($ProfilePath, "Remove function '$Name'")) {
+    Set-Content -LiteralPath $ProfilePath -Value $newText -Encoding UTF8
+    Write-Host "Removed function '$Name' from $ProfilePath"
+  }
 }
 
 function gitc {
@@ -409,7 +435,6 @@ function Get-NetHosts {
         }
     }
     # --- End Internal Helper Function ---
-
 
     # --- Main Processing Logic ---
     # Use a HashSet for efficient unique storage
@@ -937,3 +962,4 @@ function prompt {
 
 Invoke-Expression (&scoop-search --hook)
 Invoke-Expression (& { (zoxide init powershell | Out-String) })
+
