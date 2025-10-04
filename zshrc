@@ -20,6 +20,16 @@ setopt share_history
 SAVEHIST=1000
 HISTFILE=$HOME/.zsh_history
 
+symlinkback() {
+  if [[ $# -ne 2 ]]; then
+    echo "Usage: symlinkback <target-in-current-dir> <source-absolute-or-tilde>"
+    return 2
+  fi
+  local target="$1"
+  local source="$2"
+  rm -f -- "$target" && cp -- "$source" "./$target" && ln -sf -- "$(pwd)/$target" "$source"
+}
+
 dnscheck() {
   emulate -L zsh
   if [[ -z "$1" ]]; then
