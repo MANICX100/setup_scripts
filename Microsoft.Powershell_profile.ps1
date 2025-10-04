@@ -5,10 +5,12 @@ function dnscheck {
     [string]$domain
   )
 
+  Write-Verbose "Raw input: $domain"
+
   try {
     $u = [uri]$domain
-    if ($u.Host) { $domain = $u.Host }
-  } catch { }
+    if ($u.Host) { $domain = $u.Host; Write-Verbose "Parsed host: $domain" }
+  } catch { Write-Verbose "Using input as domain: $domain" }
 
   $resolvers = [ordered]@{
     "Cloudflare" = "1.1.1.1"
@@ -26,7 +28,7 @@ function dnscheck {
     "Lumen3-6"   = "4.2.2.6"
   }
 
-  function Invoke-DogQueryRaw {
+  function Invoke-DoggoQueryRaw {
     [CmdletBinding()]
     param(
       [Parameter(Mandatory = $true)] [string]$Server,
@@ -34,34 +36,54 @@ function dnscheck {
       [Parameter(Mandatory = $true)] [string]$Type
     )
     $args = @($Name, $Type, '-n', $Server)
+    Write-Verbose ("doggo args: " + ($args -join ' '))
     $out = $null
-    try { $out = & dog @args 2>$null } catch { $out = $null }
+    try { $out = & doggo @args 2>&1 } catch { $out = $_ | Out-String }
     $ec = $LASTEXITCODE
+    Write-Verbose "doggo exit code: $ec"
     $text = if ($out -is [array]) { $out -join "`n" } else { [string]$out }
+    if ([string]::IsNullOrWhiteSpace($text)) { Write-Verbose "doggo output: <empty>" }
+    else {
+      $preview = ($text -split "`r?`n") | Select-Object -First 8
+      Write-Verbose ("doggo output preview:`n" + ($preview -join "`n"))
+    }
     [pscustomobject]@{ ExitCode = $ec; Text = $text }
   }
 
-  function Is-AllowedFromDogOutput {
+  function Is-AllowedFromDoggoOutput {
     [CmdletBinding()]
     param([Parameter(Mandatory = $true)] [string]$Text)
+
+    $types = 'A','AAAA','CNAME','MX','NS','TXT','SRV','SOA','PTR','CAA'
     foreach ($line in ($Text -split "`r?`n")) {
       $t = $line.Trim()
-      if ($t -match '^(A|AAAA|CNAME|MX|NS|TXT|SRV|SOA|PTR|CAA)\s+') { return $true }
+      if ([string]::IsNullOrWhiteSpace($t)) { continue }
+      if ($t -match '^(?i)name\s+type\s+class\b') { continue }
+      $cols = ($t -split '\s+')
+      if ($cols.Count -ge 2) {
+        $second = $cols[1].ToUpperInvariant()
+        if ($types -contains $second) { return $true }
+      }
     }
+
     $m = [regex]::Match($Text, '(?i)^\s*Status:\s*([A-Z0-9_-]+)', 'Multiline')
     if ($m.Success) { return ($m.Groups[1].Value.ToUpperInvariant() -eq 'NOERROR') }
+
     $false
   }
 
   foreach ($kv in $resolvers.GetEnumerator()) {
     $name = $kv.Key
     $addr = $kv.Value
-    $res = Invoke-DogQueryRaw -Server $addr -Name $domain -Type 'A'
-    if ($res.ExitCode -ne 0 -or [string]::IsNullOrWhiteSpace($res.Text)) {
+    Write-Verbose "Querying $name ($addr) for $domain A"
+    $res = Invoke-DoggoQueryRaw -Server $addr -Name $domain -Type 'A'
+
+    if ($res.ExitCode -ne 0 -and [string]::IsNullOrWhiteSpace($res.Text)) {
       Write-Output "${name}: Blocked"
       continue
     }
-    if (Is-AllowedFromDogOutput -Text $res.Text) {
+
+    if (Is-AllowedFromDoggoOutput -Text $res.Text) {
       Write-Output "${name}: Allowed"
     } else {
       Write-Output "${name}: Blocked"
