@@ -20,6 +20,87 @@ setopt share_history
 SAVEHIST=1000
 HISTFILE=$HOME/.zsh_history
 
+dnscheck() {
+  emulate -L zsh
+  if [[ -z "$1" ]]; then
+    echo "Usage: dnscheck <domain-or-url>"
+    return 2
+  fi
+
+  local domain="$1"
+  if [[ "$domain" == http://* || "$domain" == https://* || "$domain" == *://* ]]; then
+    domain="${domain#*://}"
+    domain="${domain%%/*}"
+    domain="${domain%%:*}"
+  fi
+
+  typeset -A resolvers
+  resolvers=(
+    Cloudflare 1.1.1.1
+    Google     8.8.8.8
+    Quad9      9.9.9.9
+    OpenDNS    208.67.222.222
+    AdGuard    94.140.14.14
+    dns.sb-1   185.222.222.222
+    dns.sb-2   45.11.45.11
+    Lumen3-1   4.2.2.1
+    Lumen3-2   4.2.2.2
+    Lumen3-3   4.2.2.3
+    Lumen3-4   4.2.2.4
+    Lumen3-5   4.2.2.5
+    Lumen3-6   4.2.2.6
+  )
+
+  local is_allowed
+  is_allowed() {
+    local text="$1"
+    local line
+    local -a types cols
+    types=(A AAAA CNAME MX NS TXT SRV SOA PTR CAA)
+    while IFS= read -r line; do
+      line="${line#"${line%%[![:space:]]*}"}"
+      line="${line%"${line##*[![:space:]]}"}"
+      [[ -z "$line" ]] && continue
+      [[ "${line:l}" == name\ type\ class* ]] && continue
+      IFS=$' \t' read -r -A cols <<<"$line"
+      if (( ${#cols} >= 2 )); then
+        local second="${cols[2]}"
+        local upper="${(U)second}"
+        for t in "${types[@]}"; do
+          if [[ "$upper" == "$t" ]]; then
+            if [[ "$upper" == SOA ]]; then
+              if [[ "$line" == *'NXDOMAIN'* || "$line" == *'SERVFAIL'* || "$line" == *'Server Failure'* ]]; then
+                return 1
+              fi
+              continue
+            fi
+            return 0
+          fi
+        done
+      fi
+    done <<<"$text"
+    if print -r -- "$text" | grep -qiE '^\s*Status:\s*NOERROR'; then
+      return 0
+    fi
+    return 1
+  }
+
+  local name addr out ec
+  for name addr in "${(@kv)resolvers}"; do
+    out="$(doggo "$domain" A -n "$addr" 2>&1)"
+    ec=$?
+    if (( ec != 0 )) && [[ -z "$out" ]]; then
+      echo "$name: Blocked"
+      continue
+    fi
+    if is_allowed "$out"; then
+      echo "$name: Allowed"
+    else
+      echo "$name: Blocked"
+    fi
+  done
+}
+
 lastmodified() {
   local file
   file=$(bfs . -type f -printf '%T@ %TY-%Tm-%Td %TH:%TM %p\n' 2>/dev/null | sort -nr | cut -d' ' -f2- | fzf --height 40% --reverse | gawk '{sub(/^[^ ]+ [^ ]+ /, ""); print}')
@@ -28,25 +109,32 @@ lastmodified() {
   fi
 }
 
+rmfunction() {
+  if [[ -z "$1" ]]; then
+    echo "Usage: rmfunction <funcname>" >&2
+    return 1
+  fi
+  sed -i "/^$1()/,/^}/d" ~/.zshrc
+  echo "Removed function '$1' from ~/.zshrc"
+}
+
 benchopen() {
   local runs=1
   local cmds=()
-  local opt
+  local input
   local -a hf_args=()
 
-  # Parse flags manually
-  while [[ $# -gt 0 ]]; do
-    case "$1" in
-      --runs|-r)
-        runs="$2"
-        shift 2
-        ;;
-      *)
-        cmds+=("$1")
-        shift
-        ;;
-    esac
-  done
+  if [[ $# -eq 0 ]]; then
+    echo "Enter commands, Flatpak IDs, Snap names, AppImages, or .desktop files to benchmark (empty line to finish):"
+    while true; do
+      printf "Command [%d]: " $((${#cmds[@]} + 1))
+      read -r input
+      [[ -z "$input" ]] && break
+      cmds+=("$input")
+    done
+  else
+    cmds=("$@")
+  fi
 
   if ! command -v hyperfine >/dev/null 2>&1; then
     echo "Error: hyperfine not installed or not in PATH" >&2
@@ -54,23 +142,38 @@ benchopen() {
   fi
 
   if [[ ${#cmds[@]} -eq 0 ]]; then
-    echo "Usage: benchopen [--runs N] <command-or-path> ..." >&2
+    echo "No commands entered. Exiting." >&2
     return 1
   fi
 
   echo "Benchmarking: ${cmds[*]}"
 
   for cmd in "${cmds[@]}"; do
+    local name execstr=""
     if [[ -f "$cmd" && -x "$cmd" ]]; then
-      # It's a file path to an executable
-      local name="$(basename "$cmd")"
-      # Launch with 'nohup' + wait to avoid background orphan
-      hf_args+=("-n" "$name" "bash -c 'nohup \"$cmd\" >/dev/null 2>&1 &'")
+      name="$(basename "$cmd")"
+      execstr="bash -c 'nohup \"$cmd\" >/dev/null 2>&1 &'"
+    elif [[ "$cmd" == *.desktop && -f "$cmd" ]]; then
+      local exec_line
+      exec_line=$(grep -E '^Exec=' "$cmd" | head -n1 | sed 's/^Exec=//; s/%[fFuUdDnNickvm]//g')
+      if [[ -n "$exec_line" ]]; then
+        name="$(basename "$cmd" .desktop)"
+        execstr="bash -c 'nohup ${exec_line} >/dev/null 2>&1 &'"
+      fi
     elif command -v "$cmd" >/dev/null 2>&1; then
-      # It's a command from PATH
-      hf_args+=("-n" "$cmd" "$cmd")
+      name="$cmd"
+      execstr="$cmd"
+    elif flatpak info "$cmd" >/dev/null 2>&1; then
+      name="$cmd"
+      execstr="flatpak run $cmd"
+    elif [[ "$cmd" == "flatpak run "* ]]; then
+      name="$(echo "$cmd" | gawk '{print $3}')"
+      execstr="$cmd"
     else
       echo "Warning: '$cmd' not found" >&2
+    fi
+    if [[ -n "$execstr" ]]; then
+      hf_args+=("-n" "$name" "$execstr")
     fi
   done
 
@@ -82,9 +185,11 @@ benchopen() {
   hyperfine --runs "$runs" --warmup 0 "${hf_args[@]}" --export-json bench-results.json
 
   if [[ -f bench-results.json ]]; then
-    jq -r '
-      "\nTimes (ms):",
-      (.results[] | "\(.command_name): " + ((.mean * 1000) | round | tostring) + "ms")
+    echo
+    echo "Times (ms):"
+    gawk '
+      /"command_name":/ {name=$2; gsub(/[" ,]/,"",name)}
+      /"mean":/ {mean=$2; gsub(/[,]/,"",mean); printf "%s: %dms\n", name, mean*1000}
     ' bench-results.json
     rm -f bench-results.json
   fi
