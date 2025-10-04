@@ -5,17 +5,10 @@ function dnscheck {
     [string]$domain
   )
 
-  Write-Verbose "Raw input: $domain"
-
   try {
     $u = [uri]$domain
-    if ($u.Host) {
-      $domain = $u.Host
-      Write-Verbose "Parsed as URL. Using host: $domain"
-    }
-  } catch {
-    Write-Verbose "Input is not a URL. Using as domain: $domain"
-  }
+    if ($u.Host) { $domain = $u.Host }
+  } catch { }
 
   $resolvers = [ordered]@{
     "Cloudflare" = "1.1.1.1"
@@ -33,101 +26,286 @@ function dnscheck {
     "Lumen3-6"   = "4.2.2.6"
   }
 
-  $dig = (Get-Command dig.exe -ErrorAction SilentlyContinue)?.Source
-  if (-not $dig) { $dig = (Get-Command dig -ErrorAction SilentlyContinue)?.Source }
-  if ($dig) {
-    Write-Verbose "Found dig at: $dig"
-  } else {
-    Write-Verbose "dig not found; will use Resolve-DnsName fallback"
-  }
-
-  function Invoke-DigQueryRaw {
+  function Invoke-DogQueryRaw {
     [CmdletBinding()]
     param(
       [Parameter(Mandatory = $true)] [string]$Server,
       [Parameter(Mandatory = $true)] [string]$Name,
       [Parameter(Mandatory = $true)] [string]$Type
     )
-    $args = @("@$Server", $Name, $Type, "+time=3", "+tries=1")
-    $cmdLine = "& `"$dig`" $(@($args) -join ' ')"
-    Write-Verbose "Executing: $cmdLine"
+    $args = @($Name, $Type, '-n', $Server)
     $out = $null
-    try {
-      $out = & $dig $args 2>$null
-    } catch {
-      Write-Verbose "dig threw: $_"
-      $out = $null
-    }
+    try { $out = & dog @args 2>$null } catch { $out = $null }
     $ec = $LASTEXITCODE
-    Write-Verbose "Exit code: $ec"
-
-    $text =
-      if ($out -is [array]) { $out -join "`n" }
-      else { [string]$out }
-
-    if ([string]::IsNullOrWhiteSpace($text)) {
-      Write-Verbose "Output: <empty>"
-    } else {
-      $preview = ($text -split "`r?`n") | Select-Object -First 8
-      Write-Verbose ("Output preview:`n" + ($preview -join "`n"))
-    }
-
+    $text = if ($out -is [array]) { $out -join "`n" } else { [string]$out }
     [pscustomobject]@{ ExitCode = $ec; Text = $text }
   }
 
-  function Get-DigStatus {
+  function Is-AllowedFromDogOutput {
     [CmdletBinding()]
     param([Parameter(Mandatory = $true)] [string]$Text)
-    $m = [regex]::Match($Text, 'status:\s*([A-Z0-9_-]+)')
-    if ($m.Success) {
-      $status = $m.Groups[1].Value
-      Write-Verbose "Parsed status: $status"
-      return $status
-    } else {
-      Write-Verbose "No status line found"
-      return $null
+    foreach ($line in ($Text -split "`r?`n")) {
+      $t = $line.Trim()
+      if ($t -match '^(A|AAAA|CNAME|MX|NS|TXT|SRV|SOA|PTR|CAA)\s+') { return $true }
     }
+    $m = [regex]::Match($Text, '(?i)^\s*Status:\s*([A-Z0-9_-]+)', 'Multiline')
+    if ($m.Success) { return ($m.Groups[1].Value.ToUpperInvariant() -eq 'NOERROR') }
+    $false
   }
 
   foreach ($kv in $resolvers.GetEnumerator()) {
     $name = $kv.Key
     $addr = $kv.Value
-
-    if ($dig) {
-      Write-Verbose "Checking ${name} (${addr}) with dig"
-      $res = Invoke-DigQueryRaw -Server $addr -Name $domain -Type 'A'
-
-      if ($res.ExitCode -ne 0) {
-        Write-Output "${name}: Blocked"
-        continue
-      }
-
-      if ([string]::IsNullOrWhiteSpace($res.Text)) {
-        Write-Output "${name}: Blocked"
-        continue
-      }
-
-      $status = Get-DigStatus -Text $res.Text
-      if ($status -eq 'NOERROR') {
-        Write-Output "${name}: Allowed"
-      } else {
-        Write-Output "${name}: Blocked"
-      }
+    $res = Invoke-DogQueryRaw -Server $addr -Name $domain -Type 'A'
+    if ($res.ExitCode -ne 0 -or [string]::IsNullOrWhiteSpace($res.Text)) {
+      Write-Output "${name}: Blocked"
+      continue
+    }
+    if (Is-AllowedFromDogOutput -Text $res.Text) {
+      Write-Output "${name}: Allowed"
     } else {
-      Write-Verbose "Checking ${name} (${addr}) with Resolve-DnsName"
-      try {
-        Resolve-DnsName -Name $domain -Type A -Server $addr -TimeoutSec 3 -DnsOnly -ErrorAction Stop | Out-Null
-        Write-Output "${name}: Allowed"
-      } catch {
-        try {
-          Resolve-DnsName -Name $domain -Type AAAA -Server $addr -TimeoutSec 3 -DnsOnly -ErrorAction Stop | Out-Null
-          Write-Output "${name}: Allowed"
-        } catch {
-          Write-Output "${name}: Blocked"
-        }
-      }
+      Write-Output "${name}: Blocked"
     }
   }
+}
+
+function benchopen {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [string[]]$Commands,
+
+        [int]$Runs = 1,
+
+        [switch]$IgnoreFailure,    # map to hyperfine --ignore-failure
+        [switch]$ShowOutput,       # map to hyperfine --show-output
+        [switch]$CoerceZeroExit,   # if a bare command exits non-zero, try help flags
+        [ValidateSet('pwsh','powershell')]
+        [string]$Shell,
+        [ValidateSet('StartProcess','ExecWait')]
+        [string]$FileMode = 'ExecWait'
+    )
+
+    begin {
+        if (-not (Get-Command hyperfine -ErrorAction SilentlyContinue)) {
+            Write-Error "hyperfine is not installed or not in PATH"
+            return
+        }
+
+        if (-not $Shell) {
+            $Shell = if (Get-Command pwsh -ErrorAction SilentlyContinue) { 'pwsh' } else { 'powershell' }
+        }
+
+        function New-EncodedCommand {
+            param([string]$Script)
+            $bytes = [System.Text.Encoding]::Unicode.GetBytes($Script)
+            [Convert]::ToBase64String($bytes)
+        }
+
+        function Test-CommandZeroExit {
+            param([string]$CommandLine)
+
+            try {
+                $psi = New-Object System.Diagnostics.ProcessStartInfo
+                if ($IsWindows) {
+                    $psi.FileName = "cmd.exe"
+                    $psi.Arguments = "/c $CommandLine"
+                } else {
+                    $psi.FileName = "/bin/sh"
+                    $psi.Arguments = "-c $CommandLine"
+                }
+                $psi.UseShellExecute = $false
+                $psi.RedirectStandardOutput = $true
+                $psi.RedirectStandardError = $true
+                $psi.CreateNoWindow = $true
+                $p = [System.Diagnostics.Process]::Start($psi)
+                $p.WaitForExit(5000) | Out-Null
+                if (-not $p.HasExited) { $p.Kill(); return $false }
+                return ($p.ExitCode -eq 0)
+            } catch {
+                return $false
+            }
+        }
+
+        function Try-CoerceHelpVariant {
+            param([string]$BaseCmd)
+
+            $candidates = @(
+                "$BaseCmd --help",
+                "$BaseCmd -h",
+                "$BaseCmd /?"
+            )
+            foreach ($c in $candidates) {
+                if (Test-CommandZeroExit -CommandLine $c) {
+                    return $c
+                }
+            }
+            return $null
+        }
+
+        $validItems = @()
+    }
+
+    process {
+        foreach ($raw in $Commands) {
+            if ([string]::IsNullOrWhiteSpace($raw)) { continue }
+
+            $item = $raw.Trim()
+            if (($item.StartsWith('"') -and $item.EndsWith('"')) -or
+                ($item.StartsWith("'") -and $item.EndsWith("'"))) {
+                $item = $item.Substring(1, $item.Length - 2)
+            }
+
+            # Try file resolution
+            $resolved = $null
+            try {
+                $resolved = Resolve-Path -LiteralPath $item -ErrorAction Stop
+            } catch {
+                $resolved = $null
+            }
+
+            if ($resolved) {
+                $fullPath = $resolved.ProviderPath
+                if (Test-Path -LiteralPath $fullPath -PathType Leaf) {
+                    $validItems += [pscustomobject]@{
+                        Type     = 'File'
+                        Value    = $fullPath
+                        Display  = Split-Path -Path $fullPath -Leaf
+                        RunLine  = $null  # to be built later
+                    }
+                    continue
+                }
+            }
+
+            # Command: keep as typed
+            $validItems += [pscustomobject]@{
+                Type     = 'Command'
+                Value    = $item
+                Display  = $item
+                RunLine  = $null
+            }
+        }
+    }
+
+    end {
+        if ($validItems.Count -eq 0) {
+            Write-Error "No valid commands found"
+            return
+        }
+
+        # Build per-item run line, possibly coercing help variant
+        foreach ($item in $validItems) {
+            if ($item.Type -eq 'File') {
+                if ($FileMode -eq 'StartProcess') {
+                    $psCmd = @"
+Start-Process -FilePath '$($item.Value)' -WindowStyle Hidden
+"@
+                } else {
+                    $psCmd = @"
+if (Test-Path -LiteralPath '$($item.Value)') {
+    if ([IO.Path]::GetExtension('$($item.Value)') -match '^\.(exe|cmd|bat|com)$') {
+        & '$($item.Value)'
+        exit `$LASTEXITCODE
+    } else {
+        \$p = Start-Process -FilePath '$($item.Value)' -PassThru
+        \$p.WaitForExit()
+        exit \$p.ExitCode
+    }
+} else {
+    Write-Error 'File not found'
+    exit 127
+}
+"@
+                }
+                $enc = New-EncodedCommand -Script $psCmd
+                $item.RunLine = "$Shell -NoProfile -EncodedCommand $enc"
+            } else {
+                # Command: possibly coerce
+                $base = $item.Value
+                $run = $base
+
+                if ($CoerceZeroExit) {
+                    # Only attempt coercion if the command itself exists and base exits non-zero
+                    $exists = $null -ne (Get-Command -Name $base.Split(' ')[0] -ErrorAction SilentlyContinue)
+                    if ($exists -and -not (Test-CommandZeroExit -CommandLine $base)) {
+                        $helpVariant = Try-CoerceHelpVariant -BaseCmd $base
+                        if ($helpVariant) {
+                            $run = $helpVariant
+                        } else {
+                            # Fallback: leave as-is; hyperfine flags may handle failure
+                            Write-Verbose "Could not coerce zero-exit for '$base'"
+                        }
+                    }
+                }
+
+                $item.RunLine = $run
+            }
+        }
+
+        # Build hyperfine args
+        $hyperfineArgs = @(
+            "--runs", $Runs.ToString(),
+            "--warmup", "0"
+        )
+        if ($IgnoreFailure) { $hyperfineArgs += "--ignore-failure" }
+        if ($ShowOutput)    { $hyperfineArgs += "--show-output" }
+
+        $hyperfineCommands = @()
+        foreach ($item in $validItems) {
+            $hyperfineCommands += @(
+                "-n", $item.Display,
+                $item.RunLine
+            )
+        }
+        $hyperfineArgs += $hyperfineCommands
+        $hyperfineArgs += @("--export-json", "bench-results.json")
+
+        Write-Host "Benchmarking: $($validItems.Display -join ', ')"
+
+        try {
+            $psi = New-Object System.Diagnostics.ProcessStartInfo
+            $psi.FileName = "hyperfine"
+            $psi.Arguments = ($hyperfineArgs | ForEach-Object {
+                if ($_ -match '\s' -or $_ -match '"') {
+                    '"' + ($_ -replace '"','\"') + '"'
+                } else {
+                    $_
+                }
+            }) -join " "
+            $psi.UseShellExecute = $false
+            $psi.RedirectStandardOutput = $true
+            $psi.RedirectStandardError = $true
+            $psi.CreateNoWindow = $true
+
+            $p = [System.Diagnostics.Process]::Start($psi)
+            $stdout = $p.StandardOutput.ReadToEnd()
+            $stderr = $p.StandardError.ReadToEnd()
+            $p.WaitForExit()
+
+            if ($stdout) { Write-Host $stdout }
+            if ($stderr) { Write-Host $stderr }
+
+            if ($p.ExitCode -eq 0 -and (Test-Path "bench-results.json")) {
+                $results = Get-Content "bench-results.json" -Raw | ConvertFrom-Json
+                if ($results.results.Count -ge 1) {
+                    Write-Host "`nTimes (ms):"
+                    foreach ($result in $results.results) {
+                        $timeMs = [math]::Round($result.mean * 1000, 2)
+                        Write-Host "$($result.command_name): ${timeMs}ms"
+                    }
+                }
+                Remove-Item "bench-results.json" -Force
+            } elseif (Test-Path "bench-results.json") {
+                Remove-Item "bench-results.json" -Force
+            }
+
+            if ($p.ExitCode -ne 0 -and -not $IgnoreFailure) {
+                Write-Warning "hyperfine exited with code $($p.ExitCode). Consider -IgnoreFailure, -ShowOutput, or -CoerceZeroExit."
+            }
+        } catch {
+            Write-Error "Failed to run benchmark: $_"
+        }
+    }
 }
 
 function rmfunction {
