@@ -1,3 +1,9 @@
+function catfunction {
+  param([string]$FunctionName)
+  $profilePath = $PROFILE
+  rg "^$FunctionName\(\) \{" -A 1000 $profilePath | Select-Object -SkipLast 1 | ForEach-Object { if ($_ -match "^\}$") { $_ ; break } else { $_ } }
+}
+
 function dnscheck {
   [CmdletBinding()]
   param(

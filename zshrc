@@ -20,6 +20,10 @@ setopt share_history
 SAVEHIST=1000
 HISTFILE=$HOME/.zsh_history
 
+catfunction() {
+  rg "^$1\(\) \{" -A 1000 ~/.zshrc | sed '/^}$/q'
+}
+
 symlinkback() {
   if [[ $# -ne 2 ]]; then
     echo "Usage: symlinkback <target-in-current-dir> <source-absolute-or-tilde>"
