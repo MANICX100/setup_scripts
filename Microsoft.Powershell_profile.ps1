@@ -1,7 +1,15 @@
 function catfunction {
   param([string]$FunctionName)
   $profilePath = $PROFILE
-  rg "^$FunctionName\(\) \{" -A 1000 $profilePath | Select-Object -SkipLast 1 | ForEach-Object { if ($_ -match "^\}$") { $_ ; break } else { $_ } }
+  $content = Get-Content $profilePath
+  $start = $content | Select-String "^function $FunctionName \{" | Select-Object -First 1 -ExpandProperty LineNumber
+  if ($start) {
+    $lines = @($content | Select-Object -Skip ($start - 1))
+    foreach ($line in $lines) {
+      $line
+      if ($line -match "^\}$") { break }
+    }
+  }
 }
 
 function dnscheck {
@@ -844,7 +852,6 @@ Set-Alias bluetooth "btdiscovery"
 Set-Alias printers "Get-Printer"
 Set-Alias setresolution "Set-Resolution"
 Set-Alias grep "rg"
-Set-Alias sed "sd"
 Set-Alias awk "frawk"
 Set-Alias uptime "Get-Uptime"
 Set-Alias whereis "gcm"
