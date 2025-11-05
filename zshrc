@@ -1500,5 +1500,4 @@ fi
 # rm-safely - Safe rm command
 source "/home/dan/.rm-safely" >/dev/null 2>&1
 
-
-
+#updatecheck
