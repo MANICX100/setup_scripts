@@ -2,7 +2,7 @@ function lazyg {
     param([string]$message)
     jj git fetch
     jj describe -m $message
-    jj bookmark set main -r `@
+    jj bookmark set main
     jj git push
 }
 
@@ -1183,4 +1183,5 @@ function prompt {
 
 Invoke-Expression (&scoop-search --hook)
 Invoke-Expression (& { (zoxide init powershell | Out-String) })
+
 
