@@ -1,5 +1,3 @@
-#updatecheck
-
 function lazyg {
     param([string]$message)
     jj git fetch
