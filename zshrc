@@ -769,7 +769,7 @@ alias batc='bat --paging=never --style=plain'
 alias lsh='ls -lah -U'
 alias lsf='ls -d "$PWD"/*'
 alias cls='clear'
-alias rc='$EDITOR $HOME/.zshrc'
+alias rc='$EDITOR $HOME/setup_scripts/zshrc'
 alias visudo='doas $EDITOR /etc/sudoers.d/dkendall'
 alias edit-grub='doas $EDITOR /etc/default/grub'
 
@@ -1499,4 +1499,5 @@ fi
 
 # rm-safely - Safe rm command
 source "/home/dan/.rm-safely" >/dev/null 2>&1
+
 
