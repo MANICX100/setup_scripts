@@ -1,12 +1,16 @@
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
-zsh_plugins=${ZDOTDIR:-$HOME}/.zsh_plugins
+zsh_plugins=${ZDOTDIR:-~}/.zsh_plugins
+
+[[ -f ${zsh_plugins}.txt ]] || touch ${zsh_plugins}.txt
+
+fpath=(/path/to/antidote/functions $fpath)
+autoload -Uz antidote
+
 if [[ ! ${zsh_plugins}.zsh -nt ${zsh_plugins}.txt ]]; then
-  (
-    source /path-to-antidote/antidote.zsh
-    antidote bundle <${zsh_plugins}.txt >${zsh_plugins}.zsh
-  )
+  antidote bundle <${zsh_plugins}.txt >|${zsh_plugins}.zsh
 fi
+
 source ${zsh_plugins}.zsh
 source $HOME/.profile
 
@@ -555,6 +559,7 @@ explorer() { __smart_open "$@"; }
 ii()       { __smart_open "$@"; }
 start()    { __smart_open "$@"; }
 
+alias jjpull='jj git fetch && jj rebase -d main'
 alias trash='xdg-open ~/.local/share/Trash/files'
 alias termeverything='~/AppImages/term.everythingmmulet.com.appimage'
 alias kernels='ls -1 /boot/vmlinuz-*'
