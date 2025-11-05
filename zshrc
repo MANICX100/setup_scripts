@@ -21,7 +21,7 @@ SAVEHIST=1000
 HISTFILE=$HOME/.zsh_history
 
 catfunction() {
-  rg "^$1\(\) \{" -A 1000 ~/.zshrc | sed '/^}$/q'
+  rg "^$1\(\) \{" -A 1000 ~/setup_scripts/zshrc | sed '/^}$/q'
 }
 
 symlinkback() {
@@ -128,8 +128,8 @@ rmfunction() {
     echo "Usage: rmfunction <funcname>" >&2
     return 1
   fi
-  sed -i "/^$1()/,/^}/d" ~/.zshrc
-  echo "Removed function '$1' from ~/.zshrc"
+  sed -i "/^$1()/,/^}/d" ~/setup_scripts/zshrc
+  echo "Removed function '$1' from rc file"
 }
 
 benchopen() {
@@ -1499,5 +1499,6 @@ fi
 
 # rm-safely - Safe rm command
 source "/home/dan/.rm-safely" >/dev/null 2>&1
+
 
 
