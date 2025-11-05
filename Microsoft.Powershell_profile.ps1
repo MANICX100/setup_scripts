@@ -1,3 +1,5 @@
+#updatecheck
+
 function lazyg {
     param([string]$message)
     jj git fetch
@@ -1183,5 +1185,6 @@ function prompt {
 
 Invoke-Expression (&scoop-search --hook)
 Invoke-Expression (& { (zoxide init powershell | Out-String) })
+
 
 
