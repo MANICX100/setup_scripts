@@ -1454,7 +1454,7 @@ lazyg() {
     local message="$1"
     jj git fetch
     jj describe -m "$message"
-    jj bookmark set main -r @-
+    jj bookmark set main
     jj git push
 }
 
