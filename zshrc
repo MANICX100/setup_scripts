@@ -1451,10 +1451,11 @@ yt() {
 }
 
 lazyg() {
-    git pull -f
-    git add .
-    git commit -a -m "$1"
-    git push
+    local message="$1"
+    jj git fetch
+    jj describe -m "$message"
+    jj bookmark set main -r @-
+    jj git push
 }
 
 newgit() {
@@ -1498,3 +1499,4 @@ fi
 
 # rm-safely - Safe rm command
 source "/home/dan/.rm-safely" >/dev/null 2>&1
+
