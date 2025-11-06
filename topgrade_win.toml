@@ -3,7 +3,7 @@
 assume_yes = true
 
 # Disable specific steps - same options as the command line flag
-disable = ["emacs", "wsl", "wsl_update", "system", "microsoft_store"]
+disable = ["emacs", "wsl", "wsl_update", "system", "microsoft_store", "self"]
 # disable = ["powershell"]
 
 # Ignore failures for these steps
