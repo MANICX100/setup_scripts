@@ -129,4 +129,4 @@ ignore_failures = ["powershell","cargo"]
 
 [distrobox]
 #use_root = false
-#containers = ["archlinux-lat
+#containers = ["archlinux-latest"]
