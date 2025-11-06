@@ -6,6 +6,11 @@ function lazyg {
     jj git push
 }
 
+function jjgitpull {
+jj git fetch
+jj rebase -d main
+}
+
 function catfunction {
   param([string]$FunctionName)
   $profilePath = $PROFILE
