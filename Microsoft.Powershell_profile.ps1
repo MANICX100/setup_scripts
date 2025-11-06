@@ -1,12 +1,13 @@
 function lazyg {
     param([string]$message)
     jj git fetch
+    jj rebase -d main
     jj describe -m $message
     jj bookmark set main
     jj git push
 }
 
-function jjgitpull {
+function jjpull {
 jj git fetch
 jj rebase -d main
 }
