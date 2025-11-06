@@ -949,7 +949,7 @@ function please() {
 function up() {
   topgrade
   doas apt upgrade --with-new-pkgs -y
-  git -C $HOME/powerlevel10k pull
+  #git -C $HOME/powerlevel10k pull
   #dockerupdate
   #cargo-update
   cargo install-update -a
