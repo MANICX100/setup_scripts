@@ -663,7 +663,6 @@ alias fixwifi='doas dhclient -v enp7s0'
 alias edit-apt='$EDITOR /etc/apt/sources.list'
 alias bufferw='doas sync & watch -n 1 rg -e Dirty: /proc/meminfo'
 
-alias python='$HOME/pypy/bin/pypy'
 alias pip='python -m pip'
 alias pip3='pip'
 
@@ -1458,6 +1457,7 @@ yt() {
 lazyg() {
     local message="$1"
     jj git fetch
+    jj rebase -d main
     jj describe -m "$message"
     jj bookmark set main
     jj git push
