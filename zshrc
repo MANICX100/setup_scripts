@@ -629,6 +629,7 @@ alias openallpdf="find . -iname '*\.pdf' -print0 | xargs -0 -n1 mupdf"
 
 alias dy="dig +short @dns.toys"
 alias flatpakdown='flatpak remote-info --log flathub'
+alias flatpak='flatpak --user'
 
 alias jellyfin='doas docker run -d -v /srv/jellyfin/config:/config -v /srv/jellyfin/cache:/cache -v "$HOME/Jellyfin Server Media":/media -p 8096:8096 -p 7359:7359/udp jellyfin/jellyfin:latest'
 
