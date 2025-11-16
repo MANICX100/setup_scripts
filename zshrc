@@ -559,6 +559,7 @@ explorer() { __smart_open "$@"; }
 ii()       { __smart_open "$@"; }
 start()    { __smart_open "$@"; }
 
+alias rmoldmodules='doas apt-get purge $(dpkg -l | awk '"'"'/^\<rc\>/ && /linux-image/ {print \$2}'"'"')'
 alias jjpull='jj git fetch && jj rebase -d main'
 alias trash='xdg-open ~/.local/share/Trash/files'
 alias termeverything='~/AppImages/term.everythingmmulet.com.appimage'
