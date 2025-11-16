@@ -559,7 +559,13 @@ explorer() { __smart_open "$@"; }
 ii()       { __smart_open "$@"; }
 start()    { __smart_open "$@"; }
 
-alias rmoldmodules='doas apt-get purge $(dpkg -l | awk '"'"'/^\<rc\>/ && /linux-image/ {print \$2}'"'"')'
+
+rmoldmodules() {
+  local pkgs
+  pkgs=($(dpkg -l 2>/dev/null | awk '/^rc[[:space:]]/ && /linux-image/ {print $2}'))
+  (( $#pkgs )) && doas apt-get purge "${pkgs[@]}" || echo "No old kernel packages to remove."
+}
+
 alias jjpull='jj git fetch && jj rebase -d main'
 alias trash='xdg-open ~/.local/share/Trash/files'
 alias termeverything='~/AppImages/term.everythingmmulet.com.appimage'
