@@ -563,7 +563,7 @@ start()    { __smart_open "$@"; }
 rmoldmodules() {
   local pkgs
   pkgs=($(dpkg -l 2>/dev/null | awk '/^rc[[:space:]]/ && /linux-image/ {print $2}'))
-  (( $#pkgs )) && doas apt-get purge "${pkgs[@]}" || echo "No old kernel packages to remove."
+  (( $#pkgs )) && doas apt-get purge "${pkgs[@]}" -y || echo "No old kernel packages to remove."
 }
 
 alias jjpull='jj git fetch && jj rebase -d main'
@@ -965,6 +965,7 @@ function up() {
   upheldback
   #doas pihole -up
   autoremove
+  rmoldmodules
 }
 
 function display_path() {
