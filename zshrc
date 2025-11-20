@@ -1,4 +1,4 @@
-typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+typeset -g POWERLEVEL8K_INSTANT_PROMPT=quiet
 
 zsh_plugins=${ZDOTDIR:-~}/.zsh_plugins
 
@@ -1513,5 +1513,3 @@ fi
 
 # rm-safely - Safe rm command
 source "/home/dan/.rm-safely" >/dev/null 2>&1
-
-#updatecheck
