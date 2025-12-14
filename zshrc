@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 typeset -g POWERLEVEL8K_INSTANT_PROMPT=quiet
 
 zsh_plugins=${ZDOTDIR:-~}/.zsh_plugins
@@ -636,7 +643,7 @@ alias openallpdf="find . -iname '*\.pdf' -print0 | xargs -0 -n1 mupdf"
 
 alias dy="dig +short @dns.toys"
 alias flatpakdown='flatpak remote-info --log flathub'
-alias flatpak='flatpak --user'
+#alias flatpak='flatpak --user'
 
 alias jellyfin='doas docker run -d -v /srv/jellyfin/config:/config -v /srv/jellyfin/cache:/cache -v "$HOME/Jellyfin Server Media":/media -p 8096:8096 -p 7359:7359/udp jellyfin/jellyfin:latest'
 
@@ -799,7 +806,7 @@ alias delempty='emptydel'
 alias gohome='cd "$HOME"'
 alias changejava='doas alternatives --config java'
 alias addapp='xdg-open /usr/local/bin'
-alias logoff='doas pkill -u dkendall'
+alias logoff='doas pkill -u dan'
 alias logout='logoff'
 #alias yt-dlp='/usr/local/bin/yt-dlp'
 alias autoremove='doas apt autoremove -y'
@@ -1513,3 +1520,9 @@ fi
 
 # rm-safely - Safe rm command
 source "/home/dan/.rm-safely" >/dev/null 2>&1
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+export XDG_DATA_DIRS="$HOME/.local/share/flatpak/exports/share:$XDG_DATA_DIRS"
+
