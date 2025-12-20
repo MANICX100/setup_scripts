@@ -510,10 +510,6 @@ function macos() {
         sickcodes/docker-osx:sonoma
 }
 
-function command_not_found_handler {
-  /usr/lib/command-not-found -- $1
-}
-
 function zshaddhistory() {
   if [[ $? -eq 127 ]]; then
     command_not_found_handler $1
@@ -535,9 +531,9 @@ doas systemctl restart systemd-resolved.service
 # done
 # }
 
-function upheldback() {
-doas apt list --upgradable | awk -F/ '/upgradable/ {print $1}' | /usr/bin/xargs doas apt install -y
-}
+#function upheldback() {
+#doas apt list --upgradable | awk -F/ '/upgradable/ {print $1}' | /usr/bin/xargs doas apt install -y
+#}
 
 function dict() {
   local word=${1:?Word required}
@@ -649,7 +645,7 @@ alias jellyfin='doas docker run -d -v /srv/jellyfin/config:/config -v /srv/jelly
 
 alias errors='doas journalctl -p err'
 alias saveimgclip='xclip -selection clipboard -t image/png -o > $HOME/Desktop/clipboard.png'
-alias update-grub='doas grub-mkconfig -o /boot/grub/grub.cfg'
+alias update-grub='doas grub2-mkconfig -o /boot/grub2/grub.cfg'
 
 alias build='zig build-exe'
 alias setresolution='xrandr --output HDMI-A-2 --mode'
@@ -663,7 +659,6 @@ alias gcm='whereis'
 alias lite-xl='/usr/local/bin/lite-xl/lite-xl'
 alias lite='lite-xl'
 alias uptime='uptime --since && uptime --pretty'
-
 alias lsblk='lsblk|rg -v loop'
 alias usb='/usr/binlsblk|rg sda'
 alias printers='lpstat -p'
@@ -775,9 +770,11 @@ alias uefi='systemctl reboot --firmware-setup'
 
 alias img2txt='image2txt'
 alias networkstatus='nmcli dev status'
-alias inst='doas apt install'
-alias remove='doas apt remove'
-alias purge='doas apt purge'
+
+alias inst='doas dnf5 install -y'
+alias remove='doas dnf5 remove -y'
+alias purge='remove'
+
 alias netstat='ss -t -r state established'
 alias ipconfig='ip route'
 alias ifconfig='ip route'
@@ -809,7 +806,7 @@ alias addapp='xdg-open /usr/local/bin'
 alias logoff='doas pkill -u dan'
 alias logout='logoff'
 #alias yt-dlp='/usr/local/bin/yt-dlp'
-alias autoremove='doas apt autoremove -y'
+alias autoremove='doas dnf5 autoremove -y'
 
 function editdns(){
 doas $EDITOR /etc/supervisor/conf.d/dnsproxy.conf
@@ -962,17 +959,17 @@ function please() {
 
 function up() {
   topgrade
-  doas apt upgrade --with-new-pkgs -y
+  #doas apt upgrade --with-new-pkgs -y
   #git -C $HOME/powerlevel10k pull
   #dockerupdate
   #cargo-update
   cargo install-update -a
   #bun upgrade
   #doas snap refresh
-  upheldback
+  #upheldback
   #doas pihole -up
-  autoremove
-  rmoldmodules
+  #autoremove
+  #rmoldmodules
 }
 
 function display_path() {

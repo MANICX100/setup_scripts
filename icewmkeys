@@ -17,7 +17,7 @@ key "Super+period" flatpak run org.gnome.Characters/x86_64/stable
 key "Ctrl+Super+Enter" /home/dan/yasr.sh
 key "Super+KP_Add" xzoom -mag 2
 
-key "Ctrl+Alt+b" sensible-browser
+key "Ctrl+Alt+b" xdg-open about:blank
 
 key "Menu" xdg-open https://grok.com
 
