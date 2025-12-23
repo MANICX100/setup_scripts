@@ -616,8 +616,6 @@ alias freshrss='doas docker start freshrss'
 alias dockerkillall='doas docker kill $(doas docker ps -q)'
 alias publicip='curl --http3 -s https://ipinfo.io/ip'
 alias wine='wine64'
-alias pkill='killall -I -v'
-
 alias wakeups='cat /proc/acpi/wakeup |rg -i enabled'
 alias wc='$HOME/wc2/wc2 -lwm'
 alias wc2='$HOME/wc2/wc2 -lwm'

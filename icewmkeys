@@ -15,11 +15,11 @@ key "Super+Shift+C" gpick
 
 key "Super+period" flatpak run org.gnome.Characters/x86_64/stable
 key "Ctrl+Super+Enter" /home/dan/yasr.sh
-key "Super+KP_Add" xzoom -mag 2
+key "Super+KP_Add" kmag
 
 key "Ctrl+Alt+b" xdg-open about:blank
 
-key "Menu" xdg-open https://grok.com
+key "Menu" xdg-open https://chatgpt.com
 
 key "Ctrl+Alt+t" alacritty
 key "Ctrl+Alt+r" doas systemctl reboot
