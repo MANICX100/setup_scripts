@@ -1,3 +1,26 @@
+function ChezSync {
+    $oldpwd = Get-Location
+    try {
+        Set-Location "$env:LOCALAPPDATA\chezmoi"
+
+        chezmoi apply
+
+        git add .
+
+        $ts = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+
+        if (-not (git diff --cached --quiet)) {
+            git commit -m $ts
+        } else {
+            Write-Output "No changes to commit"
+        }
+
+        git push -u origin main
+    } finally {
+        Set-Location $oldpwd
+    }
+}
+
 function lazyg {
     param([string]$message)
     jj git fetch
